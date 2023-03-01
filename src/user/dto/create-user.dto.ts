@@ -22,19 +22,4 @@ export class CreateUserDto {
   @IsString()
   @MaxLength(20)
   nickname: string;
-
-  @IsBoolean()
-  admin: boolean;
-
-  @IsString()
-  image: string;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-
-  @DeleteDateColumn()
-  deletedAt: Date | null;
 }
