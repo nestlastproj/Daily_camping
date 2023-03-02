@@ -4,11 +4,14 @@ import {   Body,
     Get,
     Param,
     Post,
-    Put, } from '@nestjs/common';
+    Put,
+    UsePipes,
+    ValidationPipe } from '@nestjs/common';
 import { articleService } from './article.service';
 import { CreateArticleDto } from './create-article.dto';
 import { DeleteArticleDto } from './delete-article.dto';
 import { UpdateArticleDto } from './update-article.dto';
+
 
 @Controller('article')  
 export class articleController {
@@ -16,29 +19,31 @@ export class articleController {
 
  
  // 게시물 목록을 가져오는 API
- @Get('/article')
+ @Get()
  getarticle() {
     return this.articleService.getarticle();
  }
 
  // 게시물 상세보기 > 게시물 ID로 확인
-@Get('/article/:id')
+@Get('/:id')
 getArticleById(@Param('id') articleId: number) {
+    console.log('111111')
     return this.articleService.getArticleById(articleId);
 }
 
 //게시물 작성
-@Post('/article')
-createArticle(@Body() data: CreateArticleDto) {
+@Post()
+// @UsePipes(ValidationPipe)
+createArticle(@Body() data: CreateArticleDto): number {
     return this.articleService.createArticle(
         data.title, 
         data.content, 
-        data.password
+        data.password,
     );
 }
 
 // 게시물 수정
-@Put('/article/:id')
+@Put('/:id')
 updateArticle(
     @Param('id') articleId: number,
     @Body() data: UpdateArticleDto,
@@ -51,10 +56,10 @@ updateArticle(
 }
 
 //게시물 삭제
-@Delete('/article/:id')
+@Delete('/:id')
 deletArticle(
     @Param('id') articleId: number,
-    @Body() data: DeleteArticleDto
+    @Body() data: DeleteArticleDto,
     ) {
     return this.articleService.deleteArticle(articleId, data.password);
  }

@@ -18,7 +18,7 @@ getarticle(){
 
 
 getArticleById(id: number) {
- return this.article.find((article) => article.id === id);
+ return this.article.find((article) => {return article.id === id});
   }
 
 createArticle(title: string, content: string, password: number) {
@@ -27,6 +27,7 @@ createArticle(title: string, content: string, password: number) {
   this.articlePassword.set(articleId, password);
   return articleId;
 }
+
 
 updateArticle(id: number, title: string, content: string, password: number) {
   if (this.articlePassword.get(id) !== password) {
@@ -44,6 +45,7 @@ updateArticle(id: number, title: string, content: string, password: number) {
   article.content = content;
 }
 
+//게시물 삭제
 deleteArticle(id: number, password: number) {
   if (this.articlePassword.get(id) !== password) {
   throw new UnauthorizedException(
