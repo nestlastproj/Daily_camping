@@ -1,5 +1,5 @@
 import { IsNumber, IsString } from 'class-validator';
-export class CreateArticleDto {
+export class CreateCommentDto {
   @IsString()
   title: string;
 
