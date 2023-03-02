@@ -24,7 +24,6 @@ export class UserService {
     try {
       await this.userRepository.save(user);
     } catch (error) {
-      console.log(error, '11111111111');
       if (error.code === '23505') {
         throw new ConflictException('Existing email');
       } else {
