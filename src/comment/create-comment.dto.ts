@@ -6,6 +6,9 @@ export class CreateCommentDto {
   @IsString()
   content: string;
 
-  @IsNumber()
-  password: number;
+  @IsString()
+  nickname: string;
+
+  @IsString()
+  createAT: string;
 }

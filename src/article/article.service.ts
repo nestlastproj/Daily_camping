@@ -8,19 +8,22 @@ export class articleService {
       id: 1,
       title: '첫번째 게시글 작성',
       content: 'ddddd',
-      // password: 1234,
+      nickname: 'nilee23',
+      createAT: '2023-02-27 11:11:11',
     },
     {
       id: 2,
-      title: '첫번째 게시글 작성',
+      title: '두번째 게시글 작성',
       content: 'ddddd',
-      // password: 1234,
+      nickname: 'nilee23',
+      createAT: '2023-02-27 11:11:11',
     },
     {
       id: 3,
-      title: '첫번째 게시글 작성',
+      title: '세번째 게시글 작성',
       content: 'ddddd',
-      // password: 1234,
+      nickname: 'nilee23',
+      createAT: '2023-02-27 11:11:11',
     },
   ];
 
@@ -36,18 +39,13 @@ export class articleService {
     });
   }
 
-  createArticle(title: string, content: string, password: number) {
+  createArticle(title: string, nickname: string, content: string, createAT: string) {
     const articleId = this.article.length + 1;
-    this.article.push({ id: articleId, title, content });
-    this.articlePassword.set(articleId, password);
+    this.article.push({ id: articleId, title, content, nickname, createAT });
     return articleId;
   }
 
-  updateArticle(id: number, title: string, content: string, password: number) {
-    if (this.articlePassword.get(id) !== password) {
-      throw new UnauthorizedException(`Article password is not correct. id: ${id}`);
-    }
-
+  updateArticle(id: number, title: string, content: string, createAT: string) {
     const article = this.getArticleById(id);
     if (_.isNil(article)) {
       throw new NotFoundException(`Article not found. id: ${id}`);
@@ -58,10 +56,7 @@ export class articleService {
   }
 
   //게시물 삭제
-  deleteArticle(id: number, password: number) {
-    if (this.articlePassword.get(id) !== password) {
-      throw new UnauthorizedException(`Article password is not correct. id: ${id}`);
-    }
+  deleteArticle(id: number) {
     this.article = this.article.filter((article) => article.id !== id);
   }
 }

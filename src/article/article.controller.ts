@@ -23,18 +23,18 @@ export class articleController {
   //게시물 작성
   @Post()
   createArticle(@Body() data: CreateArticleDto): number {
-    return this.articleService.createArticle(data.title, data.content, data.password);
+    return this.articleService.createArticle(data.title, data.content, data.nickname, data.createAT);
   }
 
   // 게시물 수정
   @Put('/:id')
   updateArticle(@Param('id') articleId: number, @Body() data: UpdateArticleDto) {
-    return this.articleService.updateArticle(articleId, data.title, data.content, data.password);
+    return this.articleService.updateArticle(articleId, data.content, data.nickname, data.createAT);
   }
 
   //게시물 삭제
   @Delete('/:id')
   deletArticle(@Param('id') articleId: number, @Body() data: DeleteArticleDto): void {
-    return this.articleService.deleteArticle(articleId, data.password);
+    return this.articleService.deleteArticle(articleId);
   }
 }

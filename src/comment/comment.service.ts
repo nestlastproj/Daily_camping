@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 @Injectable()
 export class commentService {
-  deleteComment(commentId: number, password: number): void {
+  deleteComment(commentId: number): void {
     throw new Error('Method not implemented.');
   }
   private comment = [
@@ -11,16 +11,22 @@ export class commentService {
       id: 1,
       title: '첫번째 게시글 작성',
       content: 'ddddd',
+      nickname: 'nilee23',
+      createAT: '2023-02-27 11:11:11',
     },
     {
       id: 2,
-      title: '첫번째 게시글 작성',
+      title: '두번째 게시글 작성',
       content: 'ddddd',
+      nickname: 'nilee23',
+      createAT: '2023-02-27 11:11:11',
     },
     {
       id: 3,
-      title: '첫번째 게시글 작성',
+      title: '세번째 게시글 작성',
       content: 'ddddd',
+      nickname: 'nilee23',
+      createAT: '2023-02-27 11:11:11',
     },
   ];
 
@@ -36,31 +42,22 @@ export class commentService {
     });
   }
 
-  createComment(title: string, content: string, password: number) {
+  createComment(title: string, nickname: string, content: string, createAT: string) {
     const commentId = this.comment.length + 1;
-    this.comment.push({ id: commentId, title, content });
-    this.commentPassword.set(commentId, password);
+    this.comment.push({ id: commentId, title, content, nickname, createAT });
     return commentId;
   }
 
-  updateComment(id: number, title: string, content: string, password: number) {
-    if (this.commentPassword.get(id) !== password) {
-      throw new UnauthorizedException(`comment password is not correct. id: ${id}`);
-    }
-
+  updateComment(id: number, title: string, content: string, createAT: string) {
     const comment = this.getCommentById(id);
     if (_.isNil(comment)) {
       throw new NotFoundException(`comment not found. id: ${id}`);
     }
-
     comment.title = title;
     comment.content = content;
   }
 
-  deletecomment(id: number, password: number) {
-    if (this.commentPassword.get(id) !== password) {
-      throw new UnauthorizedException(`comment password is not correct. id: ${id}`);
-    }
+  deletecomment(id: number) {
     this.comment = this.comment.filter((comment) => comment.id !== id);
   }
 }

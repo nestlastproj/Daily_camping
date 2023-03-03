@@ -23,18 +23,18 @@ export class commentController {
   // 댓글 작성
   @Post()
   createcomment(@Body() data: CreateCommentDto): number {
-    return this.commentService.createComment(data.title, data.content, data.password);
+    return this.commentService.createComment(data.title, data.content, data.nickname, data.createAT);
   }
 
   // 댓글 수정
   @Put('/:id')
   updateComment(@Param('id') commentId: number, @Body() data: UpdateCommentDto) {
-    return this.commentService.updateComment(commentId, data.title, data.content, data.password);
+    return this.commentService.updateComment(commentId, data.title, data.content, data.createAT);
   }
 
   // 댓글 삭제
   @Delete('/:id')
   deleteComment(@Param('id') commentId: number, @Body() data: DeleteCommentDto): void {
-    return this.commentService.deleteComment(commentId, data.password);
+    return this.commentService.deleteComment(commentId);
   }
 }
