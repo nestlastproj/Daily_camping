@@ -6,20 +6,15 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { JwtConfigService } from './config/jwt.config.service';
 import { TypeOrmConfigService } from './config/typeorm.config.service';
+import { PlaceApiModule } from './place-api.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
       useClass: TypeOrmConfigService,
-      inject: [ConfigService],
     }),
-    JwtModule.registerAsync({
-      imports: [ConfigModule],
-      useClass: JwtConfigService,
-      inject: [ConfigService],
-    }),
+    PlaceApiModule,
   ],
   controllers: [AppController],
   providers: [AppService],
