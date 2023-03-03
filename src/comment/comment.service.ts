@@ -6,7 +6,23 @@ export class commentService {
   deleteComment(commentId: number, password: number): void {
     throw new Error('Method not implemented.');
   }
-  private comment = [];
+  private comment = [
+    {
+      id: 1,
+      title: '첫번째 게시글 작성',
+      content: 'ddddd',
+    },
+    {
+      id: 2,
+      title: '첫번째 게시글 작성',
+      content: 'ddddd',
+    },
+    {
+      id: 3,
+      title: '첫번째 게시글 작성',
+      content: 'ddddd',
+    },
+  ];
 
   private commentPassword = new Map();
 
