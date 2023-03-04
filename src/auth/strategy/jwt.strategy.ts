@@ -1,18 +1,16 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-import { InjectRepository } from '@nestjs/typeorm';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { User } from '../entity/user.entity';
-import { Repository } from 'typeorm';
-import { UserService } from '../user/user.service';
 import * as config from 'config';
+import { UserService } from 'src/user/user.service';
 
 // JWT 검증
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(private userService: UserService) {
     super({
-      secretOrKey: process.env.JWT_SECRET || config.get('jwt.secret'),
+      secretOrKey: process.env.JWT_ACCESS_TOKEN_SECRET || config.get('JWT_ACCESS_TOKEN_SECRET'),
+      // JWT 추출 방법을 제공
       jwtFromRequest: ExtractJwt.fromExtractors([
         (request) => {
           return request?.cookies?.Authorization;
@@ -24,11 +22,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   // 인증 성공 후
   async validate(payload) {
-    const { email } = payload;
-    const user = await this.userService.findByUser(email);
-    if (!user) {
-      throw new UnauthorizedException();
-    }
-    return user;
+    return this.userService.getById(payload.id);
   }
 }

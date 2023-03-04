@@ -12,6 +12,7 @@ import {
 import { Article } from './article.entity';
 import { Like } from './like.entity';
 import { Comment } from './comment.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class User extends BaseEntity {
@@ -58,4 +59,8 @@ export class User extends BaseEntity {
 
   @OneToMany((type) => Like, (like) => like.user, { eager: true })
   likes: Like[];
+
+  @Column({ nullable: true })
+  @Exclude()
+  currentHashedRefreshToken?: string;
 }
