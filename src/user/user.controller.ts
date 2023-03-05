@@ -12,12 +12,12 @@ export class UserController {
     return this.userService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param() id: number): Promise<User | undefined> {
+  @Get('/:id')
+  findOne(@Param() id: number): Promise<User> {
     return this.userService.findOne(id);
   }
 
-  @Delete(':id')
+  @Delete('/:id')
   async remove(@Param() id: number): Promise<void> {
     await this.userService.remove(id);
   }
