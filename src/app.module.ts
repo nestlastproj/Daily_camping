@@ -6,7 +6,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { JwtConfigService } from './config/jwt.config.service';
 import { TypeOrmConfigService } from './config/typeorm.config.service';
-import { PlaceApiModule } from './place-api.module';
+import { PlaceModule } from './place.module';
+import { WeatherModule } from './weather.module';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { PlaceApiModule } from './place-api.module';
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,
     }),
-    PlaceApiModule,
+    PlaceModule,
+    WeatherModule,
   ],
   controllers: [AppController],
   providers: [AppService],

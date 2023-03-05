@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
-export class PlaceApiDto {
+export class PlaceDto {
   @IsNotEmpty()
   @IsString()
   price: string;

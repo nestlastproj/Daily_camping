@@ -12,16 +12,22 @@ export class Weather extends BaseEntity {
   max_temperature: number;
 
   @Column()
-  precipitation: number;
+  percent: number;
 
   @Column()
-  date: Date;
+  date: number;
 
   @Column()
-  state: string;
+  weatherstate: string;
+
+  @Column()
+  type: number;
 
   @Column()
   address: string;
+
+  @Column()
+  wind: number;
 
   @CreateDateColumn()
   createdAt: Date;
