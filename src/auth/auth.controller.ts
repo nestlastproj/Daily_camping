@@ -20,20 +20,16 @@ export class AuthController {
   @Post('/login')
   async login(@Body(ValidationPipe) loginUserDto: LoginUserDto, @Req() req, @Res({ passthrough: true }) res: Response) {
     // const user = await this.authService.login(loginUserDto);
-    console.log('1111');
     const user = req.user;
     const { accessToken, ...accessOption } = this.authService.getCookieWithJwtAccessToken(user.id);
     const { refreshToken, ...refreshOption } = this.authService.getCookieWithJwtRefreshToken(user.id);
 
     await this.userService.setCurrentRefreshToken(refreshToken, user.id);
-    accessOption;
-    res.cookie('Authentication', accessToken);
+
+    res.cookie('Authentication', accessToken, accessOption);
     res.cookie('Refresh', refreshToken, refreshOption);
 
-    return res.json({
-      message: '로그인 성공',
-      user,
-    });
+    return user;
   }
 
   @UseGuards(JwtRefreshGuard)

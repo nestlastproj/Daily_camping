@@ -21,7 +21,6 @@ export class AuthService {
 
   async validateUser(email: string, plainTextPassword: string) {
     try {
-      console.log('123');
       const user = await this.userService.getByEmail(email);
       await this.userService.verifyPassword(plainTextPassword, user.password);
       //   const passwordMatch = await bcrypt.compare(password, user.password);
@@ -58,7 +57,7 @@ export class AuthService {
     const payload = { id };
     const token = this.jwtService.sign(payload, {
       secret: this.configService.get('JWT_ACCESS_TOKEN_SECRET'),
-      expiresIn: `${this.configService.get('JWT_ACCESS_TOKEN_EXPIRATION_TIME')}s`,
+      expiresIn: `${this.configService.get('JWT_ACCESS_TOKEN_EXPIRATION_TIME')}`,
     });
 
     return {
@@ -66,7 +65,7 @@ export class AuthService {
       domain: this.configService.get('DATABASE_HOST'),
       path: '/',
       httpOnly: true,
-      maxAge: Number(this.configService.get('JWT_ACCESS_TOKEN_EXPIRATION_TIME')) * 1000,
+      maxAge: 1,
     };
   }
 
@@ -75,7 +74,7 @@ export class AuthService {
     const payload = { id };
     const token = this.jwtService.sign(payload, {
       secret: this.configService.get('JWT_REFRESH_TOKEN_SECRET'),
-      expiresIn: `${this.configService.get('JWT_REFRESH_TOKEN_EXPIRATION_TIME')}s`,
+      expiresIn: `${this.configService.get('JWT_REFRESH_TOKEN_EXPIRATION_TIME')}`,
     });
 
     return {
@@ -83,7 +82,7 @@ export class AuthService {
       domain: this.configService.get('DATABASE_HOST'),
       path: '/',
       httpOnly: true,
-      maxAge: Number(this.configService.get('JWT_REFRESH_TOKEN_EXPIRATION_TIME')) * 1000,
+      maxAge: 60,
     };
   }
 
