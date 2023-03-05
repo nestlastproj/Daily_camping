@@ -10,7 +10,6 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Article } from './article.entity';
-import { Like } from './like.entity';
 import { User } from './user.entity';
 
 @Entity()
@@ -35,7 +34,4 @@ export class Comment extends BaseEntity {
 
   @ManyToOne((type) => Article, (article) => article.comments, { eager: false })
   articles: Article;
-
-  @OneToMany((type) => Like, (like) => like.relation_comment, { eager: true })
-  likes_comment: Like;
 }
