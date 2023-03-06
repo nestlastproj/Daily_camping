@@ -27,7 +27,7 @@ export class User extends BaseEntity {
   @Column('varchar', { length: 10 })
   name: string;
 
-  @Column('varchar', { length: 10, select: false })
+  @Column('varchar')
   password: string;
 
   @Column()
@@ -37,10 +37,10 @@ export class User extends BaseEntity {
   @Column()
   nickname: string;
 
-  @Column()
+  @Column({ default: false })
   admin: boolean;
 
-  @Column()
+  @Column({ default: 'asd' })
   image: string;
 
   @CreateDateColumn()

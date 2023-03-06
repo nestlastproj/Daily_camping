@@ -6,6 +6,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { JwtConfigService } from './config/jwt.config.service';
 import { TypeOrmConfigService } from './config/typeorm.config.service';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { TypeOrmConfigService } from './config/typeorm.config.service';
       useClass: JwtConfigService,
       inject: [ConfigService],
     }),
+    UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
