@@ -6,16 +6,10 @@ export class Place extends BaseEntity {
   id: number;
 
   @Column()
-  price: number;
-
-  @Column()
   name: string;
 
   @Column()
   address: string;
-
-  @Column()
-  content: string;
 
   @Column()
   phone: string;
@@ -24,7 +18,7 @@ export class Place extends BaseEntity {
   category: number;
 
   @Column()
-  image: string;
+  url: string;
 
   @CreateDateColumn()
   createdAt: Date;
