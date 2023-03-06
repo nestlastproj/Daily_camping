@@ -13,6 +13,7 @@ import { Article } from './article.entity';
 import { Like } from './like.entity';
 import { Comment } from './comment.entity';
 import { Review } from './review.entity';
+import { Place } from './api/place.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -62,4 +63,7 @@ export class User extends BaseEntity {
 
   @OneToMany((type) => Review, (review) => review.user, { eager: true })
   reviews: Review[];
+
+  @OneToMany((type) => Place, (place) => place.user, { eager: true })
+  place: Place[];
 }
