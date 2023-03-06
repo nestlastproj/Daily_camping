@@ -3,19 +3,18 @@ import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { UserService } from '../../user/user.service';
-import * as config from 'config';
 
 // JwtRefreshStrategy 가드에 대한 전략 작성
 @Injectable()
 export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'jwt-refresh-token') {
-  constructor(private readonly userService: UserService) {
+  constructor(private readonly userService: UserService, private readonly configService: ConfigService) {
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
         (request) => {
           return request?.cookies?.Refresh;
         },
       ]),
-      secretOrKey: process.env.JWT_REFRESH_TOKEN_SECRET || config.get('JWT_REFRESH_TOKEN_SECRET'),
+      secretOrKey: process.env.JWT_REFRESH_TOKEN_SECRET || configService.get('JWT_REFRESH_TOKEN_SECRET'),
       passReqToCallback: true,
     });
   }

@@ -65,7 +65,7 @@ export class AuthService {
       domain: this.configService.get('DATABASE_HOST'),
       path: '/',
       httpOnly: true,
-      maxAge: 1,
+      maxAge: 1000 * 60 * 60,
     };
   }
 
@@ -82,7 +82,7 @@ export class AuthService {
       domain: this.configService.get('DATABASE_HOST'),
       path: '/',
       httpOnly: true,
-      maxAge: 60,
+      maxAge: 1000 * 60 * 60 * 24 * 30,
     };
   }
 

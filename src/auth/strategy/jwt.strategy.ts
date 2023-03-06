@@ -1,15 +1,15 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import * as config from 'config';
 import { UserService } from 'src/user/user.service';
+import { ConfigService } from '@nestjs/config';
 
 // JWT 검증
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private readonly configService: ConfigService) {
     super({
-      secretOrKey: process.env.JWT_ACCESS_TOKEN_SECRET || config.get('JWT_ACCESS_TOKEN_SECRET'),
+      secretOrKey: process.env.JWT_ACCESS_TOKEN_SECRET || configService.get('JWT_ACCESS_TOKEN_SECRET'),
       // JWT 추출 방법을 제공
       jwtFromRequest: ExtractJwt.fromExtractors([
         (request) => {
