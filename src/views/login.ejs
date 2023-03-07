@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 회원가입</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../css/login.css" type="text/css">
+</head>
+
+<body>
+    <div class=" login-page">
+        <div class="form">
+            <form class="register-form">
+                <input type="text" id="name" placeholder="name" />
+                <input type="password" id="password" placeholder="password" />
+                <input type="text" id="email" placeholder="email" />
+                <input type="text" id="phone" placeholder="phone" />
+                <input type="text" id="nickname" placeholder="nickname" />
+                <button onclick="signup()">create</button>
+                <p class="message">이미 회원이신가요? <a href="#">로그인하기</a></p>
+            </form>
+            <form class="login-form">
+                <input type="text" id="login_email" placeholder="email" />
+                <input type="password" id="login_password" placeholder="password" />
+                <button onclick="login()">login</button>
+                <p class="message">아직 회원이 아니신가요? <a href="#">회원가입하기</a></p>
+            </form>
+            <button onclick="logout()">logout</button>
+        </div>
+    </div>
+</body>
+<script>
+    $('.message a').click(function () {
+        $('form').animate({ height: "toggle", opacity: "toggle" }, "slow");
+    });
+</script>
+<script src="../js/auth.js"></script>
+
+</html>

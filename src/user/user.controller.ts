@@ -1,6 +1,5 @@
 import { Controller, Delete, Get, Param } from '@nestjs/common';
 import { User } from 'src/entity/user.entity';
-import { Public } from 'src/skip-auth.decorator';
 import { UserService } from './user.service';
 
 @Controller('user')
