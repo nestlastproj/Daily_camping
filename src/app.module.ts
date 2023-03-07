@@ -26,7 +26,7 @@ import { HttpModule } from '@nestjs/axios';
     WeatherModule,
     ProductModule,
   ],
-  controllers: [AppController, ProductController],
-  providers: [AppService, ProductService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
