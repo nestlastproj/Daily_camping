@@ -1,11 +1,12 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class WeatherDto {
-  @IsNumber()
-  min_temperature: number;
+  description?: number;
+  @IsString()
+  min_temperature: string;
 
-  @IsNumber()
-  max_temperature: number;
+  @IsString()
+  max_temperature: string;
 
   @IsNumber()
   percent: number;
@@ -22,6 +23,6 @@ export class WeatherDto {
   @IsString()
   address: string;
 
-  @IsNumber()
-  wind: number;
+  @IsString()
+  wind: string;
 }

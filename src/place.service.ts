@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { InjectRepository } from '@nestjs/typeorm/dist';
 import { Repository } from 'typeorm';
@@ -30,26 +30,27 @@ export class PlaceService {
     const url = 'https://dapi.kakao.com/v2/local/search/keyword.json';
 
     return this.httpService.get(url, { params, headers }).pipe(
-      map((response) =>
-        response.data.documents.map((doc) => ({
+      map(async (response) => {
+        const places = response.data.documents.map((doc) => ({
           address: doc.address_name,
           name: doc.place_name,
           category: doc.category_name,
           phone: doc.phone,
-        })),
-      ),
+          url: doc.place_url,
+        }));
+        console.log(response);
+
+        for (const place of places) {
+          await this.placeRepository.save(place);
+        }
+
+        return places;
+      }),
     );
   }
 
   findAllPlace() {
     return this.placeRepository.find();
-  }
-
-  createPlace({ name, address, phone, category, url }) {
-    const place = { name, address, phone, category, url };
-    this.placeRepository.save(place);
-
-    return place;
   }
 
   updatePlace({ name, address, phone, category, url }) {

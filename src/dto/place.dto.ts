@@ -10,8 +10,8 @@ export class PlaceDto {
   @IsNumber()
   phone: number;
 
-  @IsNumber()
-  category: number;
+  @IsString()
+  category: string;
 
   @IsString()
   url: string;
