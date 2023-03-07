@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
 import { WeatherService } from './weather.service';
 import { WeatherDto } from './dto/weather.dto';
+import { GetWeatherDto } from './dto/getweather.dto';
 
 @Controller('weather')
 export class WeatherController {
@@ -8,12 +9,12 @@ export class WeatherController {
 
   @Get('/weatherget')
   // 날씨 정보 API에서 자료 받아오기
-  getWeather() {
+  getWeather(getWeatherDto: GetWeatherDto) {
     return this.weatherService.getWeather();
   }
   // DB에 저장된 날씨 정보 조회
   @Get()
-  findAllWeather() {
+  findAllWeather(getWeatherDto: GetWeatherDto) {
     return this.weatherService.findAllWeather();
   }
 

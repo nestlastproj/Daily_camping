@@ -8,10 +8,15 @@ import { JwtConfigService } from './config/jwt.config.service';
 import { TypeOrmConfigService } from './config/typeorm.config.service';
 import { PlaceModule } from './place.module';
 import { WeatherModule } from './weather.module';
+import { ProductController } from './product.controller';
+import { ProductService } from './product.service';
+import { ProductModule } from './product.module';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+    HttpModule,
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useClass: TypeOrmConfigService,
@@ -19,8 +24,9 @@ import { WeatherModule } from './weather.module';
     }),
     PlaceModule,
     WeatherModule,
+    ProductModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, ProductController],
+  providers: [AppService, ProductService],
 })
 export class AppModule {}
