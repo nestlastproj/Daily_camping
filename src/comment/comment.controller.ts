@@ -34,7 +34,7 @@ export class commentController {
 
   // 댓글 삭제
   @Delete('/:id')
-  deleteComment(@Param('id') commentId: number, @Body() data: DeleteCommentDto): void {
+  deleteComment(@Param('id') commentId: number) {
     return this.commentService.deleteComment(commentId);
   }
 }

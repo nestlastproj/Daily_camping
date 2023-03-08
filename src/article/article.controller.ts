@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import { articleService } from './article.service';
 import { CreateArticleDto } from './create-article.dto';
 import { DeleteArticleDto } from './delete-article.dto';
@@ -22,19 +22,19 @@ export class articleController {
 
   //게시물 작성
   @Post()
-  createArticle(@Body() data: CreateArticleDto): number {
-    return this.articleService.createArticle(data.title, data.content, data.nickname, data.createAT);
+  createArticle(@Body() createArticle: CreateArticleDto) {
+    return this.articleService.createarticle(createArticle);
   }
 
   // 게시물 수정
-  @Put('/:id')
+  @Patch('/:id')
   updateArticle(@Param('id') articleId: number, @Body() data: UpdateArticleDto) {
-    return this.articleService.updateArticle(articleId, data.content, data.nickname, data.createAT);
-  }
+    return this.articleService.updateArticle(articleId);
 
   //게시물 삭제
   @Delete('/:id')
-  deletArticle(@Param('id') articleId: number, @Body() data: DeleteArticleDto): void {
+  deleteArticle(@Param('id') articleId: number) {
     return this.articleService.deleteArticle(articleId);
   }
+}
 }

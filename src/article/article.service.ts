@@ -1,5 +1,10 @@
 import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm/dist';
 import _ from 'lodash';
+import { v1 as UUID } from 'uuid';
+import { Article } from 'src/entity/article.entity';
+import { Repository } from 'typeorm';
+import { CreateArticleDto } from './create-article.dto';
 
 @Injectable()
 export class articleService {
@@ -27,36 +32,36 @@ export class articleService {
     },
   ];
 
-  private articlePassword = new Map();
-
   getarticle() {
     return this.article;
   }
 
   getArticleById(id: number) {
     return this.article.find((article) => {
-      return article.id === id;
+      article.id === id;
     });
   }
 
-  createArticle(title: string, nickname: string, content: string, createAT: string) {
-    const articleId = this.article.length + 1;
-    this.article.push({ id: articleId, title, content, nickname, createAT });
-    return articleId;
+  createarticle(createArticleDto: CreateArticleDto) {
+    const { title, content, nickname, createAT } = createArticleDto;
+    const article: Article = {
+      id: UUID(),
+      title,
+      content,
+      nickname,
+      createAT,
+    }
+    this.article.push(article);
+    return article;
   }
 
-  updateArticle(id: number, title: string, content: string, createAT: string) {
+  updateArticle(id: number) {
     const article = this.getArticleById(id);
-    if (_.isNil(article)) {
-      throw new NotFoundException(`Article not found. id: ${id}`);
-    }
-
-    article.title = title;
-    article.content = content;
+    return article;
   }
 
   //게시물 삭제
   deleteArticle(id: number) {
-    this.article = this.article.filter((article) => article.id !== id);
+    return this.article.filter((article) => article.id !== id);
   }
 }

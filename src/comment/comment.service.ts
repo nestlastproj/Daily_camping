@@ -1,11 +1,10 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Body, Delete, Injectable, NotFoundException, Param, UnauthorizedException } from '@nestjs/common';
 import _ from 'lodash';
+import { DeleteCommentDto } from './delete-comment.dto';
 
 @Injectable()
 export class commentService {
-  deleteComment(commentId: number): void {
-    throw new Error('Method not implemented.');
-  }
+  commentService: any;
   private comment = [
     {
       id: 1,
@@ -57,7 +56,7 @@ export class commentService {
     comment.content = content;
   }
 
-  deletecomment(id: number) {
-    this.comment = this.comment.filter((comment) => comment.id !== id);
+  deleteComment(id: number) {
+    return this.comment.filter((comment) => comment.id !== id);
   }
 }
