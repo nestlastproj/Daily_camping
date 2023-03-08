@@ -9,6 +9,7 @@ import { WeatherModule } from './weather.module';
 import { ProductModule } from './product.module';
 import { HttpModule } from '@nestjs/axios';
 import { ScheduleModule } from '@nestjs/schedule/dist/schedule.module';
+import * as parser from 'fast-xml-parser';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { ScheduleModule } from '@nestjs/schedule/dist/schedule.module';
     WeatherModule,
     ProductModule,
     ScheduleModule.forRoot(),
+    parser.XMLParser,
   ],
   controllers: [AppController],
   providers: [AppService],

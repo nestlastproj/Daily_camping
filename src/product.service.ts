@@ -25,7 +25,7 @@ export class ProductService {
     const response = await axios.get(this.API_URL, { params, responseType: 'arraybuffer' });
     // response 내용물 구조: response.data.ProductSearchResponse.Products[0].Product
     const xmlBuffer = response.data; // 인코딩 형태를 EUC-KR -> UTF-8로 변환하기 위해 담음
-    const xmlString = iconv.decode(xmlBuffer, 'EUC-KR'); // 인코딩 형태 변환Q
+    const xmlString = iconv.decode(xmlBuffer, 'EUC-KR'); // 인코딩 형태 변환
     const json = await parseStringPromise(xmlString); // 인코딩 변경된 XML을 JSON형태로 변환
     const products = json.ProductSearchResponse; // 결과물 내 객체에 추가 접근(XML에선 접근불가)
 
