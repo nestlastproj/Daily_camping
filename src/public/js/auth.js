@@ -50,7 +50,7 @@ function signup() {
             },
             success: function (response) {
                 alert(`${email}님 회원가입이 완료되었습니다`);
-                // location.href = "/auth/login";
+                location.href = "/auth/login";
             },
             error: function (error) {
                 alert("회원가입 실패");

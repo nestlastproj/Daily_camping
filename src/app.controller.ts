@@ -10,9 +10,4 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-
-  @Get('chat')
-  getChat(@Res() res: Response) {
-    return res.render('chat.ejs');
-  }
 }

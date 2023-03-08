@@ -6,6 +6,7 @@ import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { UserService } from 'src/user/user.service';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -14,6 +15,13 @@ export class AuthController {
   @Post('/signup')
   signUp(@Body(ValidationPipe) createUserDto: CreateUserDto): Promise<void> {
     return this.authService.signup(createUserDto);
+  }
+
+  @Get('chat')
+  getChat(@Req() req, @Res() res: Response) {
+    const { cookie } = req.headers;
+    console.log(cookie, '111111111111');
+    return res.render('chat.ejs');
   }
 
   @Get('login')
