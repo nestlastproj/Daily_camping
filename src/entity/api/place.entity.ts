@@ -15,7 +15,7 @@ export class Place extends BaseEntity {
   phone: string;
 
   @Column()
-  category: number;
+  category: string;
 
   @Column()
   url: string;
