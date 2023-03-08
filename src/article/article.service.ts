@@ -14,21 +14,21 @@ export class articleService {
       title: '첫번째 게시글 작성',
       content: 'ddddd',
       nickname: 'nilee23',
-      createAT: '2023-02-27 11:11:11',
+      createdAt: '2023-02-27 11:11:11',
     },
     {
       id: 2,
       title: '두번째 게시글 작성',
       content: 'ddddd',
       nickname: 'nilee23',
-      createAT: '2023-02-27 11:11:11',
+      createdAt: '2023-02-27 11:11:11',
     },
     {
       id: 3,
       title: '세번째 게시글 작성',
       content: 'ddddd',
       nickname: 'nilee23',
-      createAT: '2023-02-27 11:11:11',
+      createdAt: '2023-02-27 11:11:11',
     },
   ];
 
@@ -43,14 +43,14 @@ export class articleService {
   }
 
   createarticle(createArticleDto: CreateArticleDto) {
-    const { title, content, nickname, createAT } = createArticleDto;
-    const article: Article = {
+    const { title, content, nickname, createdAt } = createArticleDto;
+    const article = {
       id: UUID(),
       title,
       content,
       nickname,
-      createAT,
-    }
+      createdAt,
+    };
     this.article.push(article);
     return article;
   }

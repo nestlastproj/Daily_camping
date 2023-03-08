@@ -30,11 +30,11 @@ export class articleController {
   @Patch('/:id')
   updateArticle(@Param('id') articleId: number, @Body() data: UpdateArticleDto) {
     return this.articleService.updateArticle(articleId);
+  }
 
   //게시물 삭제
   @Delete('/:id')
   deleteArticle(@Param('id') articleId: number) {
     return this.articleService.deleteArticle(articleId);
   }
-}
 }

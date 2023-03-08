@@ -24,6 +24,9 @@ export class Article extends BaseEntity {
   content: string;
 
   @Column()
+  nickname: string;
+
+  @Column()
   image: string;
 
   @CreateDateColumn()
