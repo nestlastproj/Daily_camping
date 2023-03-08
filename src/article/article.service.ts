@@ -1,58 +1,67 @@
-import {
-  Injectable,
-  NotFoundException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm/dist';
 import _ from 'lodash';
+import { v1 as UUID } from 'uuid';
+import { Article } from 'src/entity/article.entity';
+import { Repository } from 'typeorm';
+import { CreateArticleDto } from './create-article.dto';
 
 @Injectable()
 export class articleService {
+  private article = [
+    {
+      id: 1,
+      title: '첫번째 게시글 작성',
+      content: 'ddddd',
+      nickname: 'nilee23',
+      createAT: '2023-02-27 11:11:11',
+    },
+    {
+      id: 2,
+      title: '두번째 게시글 작성',
+      content: 'ddddd',
+      nickname: 'nilee23',
+      createAT: '2023-02-27 11:11:11',
+    },
+    {
+      id: 3,
+      title: '세번째 게시글 작성',
+      content: 'ddddd',
+      nickname: 'nilee23',
+      createAT: '2023-02-27 11:11:11',
+    },
+  ];
 
-private article = [];
-  
-private articlePassword = new Map()
-
-getarticle(){
-  return this.article;
-}
-
-
-getArticleById(id: number) {
- return this.article.find((article) => {return article.id === id});
+  getarticle() {
+    return this.article;
   }
 
-createArticle(title: string, content: string, password: number) {
-  const articleId = this.article.length + 1;
-  this.article.push({ id: articleId, title, content });
-  this.articlePassword.set(articleId, password);
-  return articleId;
-}
-
-
-updateArticle(id: number, title: string, content: string, password: number) {
-  if (this.articlePassword.get(id) !== password) {
-  throw new UnauthorizedException(
-  `Article password is not correct. id: ${id}`,
-  );
+  getArticleById(id: number) {
+    return this.article.find((article) => {
+      article.id === id;
+    });
   }
 
-  const article = this.getArticleById(id);
-  if (_.isNil(article)) {
-  throw new NotFoundException(`Article not found. id: ${id}`);
+  createarticle(createArticleDto: CreateArticleDto) {
+    const { title, content, nickname, createAT } = createArticleDto;
+    const article: Article = {
+      id: UUID(),
+      title,
+      content,
+      nickname,
+      createAT,
+    }
+    this.article.push(article);
+    return article;
   }
 
-  article.title = title;
-  article.content = content;
-}
+  updateArticle(id: number) {
+    const article = this.getArticleById(id);
+    return article;
+  }
 
-//게시물 삭제
-deleteArticle(id: number, password: number) {
-  if (this.articlePassword.get(id) !== password) {
-  throw new UnauthorizedException(
-  `Article password is not correct. id: ${id}`,
-  );
-}
-  this.article = this.article.filter((article) => article.id !== id);
-}
-
+  //게시물 삭제
+  deleteArticle(id: number) {
+    return this.article.filter((article) => article.id !== id);
+  }
 }
