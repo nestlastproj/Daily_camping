@@ -8,7 +8,7 @@ import { JwtConfigService } from './config/jwt.config.service';
 import { TypeOrmConfigService } from './config/typeorm.config.service';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
-import { ChatModule } from './chat/chat.module';
+// import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [
@@ -25,7 +25,7 @@ import { ChatModule } from './chat/chat.module';
     }),
     UserModule,
     AuthModule,
-    ChatModule,
+    // ChatModule,
   ],
   controllers: [AppController],
   providers: [AppService],

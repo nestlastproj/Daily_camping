@@ -1,12 +1,10 @@
 function login() {
-    console.log('로그인 함수 시작')
     const email = $('#login_email').val();
     const password = $('#login_password').val();
 
     if (!email || !password) {
         alert('닉네임 또는 비밀번호가 입력되지 않았습니다.');
     } else {
-        console.log('제발 들어가라')
         $.ajax({
             type: 'POST',
             url: '/auth/login',
@@ -15,14 +13,11 @@ function login() {
                 password,
             },
             success: function (success) {
-                console.log('로그인 성공 맞음?')
                 alert(`로그인 성공, 환영합니다 ${email}님`);
-                // token = response.token;
-                location.href = 'http://localhost:3000';
+                location.href = '/';
             },
             error: function (error) {
-                alert('로그인 실패..............');
-                console.log('에러이유:', error);
+                alert('로그인 실패');
             },
         });
     }
@@ -57,7 +52,6 @@ function signup() {
             },
             error: function (error) {
                 alert("회원가입 실패");
-                console.log("에러이유:", error);
             },
         });
     }

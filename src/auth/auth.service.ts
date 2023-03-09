@@ -53,8 +53,8 @@ export class AuthService {
   }
 
   // Access Token 발급
-  getCookieWithJwtAccessToken(id: number) {
-    const payload = { id };
+  getCookieWithJwtAccessToken(id: number, nickname: string) {
+    const payload = { id, nickname };
     const token = this.jwtService.sign(payload, {
       secret: this.configService.get('JWT_ACCESS_TOKEN_SECRET'),
       expiresIn: `${this.configService.get('JWT_ACCESS_TOKEN_EXPIRATION_TIME')}`,
@@ -70,8 +70,8 @@ export class AuthService {
   }
 
   // Refresh Token 발급
-  getCookieWithJwtRefreshToken(id: number) {
-    const payload = { id };
+  getCookieWithJwtRefreshToken(id: number, nickname: string) {
+    const payload = { id, nickname };
     const token = this.jwtService.sign(payload, {
       secret: this.configService.get('JWT_REFRESH_TOKEN_SECRET'),
       expiresIn: `${this.configService.get('JWT_REFRESH_TOKEN_EXPIRATION_TIME')}`,
@@ -103,4 +103,10 @@ export class AuthService {
       },
     };
   }
+
+  // async getMypageId(id: number) {
+  //   const testmypage = await this.userRepository.findOne({ where: { id }, select: ['name', 'nickname'] });
+  //   console.log('테스트1111111', testmypage);
+  //   return testmypage;
+  // }
 }
