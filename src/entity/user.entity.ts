@@ -14,6 +14,7 @@ import { Like } from './like.entity';
 import { Comment } from './comment.entity';
 import { Review } from './review.entity';
 import { Place } from './api/place.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class User extends BaseEntity {
@@ -66,4 +67,8 @@ export class User extends BaseEntity {
 
   @OneToMany((type) => Place, (place) => place.user, { eager: true })
   place: Place[];
+
+  @Column({ nullable: true })
+  @Exclude()
+  currentHashedRefreshToken?: string;
 }
