@@ -7,6 +7,7 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 import { UserService } from 'src/user/user.service';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { JwtStrategy } from './strategy/jwt.strategy';
 
 @Controller('auth')
 export class AuthController {
@@ -18,9 +19,8 @@ export class AuthController {
   }
 
   @Get('chat')
-  getChat(@Req() req, @Res() res: Response) {
-    const { cookie } = req.headers;
-    console.log(cookie, '111111111111');
+  @UseGuards(JwtAuthGuard)
+  getChat(@Res() res: Response) {
     return res.render('chat.ejs');
   }
 
@@ -48,6 +48,7 @@ export class AuthController {
   @UseGuards(JwtRefreshGuard)
   @Post('/logout')
   async logOut(@Req() req, @Res({ passthrough: true }) res: Response) {
+    console.log('controller');
     const { accessOption, refreshOption } = this.authService.getCookiesForLogOut();
 
     await this.userService.removeRefreshToken(req.user.id);

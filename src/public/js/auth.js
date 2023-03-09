@@ -1,10 +1,12 @@
 function login() {
+    console.log('로그인 함수 시작')
     const email = $('#login_email').val();
     const password = $('#login_password').val();
 
     if (!email || !password) {
         alert('닉네임 또는 비밀번호가 입력되지 않았습니다.');
     } else {
+        console.log('제발 들어가라')
         $.ajax({
             type: 'POST',
             url: '/auth/login',
@@ -12,7 +14,8 @@ function login() {
                 email,
                 password,
             },
-            success: function (response) {
+            success: function (success) {
+                console.log('로그인 성공 맞음?')
                 alert(`로그인 성공, 환영합니다 ${email}님`);
                 // token = response.token;
                 location.href = 'http://localhost:3000';
@@ -36,7 +39,7 @@ function signup() {
     if (!name || !email || !password || !phone || !nickname) {
         alert("빈칸 없이 채워주세요.");
     } if (email.search(re_email) === -1) {
-        alert('ID의 형식이 일치하지 않습니다');
+        alert('email 형식이 일치하지 않습니다');
     } else {
         $.ajax({
             type: "post",
@@ -66,7 +69,7 @@ function logout() {
         url: "/auth/logout",
         data: {},
         success: function (response) {
-            // location.href = "http://localhost:3000";
+            location.href = "http://localhost:3000";
         },
         error: function (error) {
             console.log("에러이유:", error);

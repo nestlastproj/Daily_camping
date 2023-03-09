@@ -1,12 +1,18 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Socket } from 'socket.io';
+import { User } from 'src/entity/user.entity';
+import { Repository } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { chatRoomListDTO } from './dto/chat.dto';
 
 @Injectable()
 export class ChatService {
   private chatRoomList: Record<string, chatRoomListDTO>;
-  constructor() {
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
+  ) {
     this.chatRoomList = {
       'room:lobby': {
         roomId: 'room:lobby',
@@ -15,9 +21,9 @@ export class ChatService {
       },
     };
   }
-  createChatRoom(client: Socket, roomName: string): void {
+  createChatRoom(client: Socket, roomName: string, id: number): void {
     const roomId = `room:${uuidv4()}`;
-    const nickname: string = client.data.nickname;
+    const nickname = this.userRepository.findOneBy({ id });
     this.chatRoomList[roomId] = {
       roomId,
       cheifId: client.id,

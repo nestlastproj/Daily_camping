@@ -10,6 +10,7 @@
         crossorigin="anonymous"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 </head>
 
 <body>
@@ -23,8 +24,7 @@
                             <h4>Chat Room</h4>
                         </div>
                         <div class="chatroom_btn_place">
-                            <button type="button" class="chatroom_btn setNickname"> <i class="fa fa-cog"
-                                    aria-hidden="true"></i> </button>
+                            <form id="nickname"></form>
                             <button type="button" class="chatroom_btn createChatRoom"> <i class="fa fa-plus"
                                     aria-hidden="true"></i> </button>
                         </div>
@@ -74,8 +74,26 @@
         </script>
     </body>-->
 <script>
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: '/auth/chat',
+            success: function (response) {
+                document.getElementById('nickname').innerHTML = '';
+                let tempHtml = ``;
+
+                tempHtml += `
+                <input type="nickname" class="form-control" id="nickname" value="${response.user.nickname}" readonly />
+                <button type="button" class="chatroom_btn setNickname"> <i class="fa fa-cog"
+                                    aria-hidden="true"></i> </button>
+                `;
+                $('#nickname').append(tempHtml);
+            }
+        });
+    });
+
     let myInfo = {
-        nickname: null,
+        nickname: nickname,
         id: null,
         room: {
             roomId: null,
@@ -172,14 +190,14 @@
     })
 
     //닉네임 설정
-    $('.setNickname').on('click', function () {
-        const nickname = prompt('변경할 닉네임을 입력해주세요.');
-        if (!nickname) {
-            return false;
-        }
-        socket.emit('setNickname', nickname);
-        localStorage.setItem('nickname', nickname);
-    })
+    // $('.setNickname').on('click', function () {
+    //     const nickname = prompt('변경할 닉네임을 입력해주세요.');
+    //     if (!nickname) {
+    //         return false;
+    //     }
+    //     socket.emit('setNickname', nickname);
+    //     localStorage.setItem('nickname', nickname);
+    // })
 </script>
 
 </html>

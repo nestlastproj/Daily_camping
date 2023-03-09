@@ -10,6 +10,9 @@ import { Server, Socket } from 'socket.io';
 import { ChatService } from './chat.service';
 import { setInitDTO, chatRoomListDTO } from './dto/chat.dto';
 import { Observable, map, from } from 'rxjs';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/entity/user.entity';
+import { Repository } from 'typeorm';
 
 @WebSocketGateway(4000, {
   cors: {
@@ -17,8 +20,13 @@ import { Observable, map, from } from 'rxjs';
   },
 })
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
-  constructor(private readonly chatService: ChatService) {}
-  @WebSocketServer()
+  constructor(
+    private readonly chatService: ChatService,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
+  ) {}
+
+  @WebSocketServer() // 현재 동작중인 웹소켓서버 객체
   server: Server;
 
   //oo소켓 연결시 유저목록에 추가
@@ -40,7 +48,8 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   //oo메시지가 전송되면 모든 유저에게 메시지 전송
-  @SubscribeMessage('sendMessage')
+  @SubscribeMessage('sendMessage') // localhost:3000/auth/chat/sendMessage
+  //client 변수는 메시지를 보낸 웹소켓 객체를 반환, message는 전송한 메시지
   sendMessage(client: Socket, message: string): void {
     client.rooms.forEach((roomId) =>
       client.to(roomId).emit('getMessage', {
@@ -59,7 +68,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       return;
     }
 
-    client.data.nickname = data.nickname ? data.nickname : '낯선사람' + client.id;
+    client.data.nickname = client.id;
 
     client.data.isInit = true;
 
@@ -72,17 +81,17 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     };
   }
 
-  //xx닉네임 변경
-  @SubscribeMessage('setNickname')
-  setNickname(client: Socket, nickname: string): void {
-    const { roomId } = client.data;
-    client.to(roomId).emit('getMessage', {
-      id: null,
-      nickname: '안내',
-      message: `"${client.data.nickname}"님이 "${nickname}"으로 닉네임을 변경하셨습니다.`,
-    });
-    client.data.nickname = nickname;
-  }
+  // xx닉네임 변경
+  // @SubscribeMessage('setNickname')
+  // setNickname(client: Socket, nickname: string): void {
+  //   const { roomId } = client.data;
+  //   client.to(roomId).emit('getMessage', {
+  //     id: null,
+  //     nickname: '안내',
+  //     message: `"${client.data.nickname}"님이 "${nickname}"으로 닉네임을 변경하셨습니다.`,
+  //   });
+  //   client.data.nickname = nickname;
+  // }
 
   //채팅방 목록 가져오기
   @SubscribeMessage('getChatRoomList')
@@ -92,13 +101,13 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   //채팅방 생성하기
   @SubscribeMessage('createChatRoom')
-  createChatRoom(client: Socket, roomName: string) {
+  createChatRoom(client: Socket, roomName: string, id: number) {
     //이전 방이 만약 나 혼자있던 방이면 제거
     if (client.data.roomId != 'room:lobby' && this.server.sockets.adapter.rooms.get(client.data.roomId).size == 1) {
       this.chatService.deleteChatRoom(client.data.roomId);
     }
 
-    this.chatService.createChatRoom(client, roomName);
+    this.chatService.createChatRoom(client, roomName, id);
     return {
       roomId: client.data.roomId,
       roomName: this.chatService.getChatRoom(client.data.roomId).roomName,
