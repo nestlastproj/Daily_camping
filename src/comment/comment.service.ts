@@ -1,62 +1,57 @@
 import { Body, Delete, Injectable, NotFoundException, Param, UnauthorizedException } from '@nestjs/common';
-import _ from 'lodash';
-import { DeleteCommentDto } from './delete-comment.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Comment } from 'src/entity/comment.entity';
+import { Repository } from 'typeorm';
+import { CreateCommentDto } from './create-comment.dto';
+import { UpdateCommentDto } from './update-comment.dto';
 
 @Injectable()
 export class commentService {
-  commentService: any;
-  private comment = [
-    {
-      id: 1,
-      title: '첫번째 게시글 작성',
-      content: 'ddddd',
-      nickname: 'nilee23',
-      createAT: '2023-02-27 11:11:11',
-    },
-    {
-      id: 2,
-      title: '두번째 게시글 작성',
-      content: 'ddddd',
-      nickname: 'nilee23',
-      createAT: '2023-02-27 11:11:11',
-    },
-    {
-      id: 3,
-      title: '세번째 게시글 작성',
-      content: 'ddddd',
-      nickname: 'nilee23',
-      createAT: '2023-02-27 11:11:11',
-    },
-  ];
+  constructor(
+    @InjectRepository(Comment)
+    private readonly commentRepository: Repository<Comment>,
+  ) {}
 
-  private commentPassword = new Map();
-
-  getComment() {
-    return this.comment;
+  //댓글 목록
+  getComments() {
+    return this.commentRepository.find();
   }
 
-  getCommentById(id: number) {
-    return this.comment.find((comment) => {
-      return comment.id === id;
-    });
+  //댓글 상세조회
+  async getCommentById(id: number) {
+    return this.commentRepository.findOneBy({ id: id });
   }
 
-  createComment(title: string, nickname: string, content: string, createAT: string) {
-    const commentId = this.comment.length + 1;
-    this.comment.push({ id: commentId, title, content, nickname, createAT });
-    return commentId;
+  // 댓글 생성
+  createComment(createCommentDto: CreateCommentDto) {
+    const comment = new Comment();
+    comment.content = createCommentDto.content;
+    comment.save();
+
+    return comment;
   }
 
-  updateComment(id: number, title: string, content: string, createAT: string) {
-    const comment = this.getCommentById(id);
-    if (_.isNil(comment)) {
-      throw new NotFoundException(`comment not found. id: ${id}`);
+  //댓글 수정
+  async updateComment(id: number, updateComment: UpdateCommentDto) {
+    const comment = await this.getCommentById(id);
+    if (!comment) {
+      throw Error(`존재 하지 않는 게시글입니다.`);
     }
-    comment.title = title;
-    comment.content = content;
+    comment.content = updateComment.content;
+    comment.save();
+
+    return comment;
   }
 
-  deleteComment(id: number) {
-    return this.comment.filter((comment) => comment.id !== id);
+  //댓글 삭제
+  async deleteComment(id: number) {
+    const comment = await this.getCommentById(id);
+    if (!comment) {
+      throw Error(`존재 하지 않는 게시글입니다.`);
+    }
+    comment.deletedAt = new Date();
+    await comment.save();
+
+    return comment;
   }
 }

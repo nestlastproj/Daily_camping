@@ -1,67 +1,59 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm/dist';
-import _ from 'lodash';
-import { v1 as UUID } from 'uuid';
-import { Article } from 'src/entity/article.entity';
-import { Repository } from 'typeorm';
+import { Injectable } from '@nestjs/common';
 import { CreateArticleDto } from './create-article.dto';
+import { Article } from 'src/entity/article.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { UpdateArticleDto } from './update-article.dto';
 
 @Injectable()
 export class articleService {
-  private article = [
-    {
-      id: 1,
-      title: '첫번째 게시글 작성',
-      content: 'ddddd',
-      nickname: 'nilee23',
-      createAT: '2023-02-27 11:11:11',
-    },
-    {
-      id: 2,
-      title: '두번째 게시글 작성',
-      content: 'ddddd',
-      nickname: 'nilee23',
-      createAT: '2023-02-27 11:11:11',
-    },
-    {
-      id: 3,
-      title: '세번째 게시글 작성',
-      content: 'ddddd',
-      nickname: 'nilee23',
-      createAT: '2023-02-27 11:11:11',
-    },
-  ];
+  constructor(
+    @InjectRepository(Article)
+    private readonly articleRepository: Repository<Article>,
+  ) {}
 
-  getarticle() {
-    return this.article;
+  // 게시판 목록
+  getArticles() {
+    return this.articleRepository.find();
   }
 
-  getArticleById(id: number) {
-    return this.article.find((article) => {
-      article.id === id;
-    });
+  //게시판 상세조회
+  async getArticleById(id: number) {
+    return this.articleRepository.findOneBy({ id: id });
   }
 
-  createarticle(createArticleDto: CreateArticleDto) {
-    const { title, content, nickname, createAT } = createArticleDto;
-    const article: Article = {
-      id: UUID(),
-      title,
-      content,
-      nickname,
-      createAT,
-    }
-    this.article.push(article);
+  //게시판 생성
+  async createarticle(createArticleDto: CreateArticleDto) {
+    const article = new Article();
+    article.title = createArticleDto.title;
+    article.content = createArticleDto.content;
+    article.save();
+
     return article;
   }
 
-  updateArticle(id: number) {
-    const article = this.getArticleById(id);
+  //게시판 수정
+  async updateArticle(id: number, updateArticle: UpdateArticleDto) {
+    const article = await this.getArticleById(id);
+    if (!article) {
+      throw Error('존재 하지 않는 게시글입니다.');
+    }
+    article.title = updateArticle.title;
+    article.content = updateArticle.content;
+    article.save();
+
     return article;
   }
 
   //게시물 삭제
-  deleteArticle(id: number) {
-    return this.article.filter((article) => article.id !== id);
+  async deleteArticle(id: number) {
+    const article = await this.getArticleById(id);
+    if (!article) {
+      throw Error('존재 하지 않는 게시물 입니다.');
+    }
+    article.deletedAt = new Date();
+    await article.save();
+
+    return article;
   }
 }
