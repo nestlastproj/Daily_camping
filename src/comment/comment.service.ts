@@ -1,5 +1,6 @@
 import { Body, Delete, Injectable, NotFoundException, Param, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Article } from 'src/entity/article.entity';
 import { Comment } from 'src/entity/comment.entity';
 import { Repository } from 'typeorm';
 import { CreateCommentDto } from './create-comment.dto';
@@ -10,6 +11,8 @@ export class commentService {
   constructor(
     @InjectRepository(Comment)
     private readonly commentRepository: Repository<Comment>,
+    @InjectRepository(Article)
+    private readonly articleRepository: Repository<Article>,
   ) {}
 
   //댓글 목록
@@ -23,12 +26,19 @@ export class commentService {
   }
 
   // 댓글 생성
-  createComment(createCommentDto: CreateCommentDto) {
-    const comment = new Comment();
-    comment.content = createCommentDto.content;
-    comment.save();
-
-    return comment;
+  async createComment(createCommentDto: CreateCommentDto) {
+    const articles = await this.articleRepository.findOneBy({ id: createCommentDto.articleId });
+    if (!articles) {
+      throw new Error('Article not found');
+    }
+    const comment = this.commentRepository.save({
+      ...createCommentDto,
+      articles,
+    });
+    if (comment) {
+      return 'success';
+    }
+    return 'fail';
   }
 
   //댓글 수정

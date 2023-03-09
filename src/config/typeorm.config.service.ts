@@ -8,6 +8,7 @@ import { Weather } from 'src/entity/api/weather.entity';
 import { Article } from 'src/entity/article.entity';
 import { Comment } from 'src/entity/comment.entity';
 import { Like } from 'src/entity/like.entity';
+import { Review } from 'src/entity/review.entity';
 import { User } from 'src/entity/user.entity';
 
 @Injectable()
@@ -21,7 +22,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       username: this.configService.get<string>('DATABASE_USERNAME'),
       password: this.configService.get<string>('DATABASE_PASSWORD'),
       database: this.configService.get<string>('DATABASE_NAME'),
-      entities: [User, Article, Comment, Like, Product, Place, Recipe, Weather],
+      entities: [User, Article, Comment, Like, Product, Place, Recipe, Weather, Review],
       synchronize: this.configService.get<boolean>('DATABASE_SYNCHRONIZE'),
     };
   }

@@ -4,9 +4,11 @@ import { Article } from 'src/entity/article.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UpdateArticleDto } from './update-article.dto';
+import { User } from 'src/entity/user.entity';
 
 @Injectable()
 export class articleService {
+  articles: any;
   constructor(
     @InjectRepository(Article)
     private readonly articleRepository: Repository<Article>,
@@ -18,8 +20,8 @@ export class articleService {
   }
 
   //게시판 상세조회
-  async getArticleById(id: number) {
-    return this.articleRepository.findOneBy({ id: id });
+  async getArticleById(id: number): Promise<any> {
+    return this.articleRepository.findOne({ relations: ['comments'], where: { id } });
   }
 
   //게시판 생성
@@ -52,7 +54,8 @@ export class articleService {
       throw Error('존재 하지 않는 게시물 입니다.');
     }
     article.deletedAt = new Date();
-    await article.save();
+    console.log(article);
+    article.save();
 
     return article;
   }

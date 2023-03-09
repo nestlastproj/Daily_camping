@@ -1,3 +1,4 @@
+import { truncate } from 'fs';
 import {
   BaseEntity,
   Column,
@@ -7,12 +8,14 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  Unique,
   UpdateDateColumn,
 } from 'typeorm';
 import { Article } from './article.entity';
 import { User } from './user.entity';
 
 @Entity()
+@Unique(['id'])
 export class Comment extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   id: number;

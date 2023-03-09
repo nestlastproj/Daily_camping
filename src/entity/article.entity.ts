@@ -7,12 +7,14 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  Unique,
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from './user.entity';
 import { Comment } from './comment.entity';
 
 @Entity()
+@Unique(['id'])
 export class Article extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   id: number;

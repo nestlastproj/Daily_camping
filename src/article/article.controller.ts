@@ -1,4 +1,6 @@
 import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Put } from '@nestjs/common';
+import { Comment } from 'src/entity/comment.entity';
+import { User } from 'src/entity/user.entity';
 import { articleService } from './article.service';
 import { CreateArticleDto } from './create-article.dto';
 import { UpdateArticleDto } from './update-article.dto';
