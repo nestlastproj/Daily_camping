@@ -17,11 +17,6 @@ export class UserController {
     return this.userService.findOne(id);
   }
 
-  @Put('/:id')
-  async editprofile(@Param() id: number, @Body() data: UpdateUserDto) {
-    return await this.userService.editprofile(id, data);
-  }
-
   @Delete('/:id')
   async remove(@Param() id: number): Promise<void> {
     await this.userService.remove(id);

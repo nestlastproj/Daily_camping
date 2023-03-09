@@ -19,11 +19,7 @@ export class UserService {
   }
 
   async editprofile(id: number, updateUserDto: UpdateUserDto) {
-    const { email, nickname, name, password, phone } = updateUserDto;
-
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(password, salt);
-    await this.userRepository.update(id, { email, nickname, name, password: hashedPassword, phone });
+    await this.userRepository.update(id, updateUserDto);
   }
 
   async remove(id: number): Promise<void> {
@@ -48,6 +44,10 @@ export class UserService {
       return user;
     }
     throw new UnauthorizedException();
+  }
+
+  async getBynickimg(id: number): Promise<User> {
+    return await this.userRepository.findOne({ where: { id } });
   }
 
   async verifyPassword(plainTextPassword: string, hashedPassword: string) {

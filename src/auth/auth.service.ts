@@ -23,10 +23,6 @@ export class AuthService {
     try {
       const user = await this.userService.getByEmail(email);
       await this.userService.verifyPassword(plainTextPassword, user.password);
-      //   const passwordMatch = await bcrypt.compare(password, user.password);
-      //   if(!passwordMatch) {
-      //      throw new UnauthorizedException('비밀번호가 일치하지 않습니다.')
-      //   }
       return user;
     } catch (error) {
       throw new UnauthorizedException();
@@ -103,10 +99,4 @@ export class AuthService {
       },
     };
   }
-
-  // async getMypageId(id: number) {
-  //   const testmypage = await this.userRepository.findOne({ where: { id }, select: ['name', 'nickname'] });
-  //   console.log('테스트1111111', testmypage);
-  //   return testmypage;
-  // }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Req, Res, UseGuards, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Req, Res, UseGuards, ValidationPipe } from '@nestjs/common';
 import { Response } from 'express';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
@@ -7,7 +7,7 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 import { UserService } from 'src/user/user.service';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { User } from 'src/entity/user.entity';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -16,14 +16,26 @@ export class AuthController {
   @Get('/mypage')
   @UseGuards(JwtAuthGuard)
   getmypage(@Req() req, @Res() res: Response) {
-    const user = req.user.nickname;
-    return res.render('mypage.ejs', { nickname: user });
+    const { id, nickname } = req.user;
+    return res.render('mypage.ejs', { id, nickname });
   }
 
-  // @Get('/mypage/:id')
-  // async getMypageId(@Param('id') id: number) {
-  //   return await this.authService.getMypageId(id);
-  // }
+  @Get('/mypage/:id')
+  async getMypageId(@Param('id') id: number) {
+    return await this.userService.getBynickimg(id);
+  }
+
+  @Get('/mypageedit')
+  @UseGuards(JwtAuthGuard)
+  editpage(@Req() req, @Res() res: Response) {
+    const id = req.user.id;
+    return res.render('edit_profile.ejs', { id });
+  }
+
+  @Put('/edit/:id')
+  async editprofile(@Param() id: number, @Body() data: UpdateUserDto) {
+    return await this.userService.editprofile(id, data);
+  }
 
   @Post('/signup')
   signUp(@Body(ValidationPipe) createUserDto: CreateUserDto): Promise<void> {
@@ -33,8 +45,8 @@ export class AuthController {
   @Get('chat')
   @UseGuards(JwtAuthGuard)
   getChat(@Req() req, @Res() res: Response) {
-    const user = req.user.nickname;
-    return res.render('chat.ejs', { nickname: user });
+    const nickname = req.user.nickname;
+    return res.render('chat.ejs', { nickname });
   }
 
   @Get('login')
