@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "camping",
-    "dateExported": "2023-03-09T00:51:49.168Z",
+    "dateExported": "2023-03-10T05:37:59.444Z",
     "version": "1.1",
     "folders": [
         {
@@ -21,6 +21,25 @@
     ],
     "requests": [
         {
+            "_id": "6ae23567-089e-4b1b-ab08-ae4918af9f39",
+            "colId": "933ff88a-86ad-4181-974b-ae58eeead08c",
+            "containerId": "1c8d70d5-252b-48a1-abac-b5c07c2bad46",
+            "name": "게시물 만들기",
+            "url": "articles",
+            "method": "POST",
+            "sortNum": 5000,
+            "created": "2023-03-02T05:32:31.500Z",
+            "modified": "2023-03-10T05:35:01.480Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": " {\n  \"title\": \"3번째 \",\n  \"content\": \"3번째 게시판\",\n  \"image\": \"1\"\n }",
+                "form": []
+            },
+            "tests": []
+        },
+        {
             "_id": "6b710606-0639-4bf2-9f29-39f56ae5fec7",
             "colId": "933ff88a-86ad-4181-974b-ae58eeead08c",
             "containerId": "1c8d70d5-252b-48a1-abac-b5c07c2bad46",
@@ -39,11 +58,11 @@
             "colId": "933ff88a-86ad-4181-974b-ae58eeead08c",
             "containerId": "1c8d70d5-252b-48a1-abac-b5c07c2bad46",
             "name": "게시물 상세조회",
-            "url": "articles/3",
+            "url": "articles/12",
             "method": "GET",
             "sortNum": 20000,
             "created": "2023-03-02T05:32:11.084Z",
-            "modified": "2023-03-08T12:19:15.264Z",
+            "modified": "2023-03-09T11:48:57.177Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -53,16 +72,16 @@
             "colId": "933ff88a-86ad-4181-974b-ae58eeead08c",
             "containerId": "1c8d70d5-252b-48a1-abac-b5c07c2bad46",
             "name": "수정",
-            "url": "articles/2",
+            "url": "articles/11",
             "method": "PUT",
             "sortNum": 30000,
             "created": "2023-03-02T05:32:17.778Z",
-            "modified": "2023-03-08T12:16:23.662Z",
+            "modified": "2023-03-09T11:49:07.801Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": " {\n  \"id\": 5,\n  \"title\": \"5번째 \",\n  \"content\": \"본문5\",\n  \"image\": 1,\n  \"uesdId\": 1,\n  \"updateAT\": \"2023-02-27 11:11:55\",\n  \"createAT\": \"2023-02-27 11:11:55\"\n }",
+                "raw": " {\n  \"title\": \"3번째 \",\n  \"content\": \"3번째\",\n  \"image\": 1\n }",
                 "form": []
             },
             "tests": []
@@ -72,32 +91,13 @@
             "colId": "933ff88a-86ad-4181-974b-ae58eeead08c",
             "containerId": "1c8d70d5-252b-48a1-abac-b5c07c2bad46",
             "name": "삭제",
-            "url": "articles/3",
+            "url": "articles/10",
             "method": "DELETE",
             "sortNum": 40000,
             "created": "2023-03-02T05:32:21.489Z",
-            "modified": "2023-03-08T12:21:34.569Z",
+            "modified": "2023-03-09T11:02:38.253Z",
             "headers": [],
             "params": [],
-            "tests": []
-        },
-        {
-            "_id": "6ae23567-089e-4b1b-ab08-ae4918af9f39",
-            "colId": "933ff88a-86ad-4181-974b-ae58eeead08c",
-            "containerId": "1c8d70d5-252b-48a1-abac-b5c07c2bad46",
-            "name": "게시물 만들기",
-            "url": "articles",
-            "method": "POST",
-            "sortNum": 50000,
-            "created": "2023-03-02T05:32:31.500Z",
-            "modified": "2023-03-09T00:19:48.692Z",
-            "headers": [],
-            "params": [],
-            "body": {
-                "type": "json",
-                "raw": " {\n  \"id\": 2,\n  \"title\": \"2번째 \",\n  \"content\": \"본문22\",\n  \"image\": 1,\n  \"updateAT\": \"2023-02-27 11:11:22\",\n  \"createAT\": \"2023-02-27 11:11:23\"\n }",
-                "form": []
-            },
             "tests": []
         },
         {
@@ -109,47 +109,14 @@
             "method": "POST",
             "sortNum": 60000,
             "created": "2023-03-02T13:15:03.976Z",
-            "modified": "2023-03-09T00:20:17.655Z",
+            "modified": "2023-03-09T11:50:56.819Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"id\": 3,\n  \"content\": \"두번째 댓글입니다\"\n}",
+                "raw": "{\n  \"articleId\": 12,\n  \"content\": \"13섯번째 댓글입니다\"\n}",
                 "form": []
             },
-            "tests": []
-        },
-        {
-            "_id": "0c65b1ed-90ad-4185-a1c9-12cc54561ffb",
-            "colId": "933ff88a-86ad-4181-974b-ae58eeead08c",
-            "containerId": "34aff675-ef32-4830-9203-af9440791074",
-            "name": "댓글수정",
-            "url": "comments/3",
-            "method": "PUT",
-            "sortNum": 70000,
-            "created": "2023-03-02T13:15:15.676Z",
-            "modified": "2023-03-09T00:21:55.433Z",
-            "headers": [],
-            "params": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"id\": 3,\n  \"content\": \"3번째 댓글 작성\",\n   \"deletedAt\": null\n}",
-                "form": []
-            },
-            "tests": []
-        },
-        {
-            "_id": "58daf663-3399-4ca4-8d74-b58514e5be0f",
-            "colId": "933ff88a-86ad-4181-974b-ae58eeead08c",
-            "containerId": "34aff675-ef32-4830-9203-af9440791074",
-            "name": "댓글삭제",
-            "url": "comments/2",
-            "method": "DELETE",
-            "sortNum": 80000,
-            "created": "2023-03-02T13:15:20.260Z",
-            "modified": "2023-03-09T00:13:31.864Z",
-            "headers": [],
-            "params": [],
             "tests": []
         },
         {
@@ -159,9 +126,42 @@
             "name": "댓글 조회",
             "url": "comments",
             "method": "GET",
-            "sortNum": 90000,
+            "sortNum": 65000,
             "created": "2023-03-02T13:17:01.235Z",
-            "modified": "2023-03-09T00:11:02.522Z",
+            "modified": "2023-03-09T05:24:36.017Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "0c65b1ed-90ad-4185-a1c9-12cc54561ffb",
+            "colId": "933ff88a-86ad-4181-974b-ae58eeead08c",
+            "containerId": "34aff675-ef32-4830-9203-af9440791074",
+            "name": "댓글수정",
+            "url": "comments/15",
+            "method": "PUT",
+            "sortNum": 70000,
+            "created": "2023-03-02T13:15:15.676Z",
+            "modified": "2023-03-09T11:50:36.836Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\": 15,\n  \"content\": \"2번째 댓글 작성\",\n   \"deletedAt\": null\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "58daf663-3399-4ca4-8d74-b58514e5be0f",
+            "colId": "933ff88a-86ad-4181-974b-ae58eeead08c",
+            "containerId": "34aff675-ef32-4830-9203-af9440791074",
+            "name": "댓글삭제",
+            "url": "comments/15",
+            "method": "DELETE",
+            "sortNum": 80000,
+            "created": "2023-03-02T13:15:20.260Z",
+            "modified": "2023-03-09T11:51:08.545Z",
             "headers": [],
             "params": [],
             "tests": []

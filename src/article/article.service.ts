@@ -25,7 +25,7 @@ export class articleService {
   }
 
   //게시판 생성
-  async createarticle(createArticleDto: CreateArticleDto) {
+  async createArticle(createArticleDto: CreateArticleDto) {
     const article = new Article();
     article.title = createArticleDto.title;
     article.content = createArticleDto.content;

@@ -24,7 +24,7 @@ export class articleController {
   //게시물 작성
   @Post()
   createArticle(@Body() createArticle: CreateArticleDto) {
-    return this.articleService.createarticle(createArticle);
+    return this.articleService.createArticle(createArticle);
   }
 
   // 게시물 수정
