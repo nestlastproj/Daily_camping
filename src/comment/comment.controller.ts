@@ -14,18 +14,18 @@ export class CommentController {
     return this.commentService.getAllComment(id);
   }
 
-  @Post('/:id')
-  createComment(@Param('id') articleId: number, @Body() data: CreateCommentDto): Promise<void> {
-    return this.commentService.createComment(articleId, data);
+  @Post()
+  async createComment(@Body() data: CreateCommentDto) {
+    return await this.commentService.createComment(data);
   }
 
-  // @Put('/:id/:commentId')
-  // updateComment(@Param('id') articleId: number, @Param('commentId') commentId:number, @Body() data: UpdateCommentDto): Promise<Comment> {
-  //   return this.commentService.updateComment(articleId, commentId, data);
-  // }
+  @Put('/:id')
+  async updateComment(@Param('id') id: number, @Body() data: UpdateCommentDto) {
+    return await this.commentService.updateComment(id, data);
+  }
 
-  // @Delete('/:id/:commentid')
-  // async deleteComment(@Param('id') id: number): Promise<void> {
-  //   return await this.commentService.deleteComment(id);
-  // }
+  @Delete('/:id')
+  async deleteComment(@Param('id') id: number) {
+    return await this.commentService.deleteComment(id);
+  }
 }

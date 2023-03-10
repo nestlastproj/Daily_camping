@@ -23,17 +23,24 @@ export class CommentService {
     return comment;
   }
 
-  async createComment(articleId: number, data: CreateCommentDto): Promise<void> {
+  async createComment(data: CreateCommentDto) {
     const userId = 1;
-    await this.commentRepository.insert({ user: { id: userId }, articles: { id: articleId }, content: data.content });
+
+    const { content, articleId } = data;
+    return await this.commentRepository.save({ user: { id: userId }, articles: { id: articleId }, content: data.content });
   }
 
-  // async updateComment(articleId: number, commentId:number, data: UpdateCommentDto): Promise<Comment> {
-  //   const userId = 1;
-  //   await this.commentRepository.update({ user: { id: userId }, articles: { id: articleId }, commentid: { id: id }, content: data.content });
-  // }
+  async updateComment(id: number, data: UpdateCommentDto) {
+    const userId = 1;
 
-  // async deleteComment(id: number): Promise<void> {
-  //   return this.commentRepository.delete(id);
-  // }
+    return await this.commentRepository.update(id, {
+      user: { id: userId },
+      articles: { id: data.articleId },
+      content: data.content,
+    });
+  }
+
+  async deleteComment(id: number) {
+    return this.commentRepository.delete(id);
+  }
 }

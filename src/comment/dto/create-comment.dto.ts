@@ -1,4 +1,9 @@
-import { PickType } from '@nestjs/mapped-types';
-import { CreateArticleDto } from 'src/article/dto/create-article.dto';
+import { IsNumber, IsString } from 'class-validator';
 
-export class CreateCommentDto extends PickType(CreateArticleDto, ['content'] as const) {}
+export class CreateCommentDto {
+  @IsString()
+  content: string;
+
+  @IsNumber()
+  articleId: number;
+}
