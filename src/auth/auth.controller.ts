@@ -21,8 +21,8 @@ export class AuthController {
   }
 
   @Get('/mypage/:id')
-  async getMypageId(@Param('id') id: number) {
-    return await this.userService.getBynickimg(id);
+  async getinfo(@Param('id') id: number) {
+    return await this.userService.getinfo(id);
   }
 
   @Get('/mypageedit')

@@ -13,26 +13,36 @@ export class ArticleService {
     private readonly articleRepository: Repository<Article>,
   ) {}
 
-  async getAllarticle(createArticleDto: CreateArticleDto): Promise<Article[]> {
-    const articles = this.articleRepository.find({
+  async getAllarticle() {
+    return await this.articleRepository.find({
       where: { deletedAt: null },
       select: ['title', 'content'],
     });
-    return articles;
   }
 
-  async createArticle(data: CreateArticleDto, user: User) {
-    const { title, content, image } = data;
-    const article = this.articleRepository.create({ title, content, image, user });
-    await this.articleRepository.save(article);
+  async createArticle(req, data: CreateArticleDto) {
+    const id = req.user.id;
+    return await this.articleRepository.save({ user: { id: id }, title: data.title, content: data.content });
   }
 
-  async updateArticle(id: number, data: UpdateArticleDto) {
-    const { title, content, image } = data;
-    const article = this.articleRepository.update(id, data);
+  async updateArticle(req, articleId: number, data: UpdateArticleDto) {
+    const id = req.user.id;
+    return await this.articleRepository.update(articleId, {
+      user: { id: id },
+      title: data.title,
+      content: data.content,
+    });
   }
 
-  async deleteArticle(id: number) {
-    return this.articleRepository.delete(id);
+  async deleteArticle(req, articleId: number) {
+    const id = req.user.id;
+    const article = await this.articleRepository.findOne({ where: { id: articleId } });
+    if (!article) {
+      throw new Error('이미 삭제된 게시물 입니다');
+    } else {
+      return await this.articleRepository.softDelete({
+        id: articleId,
+      });
+    }
   }
 }

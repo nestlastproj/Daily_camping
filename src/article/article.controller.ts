@@ -1,7 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { DeleteArticleDto } from 'src/auth/dto/delete-user.dto';
-import { Article } from 'src/entity/article.entity';
-import { User } from 'src/entity/user.entity';
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { ArticleService } from './article.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
@@ -11,22 +9,25 @@ export class ArticleController {
   constructor(private articleService: ArticleService) {}
 
   @Get()
-  getAllarticle(data: CreateArticleDto): Promise<Article[]> {
-    return this.articleService.getAllarticle(data);
+  getAllarticle() {
+    return this.articleService.getAllarticle();
   }
 
   @Post()
-  createArticle(@Body() data: CreateArticleDto, user: User) {
-    return this.articleService.createArticle(data, user);
+  @UseGuards(JwtAuthGuard)
+  async createArticle(@Req() req, @Body() data: CreateArticleDto) {
+    return await this.articleService.createArticle(req, data);
   }
 
-  @Put('/:id')
-  async updateArticle(@Param('id') id: number, @Body() data: UpdateArticleDto, user: User) {
-    return await this.articleService.updateArticle(id, data);
+  @Put('/:articleId')
+  @UseGuards(JwtAuthGuard)
+  async updateArticle(@Req() req, @Param('articleId') articleId: number, @Body() data: UpdateArticleDto) {
+    return await this.articleService.updateArticle(req, articleId, data);
   }
 
-  @Delete('/:id')
-  async deleteArticle(@Param('id') id: number, user: User) {
-    return await this.articleService.deleteArticle(id);
+  @Delete('/:articleId')
+  @UseGuards(JwtAuthGuard)
+  async deleteArticle(@Req() req, @Param('articleId') articleId: number) {
+    return await this.articleService.deleteArticle(req, articleId);
   }
 }

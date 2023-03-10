@@ -9,38 +9,37 @@ import { UpdateCommentDto } from './dto/update-comment.dto';
 @Injectable()
 export class CommentService {
   constructor(
-    @InjectRepository(Article)
-    private readonly articleRepository: Repository<Article>,
     @InjectRepository(Comment)
     private readonly commentRepository: Repository<Comment>,
   ) {}
 
-  async getAllComment(id: number): Promise<Article> {
-    const comment = await this.articleRepository.findOne({
-      where: { id },
-      relations: ['comments'],
+  async getAllComment(articleId: number) {
+    return await this.commentRepository.find({
+      where: { articles: { id: articleId }, deletedAt: null },
     });
-    return comment;
   }
 
-  async createComment(data: CreateCommentDto) {
-    const userId = 1;
-
-    const { content, articleId } = data;
-    return await this.commentRepository.save({ user: { id: userId }, articles: { id: articleId }, content: data.content });
+  async createComment(req, articleId: number, data: CreateCommentDto) {
+    const id = req.user.id;
+    return await this.commentRepository.save({ user: { id: id }, articles: { id: articleId }, content: data.content });
   }
 
-  async updateComment(id: number, data: UpdateCommentDto) {
-    const userId = 1;
-
+  async updateComment(req, articleId: number, commentId: number, data: UpdateCommentDto) {
+    const id = req.user.id;
     return await this.commentRepository.update(id, {
-      user: { id: userId },
-      articles: { id: data.articleId },
+      user: { id: id },
+      articles: { id: articleId },
+      id: commentId,
       content: data.content,
     });
   }
 
-  async deleteComment(id: number) {
-    return this.commentRepository.delete(id);
+  async deleteComment(req, articleId: number, commentId: number) {
+    const id = req.user.id;
+    return await this.commentRepository.delete({
+      user: { id: id },
+      articles: { id: articleId },
+      id: commentId,
+    });
   }
 }

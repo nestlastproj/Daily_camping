@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 import { User } from '../entity/user.entity';
 import * as bcrypt from 'bcryptjs';
 import { UpdateUserDto } from 'src/auth/dto/update-user.dto';
-import { Console } from 'console';
 
 @Injectable()
 export class UserService {
@@ -19,6 +18,9 @@ export class UserService {
   }
 
   async editprofile(id: number, updateUserDto: UpdateUserDto) {
+    if (updateUserDto.nickname) {
+      throw new Error('이미 존재하는 닉네임입니다.');
+    }
     await this.userRepository.update(id, updateUserDto);
   }
 
@@ -46,7 +48,7 @@ export class UserService {
     throw new UnauthorizedException();
   }
 
-  async getBynickimg(id: number): Promise<User> {
+  async getinfo(id: number): Promise<User> {
     return await this.userRepository.findOne({ where: { id } });
   }
 
