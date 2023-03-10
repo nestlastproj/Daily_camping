@@ -18,19 +18,17 @@ export class ReviewService {
     });
   }
 
-  createReview(userId: number, data: ReviewDto, file: Express.Multer.File) {
-    console.log(file, 'service222222222222222222');
-    const asdf = this.reviewRepository.insert({
+  createReview(userId: number, data: ReviewDto, file?: Express.Multer.File) {
+    return this.reviewRepository.insert({
+      user: { id: userId },
       title: data.title,
       content: data.content,
-      image: file.originalname,
-      user: { id: userId },
+      image: file.filename,
     });
-    return asdf;
   }
 
   updateReview(reviewId: number, data: ReviewDto, file?: Express.Multer.File) {
-    return this.reviewRepository.update({ id: reviewId }, {title: data.title, content: data.content, image:file.filename});
+    return this.reviewRepository.update({ id: reviewId }, { title: data.title, content: data.content, image: file.filename });
   }
 
   deleteReview(reviewId: number) {

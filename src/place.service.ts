@@ -31,6 +31,7 @@ export class PlaceService {
 
     return this.httpService.get(url, { params, headers }).pipe(
       map(async (response) => {
+        console.log(response.data)
         const places = response.data.documents.map((doc) => ({
           address: doc.address_name,
           name: doc.place_name,
