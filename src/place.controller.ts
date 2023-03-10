@@ -7,7 +7,7 @@ import { Cron } from '@nestjs/schedule/dist/decorators';
 export class PlaceController {
   constructor(private readonly placeService: PlaceService) {}
 
-  @Cron('* * * 9 * *') // 매월 9일마다 api 자동 실행
+  // @Cron('* * * 9 * *') // 매월 9일마다 api 자동 실행
   @Get('/placeget')
   async getPlace(@Query('query') query: string, @Query('x') x: string, @Query('y') y: string) {
     return this.placeService.getPlace('캠핑장', '0', '0');

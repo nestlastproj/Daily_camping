@@ -8,7 +8,7 @@ import { Cron } from '@nestjs/schedule/dist/decorators';
 export class WeatherController {
   constructor(private readonly weatherService: WeatherService) {}
 
-  @Cron('* * * 9 * *') // 매월 9일마다 api 자동 실행
+  // @Cron('* * * 9 * *') // 매월 9일마다 api 자동 실행
   @Get('/weatherget')
   // 날씨 정보 API에서 자료 받아오기
   getWeather() {

@@ -15,6 +15,8 @@ import { ScheduleModule } from '@nestjs/schedule/dist/schedule.module';
 import * as parser from 'fast-xml-parser';
 import { JwtConfigService } from './config/jwt.config.service';
 import { JwtModule } from '@nestjs/jwt';
+import { ReviewModule } from './review.module';
+import { RecipeModule } from './recipe/recipe.module';
 
 @Module({
   imports: [
@@ -36,8 +38,9 @@ import { JwtModule } from '@nestjs/jwt';
     PlaceModule,
     WeatherModule,
     ProductModule,
+    ReviewModule,
+    RecipeModule,
     ScheduleModule.forRoot(),
-    parser.XMLParser,
   ],
   controllers: [AppController],
   providers: [AppService],

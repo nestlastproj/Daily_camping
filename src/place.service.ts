@@ -9,7 +9,7 @@ import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class PlaceService {
   constructor(
-    @InjectRepository(Place) private placeRepository: Repository<Place>,
+    @InjectRepository(Place) private readonly placeRepository: Repository<Place>,
     private readonly configService: ConfigService,
     private readonly httpService: HttpService,
   ) {}

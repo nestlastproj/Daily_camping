@@ -8,7 +8,7 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class ProductService {
-  constructor(@InjectRepository(Product) private productRepository: Repository<Product>) {}
+  constructor(@InjectRepository(Product) private readonly productRepository: Repository<Product>) {}
   private readonly API_URL = 'https://openapi.11st.co.kr/openapi/OpenApiService.tmall';
 
   async getProduct(query: string, page: number = 1, pageSize: number = 5000) {

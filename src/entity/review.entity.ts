@@ -21,7 +21,7 @@ export class Review extends BaseEntity {
   @Column()
   content: string;
 
-  @Column()
+  @Column({ default: null })
   image: string;
 
   @CreateDateColumn()
