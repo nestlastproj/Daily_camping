@@ -9,6 +9,8 @@ import { TypeOrmConfigService } from './config/typeorm.config.service';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 // import { ChatModule } from './chat/chat.module';
+import { ArticleModule } from './article/article.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
   imports: [
@@ -26,6 +28,8 @@ import { AuthModule } from './auth/auth.module';
     UserModule,
     AuthModule,
     // ChatModule,
+    ArticleModule,
+    CommentModule,
   ],
   controllers: [AppController],
   providers: [AppService],
