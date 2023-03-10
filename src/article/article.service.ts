@@ -14,10 +14,20 @@ export class ArticleService {
   ) {}
 
   async getAllarticle() {
-    return await this.articleRepository.find({
-      where: { deletedAt: null },
-      select: ['title', 'content'],
-    });
+    // return await this.articleRepository.find({
+    //   where: { deletedAt: null },
+    //   select: ['title', 'content'],
+    //   relations: ['comments'],
+    //   order: { comments: { createdAt: 'DESC' } },
+    // });
+
+    return await this.articleRepository
+      .createQueryBuilder('article')
+      .select('article.title')
+      .select('article.content')
+      .leftJoinAndSelect('article.comments', 'comment')
+      .orderBy('comment.createdAt', 'DESC')
+      .getMany();
   }
 
   async createArticle(req, data: CreateArticleDto) {
