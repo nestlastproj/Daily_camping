@@ -58,17 +58,30 @@ export class RecipeService {
     const contentUrl = detailUrl.map((contentnumber) => `https://www.10000recipe.com//recipe/${contentnumber}`);
     const requestUrls = await Promise.all(contentUrl.map((url) => axios.get(url)));
 
-    const mediaBodyTextArray: string[][] = [];
+    const contentData: { content: string[]; image: string[] }[] = [];
 
     requestUrls.forEach((response) => {
       const $ = cheerio.load(response.data);
       const step = $('div.view_step_cont').children('div.media-body');
       const textArray: string[] = [];
+
       step.each((index, step) => {
         const text = $(step).text();
         textArray.push(text);
       });
-      mediaBodyTextArray.push(textArray);
+
+      const imageArray: string[] = [];
+      $('div.view_step_cont img').each((i, img) => {
+        const image = $(img).attr('src');
+        imageArray.push(image);
+      });
+      // const img = $('div.view_step_cont').children('div.media-right');
+
+      // img.each((index, img) => {
+      //   const image = $(img).find('img').attr('src');
+      // });
+      console.log(imageArray);
+      contentData.push({ content: textArray, image: imageArray });
     });
 
     const entities = recipes.map((recipe, index) => {
@@ -77,11 +90,10 @@ export class RecipeService {
       entity.url = recipe.url;
       entity.image = recipe.image;
       entity.views = recipe.views;
-      entity.content = mediaBodyTextArray[index].join('\n');
+      entity.content = contentData[index].content.join('\n');
+      entity.contentimage = contentData[index].image.join(',');
       return entity;
     });
-
-    console.log(entities);
 
     return this.recipeRePository.save(entities);
   }

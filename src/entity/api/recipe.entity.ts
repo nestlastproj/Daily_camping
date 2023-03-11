@@ -8,7 +8,7 @@ export class Recipe extends BaseEntity {
   @Column()
   name: string;
 
-  @Column({ length: 1000 })
+  @Column({ length: 3000 })
   content: string;
 
   @Column()
@@ -19,6 +19,9 @@ export class Recipe extends BaseEntity {
 
   @Column()
   views: string;
+
+  @Column({ length: 3000 })
+  contentimage: string;
 
   @CreateDateColumn()
   createdAt: Date;
