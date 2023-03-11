@@ -8,11 +8,17 @@ export class Recipe extends BaseEntity {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ length: 1000 })
   content: string;
 
   @Column()
   image: string;
+
+  @Column()
+  url: string;
+
+  @Column()
+  views: string;
 
   @CreateDateColumn()
   createdAt: Date;

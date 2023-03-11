@@ -43,17 +43,16 @@ export class WeatherService {
     const responses = await Promise.all(requestUrls.map((url) => axios.get(url)));
     // 한번에 오늘 -3일 +3일 날씨 데이터 전체
     const weatherList = responses.flatMap((response) =>
-    response.data.response.body.items.item.map((item) => ({
-      numEf: item.numEf, // 발표시간기준 발효번호
-      min_temperature: item.ta, //온도
-      percent: item.rnSt, //강수 확률
-      date: new Date(item.announceTime), //발표 날짜
-      weatherstate: item.wf, //날씨
-      type: item.rnYn, // 강수형태 (ex. 강수없음/비/눈/소나기)
-      address: item.regId, //예보 지역
-      wind: item.wsIt, //풍속
-    })),
-    
+      response.data.response.body.items.item.map((item) => ({
+        numEf: item.numEf, // 발표시간기준 발효번호
+        min_temperature: item.ta, //온도
+        percent: item.rnSt, //강수 확률
+        date: new Date(item.announceTime), //발표 날짜
+        weatherstate: item.wf, //날씨
+        type: item.rnYn, // 강수형태 (ex. 강수없음/비/눈/소나기)
+        address: item.regId, //예보 지역
+        wind: item.wsIt, //풍속
+      })),
     );
 
     // 오늘 현재 시간 날씨
