@@ -3,7 +3,7 @@ import { HttpService } from '@nestjs/axios';
 import { InjectRepository } from '@nestjs/typeorm/dist';
 import { Repository } from 'typeorm';
 import { map } from 'rxjs/operators';
-import { Place } from './entity/api/place.entity';
+import { Place } from '../entity/api/place.entity';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()

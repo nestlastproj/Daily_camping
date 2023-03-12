@@ -1,6 +1,6 @@
 import { Controller, Get, Body, Put, Query } from '@nestjs/common';
 import { PlaceService } from './place.service';
-import { PlaceDto } from './dto/place.dto';
+import { PlaceDto } from '../dto/place.dto';
 import { Cron } from '@nestjs/schedule/dist/decorators';
 
 @Controller('place')

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm/dist';
 import { Repository } from 'typeorm';
-import { Weather } from './entity/api/weather.entity';
+import { Weather } from '../entity/api/weather.entity';
 import axios from 'axios';
 import { ConfigService } from '@nestjs/config';
 

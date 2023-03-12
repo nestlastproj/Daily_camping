@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Put } from '@nestjs/common';
 import { WeatherService } from './weather.service';
-import { WeatherDto } from './dto/weather.dto';
-import { GetWeatherDto } from './dto/getweather.dto';
+import { WeatherDto } from '../dto/weather.dto';
+import { GetWeatherDto } from '../dto/getweather.dto';
 import { Cron } from '@nestjs/schedule/dist/decorators';
 
 @Controller('weather')

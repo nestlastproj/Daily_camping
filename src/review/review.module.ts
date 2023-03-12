@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { MulterModule } from '@nestjs/platform-express';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { NestjsFormDataModule } from 'nestjs-form-data';
-import { Review } from './entity/review.entity';
-import { multerOptionsFactory } from './multer/upload.multer';
+import { Review } from '../entity/review.entity';
+import { multerOptionsFactory } from '../multer/upload.multer';
 import { ReviewController } from './review.controller';
 import { ReviewService } from './review.service';
 

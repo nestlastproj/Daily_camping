@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Put, Query } from '@nestjs/common';
-import { ProductDto } from './dto/product.dto';
+import { ProductDto } from '../dto/product.dto';
 import { Cron } from '@nestjs/schedule/dist/decorators';
 import { ProductService } from './product.service';
 

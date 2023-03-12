@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ReviewDto } from './dto/review.dto';
-import { Review } from './entity/review.entity';
+import { ReviewDto } from '../dto/review.dto';
+import { Review } from '../entity/review.entity';
 
 @Injectable()
 export class ReviewService {

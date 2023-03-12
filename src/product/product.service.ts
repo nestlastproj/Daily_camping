@@ -3,7 +3,7 @@ import axios from 'axios';
 import { parseStringPromise } from 'xml2js';
 import * as iconv from 'iconv-lite';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Product } from './entity/api/product.entity';
+import { Product } from '../entity/api/product.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()

@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ReviewDto } from './dto/review.dto';
+import { ReviewDto } from '../dto/review.dto';
 import { ReviewService } from './review.service';
 
 @Controller('review')
