@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../entity/user.entity';
 import * as bcrypt from 'bcryptjs';
+import { UpdateUserDto } from 'src/auth/dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -14,6 +15,13 @@ export class UserService {
 
   findOne(id: number): Promise<User> {
     return this.userRepository.findOneBy({ id });
+  }
+
+  async editprofile(id: number, updateUserDto: UpdateUserDto) {
+    if (updateUserDto.nickname) {
+      throw new Error('이미 존재하는 닉네임입니다.');
+    }
+    await this.userRepository.update(id, updateUserDto);
   }
 
   async remove(id: number): Promise<void> {
@@ -29,12 +37,19 @@ export class UserService {
     }
   }
 
-  async getById(id: number) {
-    const user = await this.userRepository.findOneBy({ id });
+  async getById(id: number, nickname: string) {
+    const user = await this.userRepository.findOne({
+      where: { id, nickname },
+      select: ['id', 'nickname', 'currentHashedRefreshToken'],
+    });
     if (user) {
       return user;
     }
     throw new UnauthorizedException();
+  }
+
+  async getinfo(id: number): Promise<User> {
+    return await this.userRepository.findOne({ where: { id } });
   }
 
   async verifyPassword(plainTextPassword: string, hashedPassword: string) {
@@ -51,11 +66,9 @@ export class UserService {
   }
 
   // 유저의 고유 번호를 이용하여 데이터를 조회하고 Refresh Token이 유효한지 확인
-  async getUserIfRefreshTokenMatches(refreshToken: string, id: number) {
-    const user = await this.getById(id);
-
+  async getUserIfRefreshTokenMatches(refreshToken: string, id: number, nickname: string) {
+    const user = await this.getById(id, nickname);
     const isRefreshTokenMatching = await bcrypt.compare(refreshToken, user.currentHashedRefreshToken);
-
     if (isRefreshTokenMatching) {
       return user;
     }

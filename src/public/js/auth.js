@@ -12,14 +12,12 @@ function login() {
                 email,
                 password,
             },
-            success: function (response) {
+            success: function (success) {
                 alert(`로그인 성공, 환영합니다 ${email}님`);
-                // token = response.token;
-                location.href = 'http://localhost:3000';
+                location.href = '/';
             },
             error: function (error) {
-                alert('로그인 실패..............');
-                console.log('에러이유:', error);
+                alert('로그인 실패');
             },
         });
     }
@@ -36,7 +34,7 @@ function signup() {
     if (!name || !email || !password || !phone || !nickname) {
         alert("빈칸 없이 채워주세요.");
     } if (email.search(re_email) === -1) {
-        alert('ID의 형식이 일치하지 않습니다');
+        alert('email 형식이 일치하지 않습니다');
     } else {
         $.ajax({
             type: "post",
@@ -50,11 +48,10 @@ function signup() {
             },
             success: function (response) {
                 alert(`${email}님 회원가입이 완료되었습니다`);
-                // location.href = "/auth/login";
+                location.href = "/auth/login";
             },
             error: function (error) {
                 alert("회원가입 실패");
-                console.log("에러이유:", error);
             },
         });
     }
@@ -66,7 +63,7 @@ function logout() {
         url: "/auth/logout",
         data: {},
         success: function (response) {
-            // location.href = "http://localhost:3000";
+            location.href = "http://localhost:3000";
         },
         error: function (error) {
             console.log("에러이유:", error);

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원 수정 페이지</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+</head>
+
+<body>
+    <div class="container" id="<%= id %>">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex">
+                            <div class="align-self-center flex-grow-1">회원 정보 수정</div>
+                        </div>
+                    </div>
+                    <!-- main product data -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src="https://via.placeholder.com/250" class="img-thumbnail img-fluid">
+                            </div>
+                            <div class="inputfield">
+                                <input type="file" id="img" name="img" class="input" />
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">이메일</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id='email' class="form-control-plaintext">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">이름</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id='name' class="form-control-plaintext">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="name" class="col-sm-3 col-form-label">닉네임</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" id="nickname">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="manufacturer_id" class="col-sm-3 col-form-label">전화번호</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" id="phone">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inputinfo"></div>
+                    <!-- /main product data -->
+                    <div class="align-self-center text-right">
+                        <button onclick="location.href='/'" class="btn btn-danger">취소</button>
+                        <button onclick="updateprofile()" class="btn btn-primary">저장</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../js/edit_profile.js"></script>
+
+</html>

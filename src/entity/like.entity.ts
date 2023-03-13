@@ -18,7 +18,7 @@ export class Like extends BaseEntity {
   id: number;
 
   @Column()
-  relationId: string;
+  relationId: number;
 
   @CreateDateColumn()
   createdAt: Date;

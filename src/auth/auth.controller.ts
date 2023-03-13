@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Render, Req, Res, UseGuards, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Req, Res, UseGuards, ValidationPipe } from '@nestjs/common';
 import { Response } from 'express';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
@@ -6,14 +6,47 @@ import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { UserService } from 'src/user/user.service';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService, private readonly userService: UserService) {}
 
+  @Get('/mypage')
+  @UseGuards(JwtAuthGuard)
+  getmypage(@Req() req, @Res() res: Response) {
+    const { id, nickname } = req.user;
+    return res.render('mypage.ejs', { id, nickname });
+  }
+
+  @Get('/mypage/:id')
+  async getinfo(@Param('id') id: number) {
+    return await this.userService.getinfo(id);
+  }
+
+  @Get('/mypageedit')
+  @UseGuards(JwtAuthGuard)
+  editpage(@Req() req, @Res() res: Response) {
+    const id = req.user.id;
+    return res.render('edit_profile.ejs', { id });
+  }
+
+  @Put('/edit/:id')
+  async editprofile(@Param() id: number, @Body() data: UpdateUserDto) {
+    return await this.userService.editprofile(id, data);
+  }
+
   @Post('/signup')
   signUp(@Body(ValidationPipe) createUserDto: CreateUserDto): Promise<void> {
     return this.authService.signup(createUserDto);
+  }
+
+  @Get('chat')
+  @UseGuards(JwtAuthGuard)
+  getChat(@Req() req, @Res() res: Response) {
+    const nickname = req.user.nickname;
+    return res.render('chat.ejs', { nickname });
   }
 
   @Get('login')
@@ -26,8 +59,8 @@ export class AuthController {
   async login(@Body(ValidationPipe) loginUserDto: LoginUserDto, @Req() req, @Res({ passthrough: true }) res: Response) {
     // const user = await this.authService.login(loginUserDto);
     const user = req.user;
-    const { accessToken, ...accessOption } = this.authService.getCookieWithJwtAccessToken(user.id);
-    const { refreshToken, ...refreshOption } = this.authService.getCookieWithJwtRefreshToken(user.id);
+    const { accessToken, ...accessOption } = this.authService.getCookieWithJwtAccessToken(user.id, user.nickname);
+    const { refreshToken, ...refreshOption } = this.authService.getCookieWithJwtRefreshToken(user.id, user.nickname);
 
     await this.userService.setCurrentRefreshToken(refreshToken, user.id);
 
@@ -52,7 +85,7 @@ export class AuthController {
   @Get('refresh')
   refresh(@Req() req, @Res({ passthrough: true }) res: Response) {
     const user = req.user;
-    const { accessToken, ...accessOption } = this.authService.getCookieWithJwtAccessToken(user.id);
+    const { accessToken, ...accessOption } = this.authService.getCookieWithJwtAccessToken(user.id, user.nickname);
     res.cookie('Authentication', accessToken, accessOption);
     return user;
   }

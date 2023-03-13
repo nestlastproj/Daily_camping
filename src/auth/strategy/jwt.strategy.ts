@@ -13,7 +13,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
       // JWT 추출 방법을 제공
       jwtFromRequest: ExtractJwt.fromExtractors([
         (request) => {
-          return request?.cookies?.Authorization;
+          return request?.cookies?.Authentication;
         },
       ]),
       ignoreExpiration: true, // 토큰이 만료되더라도 바로 strategy 단에서 에러로 리턴하지 않도록 설정
@@ -22,6 +22,6 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
 
   // 인증 성공 후
   async validate(payload) {
-    return this.userService.getById(payload.id);
+    return this.userService.getById(payload.id, payload.nickname);
   }
 }

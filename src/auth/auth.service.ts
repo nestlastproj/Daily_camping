@@ -23,10 +23,6 @@ export class AuthService {
     try {
       const user = await this.userService.getByEmail(email);
       await this.userService.verifyPassword(plainTextPassword, user.password);
-      //   const passwordMatch = await bcrypt.compare(password, user.password);
-      //   if(!passwordMatch) {
-      //      throw new UnauthorizedException('비밀번호가 일치하지 않습니다.')
-      //   }
       return user;
     } catch (error) {
       throw new UnauthorizedException();
@@ -41,6 +37,10 @@ export class AuthService {
     const hashedPassword = await bcrypt.hash(password, salt);
     const user = await this.userRepository.create({ email, name, password: hashedPassword, phone, nickname });
 
+    if (email) {
+      throw new Error('이미 존재하는 이메일입니다!');
+    }
+
     try {
       await this.userRepository.save(user);
     } catch (error) {
@@ -53,8 +53,8 @@ export class AuthService {
   }
 
   // Access Token 발급
-  getCookieWithJwtAccessToken(id: number) {
-    const payload = { id };
+  getCookieWithJwtAccessToken(id: number, nickname: string) {
+    const payload = { id, nickname };
     const token = this.jwtService.sign(payload, {
       secret: this.configService.get('JWT_ACCESS_TOKEN_SECRET'),
       expiresIn: `${this.configService.get('JWT_ACCESS_TOKEN_EXPIRATION_TIME')}`,
@@ -70,8 +70,8 @@ export class AuthService {
   }
 
   // Refresh Token 발급
-  getCookieWithJwtRefreshToken(id: number) {
-    const payload = { id };
+  getCookieWithJwtRefreshToken(id: number, nickname: string) {
+    const payload = { id, nickname };
     const token = this.jwtService.sign(payload, {
       secret: this.configService.get('JWT_REFRESH_TOKEN_SECRET'),
       expiresIn: `${this.configService.get('JWT_REFRESH_TOKEN_EXPIRATION_TIME')}`,
