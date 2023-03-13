@@ -8,8 +8,8 @@ body {
 
 nav {
   display: flex;
-  justify-content: space-around;
   align-items: center;
+  flex-wrap: nowrap;
 }
 
 .logo img {
@@ -33,11 +33,11 @@ nav {
   margin: 30px auto auto auto;
 }
 
-ul {
+.nav ul {
   list-style-type: none;
 }
 
-li a {
+.nav li a {
   padding: 20px;
   float: left;
   width: 225px;
@@ -47,31 +47,31 @@ li a {
   text-decoration: none;
 }
 
-li a:hover .circle {
+.nav li a:hover .circle {
   position: relative;
   z-index: 1;
   top: -60px;
-  width: 80px;
-  height: 80px;
+  width: 120px;
+  height: 120px;
   border-radius: 100%;
   animation: illuminate 2s ease-out infinite;
   background: #fdc6be;
 }
 
-li i {
+.nav li i {
   height: 50px;
 }
 
-li a:hover i {
+.nav li a:hover i {
   transform: translateY(-10px);
   transform: translateX(-10px);
 }
 
-li a .title {
+.nav li a .title {
   font-size: 0px;
 }
 
-li a:hover .title {
+.nav li a:hover .title {
   transform: translateY(20px);
   transform: translateX(-10px);
   font-size: 20px;
@@ -79,7 +79,7 @@ li a:hover .title {
   /* color: #fff; */
 }
 
-li a.title:hover {
+.nav li a.title:hover {
   transform: translateY(-20px);
 }
 
