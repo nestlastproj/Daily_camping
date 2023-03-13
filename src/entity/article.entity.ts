@@ -23,7 +23,7 @@ export class Article extends BaseEntity {
   @Column()
   content: string;
 
-  @Column()
+  @Column({ nullable: true })
   image: string;
 
   @CreateDateColumn()

@@ -14,6 +14,7 @@ import { Like } from './like.entity';
 import { Comment } from './comment.entity';
 import { Review } from './review.entity';
 import { Place } from './api/place.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class User extends BaseEntity {
@@ -27,7 +28,7 @@ export class User extends BaseEntity {
   @Column('varchar', { length: 10 })
   name: string;
 
-  @Column('varchar', { length: 10, select: false })
+  @Column('varchar')
   password: string;
 
   @Column()
@@ -37,10 +38,10 @@ export class User extends BaseEntity {
   @Column()
   nickname: string;
 
-  @Column()
+  @Column({ default: false })
   admin: boolean;
 
-  @Column()
+  @Column({ default: 'asd' })
   image: string;
 
   @CreateDateColumn()
@@ -66,4 +67,8 @@ export class User extends BaseEntity {
 
   @OneToMany((type) => Place, (place) => place.user, { eager: true })
   place: Place[];
+
+  @Column({ nullable: true })
+  @Exclude()
+  currentHashedRefreshToken?: string;
 }

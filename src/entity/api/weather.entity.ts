@@ -5,10 +5,10 @@ export class Weather extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   id: number;
 
-  @Column()
+  @Column({ nullable: true })
   min_temperature: number;
 
-  @Column()
+  @Column({ nullable: true })
   max_temperature: number;
 
   @Column()

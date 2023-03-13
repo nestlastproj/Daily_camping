@@ -6,6 +6,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { JwtConfigService } from './config/jwt.config.service';
 import { TypeOrmConfigService } from './config/typeorm.config.service';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
+// import { ChatModule } from './chat/chat.module';
+import { ArticleModule } from './article/article.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
   imports: [
@@ -20,6 +25,11 @@ import { TypeOrmConfigService } from './config/typeorm.config.service';
       useClass: JwtConfigService,
       inject: [ConfigService],
     }),
+    UserModule,
+    AuthModule,
+    // ChatModule,
+    ArticleModule,
+    CommentModule,
   ],
   controllers: [AppController],
   providers: [AppService],
