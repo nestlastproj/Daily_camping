@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Place } from './api/place.entity';
 import { User } from './user.entity';
 
 @Entity()
@@ -24,6 +25,9 @@ export class Review extends BaseEntity {
   @Column({ default: null })
   image: string;
 
+  @Column()
+  placeId: number;
+
   @CreateDateColumn()
   createdAt: Date;
 
@@ -35,4 +39,7 @@ export class Review extends BaseEntity {
 
   @ManyToOne((type) => User, (user) => user.reviews, { eager: false })
   user: User;
+
+  @ManyToOne((type) => Place, (place) => place.review, { eager: false })
+  place: Place;
 }

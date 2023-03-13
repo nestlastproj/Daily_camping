@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseInterceptors, UploadedFile, UseGuards, Req } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { ReviewDto } from '../dto/review.dto';
 import { ReviewService } from './review.service';
 
@@ -17,22 +18,28 @@ export class ReviewController {
     return this.reviewservice.getReviews(reviewId);
   }
 
-  @Post('review/:userId')
+  @Post('review/:id')
+  @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('file'))
-  createReview(@Param('userId') userId: number, @Body() data: ReviewDto, @UploadedFile() file: Express.Multer.File) {
-    console.log(file, 'controller111111111111111111');
-    const filee = this.reviewservice.createReview(userId, data, file);
-    return filee;
+  createReview(@Req() req, @Param('id') placeId:number @Body() data: ReviewDto, @UploadedFile() file: Express.Multer.File) {
+    return this.reviewservice.createReview(req, placeId, data, file);
   }
 
   @Put('review/:reviewId')
+  @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('file'))
-  updateReview(@Param('reviewId') reviewId: number, @Body() data: ReviewDto, @UploadedFile() file: Express.Multer.File) {
-    return this.reviewservice.updateReview(reviewId, data, file);
+  updateReview(
+    @Req() req,
+    @Param('reviewId') reviewId: number,
+    @Body() data: ReviewDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.reviewservice.updateReview(req, reviewId, data, file);
   }
 
   @Delete('review/:reviewId')
-  deleteRewiew(@Param('reviewId') reviewId: number) {
-    return this.reviewservice.deleteReview(reviewId);
+  @UseGuards(JwtAuthGuard)
+  deleteRewiew(@Req() req, @Param('reviewId') reviewId: number) {
+    return this.reviewservice.deleteReview(req, reviewId);
   }
 }

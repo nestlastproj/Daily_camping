@@ -1,7 +1,6 @@
-import { Body, Controller, Get, Put, Query } from '@nestjs/common';
-import { ProductDto } from '../dto/product.dto';
-import { Cron } from '@nestjs/schedule/dist/decorators';
+import { Controller, Get, Query } from '@nestjs/common';
 import { ProductService } from './product.service';
+import { Cron } from '@nestjs/schedule/dist/decorators';
 
 @Controller('product')
 export class ProductController {

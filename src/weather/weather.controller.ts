@@ -1,8 +1,6 @@
-import { Body, Controller, Get, Put } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { WeatherService } from './weather.service';
-import { WeatherDto } from '../dto/weather.dto';
-import { GetWeatherDto } from '../dto/getweather.dto';
-import { Cron } from '@nestjs/schedule/dist/decorators';
+import { Cron } from '@nestjs/schedule';
 
 @Controller('weather')
 export class WeatherController {

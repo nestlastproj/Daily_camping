@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
-import { Cron } from '@nestjs/schedule';
 import { RecipeService } from './recipe.service';
+import { Cron } from '@nestjs/schedule';
 
 @Controller('recipe')
 export class RecipeController {
