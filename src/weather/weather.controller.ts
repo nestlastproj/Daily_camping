@@ -16,23 +16,7 @@ export class WeatherController {
   }
   // DB에 저장된 날씨 정보 조회
   @Get()
-  findAllWeather(getWeatherDto: GetWeatherDto) {
+  findAllWeather() {
     return this.weatherService.findAllWeather();
   }
-
-  @Put()
-  updateWeather(@Body() weatherData: WeatherDto) {
-    return this.weatherService.updateWeather({
-      min_temperature: weatherData.min_temperature,
-      max_temperature: weatherData.max_temperature,
-      percent: weatherData.percent,
-      date: weatherData.date,
-      weatherstate: weatherData.weatherstate,
-      type: weatherData.type,
-      address: weatherData.address,
-      wind: weatherData.wind,
-    });
-  }
-
-  // @Delete()
 }

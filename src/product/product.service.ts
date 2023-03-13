@@ -12,6 +12,8 @@ export class ProductService {
   private readonly API_URL = 'https://openapi.11st.co.kr/openapi/OpenApiService.tmall';
 
   async getProduct(query: string, page: number = 1, pageSize: number = 5000) {
+    await this.deleteProduct();
+
     const params = {
       key: process.env.ELEVENST_API_KEY,
       apiCode: 'ProductSearch',
@@ -46,14 +48,11 @@ export class ProductService {
     return saveProduct;
   }
 
-  findAllProduct() {
-    return this.productRepository.find();
+  async deleteProduct() {
+    await this.productRepository.delete({});
   }
 
-  updateProduct(name, price, image, url) {
-    const product = { name, price, image, url };
-    this.productRepository.save(product);
-
-    return product;
+  findAllProduct() {
+    return this.productRepository.find();
   }
 }

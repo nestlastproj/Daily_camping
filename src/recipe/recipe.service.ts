@@ -75,12 +75,7 @@ export class RecipeService {
         const image = $(img).attr('src');
         imageArray.push(image);
       });
-      // const img = $('div.view_step_cont').children('div.media-right');
 
-      // img.each((index, img) => {
-      //   const image = $(img).find('img').attr('src');
-      // });
-      console.log(imageArray);
       contentData.push({ content: textArray, image: imageArray });
     });
 

@@ -14,14 +14,8 @@ export class PlaceService {
     private readonly httpService: HttpService,
   ) {}
 
-  getPlace(query: string, x: string, y: string) {
-    const params = {
-      query: query,
-      x: x,
-      y: y,
-      radius: 20000,
-      category_group_code: 'AD5',
-    };
+  async getPlace(keywords: string[], x: string, y: string) {
+    await this.deletePlace();
 
     const headers = {
       Authorization: `KakaoAK ${this.configService.get('KAKAO_REST_API_KEY')}`,
@@ -29,36 +23,42 @@ export class PlaceService {
 
     const url = 'https://dapi.kakao.com/v2/local/search/keyword.json';
 
-    return this.httpService.get(url, { params, headers }).pipe(
-      map(async (response) => {
-        console.log(response.data)
-        const places = response.data.documents.map((doc) => ({
-          address: doc.address_name,
-          name: doc.place_name,
-          category: doc.category_name,
-          phone: doc.phone,
-          url: doc.place_url,
-        }));
+    const allPlaces = [];
 
-        for (const place of places) {
-          await this.placeRepository.save(place);
-        }
+    for (const keyword of keywords) {
+      const params = {
+        query: keyword,
+        x: x,
+        y: y,
+        radius: 20000,
+        category_group_code: 'AD5',
+      };
 
-        return places;
-      }),
-    );
+      const response = await this.httpService.get(url, { params, headers }).toPromise();
+      const places = response.data.documents.map((doc) => ({
+        address: doc.address_name,
+        name: doc.place_name,
+        category: doc.category_name,
+        phone: doc.phone,
+        url: doc.place_url,
+        keyword: keyword,
+      }));
+
+      for (const place of places) {
+        await this.placeRepository.save(place);
+      }
+
+      allPlaces.push(...places);
+    }
+
+    return allPlaces;
   }
 
   findAllPlace() {
     return this.placeRepository.find();
   }
 
-  updatePlace({ name, address, phone, category, url }) {
-    const place = { name, address, phone, category, url };
-    this.placeRepository.save(place);
-
-    return place;
+  async deletePlace() {
+    await this.placeRepository.delete({});
   }
-
-  deletePlace() {}
 }

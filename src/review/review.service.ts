@@ -6,7 +6,7 @@ import { Review } from '../entity/review.entity';
 
 @Injectable()
 export class ReviewService {
-  constructor(@InjectRepository(Review) private reviewRepository: Repository<Review>) {}
+  constructor(@InjectRepository(Review) private readonly reviewRepository: Repository<Review>) {}
 
   getReviewList() {
     return this.reviewRepository.find();
