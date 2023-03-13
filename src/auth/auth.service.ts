@@ -35,7 +35,14 @@ export class AuthService {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
     const user = await this.userRepository.create({ email, name, password: hashedPassword, phone, nickname });
-
+    const existedemail = await this.userRepository.findOneBy({ email });
+    if (existedemail) {
+      throw new Error('이미 존재하는 이메일입니다.');
+    }
+    const existednickname = await this.userRepository.findOneBy({ nickname });
+    if (existednickname) {
+      throw new Error('이미 존재하는 닉네임입니다.');
+    }
     try {
       await this.userRepository.save(user);
     } catch (error) {
