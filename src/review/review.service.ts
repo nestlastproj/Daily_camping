@@ -18,11 +18,11 @@ export class ReviewService {
     });
   }
 
-  createReview(req, data: ReviewDto, placeId, file?: Express.Multer.File) {
+  createReview(req, placeId: number, data: ReviewDto, file?: Express.Multer.File) {
     const userId = req.user.id;
     return this.reviewRepository.insert({
       user: { id: userId },
-      placeId: placeId,
+      places: { id: placeId },
       title: data.title,
       content: data.content,
       image: file.filename,

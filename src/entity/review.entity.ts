@@ -25,7 +25,7 @@ export class Review extends BaseEntity {
   @Column({ default: null })
   image: string;
 
-  @Column()
+  @Column({ default: null })
   placeId: number;
 
   @CreateDateColumn()
@@ -41,5 +41,5 @@ export class Review extends BaseEntity {
   user: User;
 
   @ManyToOne((type) => Place, (place) => place.review, { eager: false })
-  place: Place;
+  places: Place;
 }

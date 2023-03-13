@@ -7,7 +7,7 @@ export class RecipeController {
   constructor(private readonly recipeService: RecipeService) {}
 
   // @Cron('* * * 9 * *')
-  @Get('/')
+  @Get('recipeget')
   getRecipe() {
     return this.recipeService.getRecipe();
   }

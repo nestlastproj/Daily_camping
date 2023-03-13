@@ -13,15 +13,20 @@ export class ReviewController {
     return this.reviewservice.getReviewList();
   }
 
-  @Get('reviews/:id')
-  getReviews(@Param('id') reviewId: number) {
+  @Get('reviews/:reviewId')
+  getReviews(@Param('reviewId') reviewId: number) {
     return this.reviewservice.getReviews(reviewId);
   }
 
-  @Post('review/:id')
+  @Post('review/:placeId')
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('file'))
-  createReview(@Req() req, @Param('id') placeId:number @Body() data: ReviewDto, @UploadedFile() file: Express.Multer.File) {
+  createReview(
+    @Req() req,
+    @Param('placeId') placeId: number,
+    @Body() data: ReviewDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
     return this.reviewservice.createReview(req, placeId, data, file);
   }
 

@@ -31,6 +31,6 @@ export class Place extends BaseEntity {
   @ManyToOne((type) => User, (user) => user.place, { eager: false })
   user: User;
 
-  @ManyToOne((type) => Review, (review) => review.place, { eager: false })
+  @ManyToOne((type) => Review, (review) => review.places, { eager: false })
   review: Review;
 }
