@@ -50,11 +50,6 @@ export class AuthController {
     return await this.userService.editprofile(id, data);
   }
 
-  // @Delete('/logoff/:id')
-  // async deleteuser(@Param() id: number) {
-
-  // }
-
   @Post('/signup')
   signUp(@Body(ValidationPipe) createUserDto: CreateUserDto): Promise<void> {
     return this.authService.signup(createUserDto);
