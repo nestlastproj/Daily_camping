@@ -25,7 +25,7 @@ export class ArticleController {
     return await this.articleService.updateArticle(req, articleId, data);
   }
 
-  @Delete('/:articleId')
+  @Delete('/delete/:articleId')
   @UseGuards(JwtAuthGuard)
   async deleteArticle(@Req() req, @Param('articleId') articleId: number) {
     return await this.articleService.deleteArticle(req, articleId);

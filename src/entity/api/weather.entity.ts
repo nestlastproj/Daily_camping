@@ -5,23 +5,29 @@ export class Weather extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   id: number;
 
-  @Column({ nullable: true })
-  min_temperature: number;
+  @Column({ default: null })
+  min_temperature: string;
 
-  @Column({ nullable: true })
-  max_temperature: number;
-
-  @Column()
-  precipitation: number;
+  @Column({ default: null })
+  max_temperature: string;
 
   @Column()
-  date: Date;
+  percent: number;
 
   @Column()
-  state: string;
+  date: string;
+
+  @Column()
+  weatherstate: string;
+
+  @Column()
+  type: number;
 
   @Column()
   address: string;
+
+  @Column()
+  wind: string;
 
   @CreateDateColumn()
   createdAt: Date;

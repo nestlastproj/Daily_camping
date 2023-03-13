@@ -1,7 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Req, Res, UseGuards, ValidationPipe } from '@nestjs/common';
 import { Response } from 'express';
 import { CreateUserDto } from './dto/create-user.dto';
-import { LoginUserDto } from './dto/login-user.dto';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { UserService } from 'src/user/user.service';
@@ -63,7 +62,7 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('/login')
-  async login(@Body(ValidationPipe) @Req() req, @Res({ passthrough: true }) res: Response) {
+  async login(@Req() req, @Res({ passthrough: true }) res: Response) {
     const user = req.user;
     const { accessToken, ...accessOption } = this.authService.getCookieWithJwtAccessToken(user.id, user.nickname);
     const { refreshToken, ...refreshOption } = this.authService.getCookieWithJwtRefreshToken(user.id, user.nickname);

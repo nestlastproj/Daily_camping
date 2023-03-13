@@ -20,7 +20,7 @@ export class LikeService {
 
   async getarticlelike(req, articleId: number) {
     const userId = req.user.id;
-    const article = await this.articleRepository.findOne({ where: { id: articleId } });
+    const article = await this.articleRepository.find({ where: { id: articleId } });
     if (!article) {
       throw new Error('존재하지 않는 게시물입니다.');
     }
@@ -34,7 +34,7 @@ export class LikeService {
 
   async getcommentlike(req, commentId: number) {
     const userId = req.user.id;
-    const comment = await this.commentRepository.findOne({ where: { id: commentId } });
+    const comment = await this.commentRepository.find({ where: { id: commentId } });
     if (!comment) {
       throw new Error('존재하지 않는 댓글입니다.');
     }
