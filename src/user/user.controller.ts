@@ -17,7 +17,7 @@ export class UserController {
     return this.userService.findOne(id);
   }
 
-  @Delete('/:id')
+  @Delete('/logoff/:id')
   async remove(@Param() id: number): Promise<void> {
     await this.userService.remove(id);
   }
