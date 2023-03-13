@@ -1,4 +1,6 @@
+import { Cipher } from 'crypto';
 import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Review } from '../review.entity';
 import { User } from '../user.entity';
 @Entity()
 export class Place extends BaseEntity {
@@ -28,4 +30,7 @@ export class Place extends BaseEntity {
 
   @ManyToOne((type) => User, (user) => user.place, { eager: false })
   user: User;
+
+  @ManyToOne((type) => Review, (review) => review.places, { eager: false })
+  review: Review;
 }
