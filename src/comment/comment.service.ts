@@ -13,9 +13,7 @@ export class CommentService {
   ) {}
 
   async getAllComment(articleId: number) {
-    return await this.commentRepository.find({
-      where: { articles: { id: articleId }, deletedAt: null },
-    });
+    return await this.commentRepository.find({ where: { articles: { id: articleId }, deletedAt: null } });
   }
 
   async createComment(req, articleId: number, data: CreateCommentDto) {
@@ -25,10 +23,9 @@ export class CommentService {
 
   async updateComment(req, articleId: number, commentId: number, data: UpdateCommentDto) {
     const id = req.user.id;
-    return await this.commentRepository.update(id, {
+    return await this.commentRepository.update(commentId, {
       user: { id: id },
       articles: { id: articleId },
-      id: commentId,
       content: data.content,
     });
   }

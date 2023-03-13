@@ -38,6 +38,6 @@ export class Article extends BaseEntity {
   @ManyToOne((type) => User, (user) => user.articles, { eager: false })
   user: User;
 
-  @OneToMany((type) => Comment, (comment) => comment.articles, { eager: true })
+  @ManyToOne((type) => Comment, (comment) => comment.articles, { eager: true })
   comments: Comment;
 }

@@ -5,7 +5,6 @@ import { Repository } from 'typeorm';
 import { CreateUserDto } from '../auth/dto/create-user.dto';
 import { User } from '../entity/user.entity';
 import * as bcrypt from 'bcryptjs';
-// import { LoginUserDto } from '../auth/dto/login-user.dto';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from 'src/user/user.service';
 
@@ -30,16 +29,12 @@ export class AuthService {
   }
 
   // 회원가입
-  async signup(createUserDto: CreateUserDto): Promise<void> {
+  async signup(createUserDto: CreateUserDto) {
     const { email, name, password, phone, nickname } = createUserDto;
 
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
     const user = await this.userRepository.create({ email, name, password: hashedPassword, phone, nickname });
-
-    if (email) {
-      throw new Error('이미 존재하는 이메일입니다!');
-    }
 
     try {
       await this.userRepository.save(user);
@@ -47,6 +42,7 @@ export class AuthService {
       if (error.code === '23505') {
         throw new ConflictException('이미 존재하는 회원입니다.');
       } else {
+        console.log(error);
         throw new InternalServerErrorException();
       }
     }
