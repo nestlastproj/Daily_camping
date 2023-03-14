@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Query, Render } from '@nestjs/common';
 import { PlaceService } from './place.service';
 import { Cron } from '@nestjs/schedule/dist/decorators';
 
@@ -12,8 +12,12 @@ export class PlaceController {
     return this.placeService.getPlace(['캠핑장', '실내 캠핑', '오토 캠핑', '글램핑', '카라반'], '0', '0');
   }
 
-  @Get('place')
-  findAllPlace() {
-    return this.placeService.findAllPlace();
+  @Get('/place')
+  findAllPlace(@Query('page') page: number = 1) {
+    return this.placeService.paginate(page);
   }
+
+  @Get('/placeList')
+  @Render('place')
+  placeList() {}
 }
