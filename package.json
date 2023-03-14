@@ -51,6 +51,7 @@
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "reflect-metadata": "^0.1.13",
+    "request": "^2.88.2",
     "rxjs": "^7.2.0",
     "typeorm": "^0.3.0",
     "xml2js": "^0.4.23"

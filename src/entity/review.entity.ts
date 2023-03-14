@@ -25,9 +25,6 @@ export class Review extends BaseEntity {
   @Column({ default: null })
   image: string;
 
-  @Column({ default: null })
-  placeId: number;
-
   @CreateDateColumn()
   createdAt: Date;
 

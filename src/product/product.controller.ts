@@ -14,8 +14,8 @@ export class ProductController {
   }
 
   @Get('/product')
-  async findAllProduct() {
-    return this.productService.findAllProduct();
+  async findAllProduct(@Query('page') page: number = 1) {
+    return this.productService.paginate(page);
   }
 
   @Get('/productList')

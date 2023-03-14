@@ -1,14 +1,18 @@
 $(document).ready(function () {
-  placeApidata();
+  const page = new URLSearchParams(location.search).get('page') || 1;
+  placeApidata(page);
 });
 
-function placeApidata() {
+function placeApidata(page) {
   axios({
-    url: '/place/place',
+    url: `/place/place?page=${page}`,
     method: 'GET',
   })
     .then((res) => {
-      res.data.forEach((data) => {
+      const { meta, places } = res.data;
+      const { firstPage, lastPage, totalPage } = meta;
+
+      places.forEach((data) => {
         let temp_html = `
         <div class="stack">
         <div class="card">
@@ -59,10 +63,35 @@ function placeApidata() {
               marker.setMap(map);
             }
 
-            setTimeout(a, 10000);
+            setTimeout(a, 100);
           }
         });
       });
+      const pages = [];
+
+      // prev
+      if (page > 1) {
+        const prev = `<a class="page-link" href='?page=${Number(page) - 1}'>
+            <span>&laquo;</span>
+        </a>`;
+        pages.push(prev);
+      }
+
+      // pages
+      for (let i = firstPage; i <= lastPage; i++) {
+        const pagesLink = `<a "page-link" href='?page=${i}'>${i}</a>`;
+        pages.push(pagesLink);
+      }
+
+      // next
+      if (page < totalPage) {
+        const next = `<a class="page-link" href='?page=${Number(page) + 1}'>
+            <span>&raquo;</span>
+        </a>`;
+        pages.push(next);
+      }
+
+      $('.pagination').append(pages.join(''));
     })
     .catch((err) => {
       alert('캠핑장 정보 로드에 실패하였습니다.');

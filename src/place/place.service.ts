@@ -58,8 +58,30 @@ export class PlaceService {
     return allPlaces;
   }
 
-  findAllPlace() {
-    return this.placeRepository.find();
+  async paginate(page) {
+    const take = 6;
+    const [places, total] = await this.placeRepository.findAndCount({
+      take,
+      skip: (page - 1) * take,
+    });
+
+    const totalPage = Math.ceil(total / take);
+    const pageGroup = Math.ceil(page / 5);
+    let lastPage = pageGroup * 5;
+    const firstPage = lastPage - 5 + 1 <= 0 ? 1 : lastPage - 5 + 1;
+
+    if (lastPage > totalPage) {
+      lastPage = totalPage;
+    }
+
+    return {
+      places,
+      meta: {
+        firstPage,
+        lastPage,
+        totalPage,
+      },
+    };
   }
 
   async deletePlace() {

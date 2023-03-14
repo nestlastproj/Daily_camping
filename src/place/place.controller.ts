@@ -13,11 +13,11 @@ export class PlaceController {
   }
 
   @Get('/place')
-  findAllPlace() {
-    return this.placeService.findAllPlace();
+  findAllPlace(@Query('page') page: number = 1) {
+    return this.placeService.paginate(page);
   }
 
   @Get('/placeList')
-  @Render('camping')
+  @Render('place')
   placeList() {}
 }
