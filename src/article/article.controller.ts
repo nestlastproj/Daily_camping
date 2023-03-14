@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, Res, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { ArticleService } from './article.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
+import { Response } from 'express';
 
 @Controller('article')
 export class ArticleController {
@@ -11,6 +12,16 @@ export class ArticleController {
   @Get()
   getAllarticle() {
     return this.articleService.getAllarticle();
+  }
+
+  @Get('list')
+  getarticlelist(@Res() res: Response) {
+    return res.render('articlelist.ejs');
+  }
+
+  @Get('search')
+  async searchAllarticle(@Query('page') page: number = 1) {
+    return await this.articleService.paginate(page);
   }
 
   @Post()

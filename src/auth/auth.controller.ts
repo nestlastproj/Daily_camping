@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Req, Res, UseGuards, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, Res, UseGuards, ValidationPipe } from '@nestjs/common';
 import { Response } from 'express';
 import { CreateUserDto } from './dto/create-user.dto';
 import { AuthService } from './auth.service';
@@ -11,7 +11,8 @@ import { UpdateUserDto } from './dto/update-user.dto';
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService, private readonly userService: UserService) {}
-
+  // render
+  // --------------------------------------------------------------------
   @Get('/mypage')
   @UseGuards(JwtAuthGuard)
   getmypage(@Req() req, @Res() res: Response) {
@@ -19,26 +20,11 @@ export class AuthController {
     return res.render('mypage.ejs', { id, nickname });
   }
 
-  @Get('/mypage/:id')
-  async getinfo(@Param('id') id: number) {
-    return await this.userService.getinfo(id);
-  }
-
   @Get('/mypageedit')
   @UseGuards(JwtAuthGuard)
   editpage(@Req() req, @Res() res: Response) {
     const id = req.user.id;
     return res.render('edit_profile.ejs', { id });
-  }
-
-  @Put('/edit/:id')
-  async editprofile(@Param() id: number, @Body() data: UpdateUserDto) {
-    return await this.userService.editprofile(id, data);
-  }
-
-  @Post('/signup')
-  signUp(@Body(ValidationPipe) createUserDto: CreateUserDto): Promise<void> {
-    return this.authService.signup(createUserDto);
   }
 
   @Get('chat')
@@ -51,6 +37,22 @@ export class AuthController {
   @Get('login')
   getLogin(@Res() res: Response) {
     return res.render('login.ejs');
+  }
+  // --------------------------------------------------------------------
+
+  @Get('/mypage/:id')
+  async getinfo(@Param('id') id: number) {
+    return await this.userService.getinfo(id);
+  }
+
+  @Put('/edit/:id')
+  async editprofile(@Param() id: number, @Body() data: UpdateUserDto) {
+    return await this.userService.editprofile(id, data);
+  }
+
+  @Post('/signup')
+  signUp(@Body(ValidationPipe) createUserDto: CreateUserDto): Promise<void> {
+    return this.authService.signup(createUserDto);
   }
 
   @UseGuards(LocalAuthGuard)
