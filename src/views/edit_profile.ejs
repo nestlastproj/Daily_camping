@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원 수정 페이지</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
 </head>
 
 <body>
@@ -23,10 +25,11 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
-                                <img src="https://via.placeholder.com/250" class="img-thumbnail img-fluid">
+                                <img data-src="https://via.placeholder.com/250" id="image2"
+                                    class="img-thumbnail img-fluid">
                             </div>
                             <div class="inputfield">
-                                <input type="file" id="img" name="img" class="input" />
+                                <input type="file" id="image" name="file" class="input" />
                             </div>
                             <div class="col-md-8">
                                 <div class="form-group row">

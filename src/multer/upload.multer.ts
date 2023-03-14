@@ -22,7 +22,7 @@ export const multerOptionsFactory = (): MulterOptions => {
     storage: multer.diskStorage({
       destination(req, file, done) {
         // 파일을 저장할 위치를 설정합니다
-        done(null, path.join(process.cwd(), 'uploads'));
+        done(null, path.join(process.cwd(), 'src/public/uploads'));
       },
 
       filename(req, file, done) {
