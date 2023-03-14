@@ -4,16 +4,12 @@ $(document).ready(function () {
         url: '/auth/mypage/get',
     })
         .then((res) => {
-            console.log(res.data)
             let { email, name, nickname, phone, image } = res.data
             document.getElementById('email').value = `${email}`
             document.getElementById('name').value = `${name}`
             document.getElementById('nickname').value = `${nickname}`
             document.getElementById('phone').value = `${phone}`
-            const aa = document.getElementById('image2').src = `/uploads/${image}`
-            // let temp = `<img data-src="/uploads/${image}" class="img-thumbnail img-fluid">`
-            // $('#image2').append(temp)
-            console.log(aa, 'aa')
+            document.getElementById('image2').src = `/uploads/${image}`
         })
         .catch((err) => {
             console.log(err, 'err')
@@ -25,7 +21,6 @@ function updateprofile() {
     let nickname = document.getElementById('nickname').value
     let phone = document.getElementById('phone').value
     let image = document.getElementById('image').files[0];
-    console.log(image, 'image')
     const formData = new FormData();
     formData.append('email', email);
     formData.append('name', name);

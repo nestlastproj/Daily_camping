@@ -107,15 +107,4 @@ export class AuthService {
       },
     };
   }
-
-  async editprofile(req, data: UpdateUserDto, file?: Express.Multer.File) {
-    const userId = req.user.id;
-    return await this.userRepository.update(userId, {
-      name: data.name,
-      phone: data.phone,
-      nickname: data.nickname,
-      email: data.email,
-      image: file.filename,
-    });
-  }
 }

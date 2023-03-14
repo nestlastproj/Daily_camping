@@ -65,7 +65,7 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('file'))
   async editprofile(@Req() req, @Body() data: UpdateUserDto, @UploadedFile() file: Express.Multer.File) {
-    return await this.authService.editprofile(req, data, file);
+    return await this.userService.editprofile(req, data, file);
   }
 
   @Post('/signup')
