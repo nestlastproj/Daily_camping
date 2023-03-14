@@ -15,6 +15,7 @@
 
 <body>
     <h1 class="con">게시글 목록</h1>
+    <button onclick="location.href='/article/write'" class="profile-edit-btn">글쓰기</button>
     <section class="article-list table-common con">
         <table border="1">
             <thead>
@@ -28,7 +29,7 @@
             <tbody id="articlelist"></tbody>
         </table>
     </section>
-    <ul id="pagination"></ul>
+    <div class="pagination"></div>
 
     <script src="../js/articlelist.js"></script>
 </body>
