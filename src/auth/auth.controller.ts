@@ -35,7 +35,7 @@ export class AuthController {
     return res.render('mypage.ejs', { id, nickname });
   }
 
-  @Get('/mypageedit')
+  @Get('/edit')
   @UseGuards(JwtAuthGuard)
   editpage(@Req() req, @Res() res: Response) {
     const id = req.user.id;

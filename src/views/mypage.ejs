@@ -5,14 +5,37 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>회원 정보 수정</title>
+    <title>마이페이지</title>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="/../css/mypage.css" type="text/css">
 </head>
 
 <body>
     <div class="container">
         <form id="profile-header"></form>
+        <div class="profile">
+            <div class="profile-image">
+                <img src="https://via.placeholder.com/250" id="image2">
+            </div>
+
+            <div class="profile-user-settings">
+                <form id="nickname"></form>
+                <button onclick="location.href='/auth/edit'" class="profile-edit-btn">프로필 수정</button>
+            </div>
+
+            <div class="profile-stats">
+                <ul>
+                    <li><span class="profile-stat-count">게시글 </span>12</li>
+                    <li><span class="profile-stat-count">팔로잉 </span>10k</li>
+                    <li><span class="profile-stat-count">팔로워 </span>120k</li>
+                </ul>
+            </div>
+
+            <div class="profile-bio">
+                <p><span class="profile-real-name">--</p>
+            </div>
+        </div>
         <!-- End of profile section -->
 
     </div>
