@@ -7,6 +7,7 @@ import { User } from '../entity/user.entity';
 import * as bcrypt from 'bcryptjs';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from 'src/user/user.service';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -105,5 +106,16 @@ export class AuthService {
         maxAge: 0,
       },
     };
+  }
+
+  async editprofile(req, data: UpdateUserDto, file?: Express.Multer.File) {
+    const userId = req.user.id;
+    return await this.userRepository.update(userId, {
+      name: data.name,
+      phone: data.phone,
+      nickname: data.nickname,
+      email: data.email,
+      image: file.filename,
+    });
   }
 }

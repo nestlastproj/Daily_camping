@@ -55,16 +55,17 @@ export class AuthController {
   }
   // --------------------------------------------------------------------
 
-  @Get('/mypage/:id')
-  async getinfo(@Param('id') id: number) {
-    return await this.userService.getinfo(id);
+  @Get('/mypage/get')
+  @UseGuards(JwtAuthGuard)
+  async getinfo(@Req() req) {
+    return await this.userService.getinfo(req);
   }
 
   @Put('/edit')
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('file'))
   async editprofile(@Req() req, @Body() data: UpdateUserDto, @UploadedFile() file: Express.Multer.File) {
-    return await this.userService.editprofile(req, data, file);
+    return await this.authService.editprofile(req, data, file);
   }
 
   @Post('/signup')
