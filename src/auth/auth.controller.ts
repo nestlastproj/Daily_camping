@@ -1,4 +1,18 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Req, Res, UseGuards, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Req,
+  Res,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+  ValidationPipe,
+} from '@nestjs/common';
 import { Response } from 'express';
 import { CreateUserDto } from './dto/create-user.dto';
 import { AuthService } from './auth.service';
@@ -7,6 +21,7 @@ import { UserService } from 'src/user/user.service';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('auth')
 export class AuthController {
@@ -45,9 +60,11 @@ export class AuthController {
     return await this.userService.getinfo(id);
   }
 
-  @Put('/edit/:id')
-  async editprofile(@Param() id: number, @Body() data: UpdateUserDto) {
-    return await this.userService.editprofile(id, data);
+  @Put('/edit')
+  @UseGuards(JwtAuthGuard)
+  @UseInterceptors(FileInterceptor('file'))
+  async editprofile(@Req() req, @Body() data: UpdateUserDto, @UploadedFile() file: Express.Multer.File) {
+    return await this.userService.editprofile(req, data, file);
   }
 
   @Post('/signup')
