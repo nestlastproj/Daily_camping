@@ -1,12 +1,11 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-
+import { Cipher } from 'crypto';
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Review } from '../review.entity';
+import { User } from '../user.entity';
 @Entity()
 export class Place extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   id: number;
-
-  @Column()
-  price: number;
 
   @Column()
   name: string;
@@ -15,20 +14,29 @@ export class Place extends BaseEntity {
   address: string;
 
   @Column()
-  content: string;
-
-  @Column()
   phone: string;
 
   @Column()
-  category: number;
+  category: string;
 
   @Column()
-  image: string;
+  url: string;
+
+  @Column()
+  x: string;
+
+  @Column()
+  y: string;
 
   @CreateDateColumn()
   createdAt: Date;
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @ManyToOne((type) => User, (user) => user.place, { eager: false })
+  user: User;
+
+  @ManyToOne((type) => Review, (review) => review.places, { eager: false })
+  review: Review;
 }

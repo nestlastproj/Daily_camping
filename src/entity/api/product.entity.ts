@@ -9,16 +9,16 @@ export class Product extends BaseEntity {
   price: number;
 
   @Column()
+  salePrice: number;
+
+  @Column()
   name: string;
 
   @Column()
-  content: string;
-
-  @Column()
-  category: number;
-
-  @Column()
   image: string;
+
+  @Column()
+  url: string;
 
   @CreateDateColumn()
   createdAt: Date;

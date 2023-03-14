@@ -1,15 +1,24 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { Article } from './article.entity';
+import {
+  BaseEntity,
+  ChildEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  TableInheritance,
+  UpdateDateColumn,
+} from 'typeorm';
 import { User } from './user.entity';
-import { Comment } from './comment.entity';
 
 @Entity()
+@TableInheritance({ column: { type: 'varchar', name: 'relationType' } })
 export class Like extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   id: number;
 
   @Column()
-  relationType: string;
+  relationId: string;
 
   @CreateDateColumn()
   createdAt: Date;
@@ -19,10 +28,10 @@ export class Like extends BaseEntity {
 
   @ManyToOne((type) => User, (user) => user.likes, { eager: false })
   user: User;
-
-  @ManyToOne((type) => Article, (article) => article.likes_article, { eager: false })
-  relation_article: Article;
-
-  @ManyToOne((type) => Comment, (comment) => comment.likes_comment, { eager: false })
-  relation_comment: Comment;
 }
+
+@ChildEntity('article')
+export class ArticleLike extends Like {}
+
+@ChildEntity('comment')
+export class CommentLike extends Like {}

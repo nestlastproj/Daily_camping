@@ -1,3 +1,4 @@
+import { IsNumber } from 'class-validator';
 import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
@@ -5,17 +6,17 @@ export class Weather extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   id: number;
 
-  @Column()
-  min_temperature: number;
+  @Column({default: null })
+  min_temperature: string;
 
-  @Column()
-  max_temperature: number;
+  @Column({default: null })
+  max_temperature: string;
 
   @Column()
   percent: number;
 
   @Column()
-  date: number;
+  date: string;
 
   @Column()
   weatherstate: string;
@@ -27,7 +28,7 @@ export class Weather extends BaseEntity {
   address: string;
 
   @Column()
-  wind: number;
+  wind: string;
 
   @CreateDateColumn()
   createdAt: Date;
