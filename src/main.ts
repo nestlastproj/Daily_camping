@@ -9,14 +9,13 @@ import * as ejs from 'ejs';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  app.setViewEngine('ejs');
+  app.useStaticAssets(join(__dirname, '..', 'src', 'public'));
+  app.setBaseViewsDir(join(__dirname, '..', 'src', 'views'));
+  app.engine('ejs', ejs.renderFile);
   app.useGlobalPipes(new ValidationPipe());
   app.useWebSocketAdapter(new SocketIoAdapter(app));
   app.use(cookieParser());
-
-  app.useStaticAssets(join(__dirname, '..', 'src', 'public'));
-  app.setBaseViewsDir(join(__dirname, '..', 'src', 'views'));
-  app.setViewEngine('ejs');
-  app.engine('ejs', ejs.renderFile);
 
   await app.listen(3000);
 }

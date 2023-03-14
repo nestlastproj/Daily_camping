@@ -9,6 +9,9 @@ export class Product extends BaseEntity {
   price: number;
 
   @Column()
+  salePrice: number;
+
+  @Column()
   name: string;
 
   @Column()

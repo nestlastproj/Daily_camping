@@ -1,0 +1,126 @@
+@import url(nav.css);
+@import url(serch.css);
+@import url('https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;700&display=swap');
+
+.container {
+  display: flex;
+  padding: 0;
+  font-size: 0;
+  justify-content: center;
+  /* margin-right: 30px; */
+  /* min-width: 1800px; */
+}
+
+.cardBox {
+  display: inline-block;
+}
+
+.sideBar {
+  display: inline-block;
+  background-color: #ffffff;
+  font-size: 20px;
+  width: 600px;
+}
+
+.card {
+  position: relative;
+  width: 320px;
+  height: 480px;
+  background: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 50px;
+  display: inline-block;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  width: 100%;
+  height: 100%;
+  background: #379683;
+  transform: skewY(345deg);
+  transition: 0.5s;
+}
+
+.card:hover::before {
+  top: -70%;
+  transform: skewY(390deg);
+}
+
+.card::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  font-weight: 600;
+  font-size: 6em;
+  color: rgba(0, 0, 0, 0.1);
+}
+
+.card .imgBox {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+  z-index: 1;
+}
+
+.card .contentBox {
+  position: relative;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.card .contentBox h3 {
+  font-size: 18px;
+  color: black;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.card .contentBox .price {
+  font-size: 15px;
+  color: black;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.card .contentBox .buy {
+  position: relative;
+  top: 50px;
+  opacity: 0;
+  padding: 10px 30px;
+  margin-top: 15px;
+  color: #ffffff;
+  text-decoration: none;
+  background: #379683;
+  border-radius: 30px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: 0.5s;
+  font-size: 15px;
+}
+
+.card:hover .contentBox .buy {
+  top: 0;
+  opacity: 1;
+}
+
+.product {
+  height: 300px;
+  width: auto;
+}
+
+.pagination {
+  display: flex;
+  font-size: 25px;
+  justify-content: center;
+}
