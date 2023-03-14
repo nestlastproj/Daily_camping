@@ -13,24 +13,24 @@ export class ArticleService {
   ) {}
 
   async getAllarticle() {
-    // return await this.articleRepository.find({
-    //   where: { deletedAt: null },
-    //   select: ['title', 'content'],
-    //   relations: ['comments'],
-    //   order: { comments: { createdAt: 'DESC' } },
-    // });
+    return await this.articleRepository.find({
+      where: { deletedAt: null },
+      select: ['title', 'content'],
+      relations: ['comments'],
+      order: { comments: { createdAt: 'DESC' } },
+    });
 
-    return await this.articleRepository
-      .createQueryBuilder('article')
-      .select('article.title')
-      .select('article.content')
-      .leftJoinAndSelect('article.comments', 'comment')
-      .orderBy('comment.createdAt', 'DESC')
-      .getMany();
+    // return await this.articleRepository
+    //   .createQueryBuilder('article')
+    //   .select('article.title')
+    //   .select('article.content')
+    //   .leftJoinAndSelect('article.comments', 'comment')
+    //   .orderBy('comment.createdAt', 'DESC')
+    //   .getMany();
   }
 
-  async paginate(page: number = 1) {
-    const take = 5;
+  async paginate(page) {
+    const take = 6;
 
     const [articles, total] = await this.articleRepository.findAndCount({
       take, // Limit; 한 페이지에 가져올 데이터의 제한 갯수
@@ -45,7 +45,7 @@ export class ArticleService {
       meta: {
         total,
         page,
-        last_page: Math.ceil(total / take),
+        last: Math.ceil(total / take),
       },
     };
   }

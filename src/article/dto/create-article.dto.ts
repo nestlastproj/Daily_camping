@@ -8,5 +8,5 @@ export class CreateArticleDto {
   content: string;
 
   @IsString()
-  nickname: string;
+  image: string;
 }
