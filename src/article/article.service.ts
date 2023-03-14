@@ -50,29 +50,33 @@ export class ArticleService {
     };
   }
 
-  async createArticle(req, data: CreateArticleDto) {
-    const id = req.user.id;
-    return await this.articleRepository.save({ user: { id: id }, title: data.title, content: data.content });
-  }
-
-  async updateArticle(req, articleId: number, data: UpdateArticleDto) {
-    const id = req.user.id;
-    return await this.articleRepository.update(articleId, {
-      user: { id: id },
+  async createArticle(req, data: CreateArticleDto, file?: Express.Multer.File) {
+    const userId = req.user.id;
+    return await this.articleRepository.insert({
+      user: { id: userId },
       title: data.title,
       content: data.content,
+      image: file.filename,
+    });
+  }
+
+  async updateArticle(req, articleId: number, data: UpdateArticleDto, file?: Express.Multer.File) {
+    const userId = req.user.id;
+    return await this.articleRepository.update(articleId, {
+      user: { id: userId },
+      title: data.title,
+      content: data.content,
+      image: file.filename,
     });
   }
 
   async deleteArticle(req, articleId: number) {
-    const id = req.user.id;
+    const userId = req.user.id;
     const article = await this.articleRepository.findOne({ where: { id: articleId } });
     if (!article) {
       throw new Error('이미 삭제된 게시물 입니다');
     } else {
-      return await this.articleRepository.softDelete({
-        id: articleId,
-      });
+      return await this.articleRepository.softDelete({ user: { id: userId }, id: articleId });
     }
   }
 }

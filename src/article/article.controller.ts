@@ -1,9 +1,24 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, Res, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+  Req,
+  Res,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { ArticleService } from './article.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { Response } from 'express';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('article')
 export class ArticleController {
@@ -26,14 +41,21 @@ export class ArticleController {
 
   @Post()
   @UseGuards(JwtAuthGuard)
-  async createArticle(@Req() req, @Body() data: CreateArticleDto) {
-    return await this.articleService.createArticle(req, data);
+  @UseInterceptors(FileInterceptor('file'))
+  async createArticle(@Req() req, @Body() data: CreateArticleDto, @UploadedFile() file: Express.Multer.File) {
+    return await this.articleService.createArticle(req, data, file);
   }
 
   @Put('/:articleId')
   @UseGuards(JwtAuthGuard)
-  async updateArticle(@Req() req, @Param('articleId') articleId: number, @Body() data: UpdateArticleDto) {
-    return await this.articleService.updateArticle(req, articleId, data);
+  @UseInterceptors(FileInterceptor('file'))
+  async updateArticle(
+    @Req() req,
+    @Param('articleId') articleId: number,
+    @Body() data: UpdateArticleDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return await this.articleService.updateArticle(req, articleId, data, file);
   }
 
   @Delete('/delete/:articleId')
