@@ -17,18 +17,20 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://kit.fontawesome.com/fd3102c9a3.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../css/product.css" />
-    <title>product</title>
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/super-build/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/super-build/translations/es.js"></script>
+    <link rel="stylesheet" href="../css/commuWrite.css" />
+    <title>write</title>
   </head>
   <body>
     <nav>
       <div class="logo">
-        <img src="../image/logo.png">
+        <img src="image/logo-removebg-preview.png">
       </div>
       <ul class="nav">
         <li>
           <a href="" target="_blank">
-          <i class="fa-solid fa-caravan fa-3x">
+            <i class="fa-solid fa-caravan fa-3x">
               <div class="circle"></div>
             </i>
             <div class="title">캠핑장</div>
@@ -61,69 +63,28 @@
       <div class="buttons-container">
         <button class="button-arounder">로그인</button>
       </div>
-      </nav>
-    <div class="serch">
-      <label>
-      <input type="text" required>
-        <ul>
-          <li s>s</li>
-          <li e>e</li>
-          <li a>a</li>
-          <li r>r</li>
-          <li c>c</li>
-          <li h>h</li>
-        </ul>
-        <button class="serchbtn" type="submit"><i class="fa-solid fa-magnifying-glass fa-2x"></i></button>
-      </label>
-    </div>
+    </nav>
     <div class="container">
-      <div class="cardBox">
-        <div class="card">
-          <div class="imgBox">
-            <img src="" class="product">
-          </div>
-          <div class="contentBox">
-            <h3>가격</h3>
-            <h2 class="price">제품명</h2>
-            <a href="#" class="buy">Buy Now</a>
-          </div>
-        </div>
-        <div class="card">
-          <div class="imgBox">
-            <img src="" class="product">
-          </div>
-          <div class="contentBox">
-            <h3>가격</h3>
-            <h2 class="price">제품명</h2>
-            <a href="#" class="buy">Buy Now</a>
-          </div>
-        </div>
-        <div class="card">
-          <div class="imgBox">
-            <img src="" class="product">
-          </div>
-          <div class="contentBox">
-            <h3>가격</h3>
-            <h2 class="price">제품명</h2>
-            <a href="#" class="buy">Buy Now</a>
-          </div>
-        </div>
-        <div class="card">
-          <div class="imgBox">
-            <img src="" class="product">
-          </div>
-          <div class="contentBox">
-            <h3>가격</h3>
-            <h2 class="price">제품명</h2>
-            <a href="#" class="buy">Buy Now</a>
-          </div>
-        </div>
+      <div class="boardWriteWrap">
+        <form name="frm_pw" method="" action="">
+            <div class="boardWrite">
+                <div class="title">
+                    <dl>
+                        <dt>제목</dt>
+                        <dd><input type="text" name="subject" class="form-control" placeholder="제목을 입력하세요!"></dd>
+                    </dl>
+                </div>
+                <div id="container">
+                    <textarea name="contents" id="editor" class="form-control"></textarea>
+                </div>
+                <script src="../js/commuWrite.js"></script>
+            </div>
+            <div class="btWrap">
+                <button class="on"><a><input type="submit" value="저장" class="btn btn-default"></a></button>
+                <button class="off"><a href="">취소</a></button>
+            </div>
+        </form>
       </div>
-      <!-- <div class="sideBar">
-        사이드바 영역
-      </div> -->
     </div>
-    
-    <div class="pagination">페이지네이션 하는 곳</div>
   </body>
 </html>
