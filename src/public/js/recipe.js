@@ -21,20 +21,9 @@ $(document).ready(function () {
               </a>
             </div>
             <div class="common_sp_caption">
-              <div class="common_sp_caption_tit line2">요리명</div>
-              <div class="common_sp_caption_rv_name" style="display: inline-block; vertical-align: bottom">
-                <a href=""><img src="" />레시피아이디</a>
-              </div>
+              <div class="common_sp_caption_tit line2">${data.name}</div>
               <div class="common_sp_caption_rv">
-                <span class="common_sp_caption_rv_star"
-                  ><img src="https://recipe1.ezmember.co.kr/img/mobile/icon_star2_on.png" /><img
-                    src="https://recipe1.ezmember.co.kr/img/mobile/icon_star2_on.png" /><img
-                    src="https://recipe1.ezmember.co.kr/img/mobile/icon_star2_on.png" /><img
-                    src="https://recipe1.ezmember.co.kr/img/mobile/icon_star2_on.png" /><img
-                    src="https://recipe1.ezmember.co.kr/img/mobile/icon_star2_on.png"
-                /></span>
-                <span class="common_sp_caption_rv_ea">(17)</span>
-                <span class="common_sp_caption_buyer" style="vertical-align: middle">조회수 4.6만</span>
+                <span class="common_sp_caption_buyer" style="vertical-align: middle">${data.views}</span>
               </div>
             </div>
           </li>
