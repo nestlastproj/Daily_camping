@@ -12,13 +12,13 @@ export class CommentService {
     private readonly commentRepository: Repository<Comment>,
   ) {}
 
-  async paginate(req, page) {
-    const userId = req.user.id;
+  async paginate(articleId, page: number) {
     const take = 6;
     const [comments, total] = await this.commentRepository.findAndCount({
       take,
       skip: (page - 1) * take,
-      where: { user: { id: userId } },
+      where: { articles: { id: articleId } },
+      relations: ['user'],
     });
 
     // 전체 상품 수 : total

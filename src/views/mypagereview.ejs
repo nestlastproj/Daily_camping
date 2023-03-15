@@ -11,6 +11,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="/js/mypagereview.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://kit.fontawesome.com/fd3102c9a3.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../css/mypagereview.css" />
   <title>mypagereview</title>
@@ -19,7 +22,7 @@
 <body>
   <nav>
     <div class="logo">
-      <img src="image/logo-removebg-preview.png">
+      <img src="../image/logo-removebg-preview.png">
     </div>
     <ul class="nav">
       <li>
@@ -119,38 +122,8 @@
             <div class="date">작성일</div>
             <div class="count">조회</div>
           </div>
-          <div class="list" onclick="location.href=''">
-            <div class="num">번호</div>
-            <div class="title">제목</div>
-            <div class="date">작성일</div>
-            <div class="count">조회</div>
-          </div>
-          <div class="list" onclick="location.href=''">
-            <div class="num">번호</div>
-            <div class="title">제목</div>
-            <div class="date">작성일</div>
-            <div class="count">조회</div>
-          </div>
-          <div class="list" onclick="location.href=''">
-            <div class="num">번호</div>
-            <div class="title">제목</div>
-            <div class="date">작성일</div>
-            <div class="count">조회</div>
-          </div>
-          <div class="list" onclick="location.href=''">
-            <div class="num">번호</div>
-            <div class="title">제목</div>
-            <div class="date">작성일</div>
-            <div class="count">조회</div>
-          </div>
-          <div class="list" onclick="location.href=''">
-            <div class="num">번호</div>
-            <div class="title">제목</div>
-            <div class="date">작성일</div>
-            <div class="count">조회</div>
-          </div>
         </div>
-        <div class="pagination">페이지네이션 하는 곳</div>
+        <div class="pagination"></div>
       </div>
     </div>
   </div>

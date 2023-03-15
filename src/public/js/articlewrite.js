@@ -1,8 +1,6 @@
 function finishwrite() {
     let title = document.getElementById('title').value
     let content = document.getElementById('content').value
-
-    console.log(document.getElementsByClassName('note-icon-picture'), '1111111')
     let image = document.getElementsByClassName('note-icon-picture').files[0];
     const formData = new FormData();
     formData.append('title', title);
