@@ -21,7 +21,7 @@ function productApiData(page) {
           <h3 style="text-decoration:line-through;color: #bbb">${data.price}원</h3>
           <h3>${data.salePrice}원</h3>
             <h2 class="price">${data.name}</h2>
-            <a href="${data.url}" class="buy">Buy Now</a>
+            <a href="${data.url}" class="buy" target='_blank'>Buy Now</a>
           </div>
         </div>
         `;

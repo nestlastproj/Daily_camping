@@ -36,9 +36,9 @@ export class WeatherService {
     ];
 
     const time = new Date();
-    const year = time.getFullYear(); // 년도
-    const month = time.getMonth() + 1; // 월
-    const day = time.getDate(); //일
+    const year = time.getFullYear();
+    const month = time.getMonth() + 1;
+    const day = time.getDate();
 
     let nowTime = year + '-' + month + '-' + day;
 
@@ -85,7 +85,7 @@ export class WeatherService {
     const weatherList = responses.flatMap((response) =>
       response.data.response.body.items.item.map((item) => ({
         numEf: item.numEf, // 발표시간기준 발효번호
-        min_temperature: item.ta, //온도
+        temperature: item.ta, //온도
         percent: item.rnSt, //강수 확률
         date: item.announceTime, //발표 날짜
         weatherstate: item.wf, //날씨
@@ -95,24 +95,75 @@ export class WeatherService {
       })),
     );
 
+    console.log(weatherList);
+
+    // 0500 의 numEf=0 (오늘오전)의ta(최저기온)은 제공하지 않음
+    // 1700 의 numEf=0 (오늘오후)의ta(최고기온)은 제공하지 않음
+
+    // // 17시부터 ~익일 5시 이전
+    // numEf = 0 // 오늘 오후
+
+    // // 5시부터 ~11시 이전
+    // numEf = 0 // 0 : 오늘오전
+    // numEf = 1 // 1 : 오늘오후
+
+    //   // 11시부터 ~ 17시 이전
+    // numEf = 0 // 0 : 오늘오후
+
     // 오늘 현재 시간 날씨
     const nowWeatherList = weatherList.filter((item) => item.numEf === 0);
 
-    let nowWeather = nowWeatherList.map((responses) => ({
-      min_temperatur: responses.min_temperature,
-      percent: responses.percent,
-      date: responses.date,
-      weatherstate: responses.weatherstate,
-      type: responses.type,
-      address: responses.address,
-      wind: responses.wind,
-    }));
+    const nowHours = time.getHours();
 
-    nowWeather.map((weather) => {
-      return this.weatherRepository.save(weather);
-    });
+    if (5 <= nowHours && nowHours < 11) {
+      let nowWeather = nowWeatherList.map((responses) => ({
+        min_temperature: responses.temperature,
+        percent: responses.percent,
+        date: responses.date,
+        weatherstate: responses.weatherstate,
+        type: responses.type,
+        address: responses.address,
+        wind: responses.wind,
+      }));
 
-    return nowWeather;
+      nowWeather.map((weather) => {
+        return this.weatherRepository.save(weather);
+      });
+
+      return nowWeather;
+    } else if (11 <= nowHours && nowHours < 17) {
+      let nowWeather = nowWeatherList.map((responses) => ({
+        max_temperature: responses.temperature,
+        percent: responses.percent,
+        date: responses.date,
+        weatherstate: responses.weatherstate,
+        type: responses.type,
+        address: responses.address,
+        wind: responses.wind,
+      }));
+
+      nowWeather.map((weather) => {
+        return this.weatherRepository.save(weather);
+      });
+
+      return nowWeather;
+    } else if (17 <= nowHours && nowHours < 22) {
+      let nowWeather = nowWeatherList.map((responses) => ({
+        max_temperature: responses.temperature,
+        percent: responses.percent,
+        date: responses.date,
+        weatherstate: responses.weatherstate,
+        type: responses.type,
+        address: responses.address,
+        wind: responses.wind,
+      }));
+
+      nowWeather.map((weather) => {
+        return this.weatherRepository.save(weather);
+      });
+
+      return nowWeather;
+    }
   }
 
   async deleteWeather() {
