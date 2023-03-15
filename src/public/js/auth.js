@@ -27,7 +27,7 @@ function login() {
             },
             success: function (success) {
                 alert(`로그인 성공, 환영합니다 ${email}님`);
-                location.href = '/';
+                location.href = '/place/placeList';
             },
             error: function (error) {
                 alert('로그인 실패');

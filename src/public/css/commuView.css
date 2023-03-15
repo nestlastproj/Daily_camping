@@ -1,0 +1,99 @@
+@import url(nav.css);
+
+.boardViewWrap {
+  margin: 20px auto;
+  width: 1000px;
+  background-color: #ffffff;
+  border: 1px solid #000;
+}
+.boardView {
+  width: 100%;
+  border-top: 2px solid #000;
+  font-size: 14px;
+}
+.boardView .title {
+  padding: 20px 15px;
+  border-bottom: 1px dashed #ddd;
+  font-size: 20px;
+}
+.boardView .info {
+  padding: 15px;
+  border-bottom: 1px solid #999;
+  font-size: 0;
+}
+.boardView .info dl {
+  position: relative;
+  display: inline-block;
+  padding: 0 20px;
+}
+.boardView .info dl:first-child {
+  padding-left: 0;
+}
+.boardView .info dl::before {
+  content: "";
+  width: 1px;
+  height: 13px;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #ddd;
+}
+.boardView .info dl:first-child:before {
+  display: none;
+}
+.boardView .info dl dt,
+.boardView .info dl dd {
+  display: inline-block;
+  font-size: 14px;
+}
+
+.boardView .info dl dd {
+  margin-left: 10px;
+  color: #777;
+}
+
+.boardView .cont {
+  padding: 15px;
+  border-bottom: 1px solid #000;
+  line-height: 200%;
+  font-size: 14px;
+}
+
+.btWrap {
+  margin-top: 30px;
+  font-size: 0;
+  text-align: center;
+}
+.btWrap a {
+  display: inline-block;
+  min-width: 80px;
+  margin-left: 10px;
+  padding: 10px;
+  border: 1px solid #000;
+  border-radius: 2px;
+  font-size: 14px;
+  text-decoration: none;
+}
+.btWrap a:first-child {
+  margin-left: 0;
+}
+.btWrap a.on {
+  background: #379683;
+  color: #fff;
+  cursor: pointer;
+}
+.btWrap a.off {
+  background-color: #ffffff;
+  color: #000;
+  cursor: pointer;
+}
+a {
+  text-decoration: none;
+}
+
+.comment {
+  background-color: #ffffff;
+  text-align: center;
+  font-size: 20px;
+}

@@ -12,7 +12,7 @@ import { LocalStrategy } from './strategy/local.strategy';
 import { UserModule } from 'src/user/user.module';
 import { JwtRefreshStrategy } from './strategy/jwt-refresh.strategy';
 import { MulterModule } from '@nestjs/platform-express';
-import { multerOptionsFactory } from 'src/multer/upload.multer';
+import { multerOptionsFactory } from 'src/util/upload.multer';
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),

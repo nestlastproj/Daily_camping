@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { NotFoundError } from 'rxjs';
 import { Article } from 'src/entity/article.entity';
 import { Repository } from 'typeorm';
 import { CreateArticleDto } from './dto/create-article.dto';
@@ -15,7 +16,7 @@ export class ArticleService {
   async getAllarticle() {
     return await this.articleRepository.find({
       where: { deletedAt: null },
-      select: ['title', 'content'],
+      select: ['id', 'title', 'content'],
       relations: ['comments'],
       order: { comments: { createdAt: 'DESC' } },
     });
@@ -36,18 +37,31 @@ export class ArticleService {
       take, // Limit; 한 페이지에 가져올 데이터의 제한 갯수
       skip: (page - 1) * take, // Offset; 이전의 요청 데이터 갯수 = 현재 요청이 시작되는 위치
     });
+    const totalPage = Math.ceil(total / take);
+    const pageGroup = Math.ceil(page / 5);
+    let lastPage = pageGroup * 5;
+    const firstPage = lastPage - 5 + 1 <= 0 ? 1 : lastPage - 5 + 1;
+
+    if (lastPage > totalPage) {
+      lastPage = totalPage;
+    }
 
     return {
       data: articles.map((article) => {
-        const { title, content, createdAt } = article;
-        return { title, content, createdAt };
+        const { id, title, content, createdAt } = article;
+        return { id, title, content, createdAt };
       }),
       meta: {
-        total,
-        page,
-        last: Math.ceil(total / take),
+        firstPage,
+        lastPage,
+        totalPage,
       },
     };
+  }
+
+  async getArticle(req, articleId, file?: Express.Multer.File) {
+    const userId = req.user.id;
+    return await this.articleRepository.findOne(articleId);
   }
 
   async createArticle(req, data: CreateArticleDto, file?: Express.Multer.File) {
@@ -74,9 +88,8 @@ export class ArticleService {
     const userId = req.user.id;
     const article = await this.articleRepository.findOne({ where: { id: articleId } });
     if (!article) {
-      throw new Error('이미 삭제된 게시물 입니다');
-    } else {
-      return await this.articleRepository.softDelete({ user: { id: userId }, id: articleId });
+      throw new NotFoundError('존재 하지 않는 게시물 입니다');
     }
+    return await this.articleRepository.softDelete({ user: { id: userId }, id: articleId });
   }
 }

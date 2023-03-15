@@ -24,14 +24,26 @@ import { FileInterceptor } from '@nestjs/platform-express';
 export class ArticleController {
   constructor(private articleService: ArticleService) {}
 
+  // render
+  // ------------------------------------------
+  @Get('list')
+  getarticlelist(@Res() res: Response) {
+    return res.render('commuity.ejs');
+  }
+
+  @Get('write')
+  getwritearticle(@Res() res: Response) {
+    return res.render('commuWrite.ejs');
+  }
+
+  @Get('view')
+  getviewarticle(@Res() res: Response) {
+    return res.render('commuView.ejs');
+  }
+  // ------------------------------------------
   @Get()
   getAllarticle() {
     return this.articleService.getAllarticle();
-  }
-
-  @Get('list')
-  getarticlelist(@Res() res: Response) {
-    return res.render('articlelist.ejs');
   }
 
   @Get('search')
@@ -39,7 +51,14 @@ export class ArticleController {
     return await this.articleService.paginate(page);
   }
 
-  @Post()
+  @Get('/:articleId')
+  @UseGuards(JwtAuthGuard)
+  @UseInterceptors(FileInterceptor('file'))
+  async getArticle(@Req() req, @Param('articleId') articleId: number, @UploadedFile() file: Express.Multer.File) {
+    return await this.articleService.getArticle(req, articleId, file);
+  }
+
+  @Post('go')
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('file'))
   async createArticle(@Req() req, @Body() data: CreateArticleDto, @UploadedFile() file: Express.Multer.File) {
