@@ -28,7 +28,7 @@ export class ArticleController {
   // ------------------------------------------
   @Get('list')
   getarticlelist(@Res() res: Response) {
-    return res.render('articlelist.ejs');
+    return res.render('commuity.ejs');
   }
 
   @Get('write')

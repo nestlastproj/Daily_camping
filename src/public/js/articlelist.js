@@ -15,17 +15,16 @@ function getarticlelist(page) {
             for (let i in data) {
                 count++;
                 let title = data[i].title;
-                let content = data[i].content;
                 let createdAt = data[i].createdAt;
                 let temp = `
-                <tr>
-                    <td>${count}</td>
-                    <td>${title}</td>
-                    <td>${content}</td>
-                    <td>${createdAt}</td>
-                </tr>
+                <div class="list">
+                    <div class="num">${count}</div>
+                    <div class="title">${title}</div>
+                    <div class="date">${createdAt}</div>
+                    <div class="count">조회</div>
+                </div>
                 `;
-                $('#articlelist').append(temp);
+                $('.boardList').append(temp);
             }
 
             const pages = [];
