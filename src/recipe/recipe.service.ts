@@ -10,14 +10,16 @@ export class RecipeService {
   constructor(@InjectRepository(Recipe) private readonly recipeRePository: Repository<Recipe>) {}
 
   async getRecipe() {
+    await this.deleteRecipe();
+
     const recipes = [];
 
     const getRecipes = async (page) => {
       const html = await axios.get(`https://www.10000recipe.com/recipe/list.html?q=%EC%BA%A0%ED%95%91&order=reco&page=${page}`);
       const $ = cheerio.load(html.data);
 
-      if ($('div.common_sp_caption_tit').length === 0) {
-        return;
+      if ($('a.next').length > 0) {
+        await getRecipes(page + 1);
       }
 
       $('div.common_sp_caption_tit').each((i, elem) => {
@@ -41,7 +43,7 @@ export class RecipeService {
         const index = (page - 1) * 40 + i;
 
         recipes[index].url = `https://www.10000recipe.com/${$(elem).find('a').attr('href')}`;
-        recipes[index].image = $(elem).find('img').attr('src');
+        recipes[index].image = $(elem).find('a > img').attr('src');
       });
 
       if ($('a.next').length > 0) {
@@ -91,5 +93,35 @@ export class RecipeService {
     });
 
     return this.recipeRePository.save(entities);
+  }
+
+  async deleteRecipe() {
+    await this.recipeRePository.delete({});
+  }
+
+  async paginate(page) {
+    const take = 8;
+    const [recipes, total] = await this.recipeRePository.findAndCount({
+      take,
+      skip: (page - 1) * take,
+    });
+
+    const totalPage = Math.ceil(total / take);
+    const pageGroup = Math.ceil(page / 5);
+    let lastPage = pageGroup * 5;
+    const firstPage = lastPage - 5 + 1 <= 0 ? 1 : lastPage - 5 + 1;
+
+    if (lastPage > totalPage) {
+      lastPage = totalPage;
+    }
+
+    return {
+      recipes,
+      meta: {
+        firstPage,
+        lastPage,
+        totalPage,
+      },
+    };
   }
 }

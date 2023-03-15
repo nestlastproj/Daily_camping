@@ -1,31 +1,59 @@
-const axios = require('axios');
-const cheerio = require('cheerio');
+$(document).ready(function () {
+  const page = new URLSearchParams(location.search).get('page') || 1;
+  recipeCrawling(page);
+});
 
-(async () => {
-    const recipes = []
+function recipeCrawling(page) {
+  axios({
+    url: `/recipe/recipe?page=${page}`,
+    method: 'GET',
+  }).then((res) => {
+    const { meta, recipes } = res.data;
+    const { firstPage, lastPage, totalPage } = meta;
 
-    const getRecipes = async (page) => {
-        const html = await axios.get(`https://www.10000recipe.com/recipe/list.html?q=%EC%BA%A0%ED%95%91&order=reco&page=${page}`)
-        const $ = cheerio.load(html.data)
+    recipes.forEach((data) => {
+      console.log(data.image);
+      let temp_html = `
+        <li class="common_sp_list_li">
+            <div class="common_sp_thumb">
+              <a href="" class="common_sp_link">
+                <img src="${data.image}" />
+              </a>
+            </div>
+            <div class="common_sp_caption">
+              <div class="common_sp_caption_tit line2">${data.name}</div>
+              <div class="common_sp_caption_rv">
+                <span class="common_sp_caption_buyer" style="vertical-align: middle">${data.views}</span>
+              </div>
+            </div>
+          </li>
+          `;
+      $('#recipeBox').append(temp_html);
+    });
+    const pages = [];
 
-        if($("div.common_sp_caption_tit").length ===0) {
-            return
-        }
-
-        $("div.common_sp_caption_tit").each((i, elem) => {
-            recipes.push({title: $(elem).text()})
-        })
-
-        $("div.common_sp_thumb").each((i, elem) => {
-            const index = ((page - 1) * 40) + i
-
-            recipes[index].link = `https://www.10000recipe.com/${$(elem).find("a").attr("href")}`
-            recipes[index].img = $(elem).find("img").attr("src")
-        })
-        await getRecipes(page + 1)
+    // prev
+    if (page > 1) {
+      const prev = `<a class="page-link" href='?page=${Number(page) - 1}'>
+              <span>&laquo;</span>
+          </a>`;
+      pages.push(prev);
     }
 
-    await getRecipes(1)
-    console.log(recipes)
-   
-})()
+    // pages
+    for (let i = firstPage; i <= lastPage; i++) {
+      const pagesLink = `<a "page-link" href='?page=${i}'>${i}</a>`;
+      pages.push(pagesLink);
+    }
+
+    // next
+    if (page < totalPage) {
+      const next = `<a class="page-link" href='?page=${Number(page) + 1}'>
+              <span>&raquo;</span>
+          </a>`;
+      pages.push(next);
+    }
+
+    $('.pagination').append(pages.join(''));
+  });
+}

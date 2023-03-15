@@ -36,7 +36,7 @@ function updateprofile() {
         .then((res) => {
             alert('수정 완료! 다시 로그인 해주세요!');
             console.log(res);
-            window.location.href = '/login';
+            window.location.replace(`/auth/login`);
         })
         .catch((err) => {
             console.log('error', err);

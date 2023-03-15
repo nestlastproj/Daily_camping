@@ -2,9 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { InjectRepository } from '@nestjs/typeorm/dist';
 import { Repository } from 'typeorm';
-import { map } from 'rxjs/operators';
 import { Place } from '../entity/api/place.entity';
 import { ConfigService } from '@nestjs/config';
+import axios from 'axios';
+import cheerio from 'cheerio';
 
 @Injectable()
 export class PlaceService {
@@ -35,6 +36,7 @@ export class PlaceService {
       };
 
       const response = await this.httpService.get(url, { params, headers }).toPromise();
+
       const places = response.data.documents.map((doc) => ({
         address: doc.address_name,
         name: doc.place_name,
@@ -42,6 +44,8 @@ export class PlaceService {
         phone: doc.phone,
         url: doc.place_url,
         keyword: keyword,
+        x: doc.x,
+        y: doc.y,
       }));
 
       for (const place of places) {
@@ -54,8 +58,30 @@ export class PlaceService {
     return allPlaces;
   }
 
-  findAllPlace() {
-    return this.placeRepository.find();
+  async paginate(page) {
+    const take = 6;
+    const [places, total] = await this.placeRepository.findAndCount({
+      take,
+      skip: (page - 1) * take,
+    });
+
+    const totalPage = Math.ceil(total / take);
+    const pageGroup = Math.ceil(page / 5);
+    let lastPage = pageGroup * 5;
+    const firstPage = lastPage - 5 + 1 <= 0 ? 1 : lastPage - 5 + 1;
+
+    if (lastPage > totalPage) {
+      lastPage = totalPage;
+    }
+
+    return {
+      places,
+      meta: {
+        firstPage,
+        lastPage,
+        totalPage,
+      },
+    };
   }
 
   async deletePlace() {
