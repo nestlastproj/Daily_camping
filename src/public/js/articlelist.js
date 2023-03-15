@@ -16,11 +16,23 @@ function getarticlelist(page) {
                 count++;
                 let title = data[i].title;
                 let createdAt = data[i].createdAt;
+                const createdTime = new Date(createdAt);
+                const year = createdTime.getFullYear();
+                const month = createdTime.getMonth() + 1;
+                const day = createdTime.getDate();
+                let hour = createdTime.getHours();
+                let minute = createdTime.getMinutes();
+                if (hour.toString().length === 1) {
+                    hour = '0' + hour.toString();
+                }
+                if (minute.toString().length === 1) {
+                    minute = '0' + minute.toString();
+                }
                 let temp = `
                 <div class="list">
                     <div class="num">${count}</div>
                     <div class="title">${title}</div>
-                    <div class="date">${createdAt}</div>
+                    <div class="date">${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분</div>
                     <div class="count">조회</div>
                 </div>
                 `;
