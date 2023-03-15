@@ -91,6 +91,10 @@
   font-weight: 600;
 }
 
+.list {
+  cursor: pointer;
+}
+
 .boardList .num {
   width: 10%;
 }
