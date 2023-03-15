@@ -37,7 +37,7 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   editpage(@Req() req, @Res() res: Response) {
     const id = req.user.id;
-    return res.render('edit_profile.ejs', { id });
+    return res.render('mypageeditprofile.ejs', { id });
   }
 
   @Get('chat')
@@ -51,6 +51,12 @@ export class AuthController {
   getLogin(@Res() res: Response) {
     return res.render('login.ejs');
   }
+
+  @Get('withdrawal')
+  getdelete(@Res() res: Response) {
+    return res.render('mypagewithdrawal.ejs');
+  }
+
   // --------------------------------------------------------------------
 
   @Get('/mypage/get')

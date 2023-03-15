@@ -7,6 +7,7 @@ import {
   Post,
   Put,
   Query,
+  Render,
   Req,
   Res,
   UploadedFile,
@@ -28,6 +29,12 @@ export class ArticleController {
 
   // render
   // ------------------------------------------
+
+  @Get('/mypageArticle')
+  myArticle(@Res() res: Response) {
+    return res.render('mypagearticle.ejs');
+  }
+
   @Get('list')
   getarticlelist(@Res() res: Response) {
     return res.render('commuity.ejs');
@@ -43,6 +50,13 @@ export class ArticleController {
     return res.render('commuView.ejs');
   }
   // ------------------------------------------
+
+  @Get('/myArticle')
+  @UseGuards(JwtAuthGuard)
+  async getMyArticle(@Req() req, @Query('page') page: number = 1) {
+    return this.articleService.paginates(req, page);
+  }
+
   @Get('/allarticle')
   getAllarticle() {
     return this.articleService.getAllarticle();
