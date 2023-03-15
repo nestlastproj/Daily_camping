@@ -64,39 +64,39 @@
   border-top: 2px solid #000;
 }
 
-.boardList > div {
+.boardList>div {
   font-size: 0;
 }
 
-.boardList > div.top {
+.boardList>div.top {
   border-bottom: 1px solid #999;
 }
 
-.boardList > div.list {
+.boardList>div.list {
   border-bottom: 1px solid #ddd;
 }
 
-.boardList > div:last-child {
+.boardList>div:last-child {
   border-bottom: 1px solid #000;
 }
 
-.boardList > div > div {
+.boardList>div>div {
   display: inline-block;
   padding: 15px 0;
   font-size: 14px;
   text-align: center;
 }
 
-.boardList > div.top > div {
+.boardList>div.top>div {
   font-weight: 600;
 }
 
-.boardList .num {
+.boardList .id {
   width: 10%;
 }
 
 .boardList .title {
-  width: 60%;
+  width: 50%;
   text-align: left;
 }
 
@@ -109,7 +109,7 @@
 }
 
 .boardList .date {
-  width: 10%;
+  width: 20%;
 }
 
 .boardList .count {

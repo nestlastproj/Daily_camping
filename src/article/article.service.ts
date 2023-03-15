@@ -48,8 +48,8 @@ export class ArticleService {
 
     return {
       data: articles.map((article) => {
-        const { title, content, createdAt } = article;
-        return { title, content, createdAt };
+        const { id, title, content, createdAt } = article;
+        return { id, title, content, createdAt };
       }),
       meta: {
         firstPage,
