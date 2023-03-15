@@ -4,8 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm/dist';
 import { Repository } from 'typeorm';
 import { Place } from '../entity/api/place.entity';
 import { ConfigService } from '@nestjs/config';
-import axios from 'axios';
-import cheerio from 'cheerio';
 
 @Injectable()
 export class PlaceService {

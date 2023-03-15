@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { NotFoundError } from 'rxjs';
 import { Article } from 'src/entity/article.entity';
 import { Repository } from 'typeorm';
 import { CreateArticleDto } from './dto/create-article.dto';
@@ -15,7 +16,7 @@ export class ArticleService {
   async getAllarticle() {
     return await this.articleRepository.find({
       where: { deletedAt: null },
-      select: ['title', 'content'],
+      select: ['id', 'title', 'content'],
       relations: ['comments'],
       order: { comments: { createdAt: 'DESC' } },
     });
@@ -58,6 +59,11 @@ export class ArticleService {
     };
   }
 
+  async getArticle(req, articleId, file?: Express.Multer.File) {
+    const userId = req.user.id;
+    return await this.articleRepository.findOne(articleId);
+  }
+
   async createArticle(req, data: CreateArticleDto, file?: Express.Multer.File) {
     const userId = req.user.id;
     return await this.articleRepository.insert({
@@ -82,9 +88,8 @@ export class ArticleService {
     const userId = req.user.id;
     const article = await this.articleRepository.findOne({ where: { id: articleId } });
     if (!article) {
-      throw new Error('이미 삭제된 게시물 입니다');
-    } else {
-      return await this.articleRepository.softDelete({ user: { id: userId }, id: articleId });
+      throw new NotFoundError('존재 하지 않는 게시물 입니다');
     }
+    return await this.articleRepository.softDelete({ user: { id: userId }, id: articleId });
   }
 }

@@ -16,7 +16,7 @@ function finishwrite() {
     .then((res) => {
       console.log(res);
       alert('게시 완료')
-      // location.href = '/article/list'
+      location.href = '/article/list'
     })
     .catch((err) => {
       console.log('error', err);

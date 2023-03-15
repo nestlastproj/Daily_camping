@@ -35,6 +35,11 @@ export class ArticleController {
   getwritearticle(@Res() res: Response) {
     return res.render('commuWrite.ejs');
   }
+
+  @Get('view')
+  getviewarticle(@Res() res: Response) {
+    return res.render('commuView.ejs');
+  }
   // ------------------------------------------
   @Get()
   getAllarticle() {
@@ -44,6 +49,13 @@ export class ArticleController {
   @Get('search')
   async searchAllarticle(@Query('page') page: number = 1) {
     return await this.articleService.paginate(page);
+  }
+
+  @Get('/:articleId')
+  @UseGuards(JwtAuthGuard)
+  @UseInterceptors(FileInterceptor('file'))
+  async getArticle(@Req() req, @Param('articleId') articleId: number, @UploadedFile() file: Express.Multer.File) {
+    return await this.articleService.getArticle(req, articleId, file);
   }
 
   @Post('go')

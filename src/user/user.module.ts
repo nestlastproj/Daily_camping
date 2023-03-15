@@ -4,7 +4,7 @@ import { UserController } from './user.controller';
 import { User } from '../entity/user.entity';
 import { UserService } from './user.service';
 import { MulterModule } from '@nestjs/platform-express';
-import { multerOptionsFactory } from 'src/multer/upload.multer';
+import { multerOptionsFactory } from 'src/util/upload.multer';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User]), MulterModule.registerAsync({ useFactory: multerOptionsFactory })],
