@@ -24,8 +24,6 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       database: this.configService.get<string>('DATABASE_NAME'),
       entities: [User, Article, Comment, Like, Product, Place, Recipe, Weather, Review, ArticleLike, CommentLike],
       synchronize: this.configService.get<boolean>('DATABASE_SYNCHRONIZE'),
-      // timezone: 'local',
-      dateStrings: true,
     };
   }
 }
