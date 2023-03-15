@@ -96,7 +96,7 @@ function placeApidata(page) {
     .catch((err) => {
       alert('캠핑장 정보 로드에 실패하였습니다.');
       console.log(err);
-      // window.location.href = '/';
+      window.location.href = '/';
     });
 }
 // axios.post('review/review', { title, content }).then().catch();
