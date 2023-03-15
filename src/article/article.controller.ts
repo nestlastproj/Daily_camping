@@ -33,7 +33,7 @@ export class ArticleController {
 
   @Get('write')
   getwritearticle(@Res() res: Response) {
-    return res.render('articlewrite.ejs');
+    return res.render('commuWrite.ejs');
   }
   // ------------------------------------------
   @Get()

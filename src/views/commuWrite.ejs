@@ -22,7 +22,7 @@
 <body>
   <nav>
     <div class="logo">
-      <img src="image/logo-removebg-preview.png">
+      <img src="../image/logo-removebg-preview.png">
     </div>
     <ul class="nav">
       <li>
@@ -65,24 +65,28 @@
   </nav>
   <div class="container">
     <div class="boardWriteWrap">
-      <form name="frm_pw" method="" action="">
+      <div name="frm_pw" method="" action="">
         <div class="boardWrite">
           <div class="title">
             <dl>
               <dt>제목</dt>
-              <dd><input type="text" name="subject" class="form-control" placeholder="제목을 입력하세요!"></dd>
+              <dd><input type="text" id="title" name="subject" class="form-control" placeholder="제목을 입력하세요!"></dd>
             </dl>
           </div>
           <div id="container">
-            <textarea name="contents" id="editor" class="form-control"></textarea>
+            <textarea name="contents" id="content" class="form-control"></textarea>
+          </div>
+          <div class="inputfield">
+            <input type="file" id="image" name="file" class="input" />
           </div>
           <script src="../js/commuWrite.js"></script>
         </div>
         <div class="btWrap">
-          <button class="on"><a><input type="submit" value="저장" class="btn btn-default"></a></button>
-          <button class="off"><a href="">취소</a></button>
+          <button onclick="finishwrite()" class="on"><a><input type="submit" value="저장"
+                class="btn btn-default"></a></button>
+          <button class="off"><a href="/article/list">취소</a></button>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </body>
