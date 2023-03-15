@@ -61,6 +61,9 @@
         <div class="background"></div>
       </ul>
       <div class="buttons-container">
+        <!-- 로그인 시 출력 -->
+        <p><a href="">이름</a>님 <br>반갑습니다.</p>
+        <!-- 비로그인 시 로그인 텍스트 출력하고 로그인 시 로그아웃 텍스트 출력 -->
         <button class="button-arounder">로그인</button>
       </div>
     </nav>
@@ -96,7 +99,50 @@
       </div>
     </div>
     <div class="comment">
-      댓글 구현 중(?)
+      <div class="boxtotal">
+        댓글 <span><span>1</span></span>
+      </div>
+      <div style="display: block">
+        <div class="areacomment">
+          <ul class="listcomment">
+            <li>
+              <div class="boxcontent">
+                <div class="boxmeta">
+                  <strong>작성자</strong>
+                  <span class="date">작성일 </span>
+                </div>
+                <div>
+                  <p class="text">댓글 내용</p>
+                </div>
+                <div class="boxbtn">
+                  <button type="button" class="btnregister" onclick="">
+                    수정
+                  </button>
+                  <button type="button" class="btnregister2" onclick="">
+                    삭제
+                  </button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <form method="" action="" style="margin: 0">
+          <div class="areawrite">
+            <div class="boxtextarea">
+              <label for="comment" class="screenout">댓글</label>
+              <textarea placeholder="내용을 입력해주세요."></textarea>
+            </div>
+            <div class="boxbtn">
+              <button type="button" class="btnregister" onclick="">등록</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="btWrap">
+      <a href="" class="on">수정</a>
+      <a onclick="" class="off">삭제</a>
+      <a href="" class="on">목록</a>
     </div>
     <div class="btWrap">
       <a href="" class="on">수정</a>

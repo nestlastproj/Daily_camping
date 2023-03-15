@@ -13,7 +13,7 @@ nav {
 }
 
 .logo img {
-  margin: auto 150px;
+  margin: auto 100px;
   height: 100px;
   width: 250px;
 }
@@ -133,6 +133,15 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  padding-right: 150px;
+  margin-left: 100px;
+}
+.buttons-container p {
+  padding-top: 30px;
+  font-size: 17px;
+  margin-bottom: 0px;
 }
 
 .button-arounder {
@@ -141,7 +150,7 @@ nav {
   color: hsl(190deg, 10%, 95%);
   border: solid 2px rgb(1, 254, 174);
   padding: 0.375em 1.125em;
-  margin: 70px 150px 0px 150px;
+  margin-top: 5px;
   height: 50px;
   width: 120px;
   box-shadow: 0 0px 0px hsla(190deg, 15%, 5%, 0.2);
