@@ -11,10 +11,9 @@ function getarticlelist(page) {
             const { data, meta } = response.data;
             const { firstPage, lastPage, totalPage } = meta;
 
-            // let count = 0;
+            let count = 0;
             for (let i in data) {
-                // count++;
-                let id = data[i].id;
+                let articleId = data[i].id;
                 let title = data[i].title;
                 let createdAt = data[i].createdAt;
                 const createdTime = new Date(createdAt);
@@ -31,15 +30,15 @@ function getarticlelist(page) {
                 }
                 let temp = `
                 <div class="list">
-                    <div class="id">${id}</div>
+                    <div class="id">${articleId}</div>
                     <div class="title">${title}</div>
                     <div class="date">${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분</div>
-                    <div class="count">조회</div>
+                    <input onclick="location.href='/article/view/${articleId}'" type="button" class="count" value="조회" />
                 </div>
                 `;
                 $('.boardList').append(temp);
             }
-            {/* <div class="num">${count}</div> */ }
+
             const pages = [];
 
             // prev

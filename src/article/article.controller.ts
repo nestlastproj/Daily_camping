@@ -7,11 +7,14 @@ import {
   Post,
   Put,
   Query,
+  Render,
   Req,
   Res,
   UploadedFile,
   UseGuards,
   UseInterceptors,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { ArticleService } from './article.service';
@@ -26,6 +29,12 @@ export class ArticleController {
 
   // render
   // ------------------------------------------
+
+  @Get('/mypageArticle')
+  myArticle(@Res() res: Response) {
+    return res.render('mypagearticle.ejs');
+  }
+
   @Get('list')
   getarticlelist(@Res() res: Response) {
     return res.render('commuity.ejs');
@@ -36,12 +45,19 @@ export class ArticleController {
     return res.render('commuWrite.ejs');
   }
 
-  @Get('view')
+  @Get('view/:articleId')
   getviewarticle(@Res() res: Response) {
     return res.render('commuView.ejs');
   }
   // ------------------------------------------
-  @Get()
+
+  @Get('/myArticle')
+  @UseGuards(JwtAuthGuard)
+  async getMyArticle(@Req() req, @Query('page') page: number = 1) {
+    return this.articleService.paginates(req, page);
+  }
+
+  @Get('/allarticle')
   getAllarticle() {
     return this.articleService.getAllarticle();
   }
@@ -52,10 +68,9 @@ export class ArticleController {
   }
 
   @Get('/:articleId')
-  @UseGuards(JwtAuthGuard)
-  @UseInterceptors(FileInterceptor('file'))
-  async getArticle(@Req() req, @Param('articleId') articleId: number, @UploadedFile() file: Express.Multer.File) {
-    return await this.articleService.getArticle(req, articleId, file);
+  @UsePipes(ValidationPipe)
+  async getArticle(@Param('articleId') articleId: number) {
+    return await this.articleService.getArticle(articleId);
   }
 
   @Post('go')

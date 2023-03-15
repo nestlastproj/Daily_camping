@@ -7,6 +7,12 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private userService: UserService) {}
 
+  @Delete('/logoff')
+  @UseGuards(JwtAuthGuard)
+  async remove(@Req() req) {
+    await this.userService.remove(req);
+  }
+
   @Get()
   findAll(): Promise<User[]> {
     return this.userService.findAll();
@@ -15,11 +21,5 @@ export class UserController {
   @Get('/:id')
   findOne(@Param() id: number): Promise<User> {
     return this.userService.findOne(id);
-  }
-
-  @Delete('/logoff')
-  @UseGuards(JwtAuthGuard)
-  async remove(@Req() req) {
-    await this.userService.remove(req);
   }
 }

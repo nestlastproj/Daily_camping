@@ -1,4 +1,18 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseInterceptors, UploadedFile, UseGuards, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseInterceptors,
+  UploadedFile,
+  UseGuards,
+  Req,
+  Query,
+  Render,
+} from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { ReviewDto } from '../dto/review.dto';
@@ -8,10 +22,20 @@ import { ReviewService } from './review.service';
 export class ReviewController {
   constructor(private readonly reviewservice: ReviewService) {}
 
-  @Get('reviews/')
+  @Get('/reviews')
   getReviewList() {
     return this.reviewservice.getReviewList();
   }
+
+  @Get('/myReview')
+  @UseGuards(JwtAuthGuard)
+  getMyReview(@Req() req, @Query('page') page: number = 1) {
+    return this.reviewservice.paginate(req, page);
+  }
+
+  @Get('/mypageReview')
+  @Render('mypagereview')
+  myreview() {}
 
   @Get('reviews/:reviewId')
   getReviews(@Param('reviewId') reviewId: number) {

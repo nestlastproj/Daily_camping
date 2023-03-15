@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -14,14 +15,16 @@
   <script src="https://kit.fontawesome.com/fd3102c9a3.js" crossorigin="anonymous"></script>
   <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/super-build/ckeditor.js"></script>
   <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/super-build/translations/es.js"></script>
-  <link rel="stylesheet" href="../css/commuView.css" />
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <link rel="stylesheet" href="/../css/commuView.css" />
+  <script src="/../js/articleview.js"></script>
   <title>nav</title>
 </head>
 
 <body>
   <nav>
     <div class="logo">
-      <img src="../image/logo-removebg-preview.png">
+      <img src="/../image/logo-removebg-preview.png">
     </div>
     <ul class="nav">
       <li>
@@ -64,25 +67,7 @@
   </nav>
   <div class="boardViewWrap">
     <div class="boardView">
-      <div class="title" id="title">제목</div>
-      <div class="info">
-        <!-- <dl>
-          <dt>글쓴이</dt>
-          <dd>누구</dd>
-        </dl> -->
-        <dl>
-          <dt>작성일</dt>
-          <dd>
-            <div id="createdAt"></div>
-          </dd>
-        </dl>
-        <dl>
-          <dt>조회</dt>
-          <dd>카운트</dd>
-        </dl>
-      </div>
-      <div id="content"></div>
-      <script>
+      <!-- <script>
         let tmpStr = "내용";
         tmpStr = tmpStr.replaceAll("&lt;", "<");
         tmpStr = tmpStr.replaceAll("&gt;", ">");
@@ -92,19 +77,52 @@
         tmpStr = tmpStr.replaceAll("&amp;amp;", "&");
         tmpStr = tmpStr.replaceAll("&#34;", '"');
         document.getElementById("content").innerHTML = tmpStr;
-      </script>
+      </script> -->
     </div>
   </div>
   <div class="comment">
-    댓글 구현 중(?)
+    <div class="boxtotal">
+      댓글 <span><span>1</span></span>
+    </div>
+    <div style="display: block">
+      <div class="areacomment">
+        <ul class="listcomment">
+          <li>
+            <div class="boxcontent">
+              <div class="boxmeta">
+                <div class="boxbtn">
+                  <button type="button" class="btnregister" onclick="">
+                    수정
+                  </button>
+                  <button type="button" class="btnregister2" onclick="">
+                    삭제
+                  </button>
+                </div>
+              </div>
+          </li>
+          <div class="pagination"></div>
+        </ul>
+      </div>
+
+      <div class="areawrite">
+        <div class="boxtextarea">
+          <label for="comment" class="screenout">댓글</label>
+          <textarea id="comment" placeholder="내용을 입력해주세요."></textarea>
+        </div>
+        <div class="boxbtn">
+          <button type="button" class="btnregister" onclick="postcomment()">등록</button>
+        </div>
+      </div>
+
+    </div>
   </div>
   <div class="btWrap">
-    <a href="" class="on">수정</a>
-    <a onclick="" class="off">삭제</a>
-    <a href="" class="on">목록</a>
+    <a href="/article/write" class="on">수정</a>
+    <a onclick="deleteArticle()" class="off">삭제</a>
+    <a href="/article/list" class="on">목록</a>
   </div>
 
-  <script src="../js/articleview.js"></script>
+
 </body>
 
 </html>
