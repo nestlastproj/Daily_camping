@@ -91,7 +91,11 @@
   font-weight: 600;
 }
 
-.boardList .id {
+.list {
+  cursor: pointer;
+}
+
+.boardList .num {
   width: 10%;
 }
 
