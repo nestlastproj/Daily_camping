@@ -59,9 +59,8 @@ export class ArticleService {
     };
   }
 
-  async getArticle(req, articleId, file?: Express.Multer.File) {
-    const userId = req.user.id;
-    return await this.articleRepository.findOne(articleId);
+  getArticle(articleId: number) {
+    return this.articleRepository.findOne({ where: { id: articleId } });
   }
 
   async createArticle(req, data: CreateArticleDto, file?: Express.Multer.File) {
@@ -88,7 +87,7 @@ export class ArticleService {
     const userId = req.user.id;
     const article = await this.articleRepository.findOne({ where: { id: articleId } });
     if (!article) {
-      throw new NotFoundError('존재 하지 않는 게시물 입니다');
+      throw new Error('존재 하지 않는 게시물 입니다');
     }
     return await this.articleRepository.softDelete({ user: { id: userId }, id: articleId });
   }
