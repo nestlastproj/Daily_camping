@@ -62,6 +62,8 @@ export class ArticleController {
     return this.articleService.getAllarticle();
   }
 
+  // ------------------------------------------
+
   @Get('search')
   async searchAllarticle(@Query('page') page: number = 1) {
     return await this.articleService.paginate(page);
