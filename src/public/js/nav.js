@@ -1,14 +1,6 @@
-// <% const token=document.cookie%>
-//         <% console.log(token,'token') %>
-//           <% if (!token) { %>
-//             <button class="button-arounder">로그인</button>
-//             <% } else { %>
-//               <p><a href="">이름</a>님 <br>반갑습니다.</p>
-//               <button class="button-arounder">로그아웃</button>
-//               <% } %>
 $(document).ready(function () {
     axios.get('/auth/isLoggined').then((res) => {
-        console.log(res)
+        console.log(res, 11111111111111111111)
         let temp = `<p><a href="/auth/mypage">${res.data.nickname}</a>님 <br>반갑습니다.</p>
                     <button onclick="logout()" class="button-arounder">로그아웃</button>`
         $('.buttons-container').append(temp)

@@ -1,3 +1,7 @@
+body {
+  background-color: #edf5e1;
+}
+
 :root {
   --primary-color: #4ea685;
   --secondary-color: #57b894;
@@ -12,10 +16,10 @@
   --insta-color: #e1306c;
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
 
 * {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -250,18 +254,14 @@ body {
 /* BACKGROUND */
 
 .container::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   right: 0;
   height: 100vh;
   width: 300vw;
   transform: translate(35%, 0);
-  background-image: linear-gradient(
-    -45deg,
-    var(--primary-color) 0%,
-    var(--secondary-color) 100%
-  );
+  background-image: linear-gradient(-45deg, var(--primary-color) 0%, var(--secondary-color) 100%);
   transition: 1s ease-in-out;
   z-index: 6;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

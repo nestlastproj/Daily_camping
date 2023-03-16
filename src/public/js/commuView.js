@@ -63,9 +63,9 @@ function getComment(articleId, page) {
         console.log(res)
         const { meta, comments } = res.data;
         const { firstPage, lastPage, totalPage } = meta;
-        console.log(comments)
-
+        
         comments.forEach((data) => {
+            console.log(data , 77777777777777777777)
             let temp_html = `   <div class="boxmeta">
                                     <strong>${data.user.nickname}</strong>
                                     <span class="date">${data.createdAt}</span>
