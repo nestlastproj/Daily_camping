@@ -10,5 +10,6 @@ import { ArticleService } from './article.service';
   imports: [TypeOrmModule.forFeature([Article]), MulterModule.registerAsync({ useFactory: multerOptionsFactory })],
   controllers: [ArticleController],
   providers: [ArticleService],
+  exports: [ArticleService],
 })
 export class ArticleModule {}
