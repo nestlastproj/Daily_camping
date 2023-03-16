@@ -11,6 +11,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/js/product.js"></script>
   <script src="https://kit.fontawesome.com/fd3102c9a3.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../css/product.css" />
   <title>product</title>
@@ -19,11 +21,11 @@
 <body>
   <nav>
     <div class="logo">
-      <img src="../image/logo.png">
+      <img src="../image/logo-removebg-preview.png">
     </div>
     <ul class="nav">
       <li>
-        <a href="" target="_blank">
+        <a href="/place/placeList">
           <i class="fa-solid fa-caravan fa-3x">
             <div class="circle"></div>
           </i>
@@ -31,7 +33,7 @@
         </a>
       </li>
       <li>
-        <a href=""" target=" _blank">
+        <a href="/product/productList">
           <i class="fa-solid fa-toolbox fa-3x">
             <div class="circle"></div>
           </i>
@@ -39,7 +41,7 @@
         </a>
       </li>
       <li>
-        <a href="" target="_blank">
+        <a href="/recipe/recipeList">
           <i class="fa-solid fa-fire-burner fa-3x">
             <div class="circle"></div>
           </i>
@@ -48,7 +50,7 @@
       </li>
       <li>
 
-        <a href="/article/list" target="_blank">
+        <a href="/article/list">
           <i class="fa-solid fa-receipt fa-3x">
             <div class="circle"></div>
           </i>
@@ -78,59 +80,10 @@
       <button class="serchbtn" type="submit"><i class="fa-solid fa-magnifying-glass fa-2x"></i></button>
     </label>
   </div>
-  <ul class="nav">
-    <li>
-      <a href="/place/placeList">
-        <i class="fa-solid fa-caravan fa-3x">
-          <div class="circle"></div>
-        </i>
-        <div class="title">캠핑장</div>
-      </a>
-    </li>
-    <li>
-      <a href="/product/productList">
-        <i class="fa-solid fa-toolbox fa-3x">
-          <div class="circle"></div>
-        </i>
-        <div class="title">용품</div>
-      </a>
-    </li>
-    <li>
-      <a href="/recipe/recipeList">
-        <i class="fa-solid fa-fire-burner fa-3x">
-          <div class="circle"></div>
-        </i>
-        <div class="title">요리</div>
-      </a>
-    </li>
-    <li>
-      <a href="/article/list">
-        <i class="fa-solid fa-receipt fa-3x">
-          <div class="circle"></div>
-        </i>
-        <div class="title">커뮤니티</div>
-      </a>
-    </li>
-    <div class="background"></div>
-  </ul>
   <div class="buttons-container">
     <button class="button-arounder">로그인</button>
   </div>
   </nav>
-  <div class="serch">
-    <label>
-      <input type="text" required />
-      <ul>
-        <li s>s</li>
-        <li e>e</li>
-        <li a>a</li>
-        <li r>r</li>
-        <li c>c</li>
-        <li h>h</li>
-      </ul>
-      <button class="serchbtn" type="submit"><i class="fa-solid fa-magnifying-glass fa-2x"></i></button>
-    </label>
-  </div>
   <div class="container">
     <div class="cardBox"></div>
     <!-- <div class="sideBar">
