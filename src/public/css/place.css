@@ -1,4 +1,5 @@
 @import url(nav.css);
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
 
 .serch {
   display: flex;
@@ -218,8 +219,6 @@ label {
   width: 60px;
   transform: translateY(14px) rotate(3deg);
 }
-
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
 
 .image img {
   display: block;
