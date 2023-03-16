@@ -14,93 +14,74 @@
 
 <body>
   <%- include('nav.ejs') %>
-  <div class="side">
-    <ul class="sidebar">
-      <li>
-        <a href="/auth/edit">
-          <i class="fa-solid fa-circle-user fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">개인정보 수정</div>
-        </a>
-      </li>
-      <li>
-        <a href="/article/mypagearticle">
-          <i class="fa-solid fa-list fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">게시글 관리</div>
-        </a>
-      </li>
-      <li>
-        <a href="/comment/mypagecomment">
-          <i class="fa-solid fa-comment fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">댓글 관리</div>
-        </a>
-      </li>
-      <li>
-        <a href="/review/mypagereview">
-          <i class="fa-solid fa-pencil fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">리뷰내역</div>
-        </a>
-      </li>
-      <li>
-        <a href="/auth/withdrawal">
-          <i class="fa-solid fa-user-xmark fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">회원탈퇴</div>
-        </a>
-      </li>
-      <div class="background"></div>
-    </ul>
-  </div>
+    <div class="side">
+      <ul class="sidebar">
+        <li>
+          <a href="/auth/edit">
+            <i class="fa-solid fa-circle-user fa-3x">
+              <div class="circle"></div>
+            </i>
+            <div class="title">개인정보 수정</div>
+          </a>
+        </li>
+        <li>
+          <a href="/article/mypagearticle">
+            <i class="fa-solid fa-list fa-3x">
+              <div class="circle"></div>
+            </i>
+            <div class="title">게시글 관리</div>
+          </a>
+        </li>
+        <li>
+          <a href="/comment/mypagecomment">
+            <i class="fa-solid fa-comment fa-3x">
+              <div class="circle"></div>
+            </i>
+            <div class="title">댓글 관리</div>
+          </a>
+        </li>
+        <li>
+          <a href="/review/mypagereview">
+            <i class="fa-solid fa-pencil fa-3x">
+              <div class="circle"></div>
+            </i>
+            <div class="title">리뷰내역</div>
+          </a>
+        </li>
+        <li>
+          <a href="/auth/withdrawal">
+            <i class="fa-solid fa-user-xmark fa-3x">
+              <div class="circle"></div>
+            </i>
+            <div class="title">회원탈퇴</div>
+          </a>
+        </li>
+        <div class="background"></div>
+      </ul>
+    </div>
     <div class="container">
       <form id="profile-header"></form>
-      <div class="profile">
-        <div class="profile-image">
-          <img src="https://via.placeholder.com/250" id="image2">
-        </div>
-
-        <div class="profile-user-settings">
+      <!-- <form id="nickname"></form> -->
+      <!-- <div class="profile-user-settings">
           <form id="nickname"></form>
           <button onclick="location.href='/auth/edit'" class="profile-edit-btn">프로필 수정</button>
-        </div>
-
-        <div class="profile-stats">
-          <ul>
-            <li><span class="profile-stat-count">게시글 </span>12</li>
-            <li><span class="profile-stat-count">팔로잉 </span>10k</li>
-            <li><span class="profile-stat-count">팔로워 </span>120k</li>
-          </ul>
-        </div>
-
-        <div class="profile-bio">
-          <p><span class="profile-real-name">--</p>
-        </div>
-      </div>
+        </div> -->
       <!-- End of profile section -->
 
       <div class="container">
         <div class="content">
           <div class="card">
             <div class="firstinfo">
-              <img src="../완성/image/img_default.jpg" />
+              <img src="https://via.placeholder.com/250" id="image2">
               <div class="profileinfo">
-                <h1>이름</h1>
+                <h1>
+                  <div id="nickname" 이름(닉네임)></div>
+                </h1>
                 <h3>전화번호</h3>
                 <h4>이메일</h4>
-                <p class="bio">서울특별시 강남구 테헤란로44길 8 12층</p>
               </div>
             </div>
           </div>
-        </div>
-        <div class="unknow">
-          어떤 것을 넣을 지 아이디어 모집(저는 자기가 좋아요 누른 캠핑장 목록 띄우는게 좋을 것 같음)
         </div>
       </div>
       <%- include('footer.ejs') %>

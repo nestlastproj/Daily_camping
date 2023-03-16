@@ -26,6 +26,14 @@ export class AuthController {
   constructor(private authService: AuthService, private readonly userService: UserService) {}
   // render
   // --------------------------------------------------------------------
+  @UseGuards(JwtAuthGuard)
+  @Get('/isLoggined')
+  isLoggined(@Req() req) {
+    const user = req.user;
+
+    return user;
+  }
+
   @Get('/mypage')
   @UseGuards(JwtAuthGuard)
   getmypage(@Req() req, @Res() res: Response) {

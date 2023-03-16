@@ -70,16 +70,3 @@ function signup() {
     }
 }
 
-function logout() {
-    $.ajax({
-        type: "post",
-        url: "/auth/logout",
-        data: {},
-        success: function (response) {
-            location.href = "http://localhost:3000";
-        },
-        error: function (error) {
-            console.log("에러이유:", error);
-        },
-    });
-}
