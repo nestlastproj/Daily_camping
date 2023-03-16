@@ -45,10 +45,19 @@ export class ArticleController {
     return res.render('commuWrite.ejs');
   }
 
-  @Get('view/:articleId')
-  getviewarticle(@Res() res: Response) {
-    return res.render('commuView.ejs');
+  @Get('edit/:articleId')
+  articleEdit(@Res() res: Response) {
+    return res.render('articleedit.ejs');
   }
+
+  @Get('view/:articleId')
+  @Render('commuView.ejs')
+  @UsePipes(ValidationPipe)
+  getviewarticle(@Param('articleId') articleId: number) {
+    
+    return { articleId };
+  }
+
   // ------------------------------------------
 
   @Get('/myArticle')
@@ -73,6 +82,12 @@ export class ArticleController {
   @UsePipes(ValidationPipe)
   async getArticle(@Param('articleId') articleId: number) {
     return await this.articleService.getArticle(articleId);
+  }
+
+  @Get('myArticleEdit/:articleId')
+  @UseGuards(JwtAuthGuard)
+  async getMyArticleEdit(@Req() req, @Param('articleId') articleId: number) {
+    return this.articleService.getMyArticleEdit(req, articleId)
   }
 
   @Post('go')

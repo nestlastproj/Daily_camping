@@ -12,10 +12,16 @@ export class CommentController {
   @Render('mypagecomment')
   comment() {}
 
+  @Get('/mycomment')
+  @UseGuards(JwtAuthGuard)
+  async myComment(@Req() req, @Query('page') page: number = 1) {
+    return this.commentService.paginate(req, page);
+  }
+
   @Get('/mycomment/:articleId')
   @UseGuards(JwtAuthGuard)
-  async myComment(@Param('articleId') articleId: number, @Query('page') page: number = 1) {
-    return this.commentService.paginate(articleId, page);
+  async myArticleComment(@Param('articleId') articleId: number, @Query('page') page: number = 1) {
+    return this.commentService.paginates(articleId, page);
   }
 
   @Get('/:articleId')
