@@ -93,13 +93,13 @@
   cursor: pointer;
 }
 
-.boardList .num {
+.boardList .id {
   width: 10%;
 }
 
 .boardList .title {
   width: 50%;
-  text-align: left;
+  text-align: center;
 }
 
 .boardList .top .title {

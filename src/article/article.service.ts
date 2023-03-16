@@ -90,7 +90,7 @@ export class ArticleService {
     if (lastPage > totalPage) {
       lastPage = totalPage;
     }
-    console.log(articles, 3333333);
+
     return {
       articles,
       meta: {

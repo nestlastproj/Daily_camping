@@ -205,3 +205,7 @@ a {
   color: #000;
   cursor: pointer;
 }
+
+#image {
+  width: 100%;
+}

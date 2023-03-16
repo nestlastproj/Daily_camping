@@ -31,9 +31,8 @@ function getarticlelist(page) {
                 let temp = `
                 <div class="list">
                     <div class="id">${articleId}</div>
-                    <div class="title">${title}</div>
+                    <div class="title"><a href='/article/view/${articleId}'>${title}</a></div>
                     <div class="date">${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분</div>
-                    <input onclick="location.href='/article/view/${articleId}'" type="button" class="count" value="조회" />
                 </div>
                 `;
                 $('.boardList').append(temp);
