@@ -2,194 +2,107 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>마이페이지</title>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="/../css/mypage.css" type="text/css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>마이페이지</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="/../css/mypage.css" type="text/css">
 </head>
 
 <body>
-    <div class="container">
-        <form id="profile-header"></form>
-        <div class="profile">
-            <div class="profile-image">
-                <img src="https://via.placeholder.com/250" id="image2">
-            </div>
-
-            <div class="profile-user-settings">
-                <form id="nickname"></form>
-                <button onclick="location.href='/auth/edit'" class="profile-edit-btn">프로필 수정</button>
-            </div>
-
-            <div class="profile-stats">
-                <ul>
-                    <li><span class="profile-stat-count">게시글 </span>12</li>
-                    <li><span class="profile-stat-count">팔로잉 </span>10k</li>
-                    <li><span class="profile-stat-count">팔로워 </span>120k</li>
-                </ul>
-            </div>
-
-            <div class="profile-bio">
-                <p><span class="profile-real-name">--</p>
-            </div>
-        </div>
-        <!-- End of profile section -->
-
+  <%- include('nav.ejs') %>
+    <div class="side">
+      <ul class="sidebar">
+        <li>
+          <a href="" target="_blank">
+            <i class="fa-solid fa-circle-user fa-3x">
+              <div class="circle"></div>
+            </i>
+            <div class="title">개인정보 수정</div>
+          </a>
+        </li>
+        <li>
+          <a href=""" target=" _blank">
+            <i class="fa-solid fa-list fa-3x">
+              <div class="circle"></div>
+            </i>
+            <div class="title">게시글 관리</div>
+          </a>
+        </li>
+        <li>
+          <a href="" target="_blank">
+            <i class="fa-solid fa-comment fa-3x">
+              <div class="circle"></div>
+            </i>
+            <div class="title">댓글 관리</div>
+          </a>
+        </li>
+        <li>
+          <a href="" target="_blank">
+            <i class="fa-solid fa-pencil fa-3x">
+              <div class="circle"></div>
+            </i>
+            <div class="title">리뷰내역</div>
+          </a>
+        </li>
+        <li>
+          <a href="" target="_blank">
+            <i class="fa-solid fa-user-xmark fa-3x">
+              <div class="circle"></div>
+            </i>
+            <div class="title">회원탈퇴</div>
+          </a>
+        </li>
+        <div class="background"></div>
+      </ul>
     </div>
-    <!-- End of container -->
-
-    </header>
-
-    <main>
-        <div class="container">
-            <div class="gallery" id="<%= id %>">
-                <div class="gallery-item">
-                    <img src="" class="gallery-image">
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li class="gallery-item-likes"><i class="fas fa-heart"></i> 56k</li>
-                            <li class="gallery-item-comments"><i class="fas fa-comment"></i> 200</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <img src="" class="gallery-image">
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li class="gallery-item-likes"><i class="fas fa-heart"></i> 89k</li>
-                            <li class="gallery-item-comments"><i class="fas fa-comment"></i> 5k</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <img src="" class="gallery-image">
-                    <div class="gallery-item-type">
-                        <i class="fas fa-clone"></i>
-                    </div>
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li class="gallery-item-likes"><i class="fas fa-heart"></i> 42k</li>
-                            <li class="gallery-item-comments"><i class="fas fa-comment"></i> 1k</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <img src="" class="gallery-image">
-                    <div class="gallery-item-type">
-                        <i class="fas fa-video"></i>
-                    </div>
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li class="gallery-item-likes"><i class="fas fa-heart"></i> 38k</li>
-                            <li class="gallery-item-comments"><i class="fas fa-comment"></i> 10k</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <img src="" class="gallery-image">
-                    <div class="gallery-item-type">
-                        <i class="fas fa-clone"></i>
-                    </div>
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li class="gallery-item-likes"><i class="fas fa-heart"></i> 47k</li>
-                            <li class="gallery-item-comments"><i class="fas fa-comment"></i> 1k</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <img src="" class="gallery-image">
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li class="gallery-item-likes"><i class="fas fa-heart"></i> 94k</li>
-                            <li class="gallery-item-comments"><i class="fas fa-comment"></i> 3k</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <img src="" class="gallery-image">
-                    <div class="gallery-item-type">
-                        <i class="fas fa-clone"></i>
-                    </div>
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li class="gallery-item-likes"><i class="fas fa-heart"></i> 52k</li>
-                            <li class="gallery-item-comments"><i class="fas fa-comment"></i> 4k</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <img src="" class="gallery-image">
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li class="gallery-item-likes"><i class="fas fa-heart"></i> 66k</li>
-                            <li class="gallery-item-comments"><i class="fas fa-comment"></i> 2k</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="" class="gallery-image">
-                    <div class="gallery-item-type">
-                        <i class="fas fa-clone"></i>
-                    </div>
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li class="gallery-item-likes"><i class="fas fa-heart"></i> 45k</li>
-                            <li class="gallery-item-comments"><i class="fas fa-comment"></i> 10k</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <img src="" class="gallery-image">
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li class="gallery-item-likes"><i class="fas fa-heart"></i> 34k</li>
-                            <li class="gallery-item-comments"><i class="fas fa-comment"></i> 1k</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <img src="" class="gallery-image">
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li class="gallery-item-likes"><i class="fas fa-heart"></i> 41k</li>
-                            <li class="gallery-item-comments"><i class="fas fa-comment"></i> 9k</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <img src="" class="gallery-image">
-                    <div class="gallery-item-type">
-                        <i class="fas fa-video"></i>
-                    </div>
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li class="gallery-item-likes"><i class="fas fa-heart"></i> 30k</li>
-                            <li class="gallery-item-comments"><i class="fas fa-comment"></i> 29k</li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-            <!-- End of gallery -->
-            <div class="spinner"></div>
+    <div class="container">
+      <form id="profile-header"></form>
+      <div class="profile">
+        <div class="profile-image">
+          <img src="https://via.placeholder.com/250" id="image2">
         </div>
-        <!-- End of container -->
-    </main>
+
+        <div class="profile-user-settings">
+          <form id="nickname"></form>
+          <button onclick="location.href='/auth/edit'" class="profile-edit-btn">프로필 수정</button>
+        </div>
+
+        <div class="profile-stats">
+          <ul>
+            <li><span class="profile-stat-count">게시글 </span>12</li>
+            <li><span class="profile-stat-count">팔로잉 </span>10k</li>
+            <li><span class="profile-stat-count">팔로워 </span>120k</li>
+          </ul>
+        </div>
+
+        <div class="profile-bio">
+          <p><span class="profile-real-name">--</p>
+        </div>
+      </div>
+      <!-- End of profile section -->
+
+      <div class="container">
+        <div class="content">
+          <div class="card">
+            <div class="firstinfo">
+              <img src="../완성/image/img_default.jpg" />
+              <div class="profileinfo">
+                <h1>이름</h1>
+                <h3>전화번호</h3>
+                <h4>이메일</h4>
+                <p class="bio">서울특별시 강남구 테헤란로44길 8 12층</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="unknow">
+          어떤 것을 넣을 지 아이디어 모집(저는 자기가 좋아요 누른 캠핑장 목록 띄우는게 좋을 것 같음)
+        </div>
+      </div>
+      <%- include('footer.ejs') %>
 </body>
-<script src="/../js/mypage.js"></script>
 
 </html>

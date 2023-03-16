@@ -18,120 +18,80 @@
   <title>mypageeditprofile</title>
 </head>
 
-<body>
-  <nav>
-    <div class="logo">
-      <img src="../image/logo-removebg-preview.png">
-    </div>
-    <ul class="nav">
-      <li>
-        <a href="" target="_blank">
-          <i class="fa-solid fa-caravan fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">캠핑장</div>
-        </a>
-      </li>
-      <li>
-        <a href=""" target=" _blank">
-          <i class="fa-solid fa-toolbox fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">용품</div>
-        </a>
-      </li>
-      <li>
-        <a href="" target="_blank">
-          <i class="fa-solid fa-fire-burner fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">요리</div>
-        </a>
-      </li>
-      <li>
-        <a href="" target="_blank">
-          <i class="fa-solid fa-receipt fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">커뮤니티</div>
-        </a>
-      </li>
-      <div class="background"></div>
-    </ul>
-    <div class="buttons-container">
-      <p><a href="">이름</a>님 <br>반갑습니다.</p>
-      <button class="button-arounder">로그인</button>
-    </div>
-  </nav>
-  <div class="side">
-    <ul class="sidebar">
-      <li>
-        <a href="/auth/edit" target="_blank">
-          <i class="fa-solid fa-circle-user fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">개인정보 수정</div>
-        </a>
-      </li>
-      <li>
-        <a href=""" target=" _blank">
-          <i class="fa-solid fa-list fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">게시글 관리</div>
-        </a>
-      </li>
-      <li>
-        <a href="" target="_blank">
-          <i class="fa-solid fa-comment fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">댓글 관리</div>
-        </a>
-      </li>
-      <li>
-        <a href="" target="_blank">
-          <i class="fa-solid fa-pencil fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">리뷰내역</div>
-        </a>
-      </li>
-      <li>
-        <a href="" target="_blank">
-          <i class="fa-solid fa-user-xmark fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">회원탈퇴</div>
-        </a>
-      </li>
-      <div class="background"></div>
-    </ul>
-  </div>
-  <div class="container">
-    <input id="slider" class="customSlider" type="checkbox" />
-    <label for="slider"></label>
-    <div class="wrapper">
-      <div class="profile">
-        <div class="col-md-4">
-          <img data-src="https://via.placeholder.com/250" id="image2" class="img-thumbnail img-fluid">
-        </div>
-        <div class="inputfield">
-          <input type="file" id="image" name="file" class="input" />
-        </div>
-        <h3 class="name">이름</h3>
-        <input type="text" id='name' class="edit" />
-        <h3 class="name">전화번호</h3>
-        <input type="text" id="phone" class="edit" />
-        <h3 class="name">이메일</h3>
-        <input type="text" id='email' class="edit" />
-        <h3 class="name">닉네임</h3>
-        <input type="text" id="nickname" class="edit" />
-        <button onclick="updateprofile()" type="button" class="btn">저장</button>
-      </div>
-    </div>
 
-    <script src="../js/edit_profile.js"></script>
+<body>
+  <%- include('nav.ejs') %>
+    <div class="side">
+      <ul class="sidebar">
+        <li>
+          <a href="/auth/edit" target="_blank">
+            <i class="fa-solid fa-circle-user fa-3x">
+              <div class="circle"></div>
+            </i>
+            <div class="title">개인정보 수정</div>
+          </a>
+        </li>
+        <li>
+          <a href=""" target=" _blank">
+            <i class="fa-solid fa-list fa-3x">
+              <div class="circle"></div>
+            </i>
+            <div class="title">게시글 관리</div>
+          </a>
+        </li>
+        <li>
+          <a href="" target="_blank">
+            <i class="fa-solid fa-comment fa-3x">
+              <div class="circle"></div>
+            </i>
+            <div class="title">댓글 관리</div>
+          </a>
+        </li>
+        <li>
+          <a href="" target="_blank">
+            <i class="fa-solid fa-pencil fa-3x">
+              <div class="circle"></div>
+            </i>
+            <div class="title">리뷰내역</div>
+          </a>
+        </li>
+        <li>
+          <a href="" target="_blank">
+            <i class="fa-solid fa-user-xmark fa-3x">
+              <div class="circle"></div>
+            </i>
+            <div class="title">회원탈퇴</div>
+          </a>
+        </li>
+        <div class="background"></div>
+      </ul>
+    </div>
+    <div class="container">
+      <input id="slider" class="customSlider" type="checkbox" />
+      <label for="slider"></label>
+      <div class="wrapper">
+        <div class="profile">
+          <div class="col-md-4">
+            <img data-src="https://via.placeholder.com/250" id="image2" class="img-thumbnail img-fluid">
+          </div>
+          <div class="inputfield">
+            <input type="file" id="image" name="file" class="input" />
+          </div>
+          <h3 class="name">이름</h3>
+          <input type="text" id='name' class="edit" />
+          <h3 class="name">전화번호</h3>
+          <input type="text" id="phone" class="edit" />
+          <h3 class="name">이메일</h3>
+          <input type="text" id='email' class="edit" />
+          <h3 class="name">닉네임</h3>
+          <input type="text" id="nickname" class="edit" />
+          <button onclick="updateprofile()" type="button" class="btn">저장</button>
+        </div>
+      </div>
+
+      <script src="../js/edit_profile.js"></script>
+
+      <%- include('footer.ejs') %>
 </body>
 
 </html>

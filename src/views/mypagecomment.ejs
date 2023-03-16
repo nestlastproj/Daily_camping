@@ -19,118 +19,75 @@
 </head>
 
 <body>
-  <nav>
-    <div class="logo">
-      <img src="../image/logo-removebg-preview.png">
+  <%- include('nav.ejs') %>
+    <div class="side">
+      <ul class="sidebar">
+        <li>
+          <a href="" target="_blank">
+            <i class="fa-solid fa-circle-user fa-3x">
+              <div class="circle"></div>
+            </i>
+            <div class="title">개인정보 수정</div>
+          </a>
+        </li>
+        <li>
+          <a href=""" target=" _blank">
+            <i class="fa-solid fa-list fa-3x">
+              <div class="circle"></div>
+            </i>
+            <div class="title">게시글 관리</div>
+          </a>
+        </li>
+        <li>
+          <a href="" target="_blank">
+            <i class="fa-solid fa-comment fa-3x">
+              <div class="circle"></div>
+            </i>
+            <div class="title">댓글 관리</div>
+          </a>
+        </li>
+        <li>
+          <a href="" target="_blank">
+            <i class="fa-solid fa-pencil fa-3x">
+              <div class="circle"></div>
+            </i>
+            <div class="title">리뷰내역</div>
+          </a>
+        </li>
+        <li>
+          <a href="" target="_blank">
+            <i class="fa-solid fa-user-xmark fa-3x">
+              <div class="circle"></div>
+            </i>
+            <div class="title">회원탈퇴</div>
+          </a>
+        </li>
+        <div class="background"></div>
+      </ul>
     </div>
-    <ul class="nav">
-      <li>
-        <a href="" target="_blank">
-          <i class="fa-solid fa-caravan fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">캠핑장</div>
-        </a>
-      </li>
-      <li>
-        <a href=""" target=" _blank">
-          <i class="fa-solid fa-toolbox fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">용품</div>
-        </a>
-      </li>
-      <li>
-        <a href="" target="_blank">
-          <i class="fa-solid fa-fire-burner fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">요리</div>
-        </a>
-      </li>
-      <li>
-        <a href="" target="_blank">
-          <i class="fa-solid fa-receipt fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">커뮤니티</div>
-        </a>
-      </li>
-      <div class="background"></div>
-    </ul>
-    <div class="buttons-container">
-      <p><a href="">이름</a>님 <br>반갑습니다.</p>
-      <button class="button-arounder">로그인</button>
-    </div>
-  </nav>
-  <div class="side">
-    <ul class="sidebar">
-      <li>
-        <a href="" target="_blank">
-          <i class="fa-solid fa-circle-user fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">개인정보 수정</div>
-        </a>
-      </li>
-      <li>
-        <a href=""" target=" _blank">
-          <i class="fa-solid fa-list fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">게시글 관리</div>
-        </a>
-      </li>
-      <li>
-        <a href="" target="_blank">
-          <i class="fa-solid fa-comment fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">댓글 관리</div>
-        </a>
-      </li>
-      <li>
-        <a href="" target="_blank">
-          <i class="fa-solid fa-pencil fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">리뷰내역</div>
-        </a>
-      </li>
-      <li>
-        <a href="" target="_blank">
-          <i class="fa-solid fa-user-xmark fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">회원탈퇴</div>
-        </a>
-      </li>
-      <div class="background"></div>
-    </ul>
-  </div>
-  <div class="container">
-    <div class="boardWrap">
-      <div class="boardTitle">
-        <strong>댓글</strong>
-      </div>
-      <div class="boardListWrap">
-        <div class="boardList">
-          <div class="top">
+    <div class="container">
+      <div class="boardWrap">
+        <div class="boardTitle">
+          <strong>댓글</strong>
+        </div>
+        <div class="boardListWrap">
+          <div class="boardList">
+            <div class="top">
+              <div class="num">번호</div>
+              <div class="title">제목</div>
+              <div class="date">작성일</div>
+              <div class="count">조회</div>
+            </div>
             <div class="num">번호</div>
             <div class="title">제목</div>
             <div class="date">작성일</div>
             <div class="count">조회</div>
           </div>
-          <div class="num">번호</div>
-          <div class="title">제목</div>
-          <div class="date">작성일</div>
-          <div class="count">조회</div>
         </div>
+        <div class="pagination"></div>
       </div>
-      <div class="pagination"></div>
     </div>
-  </div>
-  </div>
+    <%- include('footer.ejs') %>
 </body>
 
 </html>
