@@ -16,7 +16,7 @@ function recipeCrawling(page) {
       let temp_html = `
         <li class="common_sp_list_li">
             <div class="common_sp_thumb">
-              <a href="" class="common_sp_link">
+              <a href="${data.url}" class="common_sp_link" target="blank">
                 <img src="${data.image}" />
               </a>
             </div>

@@ -70,7 +70,7 @@
 
 .card .contentBox {
   position: relative;
-  padding: 20px;
+  padding: 0px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -123,4 +123,11 @@
   display: flex;
   font-size: 25px;
   justify-content: center;
+}
+
+.contentBox span {
+  text-decoration: line-through;
+  color: #bbb;
+  font-size: 13px;
+  margin-left: 5px;
 }
