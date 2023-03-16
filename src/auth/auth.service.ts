@@ -19,6 +19,7 @@ export class AuthService {
     private readonly userService: UserService,
   ) {}
 
+  // login 토큰 발급
   async validateUser(email: string, plainTextPassword: string) {
     try {
       const user = await this.userService.getByEmail(email);

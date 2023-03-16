@@ -9,14 +9,17 @@ import { UpdateUserDto } from 'src/auth/dto/update-user.dto';
 export class UserService {
   constructor(@InjectRepository(User) private userRepository: Repository<User>) {}
 
+  // 모든 회원 정보 불러오기
   findAll(): Promise<User[]> {
     return this.userRepository.find();
   }
 
+  // 내 정보 불러오기
   findOne(id: number): Promise<User> {
     return this.userRepository.findOneBy({ id });
   }
 
+  // 프로필 수정
   async editprofile(req, data: UpdateUserDto, file?: Express.Multer.File) {
     const userId = req.user.id;
     return await this.userRepository.update(userId, {
@@ -28,13 +31,15 @@ export class UserService {
     });
   }
 
+  // 회원 탈퇴
   async remove(req) {
     const userId = req.user.id;
-    const user = await this.userRepository.findOne({ where: { id: userId } });
+    await this.userRepository.findOne({ where: { id: userId } });
     await this.removeRefreshToken(req.user.id);
     return await this.userRepository.softDelete({ id: userId });
   }
 
+  // 이메일 확인
   async getByEmail(email: string) {
     const user = this.userRepository.findOneBy({ email });
     if (user) {
@@ -44,6 +49,7 @@ export class UserService {
     }
   }
 
+  // 토큰에 id, nickname 값 저장
   async getById(id: number, nickname: string) {
     const user = await this.userRepository.findOne({
       where: { id, nickname },
@@ -55,11 +61,13 @@ export class UserService {
     throw new UnauthorizedException();
   }
 
+  // 본인 정보 불러오기
   async getinfo(req): Promise<User> {
     const userId = req.user.id;
     return await this.userRepository.findOne({ where: { id: userId } });
   }
 
+  // 비밀번호 확인
   async verifyPassword(plainTextPassword: string, hashedPassword: string) {
     const isPasswordMatch = await bcrypt.compare(plainTextPassword, hashedPassword);
     if (!isPasswordMatch) {

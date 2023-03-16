@@ -30,7 +30,7 @@ export class ArticleController {
   // render
   // ------------------------------------------
 
-  @Get('/mypageArticle')
+  @Get('mypageArticle')
   myArticle(@Res() res: Response) {
     return res.render('mypagearticle.ejs');
   }
@@ -51,24 +51,26 @@ export class ArticleController {
   }
   // ------------------------------------------
 
+  // 나의 게시물 페이지네이션
   @Get('/myArticle')
   @UseGuards(JwtAuthGuard)
   async getMyArticle(@Req() req, @Query('page') page: number = 1) {
     return this.articleService.paginates(req, page);
   }
 
+  // 전체 게시물 불러오기
   @Get('/allarticle')
   getAllarticle() {
     return this.articleService.getAllarticle();
   }
 
-  // ------------------------------------------
-
+  // 모든 게시물 페이지네이션
   @Get('search')
   async searchAllarticle(@Query('page') page: number = 1) {
     return await this.articleService.paginate(page);
   }
 
+  //
   @Get('/:articleId')
   @UsePipes(ValidationPipe)
   async getArticle(@Param('articleId') articleId: number) {
