@@ -70,20 +70,22 @@ export class ArticleController {
     return await this.articleService.paginate(page);
   }
 
-  //
+  // 게시물 불러오기
   @Get('/:articleId')
   @UsePipes(ValidationPipe)
   async getArticle(@Param('articleId') articleId: number) {
     return await this.articleService.getArticle(articleId);
   }
 
-  @Post('go')
+  // 게시물 생성
+  @Post('write')
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('file'))
   async createArticle(@Req() req, @Body() data: CreateArticleDto, @UploadedFile() file: Express.Multer.File) {
     return await this.articleService.createArticle(req, data, file);
   }
 
+  // 게시물 수정
   @Put('/:articleId')
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('file'))
@@ -96,6 +98,7 @@ export class ArticleController {
     return await this.articleService.updateArticle(req, articleId, data, file);
   }
 
+  // 게시물 삭제
   @Delete('/delete/:articleId')
   @UseGuards(JwtAuthGuard)
   async deleteArticle(@Req() req, @Param('articleId') articleId: number) {

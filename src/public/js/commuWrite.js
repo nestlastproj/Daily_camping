@@ -8,7 +8,7 @@ function finishwrite() {
   formData.append('content', content);
   formData.append('file', image);
 
-  axios.post('/article/go', formData, {
+  axios.post('/article/write', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },

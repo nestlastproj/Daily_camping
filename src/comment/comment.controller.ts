@@ -29,6 +29,7 @@ export class CommentController {
     return await this.commentService.createComment(req, articleId, data);
   }
 
+  // 댓글 수정
   @Put('/:articleId/:commentId')
   @UseGuards(JwtAuthGuard)
   async updateComment(
@@ -40,6 +41,7 @@ export class CommentController {
     return await this.commentService.updateComment(req, articleId, commentId, data);
   }
 
+  // 댓글 삭제
   @Delete('/:articleId/:commentId')
   @UseGuards(JwtAuthGuard)
   async deleteComment(@Req() req, @Param('articleId') articleId: number, @Param('commentId') commentId: number) {
