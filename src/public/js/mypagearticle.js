@@ -15,7 +15,7 @@ function myArticleData(page) {
             articles.forEach((data) => {
                 let temp_html = `
             <div class="list" onclick="location.href=''">
-            <div class="num">${data.id}</div>
+            <div class="id">${data.id}</div>
             <div class="title">${data.title}</div>
             <div class="date">${data.content}</div>
             <div class="count">조회</div>
