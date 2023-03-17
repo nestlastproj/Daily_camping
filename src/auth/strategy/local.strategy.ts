@@ -16,7 +16,6 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     if (!user) {
       throw new UnauthorizedException('회원이 아닙니다!');
     }
-
     return user;
   }
 }

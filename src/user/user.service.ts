@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../entity/user.entity';
 import * as bcrypt from 'bcryptjs';
+import { UpdateUserDto } from 'src/auth/dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -16,8 +17,22 @@ export class UserService {
     return this.userRepository.findOneBy({ id });
   }
 
-  async remove(id: number): Promise<void> {
-    await this.userRepository.delete(id);
+  async editprofile(req, data: UpdateUserDto, file?: Express.Multer.File) {
+    const userId = req.user.id;
+    return await this.userRepository.update(userId, {
+      name: data.name,
+      phone: data.phone,
+      nickname: data.nickname,
+      email: data.email,
+      image: file.filename,
+    });
+  }
+
+  async remove(req) {
+    const userId = req.user.id;
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+    await this.removeRefreshToken(req.user.id);
+    return await this.userRepository.softDelete({ id: userId });
   }
 
   async getByEmail(email: string) {
@@ -29,12 +44,20 @@ export class UserService {
     }
   }
 
-  async getById(id: number) {
-    const user = await this.userRepository.findOneBy({ id });
+  async getById(id: number, nickname: string) {
+    const user = await this.userRepository.findOne({
+      where: { id, nickname },
+      select: ['id', 'nickname', 'currentHashedRefreshToken'],
+    });
     if (user) {
       return user;
     }
     throw new UnauthorizedException();
+  }
+
+  async getinfo(req): Promise<User> {
+    const userId = req.user.id;
+    return await this.userRepository.findOne({ where: { id: userId } });
   }
 
   async verifyPassword(plainTextPassword: string, hashedPassword: string) {
@@ -51,11 +74,9 @@ export class UserService {
   }
 
   // 유저의 고유 번호를 이용하여 데이터를 조회하고 Refresh Token이 유효한지 확인
-  async getUserIfRefreshTokenMatches(refreshToken: string, id: number) {
-    const user = await this.getById(id);
-
+  async getUserIfRefreshTokenMatches(refreshToken: string, id: number, nickname: string) {
+    const user = await this.getById(id, nickname);
     const isRefreshTokenMatching = await bcrypt.compare(refreshToken, user.currentHashedRefreshToken);
-
     if (isRefreshTokenMatching) {
       return user;
     }

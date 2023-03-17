@@ -11,6 +11,8 @@ import { User } from '../entity/user.entity';
 import { LocalStrategy } from './strategy/local.strategy';
 import { UserModule } from 'src/user/user.module';
 import { JwtRefreshStrategy } from './strategy/jwt-refresh.strategy';
+import { MulterModule } from '@nestjs/platform-express';
+import { multerOptionsFactory } from 'src/util/upload.multer';
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
@@ -21,6 +23,7 @@ import { JwtRefreshStrategy } from './strategy/jwt-refresh.strategy';
     }),
     UserModule,
     PassportModule,
+    MulterModule.registerAsync({ useFactory: multerOptionsFactory }),
   ],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy, JwtStrategy, JwtRefreshStrategy],

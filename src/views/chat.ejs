@@ -1,4 +1,19 @@
-<!-- <body>
+<html>
+
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css"
+        rel="stylesheet">
+    <link href="../css/chat.css" type="text/css" rel="stylesheet">
+    <script src="https://cdn.socket.io/3.1.3/socket.io.min.js"
+        integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh"
+        crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+</head>
+
+<body>
     <div class="container">
         <h3 class=" text-center">Messaging</h3>
         <div class="messaging">
@@ -9,8 +24,7 @@
                             <h4>Chat Room</h4>
                         </div>
                         <div class="chatroom_btn_place">
-                            <button type="button" class="chatroom_btn setNickname"> <i class="fa fa-cog"
-                                    aria-hidden="true"></i> </button>
+                            <form id="nickname"></form>
                             <button type="button" class="chatroom_btn createChatRoom"> <i class="fa fa-plus"
                                     aria-hidden="true"></i> </button>
                         </div>
@@ -32,12 +46,12 @@
             </div>
 
 
-            <p class="text-center top_spac"> Design by <a target="_blank"
-                    href="https://www.linkedin.com/in/sunil-rajput-nattho-singh/">Sunil Rajput</a></p>
+            <!-- <p class="text-center top_spac"> Design by <a target="_blank"
+                    href="https://www.linkedin.com/in/sunil-rajput-nattho-singh/">Sunil Rajput</a></p> -->
 
         </div>
     </div>
-</body> -->
+</body>
 <!--
     <body>
         <div>
@@ -60,28 +74,33 @@
         </script>
     </body>-->
 <script>
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: '/auth/chat',
+            success: function (response) {
+                document.getElementById('nickname').innerHTML = '';
+                let tempHtml = ``;
+
+                tempHtml += `
+                <input type="nickname" class="form-control" id="nickname" value="${response.user.nickname}" readonly />
+                <button type="button" class="chatroom_btn setNickname"> <i class="fa fa-cog"
+                                    aria-hidden="true"></i> </button>
+                `;
+                $('#nickname').append(tempHtml);
+            }
+        });
+    });
+
+    let myInfo = {
+        nickname: nickname,
+        id: null,
+        room: {
+            roomId: null,
+            roomName: null
+        }
+    }
     const socket = io('http://localhost:4000');
-    socket.onopen = function () {
-        console.log('Connected');
-        socket.send(
-            JSON.stringify({
-                event: 'events',
-                data: '123456',
-            }),
-        );
-        socket.onmessage = function (data) {
-            console.log(data);
-        };
-    };
-    // let myInfo = {
-    //     nickname: null,
-    //     id: null,
-    //     room: {
-    //         roomId: null,
-    //         roomName: null
-    //     }
-    // }
-    /* const socket = io('http://localhost:5000');
     socket.on('connect', function () {
         console.log('Connected');
         //연결 완료 후 로컬스토리지를 확인하여 닉네임 세팅
@@ -134,10 +153,10 @@
     socket.on('disconnect', function () {
         $('.chatRoomList').html('');
         console.log('Disconnected');
-    }); */
+    });
 
     //채팅방 생성
-    /* $('.createChatRoom').on('click', function () {
+    $('.createChatRoom').on('click', function () {
         const roomName = prompt('채팅방 이름을 입력해주세요.');
         if (!roomName) {
             return false;
@@ -150,10 +169,10 @@
             $('.chat').html('');
         });
         socket.emit('getChatRoomList', null);
-    }) */
+    })
 
     //채팅방 입장
-    /* $(document).on('click', '.enterChatRoom', function () {
+    $(document).on('click', '.enterChatRoom', function () {
         const thisRoomId = $(this).attr('data-roomId');
         socket.emit('enterChatRoom', thisRoomId, (res) => {
             if (!res) return;
@@ -162,21 +181,24 @@
             $('.chat').html('');
         });
         socket.emit('getChatRoomList', null);
-    }) */
+    })
 
     //메시지 전송
-    /* $('.sendMessage').on('click', function () {
+    $('.sendMessage').on('click', function () {
         socket.emit('sendMessage', $('.write_msg').val());
         $('.write_msg').val('');
-    }) */
+    })
 
     //닉네임 설정
-    /* $('.setNickname').on('click', function () {
-        const nickname = prompt('변경할 닉네임을 입력해주세요.');
-        if (!nickname) {
-            return false;
-        }
-        socket.emit('setNickname', nickname);
-        localStorage.setItem('nickname', nickname);
-    }) */
+    // $('.setNickname').on('click', function () {
+    //     const nickname = prompt('변경할 닉네임을 입력해주세요.');
+    //     if (!nickname) {
+    //         return false;
+    //     }
+    //     socket.emit('setNickname', nickname);
+    //     localStorage.setItem('nickname', nickname);
+    // })
 </script>
+<script src="../js/chat.js"></script>
+
+</html>

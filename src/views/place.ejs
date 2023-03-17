@@ -24,49 +24,10 @@
     ></script>
     <script src="/js/place.js"></script>
     <script src="https://kit.fontawesome.com/fd3102c9a3.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../css/place.css" />
     <title>nav</title>
   </head>
   <body>
-    <nav>
-      <div class="logo">
-        <img src="../image/logo-removebg-preview.png" />
-      </div>
-      <ul class="nav">
-        <li>
-          <a href="/place/placeList">
-            <i class="fa-solid fa-caravan fa-3x">
-              <div class="circle"></div>
-            </i>
-            <div class="title">캠핑장</div>
-          </a>
-        </li>
-        <li>
-          <a href="/product/productList">
-            <i class="fa-solid fa-toolbox fa-3x">
-              <div class="circle"></div>
-            </i>
-            <div class="title">용품</div>
-          </a>
-        </li>
-        <li>
-          <a href="/recipe/recipeList">
-            <i class="fa-solid fa-fire-burner fa-3x"> <div class="circle"></div></i>
-            <div class="title">요리</div>
-          </a>
-        </li>
-        <li>
-          <a href="" target="_blank">
-            <i class="fa-solid fa-receipt fa-3x"> <div class="circle"></div></i>
-            <div class="title">커뮤니티</div>
-          </a>
-        </li>
-        <div class="background"></div>
-      </ul>
-      <div class="buttons-container">
-        <button class="button-arounder">로그인</button>
-      </div>
-    </nav>
+    <%- include('nav.ejs') %>
     <div class="serch">
       <label>
         <input type="text" required />
@@ -83,5 +44,7 @@
     </div>
     <div class="container"></div>
     <div class="pagination"></div>
+    <%- include('footer.ejs') %>
   </body>
+  <link rel="stylesheet" href="../css/place.css" />
 </html>

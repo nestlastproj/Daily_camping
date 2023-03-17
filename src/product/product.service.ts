@@ -32,8 +32,6 @@ export class ProductService {
     const json = await parseStringPromise(xmlString); // 인코딩 변경된 XML을 JSON형태로 변환
     const products = json.ProductSearchResponse; // 결과물 내 객체에 추가 접근(XML에선 접근불가)
 
-    console.log(products.Products[0].Product);
-
     const productList = products.Products[0].Product.map((product) => {
       return {
         name: product.ProductName[0],

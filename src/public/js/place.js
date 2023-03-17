@@ -18,7 +18,7 @@ function placeApidata(page) {
         <div class="card">
           <div class="image" id="map${data.id}">
           </div>
-          <div class="text">
+          <div class="text" onclick="window.open('${data.url}')" target="blank">
             <h3>${data.name}</h3>
             <h3>${data.address}</h3>
           </div>

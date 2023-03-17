@@ -5,9 +5,9 @@ import { Repository } from 'typeorm';
 import { CreateUserDto } from '../auth/dto/create-user.dto';
 import { User } from '../entity/user.entity';
 import * as bcrypt from 'bcryptjs';
-// import { LoginUserDto } from '../auth/dto/login-user.dto';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from 'src/user/user.service';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -23,10 +23,6 @@ export class AuthService {
     try {
       const user = await this.userService.getByEmail(email);
       await this.userService.verifyPassword(plainTextPassword, user.password);
-      //   const passwordMatch = await bcrypt.compare(password, user.password);
-      //   if(!passwordMatch) {
-      //      throw new UnauthorizedException('비밀번호가 일치하지 않습니다.')
-      //   }
       return user;
     } catch (error) {
       throw new UnauthorizedException();
@@ -34,27 +30,35 @@ export class AuthService {
   }
 
   // 회원가입
-  async signup(createUserDto: CreateUserDto): Promise<void> {
+  async signup(createUserDto: CreateUserDto) {
     const { email, name, password, phone, nickname } = createUserDto;
 
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
     const user = await this.userRepository.create({ email, name, password: hashedPassword, phone, nickname });
-
+    const existedemail = await this.userRepository.findOneBy({ email });
+    if (existedemail) {
+      throw new Error('이미 존재하는 이메일입니다.');
+    }
+    const existednickname = await this.userRepository.findOneBy({ nickname });
+    if (existednickname) {
+      throw new Error('이미 존재하는 닉네임입니다.');
+    }
     try {
       await this.userRepository.save(user);
     } catch (error) {
       if (error.code === '23505') {
         throw new ConflictException('이미 존재하는 회원입니다.');
       } else {
+        console.log(error);
         throw new InternalServerErrorException();
       }
     }
   }
 
   // Access Token 발급
-  getCookieWithJwtAccessToken(id: number) {
-    const payload = { id };
+  getCookieWithJwtAccessToken(id: number, nickname: string) {
+    const payload = { id, nickname };
     const token = this.jwtService.sign(payload, {
       secret: this.configService.get('JWT_ACCESS_TOKEN_SECRET'),
       expiresIn: `${this.configService.get('JWT_ACCESS_TOKEN_EXPIRATION_TIME')}`,
@@ -70,8 +74,8 @@ export class AuthService {
   }
 
   // Refresh Token 발급
-  getCookieWithJwtRefreshToken(id: number) {
-    const payload = { id };
+  getCookieWithJwtRefreshToken(id: number, nickname: string) {
+    const payload = { id, nickname };
     const token = this.jwtService.sign(payload, {
       secret: this.configService.get('JWT_REFRESH_TOKEN_SECRET'),
       expiresIn: `${this.configService.get('JWT_REFRESH_TOKEN_EXPIRATION_TIME')}`,
