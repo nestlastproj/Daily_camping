@@ -22,12 +22,6 @@ export class Place extends BaseEntity {
   @Column()
   url: string;
 
-  @Column()
-  x: string;
-
-  @Column()
-  y: string;
-
   @CreateDateColumn()
   createdAt: Date;
 
