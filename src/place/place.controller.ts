@@ -13,8 +13,8 @@ export class PlaceController {
   }
 
   @Get('/place')
-  findAllPlace(@Query('page') page: number = 1) {
-    return this.placeService.paginate(page);
+  async findAllPlace(@Query('page') page: number = 1) {
+    return await this.placeService.paginate(page);
   }
 
   @Get('/placeList')

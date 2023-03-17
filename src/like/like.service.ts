@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Place } from 'src/entity/api/place.entity';
 import { Article } from 'src/entity/article.entity';
 import { Comment } from 'src/entity/comment.entity';
-import { ArticleLike, CommentLike } from 'src/entity/like.entity';
+import { ArticleLike, CommentLike, PlaceLike } from 'src/entity/like.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -12,10 +13,14 @@ export class LikeService {
     private readonly articlelikeRepository: Repository<ArticleLike>,
     @InjectRepository(CommentLike)
     private readonly commentlikeRepository: Repository<CommentLike>,
+    @InjectRepository(PlaceLike)
+    private readonly placelikeRepository: Repository<PlaceLike>,
     @InjectRepository(Article)
     private readonly articleRepository: Repository<Article>,
     @InjectRepository(Comment)
     private readonly commentRepository: Repository<Comment>,
+    @InjectRepository(Place)
+    private readonly placeRepository: Repository<Place>,
   ) {}
 
   async getarticlelike(req, articleId: number) {
@@ -32,6 +37,20 @@ export class LikeService {
     }
   }
 
+  async getplacelike(req, placeId: number) {
+    const userId = req.user.id;
+    const place = await this.placeRepository.find({ where: { id: placeId } });
+    if (!place) {
+      throw new Error('존재하지 않는 캠핑장입니다.');
+    }
+    const exist = await this.placelikeRepository.find({ where: { user: { id: userId }, relationId: placeId } });
+    if (exist.length === 0) {
+      return await this.placelikeRepository.insert({ user: { id: userId }, relationId: placeId });
+    } else {
+      return await this.placelikeRepository.delete({ user: { id: userId }, relationId: placeId });
+    }
+  }
+
   async getcommentlike(req, commentId: number) {
     const userId = req.user.id;
     const comment = await this.commentRepository.find({ where: { id: commentId } });
@@ -44,5 +63,32 @@ export class LikeService {
     } else {
       return await this.commentlikeRepository.delete({ user: { id: userId }, relationId: commentId });
     }
+  }
+
+  async countplacelike(relationId: number) {
+    return await this.placelikeRepository.createQueryBuilder().select('relationId').where({ relationId }).getCount();
+  }
+
+  async getMyLike(req) {
+    const userId = req.user.id;
+    await this.placelikeRepository.find({ where: { id: userId } });
+    return await this.placelikeRepository
+      .createQueryBuilder('placelike')
+      .select('placelike.relationId')
+      .addSelect('COUNT(*) AS count')
+      .where({ user: { id: userId } })
+      .groupBy('placelike.relationId')
+      .orderBy('placelike.relationId')
+      .getRawMany();
+  }
+
+  async allPlaceLike() {
+    return await this.placelikeRepository
+      .createQueryBuilder('placelike')
+      .select('placelike.relationId AS id')
+      .addSelect('COUNT(*) AS count')
+      .groupBy('placelike.relationId')
+      .orderBy('placelike.relationId')
+      .getRawMany();
   }
 }

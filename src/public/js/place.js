@@ -1,7 +1,22 @@
 $(document).ready(function () {
   const page = new URLSearchParams(location.search).get('page') || 1;
   placeApidata(page);
+  // getlikecount()
 });
+
+function getlikecount() {
+  axios({
+    url: '/myplacelike',
+    method: 'get',
+  })
+    .then((res) => {
+      const data = res.data;
+      for (let i in data) {
+        let placeId = data[i].placelike_relationId;
+        console.log(placeId)
+      }
+    })
+}
 
 function placeApidata(page) {
   axios({
@@ -9,29 +24,29 @@ function placeApidata(page) {
     method: 'GET',
   })
     .then((res) => {
-      const { meta, places } = res.data;
+      const { meta, places, like } = res.data;
       const { firstPage, lastPage, totalPage } = meta;
 
       places.forEach((data) => {
         let temp_html = `
-        <div class="stack">
-        <div class="card">
-          <div class="image" id="map${data.id}">
-          </div>
-          <div class="text" onclick="window.open('${data.url}')" target="blank">
-            <h3>${data.name}</h3>
-            <h3>${data.address}</h3>
-          </div>
-          <div class="heart">
-            <label class="like">
-              <input type="checkbox" />
-              <div class="hearth"></div>
-            </label>
-          </div>
-        </div>
-      </div>
-      `;
+                    <div class="stack">
+                      <div class="card">
+                        <div class="image" id="map${data.id}"></div>
+                        <div class="text" onclick="window.open('${data.url}')" target="blank">
+                          <h3>${data.name}<div class='count'>${data.like}</div></h3> 
+                          <h3>${data.address}</h3>
+                        </div>
+                        <div class="heart">
+                          <label class="like">
+                            <input type="checkbox" />
+                            <div class="hearth" onclick="like(${data.id})"></div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+        `;
         $('.container').append(temp_html);
+
         let roadviewContainer = document.getElementById(`map${data.id}`);
         let roadview = new kakao.maps.Roadview(roadviewContainer);
         let roadviewClient = new kakao.maps.RoadviewClient();
@@ -67,6 +82,22 @@ function placeApidata(page) {
           }
         });
       });
+      //------------------------
+
+      // axios({
+      //   url: '/allplacelike',
+      //   method: 'get',
+      // })
+      //   .then((res) => {
+      //     const data = res.data;
+      //     console.log(data)
+      //     for (let i in data) {
+      //       let temp = `<div id="count">${data[i].count}</div> `;
+      //       $('.count').append(temp)
+      //     }
+      //   })
+
+      //------------------------
       const pages = [];
 
       // prev
@@ -99,4 +130,16 @@ function placeApidata(page) {
       // window.location.href = '/';
     });
 }
-// axios.post('review/review', { title, content }).then().catch();
+
+function like(id) {
+  axios({
+    url: `/place/${id}/like`,
+    method: 'post',
+  })
+    .then((res) => {
+    })
+    .catch((err) => {
+      console.log('error', err);
+    });
+
+}
