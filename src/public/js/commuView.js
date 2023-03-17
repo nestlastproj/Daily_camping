@@ -13,13 +13,24 @@ function getmyprofiledata(articleId) {
   })
     .then((res) => {
       let { title, content, createdAt, image } = res.data;
-
+      const createdTime = new Date(createdAt);
+      const year = createdTime.getFullYear();
+      const month = createdTime.getMonth() + 1;
+      const day = createdTime.getDate();
+      let hour = createdTime.getHours();
+      let minute = createdTime.getMinutes();
+      if (hour.toString().length === 1) {
+        hour = '0' + hour.toString();
+      }
+      if (minute.toString().length === 1) {
+        minute = '0' + minute.toString();
+      }
       let temp = `<div class="title" id="title">${title}</div>
                             <div class="info">
                                 <dl>
                                     <dt>작성일</dt>
                                     <dd>
-                                    <div id="createdAt">${createdAt}</div>
+                                    <div id="createdAt">${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분</div>
                                     </dd>
                                 </dl>
                             </div>
@@ -46,7 +57,6 @@ function deleteArticle() {
     url: `/article/delete/${articleId}`,
   })
     .then((res) => {
-      console.log(res);
       confirm('삭제하시겠습니까?');
       window.location.href = '/article/list';
     })
@@ -54,21 +64,31 @@ function deleteArticle() {
       console.log(err);
     });
 }
-////////////////////////////////////////////////////////////////////////
+
 function getComment(articleId, page) {
   axios({
     url: `/comment/mycomment/${articleId}?page=${page}`,
     method: 'get',
   }).then((res) => {
-    console.log(res);
     const { meta, comments } = res.data;
     const { firstPage, lastPage, totalPage } = meta;
 
     comments.forEach((data) => {
-      console.log(data, 77777777777777777777);
+      const createdTime = new Date(data.createdAt);
+      const year = createdTime.getFullYear();
+      const month = createdTime.getMonth() + 1;
+      const day = createdTime.getDate();
+      let hour = createdTime.getHours();
+      let minute = createdTime.getMinutes();
+      if (hour.toString().length === 1) {
+        hour = '0' + hour.toString();
+      }
+      if (minute.toString().length === 1) {
+        minute = '0' + minute.toString();
+      }
       let temp_html = `   <div class="boxmeta">
                                     <strong>${data.user.nickname}</strong>
-                                    <span class="date">${data.createdAt}</span>
+                                    <span class="date">${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분</span>
                                 </div>
                                 <div>
                                     <p class="text">${data.content}</p>
@@ -107,8 +127,6 @@ function getComment(articleId, page) {
   //   window.location.href = '/';
   // });
 }
-
-////////////////////////////////////////////////////////////////////////
 
 function postcomment() {
   let comment = document.getElementById('comment').value;
