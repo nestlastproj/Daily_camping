@@ -1,4 +1,4 @@
-.serch {
+.search {
   display: flex;
   justify-content: center;
   margin: 50px auto;
@@ -136,7 +136,7 @@ label {
   position: relative;
 }
 
-.serch ul {
+.search ul {
   position: absolute;
   top: 38px;
   left: -4px;
@@ -149,7 +149,7 @@ label {
   transition: 200ms;
 }
 
-.serch ul li {
+.search ul li {
   letter-spacing: 3px;
   text-transform: uppercase;
   color: rgb(255, 255, 255, 1);
@@ -157,94 +157,94 @@ label {
   transition: 500ms ease-in-out;
 }
 
-.serch ul li ::selection {
+.search ul li ::selection {
   color: transparent;
 }
 
-.serch ul li::after,
-.serch ul li::before {
+.search ul li::after,
+.search ul li::before {
   color: black;
   position: absolute;
   transition: 500ms ease-in-out;
 }
 
-.serch ul li::before {
+.search ul li::before {
   top: -20px;
 }
 
-.serch ul li::after {
+.search ul li::after {
   top: -63px;
   transform: scale(0) rotate(210deg);
   filter: blur(20px);
 }
 
-.serch ul li[s]::before {
+.search ul li[s]::before {
   content: attr(s) "s";
   transition-delay: 200ms;
 }
 
-.serch ul li[s]::after {
+.search ul li[s]::after {
   content: attr(s) "s";
   left: 12px;
   color: #666;
 }
 
-.serch ul li[e]::before {
+.search ul li[e]::before {
   content: attr(e) "e";
   transition-delay: 400ms;
 }
 
-.serch ul li[e]::after {
+.search ul li[e]::after {
   content: attr(e) "e";
   left: 24px;
   color: #666;
 }
 
-.serch ul li[a]::before {
+.search ul li[a]::before {
   content: attr(a) "a";
   transition-delay: 600ms;
 }
 
-.serch ul li[a]::after {
+.search ul li[a]::after {
   content: attr(a) "a";
   left: 36px;
   color: #666;
 }
 
-.serch ul li[r]::before {
+.search ul li[r]::before {
   content: attr(r) "r";
   transition-delay: 800ms;
 }
 
-.serch ul li[r]::after {
+.search ul li[r]::after {
   content: attr(r) "r";
   left: 48px;
   color: #666;
 }
 
-.serch ul li[c]::before {
+.search ul li[c]::before {
   content: attr(c) "c";
   transition-delay: 1000ms;
 }
 
-.serch ul li[c]::after {
+.search ul li[c]::after {
   content: attr(c) "c";
   left: 60px;
   color: #666;
 }
 
-.serch ul li[h]::before {
+.search ul li[h]::before {
   content: attr(h) "h";
   transition-delay: 1200ms;
 }
 
-.serch ul li[h]::after {
+.search ul li[h]::after {
   content: attr(h) "h";
   left: 72px;
   color: #666;
 }
 
-.serchbtn {
+.searchbtn {
   background-color: rgb(5, 225, 137);
   color: #fff;
   border: 2px solid rgb(5, 225, 137);

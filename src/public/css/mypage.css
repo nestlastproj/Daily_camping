@@ -1,5 +1,4 @@
-@import url(mypagesidebar.css);
-@import "https://fonts.googleapis.com/css?family=Open+Sans:300,400";
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:300,400';
 
 .firstinfo {
   display: flex;
@@ -25,7 +24,7 @@
 }
 
 .card:after {
-  content: "";
+  content: '';
   display: block;
   width: 250px;
   height: 350px;
