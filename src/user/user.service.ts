@@ -17,12 +17,22 @@ export class UserService {
     return this.userRepository.findOneBy({ id });
   }
 
-  async editprofile(id: number, updateUserDto: UpdateUserDto) {
-    await this.userRepository.update(id, updateUserDto);
+  async editprofile(req, data: UpdateUserDto, file?: Express.Multer.File) {
+    const userId = req.user.id;
+    return await this.userRepository.update(userId, {
+      name: data.name,
+      phone: data.phone,
+      nickname: data.nickname,
+      email: data.email,
+      image: file.filename,
+    });
   }
 
-  async remove(id: number): Promise<void> {
-    await this.userRepository.delete(id);
+  async remove(req) {
+    const userId = req.user.id;
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+    await this.removeRefreshToken(req.user.id);
+    return await this.userRepository.softDelete({ id: userId });
   }
 
   async getByEmail(email: string) {
@@ -45,8 +55,9 @@ export class UserService {
     throw new UnauthorizedException();
   }
 
-  async getinfo(id: number): Promise<User> {
-    return await this.userRepository.findOne({ where: { id } });
+  async getinfo(req): Promise<User> {
+    const userId = req.user.id;
+    return await this.userRepository.findOne({ where: { id: userId } });
   }
 
   async verifyPassword(plainTextPassword: string, hashedPassword: string) {

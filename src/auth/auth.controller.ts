@@ -1,4 +1,16 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Req, Res, UseGuards, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Put,
+  Req,
+  Res,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+  ValidationPipe,
+} from '@nestjs/common';
 import { Response } from 'express';
 import { CreateUserDto } from './dto/create-user.dto';
 import { AuthService } from './auth.service';
@@ -7,12 +19,21 @@ import { UserService } from 'src/user/user.service';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService, private readonly userService: UserService) {}
   // render
   // --------------------------------------------------------------------
+  @Get('/isLoggined')
+  @UseGuards(JwtAuthGuard)
+  isLoggined(@Req() req) {
+    const user = req.user;
+
+    return user;
+  }
+
   @Get('/mypage')
   @UseGuards(JwtAuthGuard)
   getmypage(@Req() req, @Res() res: Response) {
@@ -20,11 +41,11 @@ export class AuthController {
     return res.render('mypage.ejs', { id, nickname });
   }
 
-  @Get('/mypageedit')
+  @Get('/edit')
   @UseGuards(JwtAuthGuard)
   editpage(@Req() req, @Res() res: Response) {
     const id = req.user.id;
-    return res.render('edit_profile.ejs', { id });
+    return res.render('mypageeditprofile.ejs', { id });
   }
 
   @Get('chat')
@@ -38,16 +59,25 @@ export class AuthController {
   getLogin(@Res() res: Response) {
     return res.render('login.ejs');
   }
-  // --------------------------------------------------------------------
 
-  @Get('/mypage/:id')
-  async getinfo(@Param('id') id: number) {
-    return await this.userService.getinfo(id);
+  @Get('withdrawal')
+  getdelete(@Res() res: Response) {
+    return res.render('mypagewithdrawal.ejs');
   }
 
-  @Put('/edit/:id')
-  async editprofile(@Param() id: number, @Body() data: UpdateUserDto) {
-    return await this.userService.editprofile(id, data);
+  // --------------------------------------------------------------------
+
+  @Get('/mypage/get')
+  @UseGuards(JwtAuthGuard)
+  async getinfo(@Req() req) {
+    return await this.userService.getinfo(req);
+  }
+
+  @Put('/edit')
+  @UseGuards(JwtAuthGuard)
+  @UseInterceptors(FileInterceptor('file'))
+  async editprofile(@Req() req, @Body() data: UpdateUserDto, @UploadedFile() file: Express.Multer.File) {
+    return await this.userService.editprofile(req, data, file);
   }
 
   @Post('/signup')

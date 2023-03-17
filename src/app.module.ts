@@ -6,15 +6,16 @@ import { AppService } from './app.service';
 import { TypeOrmConfigService } from './config/typeorm.config.service';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
-import { PlaceModule } from './place.module';
-import { WeatherModule } from './weather.module';
-import { ProductModule } from './product.module';
+import { PlaceModule } from './place/place.module';
+import { WeatherModule } from './weather/weather.module';
+import { ProductModule } from './product/product.module';
 import { HttpModule } from '@nestjs/axios';
 import { ScheduleModule } from '@nestjs/schedule/dist/schedule.module';
 import * as parser from 'fast-xml-parser';
 import { JwtConfigService } from './config/jwt.config.service';
 import { JwtModule } from '@nestjs/jwt';
-// import { ChatModule } from './chat/chat.module';
+import { ReviewModule } from './review/review.module';
+import { RecipeModule } from './recipe/recipe.module';
 import { ArticleModule } from './article/article.module';
 import { CommentModule } from './comment/comment.module';
 import { LikeModule } from './like/like.module';
@@ -38,6 +39,8 @@ import { LikeModule } from './like/like.module';
     PlaceModule,
     WeatherModule,
     ProductModule,
+    ReviewModule,
+    RecipeModule,
     ScheduleModule.forRoot(),
     parser.XMLParser,
     // ChatModule,

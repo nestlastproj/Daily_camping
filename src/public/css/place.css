@@ -1,0 +1,148 @@
+@import url(serch.css);
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+
+.image img {
+  display: block;
+  max-width: 100%;
+}
+.container {
+  max-width: 1850px;
+}
+.stack {
+  margin: 50px 100px;
+  width: 85%;
+  max-width: 400px;
+  transition: 0.25s ease;
+  display: inline-flex;
+  justify-content: center;
+}
+.stack:hover {
+  transform: rotate(5deg);
+}
+.stack:hover .card:before {
+  transform: translatey(-2%) rotate(-4deg);
+}
+.stack:hover .card:after {
+  transform: translatey(2%) rotate(4deg);
+}
+
+.card {
+  aspect-ratio: 3/2;
+  border: 4px solid;
+  background-color: #fff;
+  position: relative;
+  transition: 0.15s ease;
+  cursor: pointer;
+  padding: 5% 5% 15% 5%;
+  display: block;
+  font-size: 0;
+}
+.card:before,
+.card:after {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border: 4px solid;
+  background-color: #fff;
+  transform-origin: center center;
+  z-index: -1;
+  transition: 0.15s ease;
+  top: 0;
+  left: 0;
+}
+.card:before {
+  transform: translatey(-2%) rotate(-6deg);
+}
+.card:after {
+  transform: translatey(2%) rotate(6deg);
+}
+
+.image {
+  width: 100%;
+  min-width: 352px;
+  border: 4px solid;
+  background-color: #eee;
+  aspect-ratio: 1/1;
+  position: relative;
+}
+
+.browser-warning {
+  margin-bottom: 4rem;
+}
+
+@supports (aspect-ratio: 1/1) {
+  .browser-warning {
+    display: none;
+  }
+}
+
+:root {
+  --size: 100px;
+  --frames: 62;
+}
+
+.text {
+  display: inline-block;
+  min-width: 252px;
+}
+
+.heart {
+  display: inline-block;
+  top: 16px;
+  position: relative;
+}
+
+.like input {
+  display: none;
+}
+
+.like {
+  display: block;
+  width: var(--size);
+  height: var(--size);
+  cursor: pointer;
+  border-radius: 999px;
+  overflow: visible;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hearth {
+  background-image: url("https://assets.codepen.io/23500/Hashflag-AppleEvent.svg");
+  background-size: calc(var(--size) * var(--frames)) var(--size);
+  background-repeat: no-repeat;
+  background-position-x: calc(var(--size) * (var(--frames) * -1 + 2));
+  background-position-y: calc(var(--size) * 0.02);
+  width: var(--size);
+  height: var(--size);
+}
+
+input:checked + .hearth {
+  animation: like 1s steps(calc(var(--frames) - 3));
+  animation-fill-mode: forwards;
+}
+
+@keyframes like {
+  0% {
+    background-position-x: 0;
+  }
+  100% {
+    background-position-x: calc(var(--size) * (var(--frames) * -1 + 3));
+  }
+}
+@media (hover: hover) {
+  .like:hover {
+    background-color: #e1255e15;
+  }
+  .like:hover .hearth {
+    background-position-x: calc(var(--size) * (var(--frames) * -1 + 1));
+  }
+}
+
+.pagination {
+  display: flex;
+  font-size: 25px;
+  justify-content: center;
+}

@@ -1,10 +1,17 @@
-import { Body, Controller, Delete, Get, Param, Put } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Req, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { User } from 'src/entity/user.entity';
 import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
+
+  @Delete('/logoff')
+  @UseGuards(JwtAuthGuard)
+  async remove(@Req() req) {
+    await this.userService.remove(req);
+  }
 
   @Get()
   findAll(): Promise<User[]> {
@@ -14,10 +21,5 @@ export class UserController {
   @Get('/:id')
   findOne(@Param() id: number): Promise<User> {
     return this.userService.findOne(id);
-  }
-
-  @Delete('/logoff/:id')
-  async remove(@Param() id: number): Promise<void> {
-    await this.userService.remove(id);
   }
 }

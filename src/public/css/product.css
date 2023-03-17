@@ -1,6 +1,6 @@
 @import url(nav.css);
 @import url(serch.css);
-@import url("https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;700&display=swap');
 
 .container {
   display: flex;
@@ -34,7 +34,7 @@
 }
 
 .card::before {
-  content: "";
+  content: '';
   position: absolute;
   top: -50%;
   width: 100%;
@@ -70,7 +70,7 @@
 
 .card .contentBox {
   position: relative;
-  padding: 20px;
+  padding: 0px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -87,7 +87,7 @@
 }
 
 .card .contentBox .price {
-  font-size: 24px;
+  font-size: 15px;
   color: black;
   font-weight: 700;
   letter-spacing: 1px;
@@ -95,7 +95,7 @@
 
 .card .contentBox .buy {
   position: relative;
-  top: 100px;
+  top: 50px;
   opacity: 0;
   padding: 10px 30px;
   margin-top: 15px;
@@ -123,4 +123,11 @@
   display: flex;
   font-size: 25px;
   justify-content: center;
+}
+
+.contentBox span {
+  text-decoration: line-through;
+  color: #bbb;
+  font-size: 13px;
+  margin-left: 5px;
 }
