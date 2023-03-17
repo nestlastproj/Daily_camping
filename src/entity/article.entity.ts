@@ -5,6 +5,7 @@ import {
   DeleteDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -37,6 +38,6 @@ export class Article extends BaseEntity {
   @ManyToOne((type) => User, (user) => user.articles, { eager: false })
   user: User;
 
-  @ManyToOne((type) => Comment, (comment) => comment.articles, { eager: true })
+  @OneToMany((type) => Comment, (comment) => comment.articles, { eager: true })
   comments: Comment;
 }

@@ -63,6 +63,11 @@ export class ArticleService {
     return this.articleRepository.findOne({ where: { id: articleId } });
   }
 
+  async getMyArticleEdit(req, articleId: number) {
+    const userId = req.user.id;
+    return this.articleRepository.findOne({ where: { id: articleId, user: { id: userId } } });
+  }
+
   async paginates(req, page) {
     const userId = req.user.id;
     const take = 6;
