@@ -51,7 +51,7 @@ function myArticleData(page) {
             $('.pagination').append(pages.join(''));
         })
         .catch((err) => {
-            alert('상품 정보 로드에 실패하였습니다.');
+            alert('정보 로드에 실패하였습니다.');
             // window.location.href = '/';
         });
 }
