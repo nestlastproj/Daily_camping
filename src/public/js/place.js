@@ -1,18 +1,27 @@
 $(document).ready(function () {
   const page = new URLSearchParams(location.search).get('page') || 1;
-  placeApidata(page);
+  const keyword = new URLSearchParams(location.search).get('keyword') || '';
+  placeApidata(page, keyword);
 });
 
-function placeApidata(page) {
+function search() {
+  const keyword = document.getElementById('searchKeyword').value;
+  window.location.href = `/place/placeList?page=1&keyword=${keyword}`;
+}
+
+function placeApidata(page, keyword) {
   axios({
-    url: `/place/place?page=${page}`,
+    url: `/place/placeSearch?page=${page}&keyword=${keyword}`,
     method: 'GET',
   })
     .then((res) => {
-      const { meta, places } = res.data;
+      document.getElementById('placeContainer').innerHTML = '';
+      document.getElementById('pagination').innerHTML = '';
+
+      const { meta, placeList } = res.data;
       const { firstPage, lastPage, totalPage } = meta;
 
-      places.forEach((data) => {
+      placeList.forEach((data) => {
         let temp_html = `
         <div class="stack">
         <div class="card">
@@ -32,10 +41,10 @@ function placeApidata(page) {
       </div>
       `;
         $('.container').append(temp_html);
+
         let roadviewContainer = document.getElementById(`map${data.id}`);
         let roadview = new kakao.maps.Roadview(roadviewContainer);
         let roadviewClient = new kakao.maps.RoadviewClient();
-
         let position = new kakao.maps.LatLng(data.y, data.x);
 
         roadviewClient.getNearestPanoId(position, 50, async function (panoId) {
@@ -71,7 +80,7 @@ function placeApidata(page) {
 
       // prev
       if (page > 1) {
-        const prev = `<a class="page-link" href='?page=${Number(page) - 1}'>
+        const prev = `<a class="page-link" href='?page=${Number(page) - 1}&keyword=${keyword}'>
             <span>&laquo;</span>
         </a>`;
         pages.push(prev);
@@ -79,13 +88,13 @@ function placeApidata(page) {
 
       // pages
       for (let i = firstPage; i <= lastPage; i++) {
-        const pagesLink = `<a "page-link" href='?page=${i}'>${i}</a>`;
+        const pagesLink = `<a "page-link" href='?page=${i}&keyword=${keyword}'>${i}</a>`;
         pages.push(pagesLink);
       }
 
       // next
       if (page < totalPage) {
-        const next = `<a class="page-link" href='?page=${Number(page) + 1}'>
+        const next = `<a class="page-link" href='?page=${Number(page) + 1}&keyword=${keyword}'>
             <span>&raquo;</span>
         </a>`;
         pages.push(next);
@@ -94,9 +103,8 @@ function placeApidata(page) {
       $('.pagination').append(pages.join(''));
     })
     .catch((err) => {
-      alert('캠핑장 정보 로드에 실패하였습니다.');
+      // alert('캠핑장 정보 로드에 실패하였습니다.');
       console.log(err);
       // window.location.href = '/';
     });
 }
-// axios.post('review/review', { title, content }).then().catch();

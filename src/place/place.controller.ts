@@ -9,12 +9,12 @@ export class PlaceController {
   // @Cron('* * * 9 * *') // 매월 9일마다 api 자동 실행
   @Get('/placeget')
   async getPlace(@Query('keywords') keywords: string[], @Query('x') x: string, @Query('y') y: string) {
-    return this.placeService.getPlace(['캠핑장', '실내 캠핑', '오토 캠핑', '글램핑', '카라반'], '0', '0');
+    return await this.placeService.getPlace(['캠핑장', '실내 캠핑', '오토 캠핑', '글램핑', '카라반'], '0', '0');
   }
 
-  @Get('/place')
-  findAllPlace(@Query('page') page: number = 1) {
-    return this.placeService.paginate(page);
+  @Get('/placeSearch')
+  async placeSearch(@Query('page') page: number, @Query('keyword') keyword: string) {
+    return await this.placeService.placeSearch(page, keyword);
   }
 
   @Get('/placeList')
