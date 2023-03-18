@@ -16,7 +16,6 @@ function articleLikeCount() {
     url: `/article/likecount/${articleId}`,
   })
     .then((res) => {
-      console.log(res)
       let temp = `<h3>${res.data}</h3>`
       $('.articlelikecount').append(temp);
     })
@@ -91,7 +90,6 @@ function getComment(articleId, page) {
   }).then((res) => {
     const { meta, comments } = res.data;
     const { firstPage, lastPage, totalPage } = meta;
-
     comments.forEach((data) => {
       const createdTime = new Date(data.createdAt);
       const year = createdTime.getFullYear();
@@ -118,9 +116,17 @@ function getComment(articleId, page) {
                           <button type="button" class="btnregister2" onclick="deleteComment(${data.id})">
                             삭제
                           </button>
+                          <button type="button" class="btnregister" onclick="likeComment(${data.id})">
+                            좋아요
+                          </button>
+                          <div class="commentlikecount${data.id}"></div>
                             `;
       $('.boxcontent').append(temp_html);
+      commentLikeCount(data.id);
     });
+
+
+
     const pages = [];
 
     // prev
@@ -152,6 +158,23 @@ function getComment(articleId, page) {
   //   window.location.href = '/';
   // });
 }
+
+function commentLikeCount(id) {
+  axios({
+    method: 'get',
+    url: `/commentlikecount/${id}`,
+  })
+    .then((res) => {
+      // let divTemp = document.querySelector(`.commentlikecount${id}`)
+      // divTemp.innerHTML = `${res.data}`
+      // $(`.commentlikecount1`).append(0);
+      $(`.commentlikecount${id}`).append(`${res.data}`);
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+
 
 function postComment() {
   let comment = document.getElementById('comment').value;
@@ -195,7 +218,6 @@ function updateComment(id) {
     method: 'get',
   })
     .then((res) => {
-      console.log(res);
       document.getElementById('contentbox').innerHTML = '';
       temp_html = `
         <div>
@@ -237,6 +259,19 @@ function likeArticle() {
   const articleId = articleIdUrl.split('/')[3];
   axios({
     url: `/articles/${articleId}/like`,
+    method: 'post',
+  })
+    .then((res) => {
+      window.location.reload();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+function likeComment(id) {
+  axios({
+    url: `/comments/${id}/like`,
     method: 'post',
   })
     .then((res) => {

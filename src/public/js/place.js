@@ -17,9 +17,7 @@ function placeApidata(page, keyword) {
     .then((res) => {
       document.getElementById('placeContainer').innerHTML = '';
       document.getElementById('pagination').innerHTML = '';
-      console.log(res.data)
-      const { meta, placeList, like } = res.data;
-      console.log(like)
+      const { meta, placeList } = res.data;
       const { firstPage, lastPage, totalPage } = meta;
 
       placeList.forEach((data) => {
@@ -28,38 +26,21 @@ function placeApidata(page, keyword) {
             <div class="card">
               <div class="image" id="map${data.id}"></div>
               <div class="text" onclick="window.open('${data.url}')" target="blank">
-                <h3>${data.name}<div class="totalcount"></div></h3>
+                <h3>${data.name}</h3><div class="totalcount${data.id}"></div>
                 <h3>${data.address}</h3>
               </div>
               <div class="heart">
                 <label class="like">
                   <input type="checkbox" />
                   <div class="hearth" onclick="like(${data.id})"></div>
+                  <h3><div class="totalcount${data.id}"></div></h3>
                 </label>
               </div>
             </div>
           </div>`;
         $('.container').append(temp_html);
 
-        // -----------------------------------
-        // axios({
-        //   url: `/placeLike/${data.id}`,
-        //   method: 'get'
-        // })
-        //   .then((res) => {
-        //     let temp = `<div>${res.data}</div>`
-        //     $('.totalcount').append(temp);
-        //   })
-
-        // axios({
-        //   url: `/allplacelike`,
-        //   method: 'get'
-        // })
-        //   .then((res) => {
-        //     let temp = `<div>${res.data}</div>`
-        //     $('.totalcount').append(temp);
-        //   })
-        // -----------------------------------
+        placeLike(`${data.id}`)
 
         let roadviewContainer = document.getElementById(`map${data.id}`);
         let roadview = new kakao.maps.Roadview(roadviewContainer);
@@ -127,6 +108,16 @@ function placeApidata(page, keyword) {
       console.log(err);
       // window.location.href = '/';
     });
+}
+
+function placeLike(id) {
+  axios({
+    url: `/place/likecount/${id}`,
+    method: 'get'
+  })
+    .then((res) => {
+      $(`.totalcount${id}`).append(`${res.data}`);
+    })
 }
 
 function like(id) {

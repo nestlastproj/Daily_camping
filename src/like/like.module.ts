@@ -11,6 +11,5 @@ import { LikeService } from './like.service';
   imports: [TypeOrmModule.forFeature([ArticleLike, CommentLike, PlaceLike, Article, Comment, Place])],
   controllers: [LikeController],
   providers: [LikeService],
-  exports: [LikeService],
 })
 export class LikeModule {}
