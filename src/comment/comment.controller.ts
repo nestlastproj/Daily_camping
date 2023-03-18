@@ -8,6 +8,11 @@ import { UpdateCommentDto } from './dto/update-comment.dto';
 export class CommentController {
   constructor(private commentService: CommentService) {}
 
+  @Get('/count/:articleId')
+  async commentCount(@Param('articleId') articleId: number) {
+    return await this.commentService.commentCount(articleId);
+  }
+
   @Get('/mypagecomment')
   @Render('mypagecomment')
   comment() {}
@@ -38,7 +43,7 @@ export class CommentController {
   @Get('/:articleId/:commentId')
   @UseGuards(JwtAuthGuard)
   async getmycomment(@Req() req, @Param('articleId') articleId: number, @Param('commentId') commentId: number) {
-    return await this.commentService.getmycomment(req, articleId, commentId)
+    return await this.commentService.getmycomment(req, articleId, commentId);
   }
 
   @Put('/:articleId/:commentId')
@@ -56,10 +61,5 @@ export class CommentController {
   @UseGuards(JwtAuthGuard)
   async deleteComment(@Req() req, @Param('articleId') articleId: number, @Param('commentId') commentId: number) {
     return await this.commentService.deleteComment(req, articleId, commentId);
-  }
-
-  @Get('/count/:articleId')
-  async commentcount(@Param('articleId') articleId: number) {
-    return await this.commentService.commentcount(articleId);
   }
 }

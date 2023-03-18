@@ -6,6 +6,21 @@ import { LikeService } from './like.service';
 export class LikeController {
   constructor(private readonly likeService: LikeService) {}
 
+  @Get('commentlikecount/:relationId')
+  async commentLikeCount(@Param('relationId') relationId: number) {
+    return await this.likeService.commentLikeCount(relationId);
+  }
+
+  @Get('article/likecount/:relationId')
+  async articleLikeCount(@Param('relationId') relationId: number) {
+    return await this.likeService.articleLikeCount(relationId);
+  }
+
+  @Get('place/likecount/:relationId')
+  async placeLikeCount(@Param('relationId') relationId: number) {
+    return await this.likeService.placeLikeCount(relationId);
+  }
+  //---------------------------------------------
   @Get('/place/:relationId/countlike')
   async countplacelike(@Param('relationId') relationId: number) {
     return await this.likeService.countplacelike(relationId);
@@ -38,10 +53,5 @@ export class LikeController {
   @Get('allplacelike')
   async allPlaceLike() {
     return this.likeService.allPlaceLike();
-  }
-
-  @Get('testlike/:relationId')
-  async testLike(@Param('relationId') relationId: number) {
-    return this.likeService.testLike(relationId);
   }
 }

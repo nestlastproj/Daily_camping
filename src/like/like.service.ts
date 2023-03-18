@@ -26,7 +26,7 @@ export class LikeService {
   async getarticlelike(req, articleId: number) {
     const userId = req.user.id;
     const article = await this.articleRepository.find({ where: { id: articleId } });
-    if (!article) {
+    if (!article.length) {
       throw new Error('존재하지 않는 게시물입니다.');
     }
     const exist = await this.articlelikeRepository.find({ where: { user: userId, relationId: articleId } });
@@ -40,7 +40,7 @@ export class LikeService {
   async getplacelike(req, placeId: number) {
     const userId = req.user.id;
     const place = await this.placeRepository.find({ where: { id: placeId } });
-    if (!place) {
+    if (!place.length) {
       throw new Error('존재하지 않는 캠핑장입니다.');
     }
     const exist = await this.placelikeRepository.find({ where: { user: { id: userId }, relationId: placeId } });
@@ -54,7 +54,8 @@ export class LikeService {
   async getcommentlike(req, commentId: number) {
     const userId = req.user.id;
     const comment = await this.commentRepository.find({ where: { id: commentId } });
-    if (!comment) {
+    console.log(comment);
+    if (!comment.length) {
       throw new Error('존재하지 않는 댓글입니다.');
     }
     const exist = await this.commentlikeRepository.find({ where: { user: userId, relationId: commentId } });
@@ -92,11 +93,32 @@ export class LikeService {
       .getRawMany();
   }
 
-  async testLike(relationId: number) {
+  async commentLikeCount(relationId: number) {
+    return await this.commentlikeRepository
+      .createQueryBuilder()
+      .select('relationId')
+      .where({ relationId })
+      .andWhere({ relationType: 'comment' })
+      .addSelect('COUNT(*) AS count')
+      .getCount();
+  }
+
+  async articleLikeCount(relationId: number) {
+    return await this.articlelikeRepository
+      .createQueryBuilder()
+      .select('relationId')
+      .where({ relationId })
+      .andWhere({ relationType: 'article' })
+      .addSelect('COUNT(*) AS count')
+      .getCount();
+  }
+
+  async placeLikeCount(relationId: number) {
     return await this.placelikeRepository
       .createQueryBuilder()
       .select('relationId')
       .where({ relationId })
+      .andWhere({ relationType: 'place' })
       .addSelect('COUNT(*) AS count')
       .getCount();
   }

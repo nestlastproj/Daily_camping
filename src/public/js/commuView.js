@@ -5,7 +5,25 @@ $(document).ready(function () {
   getmyprofiledata(articleId);
   getComment(articleId, page);
   countComment(articleId)
+  articleLikeCount();
 });
+
+function articleLikeCount() {
+  const articleIdUrl = window.location.pathname;
+  const articleId = articleIdUrl.split('/')[3];
+  axios({
+    method: 'get',
+    url: `/article/likecount/${articleId}`,
+  })
+    .then((res) => {
+      console.log(res)
+      let temp = `<h3>${res.data}</h3>`
+      $('.articlelikecount').append(temp);
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
 
 function getmyprofiledata(articleId) {
   axios({
@@ -213,3 +231,19 @@ function countComment(articleId) {
       console.log(err);
     });
 }
+
+function likeArticle() {
+  const articleIdUrl = window.location.pathname;
+  const articleId = articleIdUrl.split('/')[3];
+  axios({
+    url: `/articles/${articleId}/like`,
+    method: 'post',
+  })
+    .then((res) => {
+      window.location.reload();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+

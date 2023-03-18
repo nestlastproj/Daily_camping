@@ -125,7 +125,7 @@ export class CommentService {
     }
   }
 
-  async commentcount(articleId) {
+  async commentCount(articleId: number) {
     return await this.commentRepository.createQueryBuilder().select('articleId').where({ articles: articleId }).getCount();
   }
 }

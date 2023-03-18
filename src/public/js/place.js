@@ -17,16 +17,16 @@ function placeApidata(page, keyword) {
     .then((res) => {
       document.getElementById('placeContainer').innerHTML = '';
       document.getElementById('pagination').innerHTML = '';
-
-      const { meta, placeList } = res.data;
+      console.log(res.data)
+      const { meta, placeList, like } = res.data;
+      console.log(like)
       const { firstPage, lastPage, totalPage } = meta;
 
       placeList.forEach((data) => {
         let temp_html = `
           <div class="stack">
             <div class="card">
-              <div class="image" id="map${data.id}">
-              </div>
+              <div class="image" id="map${data.id}"></div>
               <div class="text" onclick="window.open('${data.url}')" target="blank">
                 <h3>${data.name}<div class="totalcount"></div></h3>
                 <h3>${data.address}</h3>
@@ -42,17 +42,23 @@ function placeApidata(page, keyword) {
         $('.container').append(temp_html);
 
         // -----------------------------------
-        console.log(data.id)
-        axios({
-          url: `/testlike/${data.id}`,
-          method: 'get'
-        })
-          .then((res) => {
-            console.log(res.data)
-            let temp = `<div>${res.data}</div>`
-            $('.totalcount').append(temp);
-          })
+        // axios({
+        //   url: `/placeLike/${data.id}`,
+        //   method: 'get'
+        // })
+        //   .then((res) => {
+        //     let temp = `<div>${res.data}</div>`
+        //     $('.totalcount').append(temp);
+        //   })
 
+        // axios({
+        //   url: `/allplacelike`,
+        //   method: 'get'
+        // })
+        //   .then((res) => {
+        //     let temp = `<div>${res.data}</div>`
+        //     $('.totalcount').append(temp);
+        //   })
         // -----------------------------------
 
         let roadviewContainer = document.getElementById(`map${data.id}`);

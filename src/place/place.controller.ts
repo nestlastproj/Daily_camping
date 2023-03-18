@@ -1,4 +1,4 @@
-import { Controller, Get, Query, Render } from '@nestjs/common';
+import { Controller, Get, Param, Query, Render } from '@nestjs/common';
 import { PlaceService } from './place.service';
 import { Cron } from '@nestjs/schedule/dist/decorators';
 
