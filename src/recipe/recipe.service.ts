@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Recipe } from 'src/entity/api/recipe.entity';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import axios from 'axios';
 import cheerio from 'cheerio';
 
@@ -99,9 +99,11 @@ export class RecipeService {
     await this.recipeRePository.delete({});
   }
 
-  async paginate(page) {
+  async recipeSearch(page, keyword) {
     const take = 8;
-    const [recipes, total] = await this.recipeRePository.findAndCount({
+    const whereQuery = keyword === '' ? '%%' : `%${keyword}%`;
+    const [recipeList, total] = await this.recipeRePository.findAndCount({
+      where: { name: Like(whereQuery) },
       take,
       skip: (page - 1) * take,
     });
@@ -116,7 +118,7 @@ export class RecipeService {
     }
 
     return {
-      recipes,
+      recipeList,
       meta: {
         firstPage,
         lastPage,

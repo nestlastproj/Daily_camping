@@ -25,7 +25,7 @@
     <%- include('nav.ejs') %>
     <div class="serch">
       <label>
-        <input type="text" required />
+        <input type="text" id="searchKeyword" required />
         <ul>
           <li s>s</li>
           <li e>e</li>
@@ -34,16 +34,16 @@
           <li c>c</li>
           <li h>h</li>
         </ul>
-        <button class="serchbtn" type="submit"><i class="fa-solid fa-magnifying-glass fa-2x"></i></button>
+        <button class="serchbtn" type="submit"><i class="fa-solid fa-magnifying-glass fa-2x" onclick="search()"></i></button>
       </label>
     </div>
     <div class="container">
-      <div class="cardBox"></div>
+      <div class="cardBox" id="productContainer"></div>
       <!-- <div class="sideBar">
         사이드바 영역
       </div> -->
     </div>
-    <div class="pagination"></div>
+    <div class="pagination" id="pagination"></div>
     <%- include('footer.ejs') %>
   </body>
   <link rel="stylesheet" href="../css/product.css" />

@@ -173,13 +173,25 @@ function updateComment(id) {
   const articleIdUrl = window.location.pathname;
   const articleId = articleIdUrl.split('/')[3];
   axios({
-    url: `/comment/${articleId}/${id}`,
-    method: 'put',
+    url: `/comment/${articleId}/${commentId}`,
+    method: 'get',
   })
     .then((res) => {
-
-
-      window.location.reload();
+      console.log(res);
+      document.getElementById('contentbox').innerHTML = '';
+      temp_html = `
+        <div>
+            <textarea class="text" id="commenttext">${res.data.content}</textarea>
+        </div>
+        <button type="button" class="btnregister" onclick="commentPost(${res.data.id})">
+          수정
+        </button>
+        <button type="button" class="btnregister2">
+          취소
+        </button>
+      `;
+      $('.boxcontent').append(temp_html);
+      // window.location.reload();
     })
     .catch((err) => {
       console.log(err);
