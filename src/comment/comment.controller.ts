@@ -46,7 +46,7 @@ export class CommentController {
     return await this.commentService.updateComment(req, articleId, commentId, data);
   }
 
-  @Delete('/:articleId/:commentId')
+  @Delete('/delete/:articleId/:commentId')
   @UseGuards(JwtAuthGuard)
   async deleteComment(@Req() req, @Param('articleId') articleId: number, @Param('commentId') commentId: number) {
     return await this.commentService.deleteComment(req, articleId, commentId);
