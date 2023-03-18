@@ -75,7 +75,7 @@ export class LikeService {
     await this.placelikeRepository.find({ where: { id: userId } });
     return await this.placelikeRepository
       .createQueryBuilder('placelike')
-      .select('placelike.relationId')
+      .select('placelike.relationId AS id')
       .addSelect('COUNT(*) AS count')
       .where({ user: { id: userId } })
       .groupBy('placelike.relationId')

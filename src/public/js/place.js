@@ -26,16 +26,16 @@ function placeApidata(page, keyword) {
             <div class="card">
               <div class="image" id="map${data.id}"></div>
               <div class="text" onclick="window.open('${data.url}')" target="blank">
-                <h3>${data.name}</h3><div class="totalcount${data.id}"></div>
+                <h3>${data.name}</h3>
                 <h3>${data.address}</h3>
               </div>
               <div class="heart">
                 <label class="like">
-                  <input type="checkbox" />
+                  <input id="myLike${data.id}" type="checkbox" />
                   <div class="hearth" onclick="like(${data.id})"></div>
-                  <h3><div class="totalcount${data.id}"></div></h3>
                 </label>
               </div>
+              <h3><div class="totalcount${data.id}"></div></h3>
             </div>
           </div>`;
         $('.container').append(temp_html);
@@ -76,6 +76,7 @@ function placeApidata(page, keyword) {
           }
         });
       });
+      mylike(page)
 
       const pages = [];
 
@@ -116,7 +117,7 @@ function placeLike(id) {
     method: 'get'
   })
     .then((res) => {
-      $(`.totalcount${id}`).append(`${res.data}`);
+      $(`.totalcount${id}`).append(res.data);
     })
 }
 
@@ -125,7 +126,33 @@ function like(id) {
     url: `/place/${id}/like`,
     method: 'post',
   })
-    .then((res) => { })
+    .then((res) => {
+      // window.location.reload();
+    })
+    .catch((err) => {
+      console.log('error', err);
+    });
+}
+
+function mylike(page) {
+  axios({
+    url: `/myplacelike`,
+    method: 'get',
+  })
+    .then((res) => {
+      const data = res.data
+      data.forEach((data) => {
+        if (page === 1) {
+          if (data.id <= page * 6) {
+            document.getElementById(`myLike${data.id}`).checked = true
+          }
+        } else {
+          if ((page - 1) * 6 < data.id && data.id <= page * 6) {
+            document.getElementById(`myLike${data.id}`).checked = true
+          }
+        }
+      })
+    })
     .catch((err) => {
       console.log('error', err);
     });
