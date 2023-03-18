@@ -89,7 +89,7 @@ export class ArticleController {
     return this.articleService.getMyArticleEdit(req, articleId);
   }
 
-  @Post('go')
+  @Post('write')
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('file'))
   async createArticle(@Req() req, @Body() data: CreateArticleDto, @UploadedFile() file?: Express.Multer.File) {

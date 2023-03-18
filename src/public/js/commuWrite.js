@@ -1,4 +1,4 @@
-function finishwrite() {
+function articleWrite() {
   let title = document.getElementById('title').value
   let content = document.getElementById('content').value
   let image = document.getElementById('image').files[0];
@@ -8,7 +8,7 @@ function finishwrite() {
   formData.append('content', content);
   formData.append('file', image);
 
-  axios.post('/article/go', formData, {
+  axios.post('/article/write', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
@@ -23,6 +23,7 @@ function finishwrite() {
     })
 }
 
+// 원빈님 코드
 // CKEDITOR.ClassicEditor.create(document.getElementById("editor"), {
 //   toolbar: {
 //     items: [

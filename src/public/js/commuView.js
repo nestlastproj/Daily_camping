@@ -4,7 +4,7 @@ $(document).ready(function () {
   const page = new URLSearchParams(location.search).get('page') || 1;
   getmyprofiledata(articleId);
   getComment(articleId, page);
-  countcomment(articleId)
+  countComment(articleId)
 });
 
 function getmyprofiledata(articleId) {
@@ -94,10 +94,10 @@ function getComment(articleId, page) {
                           <div>
                               <p class="text">${data.content}</p>
                           </div>
-                          <button type="button" class="btnregister" onclick="updatecomment(${data.id})">
+                          <button type="button" class="btnregister" onclick="updateComment(${data.id})">
                             수정
                           </button>
-                          <button type="button" class="btnregister2" onclick="deletecomment(${data.id})">
+                          <button type="button" class="btnregister2" onclick="deleteComment(${data.id})">
                             삭제
                           </button>
                             `;
@@ -135,7 +135,7 @@ function getComment(articleId, page) {
   // });
 }
 
-function postcomment() {
+function postComment() {
   let comment = document.getElementById('comment').value;
   const articleIdUrl = window.location.pathname;
   const articleId = articleIdUrl.split('/')[3];
@@ -153,7 +153,7 @@ function postcomment() {
     });
 }
 
-function deletecomment(id) {
+function deleteComment(id) {
   const articleIdUrl = window.location.pathname;
   const articleId = articleIdUrl.split('/')[3];
   axios({
@@ -169,7 +169,7 @@ function deletecomment(id) {
     });
 }
 
-function updatecomment(id) {
+function updateComment(id) {
   const articleIdUrl = window.location.pathname;
   const articleId = articleIdUrl.split('/')[3];
   axios({
@@ -186,7 +186,7 @@ function updatecomment(id) {
     });
 }
 
-function countcomment(articleId) {
+function countComment(articleId) {
   axios({
     url: `/comment/count/${articleId}`,
     method: 'get',

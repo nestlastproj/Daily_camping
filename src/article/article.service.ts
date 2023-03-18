@@ -36,6 +36,7 @@ export class ArticleService {
     const [articles, total] = await this.articleRepository.findAndCount({
       take, // Limit; 한 페이지에 가져올 데이터의 제한 갯수
       skip: (page - 1) * take, // Offset; 이전의 요청 데이터 갯수 = 현재 요청이 시작되는 위치
+      relations: ['user'],
     });
     const totalPage = Math.ceil(total / take);
     const pageGroup = Math.ceil(page / 5);
@@ -47,10 +48,7 @@ export class ArticleService {
     }
 
     return {
-      data: articles.map((article) => {
-        const { id, title, content, createdAt } = article;
-        return { id, title, content, createdAt };
-      }),
+      data: articles,
       meta: {
         firstPage,
         lastPage,

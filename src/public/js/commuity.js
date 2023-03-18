@@ -8,6 +8,7 @@ function getarticlelist(page) {
         url: `search?page=${page}`,
     })
         .then((response) => {
+            console.log(response.data);
             const { data, meta } = response.data;
             const { firstPage, lastPage, totalPage } = meta;
 
@@ -16,6 +17,7 @@ function getarticlelist(page) {
                 let articleId = data[i].id;
                 let title = data[i].title;
                 let createdAt = data[i].createdAt;
+                let nickname = data[i].user.nickname;
                 const createdTime = new Date(createdAt);
                 const year = createdTime.getFullYear();
                 const month = createdTime.getMonth() + 1;
@@ -33,6 +35,7 @@ function getarticlelist(page) {
                     <div class="id">${articleId}</div>
                     <div class="title"><a href='/article/view/${articleId}'>${title}</a></div>
                     <div class="date">${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분</div>
+                    <div class="nickname">${nickname}</div>
                 </div>
                 `;
                 $('.boardList').append(temp);
