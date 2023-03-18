@@ -91,10 +91,10 @@ function getComment(articleId, page) {
                                     <strong>${data.user.nickname}</strong>
                                     <span class="date">${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분</span>
                           </div>
-                          <div>
+                          <div id="comment">
                               <p class="text">${data.content}</p>
                           </div>
-                          <button type="button" class="btnregister" onclick="">
+                          <button type="button" class="btnregister" onclick="updatecomment(${data.id})">
                             수정
                           </button>
                           <button type="button" class="btnregister2" onclick="deletecomment(${data.id})">
@@ -162,6 +162,23 @@ function deletecomment(id) {
   })
     .then((res) => {
       confirm('삭제하시겠습니까?');
+      window.location.reload();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+function updatecomment(id) {
+  const articleIdUrl = window.location.pathname;
+  const articleId = articleIdUrl.split('/')[3];
+  axios({
+    url: `/comment/${articleId}/${id}`,
+    method: 'put',
+  })
+    .then((res) => {
+
+
       window.location.reload();
     })
     .catch((err) => {
