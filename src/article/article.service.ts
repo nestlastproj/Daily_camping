@@ -108,22 +108,23 @@ export class ArticleService {
 
   async createArticle(req, data: CreateArticleDto, file?: Express.Multer.File) {
     const userId = req.user.id;
-    return await this.articleRepository.insert({
-      user: { id: userId },
-      title: data.title,
-      content: data.content,
-      image: file.filename,
-    });
+    const aritcle = { user: { id: userId }, title: data.title, content: data.content };
+    if (file) {
+      aritcle['image'] = file.filename;
+    }
+    return await this.articleRepository.insert(aritcle);
   }
 
   async updateArticle(req, articleId: number, data: UpdateArticleDto, file?: Express.Multer.File) {
     const userId = req.user.id;
-    return await this.articleRepository.update(articleId, {
-      user: { id: userId },
-      title: data.title,
-      content: data.content,
-      image: file.filename,
-    });
+    const aritcle = { user: { id: userId }, title: data.title, content: data.content };
+    if (file) {
+      aritcle['image'] = file.filename;
+    }
+    return await this.articleRepository.update(articleId, aritcle);
+    // title: data.title,
+    // content: data.content,
+    // image: file.filename,
   }
 
   async deleteArticle(req, articleId: number) {

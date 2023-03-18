@@ -54,7 +54,6 @@ export class ArticleController {
   @Render('commuView.ejs')
   @UsePipes(ValidationPipe)
   getviewarticle(@Param('articleId') articleId: number) {
-    
     return { articleId };
   }
 
@@ -87,13 +86,13 @@ export class ArticleController {
   @Get('myArticleEdit/:articleId')
   @UseGuards(JwtAuthGuard)
   async getMyArticleEdit(@Req() req, @Param('articleId') articleId: number) {
-    return this.articleService.getMyArticleEdit(req, articleId)
+    return this.articleService.getMyArticleEdit(req, articleId);
   }
 
   @Post('go')
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('file'))
-  async createArticle(@Req() req, @Body() data: CreateArticleDto, @UploadedFile() file: Express.Multer.File) {
+  async createArticle(@Req() req, @Body() data: CreateArticleDto, @UploadedFile() file?: Express.Multer.File) {
     return await this.articleService.createArticle(req, data, file);
   }
 
