@@ -35,6 +35,12 @@ export class CommentController {
     return await this.commentService.createComment(req, articleId, data);
   }
 
+  @Get('/:articleId/:commentId')
+  @UseGuards(JwtAuthGuard)
+  async getmycomment(@Req() req, @Param('articleId') articleId: number, @Param('commentId') commentId: number) {
+    return await this.commentService.getmycomment(req, articleId, commentId)
+  }
+
   @Put('/:articleId/:commentId')
   @UseGuards(JwtAuthGuard)
   async updateComment(
@@ -46,7 +52,7 @@ export class CommentController {
     return await this.commentService.updateComment(req, articleId, commentId, data);
   }
 
-  @Delete('/:articleId/:commentId')
+  @Delete('/delete/:articleId/:commentId')
   @UseGuards(JwtAuthGuard)
   async deleteComment(@Req() req, @Param('articleId') articleId: number, @Param('commentId') commentId: number) {
     return await this.commentService.deleteComment(req, articleId, commentId);

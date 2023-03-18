@@ -13,7 +13,7 @@ export class PlaceController {
   }
 
   @Get('/placeSearch')
-  async placeSearch(@Query('page') page: number, @Query('keyword') keyword: string) {
+  async placeSearch(@Query('page') page: number , @Query('keyword') keyword:string) {
     return await this.placeService.placeSearch(page, keyword);
   }
 

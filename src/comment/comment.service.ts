@@ -88,6 +88,11 @@ export class CommentService {
     };
   }
 
+  async getmycomment(req, articleId, commentId) {
+    const userId = req.user.id;
+    return await this.commentRepository.findOne({ where: { id: commentId, user: { id: userId }, articles: { id: articleId } } });
+  }
+
   async getAllComment(articleId: number) {
     return await this.commentRepository.find({ where: { articles: { id: articleId }, deletedAt: null } });
   }

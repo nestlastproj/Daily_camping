@@ -1,45 +1,49 @@
 $(document).ready(function () {
   const page = new URLSearchParams(location.search).get('page') || 1;
-  const keyword = new URLSearchParams(location.search).get('keyword') || '';
-  placeApidata(page, keyword);
+  placeApidata(page);
+  // getlikecount()
 });
 
-function search() {
-  const keyword = document.getElementById('searchKeyword').value;
-  window.location.href = `/place/placeList?page=1&keyword=${keyword}`;
+function getlikecount() {
+  axios({
+    url: '/myplacelike',
+    method: 'get',
+  }).then((res) => {
+    const data = res.data;
+    for (let i in data) {
+      let placeId = data[i].placelike_relationId;
+      console.log(placeId);
+    }
+  });
 }
 
-function placeApidata(page, keyword) {
+function placeApidata(page) {
   axios({
     url: `/place/placeSearch?page=${page}&keyword=${keyword}`,
     method: 'GET',
   })
     .then((res) => {
-      document.getElementById('placeContainer').innerHTML = '';
-      document.getElementById('pagination').innerHTML = '';
-
-      const { meta, placeList } = res.data;
+      const { meta, placeList, like } = res.data;
       const { firstPage, lastPage, totalPage } = meta;
 
       placeList.forEach((data) => {
         let temp_html = `
-        <div class="stack">
-        <div class="card">
-          <div class="image" id="map${data.id}">
-          </div>
-          <div class="text" onclick="window.open('${data.url}')" target="blank">
-            <h3>${data.name}</h3>
-            <h3>${data.address}</h3>
-          </div>
-          <div class="heart">
-            <label class="like">
-              <input type="checkbox" />
-              <div class="hearth"></div>
-            </label>
-          </div>
-        </div>
-      </div>
-      `;
+                    <div class="stack">
+                      <div class="card">
+                        <div class="image" id="map${data.id}"></div>
+                        <div class="text" onclick="window.open('${data.url}')" target="blank">
+                          <h3>${data.name}<div class='count'>${data.like}</div></h3> 
+                          <h3>${data.address}</h3>
+                        </div>
+                        <div class="heart">
+                          <label class="like">
+                            <input type="checkbox" />
+                            <div class="hearth" onclick="like(${data.id})"></div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+        `;
         $('.container').append(temp_html);
 
         let roadviewContainer = document.getElementById(`map${data.id}`);
@@ -76,6 +80,22 @@ function placeApidata(page, keyword) {
           }
         });
       });
+      //------------------------
+
+      // axios({
+      //   url: '/allplacelike',
+      //   method: 'get',
+      // })
+      //   .then((res) => {
+      //     const data = res.data;
+      //     console.log(data)
+      //     for (let i in data) {
+      //       let temp = `<div id="count">${data[i].count}</div> `;
+      //       $('.count').append(temp)
+      //     }
+      //   })
+
+      //------------------------
       const pages = [];
 
       // prev
@@ -106,5 +126,16 @@ function placeApidata(page, keyword) {
       // alert('캠핑장 정보 로드에 실패하였습니다.');
       console.log(err);
       // window.location.href = '/';
+    });
+}
+
+function like(id) {
+  axios({
+    url: `/place/${id}/like`,
+    method: 'post',
+  })
+    .then((res) => {})
+    .catch((err) => {
+      console.log('error', err);
     });
 }

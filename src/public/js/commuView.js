@@ -71,6 +71,7 @@ function getComment(articleId, page) {
     method: 'get',
   }).then((res) => {
     const { meta, comments } = res.data;
+    // console.log(comments);
     const { firstPage, lastPage, totalPage } = meta;
 
     comments.forEach((data) => {
@@ -89,10 +90,16 @@ function getComment(articleId, page) {
       let temp_html = `   <div class="boxmeta">
                                     <strong>${data.user.nickname}</strong>
                                     <span class="date">${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분</span>
-                                </div>
-                                <div>
-                                    <p class="text">${data.content}</p>
-                                </div>
+                          </div>
+                          <div>
+                              <p class="text">${data.content}</p>
+                          </div>
+                          <button type="button" class="btnregister" onclick="updatecomment(${data.id})">
+                            수정
+                          </button>
+                          <button type="button" class="btnregister2" onclick="deletecomment(${data.id})">
+                            삭제
+                          </button>
                             `;
       $('.boxcontent').append(temp_html);
     });
@@ -132,6 +139,7 @@ function postcomment() {
   let comment = document.getElementById('comment').value;
   const articleIdUrl = window.location.pathname;
   const articleId = articleIdUrl.split('/')[3];
+
   axios
     .post(`/comment/${articleId}`, {
       content: comment,
@@ -143,4 +151,59 @@ function postcomment() {
     .catch((err) => {
       console.log('error', err);
     });
+}
+
+function deletecomment(id) {
+  const articleIdUrl = window.location.pathname;
+  const articleId = articleIdUrl.split('/')[3];
+  axios({
+    method: 'delete',
+    url: `/comment/delete/${articleId}/${id}`,
+  })
+    .then((res) => {
+      confirm('삭제하시겠습니까?');
+      window.location.reload();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+function updatecomment(commentId) {
+  const articleIdUrl = window.location.pathname;
+  const articleId = articleIdUrl.split('/')[3];
+  axios({
+    url: `/comment/${articleId}/${commentId}`,
+    method: 'get',
+  })
+    .then((res) => {
+      console.log(res);
+      document.getElementById('contentbox').innerHTML = '';
+      temp_html = `
+        <div>
+            <textarea class="text" id="commenttext">${res.data.content}</textarea>
+        </div>
+        <button type="button" class="btnregister" onclick="commentPost(${res.data.id})">
+          수정
+        </button>
+        <button type="button" class="btnregister2">
+          취소
+        </button>
+      `;
+      $('.boxcontent').append(temp_html);
+      // window.location.reload();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+function commentPost(commentId) {
+  const content = document.getElementById('commenttext').value;
+  const articleIdUrl = window.location.pathname;
+  const articleId = articleIdUrl.split('/')[3];
+
+  axios.put(`/comment/${articleId}/${commentId}`,
+  { content: content }
+  ).then(window.location.reload());
 }

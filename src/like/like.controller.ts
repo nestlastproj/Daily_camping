@@ -1,10 +1,15 @@
-import { Controller, Param, Post, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { LikeService } from './like.service';
 
 @Controller('')
 export class LikeController {
   constructor(private readonly likeService: LikeService) {}
+
+  @Get('/place/:relationId/countlike')
+  async countplacelike(@Param('relationId') relationId: number) {
+    return await this.likeService.countplacelike(relationId);
+  }
 
   @Post('/articles/:articleId/like')
   @UseGuards(JwtAuthGuard)
@@ -16,5 +21,22 @@ export class LikeController {
   @UseGuards(JwtAuthGuard)
   async getcommentlike(@Req() req, @Param('commentId') commentId: number) {
     return await this.likeService.getcommentlike(req, commentId);
+  }
+
+  @Post('/place/:placeId/like')
+  @UseGuards(JwtAuthGuard)
+  async getplacelike(@Req() req, @Param('placeId') placeId: number) {
+    return await this.likeService.getplacelike(req, placeId);
+  }
+
+  @Get('myplacelike')
+  @UseGuards(JwtAuthGuard)
+  async getMyLike(@Req() req) {
+    return await this.likeService.getMyLike(req);
+  }
+
+  @Get('allplacelike')
+  async allPlaceLike() {
+    return this.likeService.allPlaceLike();
   }
 }
