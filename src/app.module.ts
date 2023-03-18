@@ -43,7 +43,6 @@ import { LikeModule } from './like/like.module';
     RecipeModule,
     ScheduleModule.forRoot(),
     parser.XMLParser,
-    // ChatModule,
     ArticleModule,
     CommentModule,
     LikeModule,
