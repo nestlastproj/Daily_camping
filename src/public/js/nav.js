@@ -20,7 +20,7 @@ function logout() {
             location.href = "http://localhost:3000/auth/login";
         },
         error: function (error) {
-            console.log("에러이유:", error);
+            console.log(error);
         },
     });
 }

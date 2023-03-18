@@ -8,7 +8,6 @@ function getarticlelist(page) {
         url: `search?page=${page}`,
     })
         .then((response) => {
-            console.log(response.data);
             const { data, meta } = response.data;
             const { firstPage, lastPage, totalPage } = meta;
 

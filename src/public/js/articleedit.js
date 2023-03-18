@@ -9,7 +9,6 @@ function myArticleEdit(articleId) {
     url: `/article/myArticleEdit/${articleId}`,
     method: 'GET',
   }).then((res) => {
-    console.log(res);
     let { title, content, image } = res.data;
     let temp_html = `
     <div class="title">
@@ -50,6 +49,6 @@ function putMyArticle() {
     })
     .then((res) => {
       alert('수정 완료');
-      location.href= '/article/list'
+      location.href = '/article/list'
     });
 }

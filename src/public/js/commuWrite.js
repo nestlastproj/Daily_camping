@@ -14,7 +14,6 @@ function articleWrite() {
     },
   })
     .then((res) => {
-      console.log(res);
       alert('게시 완료')
       location.href = '/article/list'
     })

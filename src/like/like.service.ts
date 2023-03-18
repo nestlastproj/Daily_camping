@@ -54,7 +54,6 @@ export class LikeService {
   async getcommentlike(req, commentId: number) {
     const userId = req.user.id;
     const comment = await this.commentRepository.find({ where: { id: commentId } });
-    console.log(comment);
     if (!comment.length) {
       throw new Error('존재하지 않는 댓글입니다.');
     }

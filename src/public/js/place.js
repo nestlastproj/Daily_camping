@@ -127,7 +127,7 @@ function like(id) {
     method: 'post',
   })
     .then((res) => {
-      // window.location.reload();
+      window.location.reload();
     })
     .catch((err) => {
       console.log('error', err);
