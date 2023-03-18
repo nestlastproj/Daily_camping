@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm/dist';
 import { ILike, Like, Repository } from 'typeorm';
 import { Place } from '../entity/api/place.entity';
 import { ConfigService } from '@nestjs/config';
-import { LikeService } from 'src/like/like.service';
+import { skip } from 'rxjs';
 
 @Injectable()
 export class PlaceService {
@@ -12,7 +12,6 @@ export class PlaceService {
     @InjectRepository(Place) private readonly placeRepository: Repository<Place>,
     private readonly configService: ConfigService,
     private readonly httpService: HttpService,
-    private readonly likeService: LikeService,
   ) {}
 
   async getPlace(keywords: string[], x: string, y: string) {
@@ -67,7 +66,6 @@ export class PlaceService {
       skip: (page - 1) * take,
     });
 
-    const like = await this.likeService.allPlaceLike();
     const totalPage = Math.ceil(total / take);
     const pageGroup = Math.ceil(page / 5);
     let lastPage = pageGroup * 5;
@@ -78,7 +76,6 @@ export class PlaceService {
     }
 
     return {
-      like,
       placeList,
       meta: {
         firstPage,

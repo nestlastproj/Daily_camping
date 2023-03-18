@@ -1,50 +1,59 @@
 $(document).ready(function () {
   const page = new URLSearchParams(location.search).get('page') || 1;
-  placeApidata(page);
-  // getlikecount()
+  const keyword = new URLSearchParams(location.search).get('keyword') || '';
+  placeApidata(page, keyword);
 });
 
-function getlikecount() {
-  axios({
-    url: '/myplacelike',
-    method: 'get',
-  }).then((res) => {
-    const data = res.data;
-    for (let i in data) {
-      let placeId = data[i].placelike_relationId;
-      console.log(placeId);
-    }
-  });
+function search() {
+  const keyword = document.getElementById('searchKeyword').value;
+  window.location.href = `/place/placeList?page=1&keyword=${keyword}`;
 }
 
-function placeApidata(page) {
+function placeApidata(page, keyword) {
   axios({
     url: `/place/placeSearch?page=${page}&keyword=${keyword}`,
     method: 'GET',
   })
     .then((res) => {
-      const { meta, placeList, like } = res.data;
+      document.getElementById('placeContainer').innerHTML = '';
+      document.getElementById('pagination').innerHTML = '';
+
+      const { meta, placeList } = res.data;
       const { firstPage, lastPage, totalPage } = meta;
 
       placeList.forEach((data) => {
         let temp_html = `
-                    <div class="stack">
-                      <div class="card">
-                        <div class="image" id="map${data.id}"></div>
-                        <div class="text" onclick="window.open('${data.url}')" target="blank">
-                          <h3>${data.name}<div class='count'>${data.like}</div></h3> 
-                          <h3>${data.address}</h3>
-                        </div>
-                        <div class="heart">
-                          <label class="like">
-                            <input type="checkbox" />
-                            <div class="hearth" onclick="like(${data.id})"></div>
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-        `;
+          <div class="stack">
+            <div class="card">
+              <div class="image" id="map${data.id}">
+              </div>
+              <div class="text" onclick="window.open('${data.url}')" target="blank">
+                <h3>${data.name}<div class="totalcount"></div></h3>
+                <h3>${data.address}</h3>
+              </div>
+              <div class="heart">
+                <label class="like">
+                  <input type="checkbox" />
+                  <div class="hearth" onclick="like(${data.id})"></div>
+                </label>
+              </div>
+            </div>
+          </div>`;
         $('.container').append(temp_html);
+
+        // -----------------------------------
+        console.log(data.id)
+        axios({
+          url: `/testlike/${data.id}`,
+          method: 'get'
+        })
+          .then((res) => {
+            console.log(res.data)
+            let temp = `<div>${res.data}</div>`
+            $('.totalcount').append(temp);
+          })
+
+        // -----------------------------------
 
         let roadviewContainer = document.getElementById(`map${data.id}`);
         let roadview = new kakao.maps.Roadview(roadviewContainer);
@@ -80,22 +89,7 @@ function placeApidata(page) {
           }
         });
       });
-      //------------------------
 
-      // axios({
-      //   url: '/allplacelike',
-      //   method: 'get',
-      // })
-      //   .then((res) => {
-      //     const data = res.data;
-      //     console.log(data)
-      //     for (let i in data) {
-      //       let temp = `<div id="count">${data[i].count}</div> `;
-      //       $('.count').append(temp)
-      //     }
-      //   })
-
-      //------------------------
       const pages = [];
 
       // prev
@@ -134,7 +128,7 @@ function like(id) {
     url: `/place/${id}/like`,
     method: 'post',
   })
-    .then((res) => {})
+    .then((res) => { })
     .catch((err) => {
       console.log('error', err);
     });

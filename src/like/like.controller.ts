@@ -39,4 +39,9 @@ export class LikeController {
   async allPlaceLike() {
     return this.likeService.allPlaceLike();
   }
+
+  @Get('testlike/:relationId')
+  async testLike(@Param('relationId') relationId: number) {
+    return this.likeService.testLike(relationId);
+  }
 }

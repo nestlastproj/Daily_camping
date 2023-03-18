@@ -91,4 +91,13 @@ export class LikeService {
       .orderBy('placelike.relationId')
       .getRawMany();
   }
+
+  async testLike(relationId: number) {
+    return await this.placelikeRepository
+      .createQueryBuilder()
+      .select('relationId')
+      .where({ relationId })
+      .addSelect('COUNT(*) AS count')
+      .getCount();
+  }
 }
