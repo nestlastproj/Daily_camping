@@ -4,6 +4,7 @@ $(document).ready(function () {
   const page = new URLSearchParams(location.search).get('page') || 1;
   getmyprofiledata(articleId);
   getComment(articleId, page);
+  countcomment(articleId)
 });
 
 function getmyprofiledata(articleId) {
@@ -71,7 +72,6 @@ function getComment(articleId, page) {
     method: 'get',
   }).then((res) => {
     const { meta, comments } = res.data;
-    console.log(comments)
     const { firstPage, lastPage, totalPage } = meta;
 
     comments.forEach((data) => {
@@ -91,7 +91,7 @@ function getComment(articleId, page) {
                                     <strong>${data.user.nickname}</strong>
                                     <span class="date">${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분</span>
                           </div>
-                          <div id="comment">
+                          <div>
                               <p class="text">${data.content}</p>
                           </div>
                           <button type="button" class="btnregister" onclick="updatecomment(${data.id})">
@@ -180,6 +180,22 @@ function updatecomment(id) {
 
 
       window.location.reload();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+function countcomment(articleId) {
+  axios({
+    url: `/comment/count/${articleId}`,
+    method: 'get',
+  })
+    .then((res) => {
+      let temp = `<div class="boxtotal">
+                    댓글 <span><span>${res.data}</span></span>
+                  </div>`
+      $('#count').append(temp);
     })
     .catch((err) => {
       console.log(err);

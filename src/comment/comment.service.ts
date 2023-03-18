@@ -119,4 +119,9 @@ export class CommentService {
       });
     }
   }
+
+  async commentcount(articleId) {
+    return await this.commentRepository.createQueryBuilder().select('articleId').where({ articles: articleId }).getCount();
+  }
 }
+//

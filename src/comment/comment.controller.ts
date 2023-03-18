@@ -51,4 +51,9 @@ export class CommentController {
   async deleteComment(@Req() req, @Param('articleId') articleId: number, @Param('commentId') commentId: number) {
     return await this.commentService.deleteComment(req, articleId, commentId);
   }
+
+  @Get('/count/:articleId')
+  async commentcount(@Param('articleId') articleId: number) {
+    return await this.commentService.commentcount(articleId);
+  }
 }
