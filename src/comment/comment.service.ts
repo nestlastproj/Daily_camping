@@ -11,6 +11,7 @@ export class CommentService {
     @InjectRepository(Comment)
     private readonly commentRepository: Repository<Comment>,
   ) {}
+
   async allCommentDelete(articleId: number, commentId: number) {
     const comments = await this.commentRepository.find({ where: { articles: { id: articleId } } });
     if (comments) {
@@ -18,7 +19,7 @@ export class CommentService {
     }
   }
 
-  async paginate(req, page: number) {
+  async myComment(req, page: number) {
     const userId = req.user.id;
     const take = 6;
     const [comments, total] = await this.commentRepository.findAndCount({
@@ -57,7 +58,7 @@ export class CommentService {
     };
   }
 
-  async paginates(articleId, page: number) {
+  async myArticleComment(articleId, page: number) {
     const take = 6;
     const [comments, total] = await this.commentRepository.findAndCount({
       take,
@@ -96,13 +97,9 @@ export class CommentService {
     };
   }
 
-  async getmycomment(req, articleId, commentId) {
+  async getMyComment(req, articleId, commentId) {
     const userId = req.user.id;
     return await this.commentRepository.findOne({ where: { id: commentId, user: { id: userId }, articles: { id: articleId } } });
-  }
-
-  async getAllComment(articleId: number) {
-    return await this.commentRepository.find({ where: { articles: { id: articleId }, deletedAt: null } });
   }
 
   async createComment(req, articleId: number, data: CreateCommentDto) {

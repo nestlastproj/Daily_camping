@@ -62,17 +62,12 @@ export class ArticleController {
   @Get('/myArticle')
   @UseGuards(JwtAuthGuard)
   async getMyArticle(@Req() req, @Query('page') page: number = 1) {
-    return this.articleService.paginates(req, page);
-  }
-
-  @Get('/allarticle')
-  getAllarticle() {
-    return this.articleService.getAllarticle();
+    return this.articleService.getMyArticle(req, page);
   }
 
   @Get('search')
-  async searchAllarticle(@Query('page') page: number = 1) {
-    return await this.articleService.paginate(page);
+  async getArticles(@Query('page') page: number = 1) {
+    return await this.articleService.getArticles(page);
   }
 
   @Get('myArticleEdit/:articleId')
@@ -106,7 +101,7 @@ export class ArticleController {
     return await this.articleService.updateArticle(req, articleId, data, file);
   }
 
-  @Delete('/delete/:articleId')
+  @Delete('/:articleId')
   @UseGuards(JwtAuthGuard)
   async deleteArticle(@Req() req, @Param('articleId') articleId: number) {
     return await this.articleService.deleteArticle(req, articleId);

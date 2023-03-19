@@ -16,16 +16,7 @@ export class ArticleService {
     private readonly commentRepository: Repository<Comment>,
   ) {}
 
-  async getAllarticle() {
-    return await this.articleRepository.find({
-      where: { deletedAt: null },
-      select: ['id', 'title', 'content'],
-      relations: ['comments'],
-      order: { comments: { createdAt: 'DESC' } },
-    });
-  }
-
-  async paginate(page) {
+  async getArticles(page) {
     const take = 6;
 
     const [articles, total] = await this.articleRepository.findAndCount({
@@ -62,7 +53,7 @@ export class ArticleService {
     return this.articleRepository.findOne({ where: { id: articleId, user: { id: userId } } });
   }
 
-  async paginates(req, page) {
+  async getMyArticle(req, page) {
     const userId = req.user.id;
     const take = 6;
     const [articles, total] = await this.articleRepository.findAndCount({

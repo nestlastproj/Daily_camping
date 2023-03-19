@@ -72,7 +72,7 @@ function deleteArticle() {
   const articleId = articleIdUrl.split('/')[3];
   axios({
     method: 'delete',
-    url: `/article/delete/${articleId}`,
+    url: `/article/${articleId}`,
   })
     .then((res) => {
       confirm('삭제하시겠습니까?');
@@ -199,7 +199,7 @@ function deleteComment(id) {
   const articleId = articleIdUrl.split('/')[3];
   axios({
     method: 'delete',
-    url: `/comment/delete/${articleId}/${id}`,
+    url: `/comment/articles/${articleId}/comments/${id}`,
   })
     .then((res) => {
       confirm('삭제하시겠습니까?');

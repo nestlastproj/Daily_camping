@@ -1,7 +1,7 @@
 $(document).ready(function () {
   axios({
     method: 'get',
-    url: '/auth/mypage/get',
+    url: '/auth/me',
   })
     .then((res) => {
       console.log(res);

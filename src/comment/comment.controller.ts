@@ -8,6 +8,10 @@ import { UpdateCommentDto } from './dto/update-comment.dto';
 export class CommentController {
   constructor(private commentService: CommentService) {}
 
+  @Get('/mypagecomment')
+  @Render('mypagecomment')
+  comment() {}
+
   @Delete('/allcomment/delete/:articleId')
   async allCommentDelete(@Param('articleId') articleId: number, commentId) {
     return await this.commentService.allCommentDelete(articleId, commentId);
@@ -18,31 +22,22 @@ export class CommentController {
     return await this.commentService.commentCount(articleId);
   }
 
-  @Get('/mypagecomment')
-  @Render('mypagecomment')
-  comment() {}
-
   @Get('/mycomment')
   @UseGuards(JwtAuthGuard)
   async myComment(@Req() req, @Query('page') page: number = 1) {
-    return this.commentService.paginate(req, page);
+    return this.commentService.myComment(req, page);
   }
 
   @Get('/mycomment/:articleId')
   @UseGuards(JwtAuthGuard)
   async myArticleComment(@Param('articleId') articleId: number, @Query('page') page: number = 1) {
-    return this.commentService.paginates(articleId, page);
+    return this.commentService.myArticleComment(articleId, page);
   }
 
-  @Delete('/delete/:articleId/:commentId')
+  @Delete('/articles/:articleId/comments/:commentId')
   @UseGuards(JwtAuthGuard)
   async deleteComment(@Req() req, @Param('articleId') articleId: number, @Param('commentId') commentId: number) {
     return await this.commentService.deleteComment(req, articleId, commentId);
-  }
-
-  @Get('/:articleId')
-  getAllComment(@Param('articleId') articleId: number) {
-    return this.commentService.getAllComment(articleId);
   }
 
   @Post('/:articleId')
@@ -53,8 +48,8 @@ export class CommentController {
 
   @Get('/:articleId/:commentId')
   @UseGuards(JwtAuthGuard)
-  async getmycomment(@Req() req, @Param('articleId') articleId: number, @Param('commentId') commentId: number) {
-    return await this.commentService.getmycomment(req, articleId, commentId);
+  async getMyComment(@Req() req, @Param('articleId') articleId: number, @Param('commentId') commentId: number) {
+    return await this.commentService.getMyComment(req, articleId, commentId);
   }
 
   @Put('/:articleId/:commentId')
