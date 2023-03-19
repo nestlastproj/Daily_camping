@@ -26,7 +26,7 @@ function myArticleData(page) {
                     minute = '0' + minute.toString();
                 }
                 let temp_html = `
-            <div class="list" onclick="location.href=''">
+            <div class="list" onclick="location.href='/article/view/${data.id}'">
             <div class="id">${data.id}</div>
             <div class="title">${data.title}</div>
             <div class="date">${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분</div>
