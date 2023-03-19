@@ -8,13 +8,13 @@ export class RecipeController {
 
   // @Cron('* * * 9 * *')
   @Get('/recipeget')
-  getRecipe() {
-    return this.recipeService.getRecipe();
+  async getRecipe() {
+    return await this.recipeService.getRecipe();
   }
 
-  @Get('/recipe')
-  async findAllRecipe(@Query('page') page: number = 1) {
-    return this.recipeService.paginate(page);
+  @Get('/recipeSearch')
+  async recipeSearch(@Query('page') page: number, @Query('keyword') keyword: string) {
+    return await this.recipeService.recipeSearch(page, keyword);
   }
 
   @Get('/recipeList')

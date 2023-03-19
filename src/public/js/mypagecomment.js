@@ -8,16 +8,27 @@ function mycommentData(page) {
         url: `/comment/mycomment?page=${page}`,
         method: 'GET',
     }).then((res) => {
-        console.log(res)
         const { meta, comments } = res.data;
         const { firstPage, lastPage, totalPage } = meta;
-
+        
         comments.forEach((data) => {
+            const createdTime = new Date(data.createdAt);
+            const year = createdTime.getFullYear();
+            const month = createdTime.getMonth() + 1;
+            const day = createdTime.getDate();
+            let hour = createdTime.getHours();
+            let minute = createdTime.getMinutes();
+            if (hour.toString().length === 1) {
+                hour = '0' + hour.toString();
+            }
+            if (minute.toString().length === 1) {
+                minute = '0' + minute.toString();
+            }
             let temp_html = `
-            <div class="list" onclick="location.href=''">
+            <div class="list" onclick="location.href='/article/view/${data.articles.id}'">
               <div class="id">${data.id}</div>
               <div class="title">${data.content}</div>
-              <div class="date">${data.createdAt}</div>
+              <div class="date">${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분</div>
               <div class="count">조회</div>
             </div>
             `;

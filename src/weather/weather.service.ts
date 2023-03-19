@@ -95,8 +95,6 @@ export class WeatherService {
       })),
     );
 
-    console.log(weatherList);
-
     // 0500 의 numEf=0 (오늘오전)의ta(최저기온)은 제공하지 않음
     // 1700 의 numEf=0 (오늘오후)의ta(최고기온)은 제공하지 않음
 

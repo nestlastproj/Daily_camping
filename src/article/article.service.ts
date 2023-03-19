@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { NotFoundError } from 'rxjs';
 import { Article } from 'src/entity/article.entity';
+import { Comment } from 'src/entity/comment.entity';
 import { Repository } from 'typeorm';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
@@ -11,31 +12,18 @@ export class ArticleService {
   constructor(
     @InjectRepository(Article)
     private readonly articleRepository: Repository<Article>,
+    @InjectRepository(Comment)
+    private readonly commentRepository: Repository<Comment>,
   ) {}
 
-  async getAllarticle() {
-    return await this.articleRepository.find({
-      where: { deletedAt: null },
-      select: ['id', 'title', 'content'],
-      relations: ['comments'],
-      order: { comments: { createdAt: 'DESC' } },
-    });
-
-    // return await this.articleRepository
-    //   .createQueryBuilder('article')
-    //   .select('article.title')
-    //   .select('article.content')
-    //   .leftJoinAndSelect('article.comments', 'comment')
-    //   .orderBy('comment.createdAt', 'DESC')
-    //   .getMany();
-  }
-
-  async paginate(page) {
+  async getArticles(page) {
     const take = 6;
 
     const [articles, total] = await this.articleRepository.findAndCount({
       take, // Limit; 한 페이지에 가져올 데이터의 제한 갯수
       skip: (page - 1) * take, // Offset; 이전의 요청 데이터 갯수 = 현재 요청이 시작되는 위치
+      relations: ['user'],
+      order: { id: 'desc' },
     });
     const totalPage = Math.ceil(total / take);
     const pageGroup = Math.ceil(page / 5);
@@ -47,10 +35,7 @@ export class ArticleService {
     }
 
     return {
-      data: articles.map((article) => {
-        const { id, title, content, createdAt } = article;
-        return { id, title, content, createdAt };
-      }),
+      data: articles,
       meta: {
         firstPage,
         lastPage,
@@ -68,7 +53,7 @@ export class ArticleService {
     return this.articleRepository.findOne({ where: { id: articleId, user: { id: userId } } });
   }
 
-  async paginates(req, page) {
+  async getMyArticle(req, page) {
     const userId = req.user.id;
     const take = 6;
     const [articles, total] = await this.articleRepository.findAndCount({
@@ -108,26 +93,30 @@ export class ArticleService {
 
   async createArticle(req, data: CreateArticleDto, file?: Express.Multer.File) {
     const userId = req.user.id;
-    return await this.articleRepository.insert({
-      user: { id: userId },
-      title: data.title,
-      content: data.content,
-      image: file.filename,
-    });
+    const aritcle = { user: { id: userId }, title: data.title, content: data.content };
+    if (file) {
+      aritcle['image'] = file.filename;
+    }
+    return await this.articleRepository.insert(aritcle);
   }
 
   async updateArticle(req, articleId: number, data: UpdateArticleDto, file?: Express.Multer.File) {
     const userId = req.user.id;
-    return await this.articleRepository.update(articleId, {
-      user: { id: userId },
-      title: data.title,
-      content: data.content,
-      image: file.filename,
-    });
+    const aritcle = { user: { id: userId }, title: data.title, content: data.content };
+    if (file) {
+      aritcle['image'] = file.filename;
+    }
+    return await this.articleRepository.update(articleId, aritcle);
+    // title: data.title,
+    // content: data.content,
+    // image: file.filename,
   }
 
   async deleteArticle(req, articleId: number) {
     const userId = req.user.id;
+
+    await this.commentRepository.delete({ articles: { id: articleId } });
+
     const article = await this.articleRepository.findOne({ where: { id: articleId } });
     if (!article) {
       throw new Error('존재 하지 않는 게시물 입니다');

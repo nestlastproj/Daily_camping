@@ -19,13 +19,11 @@ export class UserService {
 
   async editprofile(req, data: UpdateUserDto, file?: Express.Multer.File) {
     const userId = req.user.id;
-    return await this.userRepository.update(userId, {
-      name: data.name,
-      phone: data.phone,
-      nickname: data.nickname,
-      email: data.email,
-      image: file.filename,
-    });
+    const user = { name: data.name, phone: data.phone, nickname: data.nickname, email: data.email };
+    if (file) {
+      user['image'] = file.filename;
+    }
+    return await this.userRepository.update(userId, user);
   }
 
   async remove(req) {
@@ -53,11 +51,6 @@ export class UserService {
       return user;
     }
     throw new UnauthorizedException();
-  }
-
-  async getinfo(req): Promise<User> {
-    const userId = req.user.id;
-    return await this.userRepository.findOne({ where: { id: userId } });
   }
 
   async verifyPassword(plainTextPassword: string, hashedPassword: string) {

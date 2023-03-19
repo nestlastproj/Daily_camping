@@ -1,0 +1,254 @@
+.serch {
+  display: flex;
+  justify-content: center;
+  margin: 50px auto;
+}
+
+label {
+  width: 100%;
+  max-width: 800px;
+}
+
+input {
+  width: 91%;
+  display: inline-block;
+  padding: 15px;
+  background-color: white;
+  border: 2px solid rgb(5, 225, 137);
+  color: rgb(5, 225, 137);
+  font-size: 15px;
+  box-shadow: 3px 1px 0px 2px, 0px -1px 0px 2px rgba(5, 225, 137, 0.62);
+  height: 58px;
+  transform: skew(-3deg, 1deg);
+  font-family: "Knewave", cursive;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+input:focus,
+input:valid {
+  outline: none;
+}
+
+input:focus~ul li:nth-child(1)::before,
+input:valid~ul li:nth-child(1)::before {
+  filter: blur(20px);
+  transform: translate(0, -35px) rotate(-210deg);
+}
+
+input:focus~ul li:nth-child(1)::after,
+input:valid~ul li:nth-child(1)::after {
+  filter: blur(0);
+  transform: scale(1) rotate(0);
+}
+
+input:focus~ul li:nth-child(2)::before,
+input:valid~ul li:nth-child(2)::before {
+  filter: blur(20px);
+  transform: translate(0, -35px) rotate(-210deg);
+}
+
+input:focus~ul li:nth-child(2)::after,
+input:valid~ul li:nth-child(2)::after {
+  filter: blur(0);
+  transform: scale(1) rotate(0);
+}
+
+input:focus~ul li:nth-child(3)::before,
+input:valid~ul li:nth-child(3)::before {
+  filter: blur(20px);
+  transform: translate(0, -35px) rotate(-210deg);
+}
+
+input:focus~ul li:nth-child(3)::after,
+input:valid~ul li:nth-child(3)::after {
+  filter: blur(0);
+  transform: scale(1) rotate(0);
+}
+
+input:focus~ul li:nth-child(4)::before,
+input:valid~ul li:nth-child(4)::before {
+  filter: blur(20px);
+  transform: translate(0, -35px) rotate(-210deg);
+}
+
+input:focus~ul li:nth-child(4)::after,
+input:valid~ul li:nth-child(4)::after {
+  filter: blur(0);
+  transform: scale(1) rotate(0);
+}
+
+input:focus~ul li:nth-child(5)::before,
+input:valid~ul li:nth-child(5)::before {
+  filter: blur(20px);
+  transform: translate(0, -35px) rotate(-210deg);
+}
+
+input:focus~ul li:nth-child(5)::after,
+input:valid~ul li:nth-child(5)::after {
+  filter: blur(0);
+  transform: scale(1) rotate(0);
+}
+
+input:focus~ul li:nth-child(6)::before,
+input:valid~ul li:nth-child(6)::before {
+  filter: blur(20px);
+  transform: translate(0, -35px) rotate(-210deg);
+}
+
+input:focus~ul li:nth-child(6)::after,
+input:valid~ul li:nth-child(6)::after {
+  filter: blur(0);
+  transform: scale(1) rotate(0);
+}
+
+input:focus~ul li:nth-child(1)::after,
+input:valid~ul li:nth-child(1)::after {
+  transition-delay: 400ms;
+}
+
+input:focus~ul li:nth-child(2)::after,
+input:valid~ul li:nth-child(2)::after {
+  transition-delay: 600ms;
+}
+
+input:focus~ul li:nth-child(3)::after,
+input:valid~ul li:nth-child(3)::after {
+  transition-delay: 800ms;
+}
+
+input:focus~ul li:nth-child(4)::after,
+input:valid~ul li:nth-child(4)::after {
+  transition-delay: 1000ms;
+}
+
+input:focus~ul li:nth-child(5)::after,
+input:valid~ul li:nth-child(5)::after {
+  transition-delay: 1200ms;
+}
+
+input:focus~ul li:nth-child(6)::after,
+input:valid~ul li:nth-child(6)::after {
+  transition-delay: 1400ms;
+}
+
+label {
+  position: relative;
+}
+
+.serch ul {
+  position: absolute;
+  top: 38px;
+  left: -4px;
+  margin: 0;
+  list-style: none;
+  padding-left: 22px;
+  position: absolute;
+  display: flex;
+  pointer-events: none;
+  transition: 200ms;
+}
+
+.serch ul li {
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgb(255, 255, 255, 1);
+  pointer-events: none;
+  transition: 500ms ease-in-out;
+}
+
+.serch ul li ::selection {
+  color: transparent;
+}
+
+.serch ul li::after,
+.serch ul li::before {
+  color: black;
+  position: absolute;
+  transition: 500ms ease-in-out;
+}
+
+.serch ul li::before {
+  top: -20px;
+}
+
+.serch ul li::after {
+  top: -63px;
+  transform: scale(0) rotate(210deg);
+  filter: blur(20px);
+}
+
+.serch ul li[s]::before {
+  content: attr(s) "s";
+  transition-delay: 200ms;
+}
+
+.serch ul li[s]::after {
+  content: attr(s) "s";
+  left: 12px;
+  color: #666;
+}
+
+.serch ul li[e]::before {
+  content: attr(e) "e";
+  transition-delay: 400ms;
+}
+
+.serch ul li[e]::after {
+  content: attr(e) "e";
+  left: 24px;
+  color: #666;
+}
+
+.serch ul li[a]::before {
+  content: attr(a) "a";
+  transition-delay: 600ms;
+}
+
+.serch ul li[a]::after {
+  content: attr(a) "a";
+  left: 36px;
+  color: #666;
+}
+
+.serch ul li[r]::before {
+  content: attr(r) "r";
+  transition-delay: 800ms;
+}
+
+.serch ul li[r]::after {
+  content: attr(r) "r";
+  left: 48px;
+  color: #666;
+}
+
+.serch ul li[c]::before {
+  content: attr(c) "c";
+  transition-delay: 1000ms;
+}
+
+.serch ul li[c]::after {
+  content: attr(c) "c";
+  left: 60px;
+  color: #666;
+}
+
+.serch ul li[h]::before {
+  content: attr(h) "h";
+  transition-delay: 1200ms;
+}
+
+.serch ul li[h]::after {
+  content: attr(h) "h";
+  left: 72px;
+  color: #666;
+}
+
+.serchbtn {
+  background-color: rgb(5, 225, 137);
+  color: #fff;
+  border: 2px solid rgb(5, 225, 137);
+  height: 60px;
+  width: 60px;
+  transform: translateY(14px) rotate(3deg);
+}

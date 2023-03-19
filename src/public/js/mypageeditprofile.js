@@ -1,7 +1,7 @@
 $(document).ready(function () {
     axios({
         method: 'get',
-        url: '/auth/mypage/get',
+        url: '/auth/me',
     })
         .then((res) => {
             let { email, name, nickname, phone, image } = res.data
@@ -35,7 +35,6 @@ function updateprofile() {
     })
         .then((res) => {
             alert('수정 완료! 다시 로그인 해주세요!');
-            console.log(res);
             window.location.replace(`/auth/login`);
         })
         .catch((err) => {

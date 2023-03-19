@@ -13,9 +13,9 @@ export class ProductController {
     return { product };
   }
 
-  @Get('/product')
-  async findAllProduct(@Query('page') page: number = 1) {
-    return this.productService.paginate(page);
+  @Get('/productSearch')
+  async productSearch(@Query('page') page: number, @Query('keyword') keyword: string) {
+    return await this.productService.productSearch(page, keyword);
   }
 
   @Get('/productList')

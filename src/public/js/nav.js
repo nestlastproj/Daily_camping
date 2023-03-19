@@ -1,6 +1,5 @@
 $(document).ready(function () {
     axios.get('/auth/isLoggined').then((res) => {
-        console.log(res, 11111111111111111111)
         let temp = `<p><a href="/auth/mypage">${res.data.nickname}</a>님 <br>반갑습니다.</p>
                     <button onclick="logout()" class="button-arounder">로그아웃</button>`
         $('.buttons-container').append(temp)
@@ -21,7 +20,7 @@ function logout() {
             location.href = "http://localhost:3000/auth/login";
         },
         error: function (error) {
-            console.log("에러이유:", error);
+            console.log(error);
         },
     });
 }

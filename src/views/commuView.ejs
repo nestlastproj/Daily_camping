@@ -38,26 +38,23 @@
           document.getElementById("content").innerHTML = tmpStr;
         </script> -->
       </div>
+      <div class="articlelikecount"></div>
+      <button onclick="likeArticle()">좋아요</button>
     </div>
+
     <div class="comment">
-      <div class="boxtotal">
-        댓글 <span><span>1</span></span>
-      </div>
+      <div id="count"></div>
       <div style="display: block">
         <div class="areacomment">
           <ul class="listcomment">
             <li>
-              <div class="boxcontent">
+              <div class="boxcontent" id="contentbox">
                 <div class="boxmeta">
                   <div class="boxbtn">
-                    <button type="button" class="btnregister" onclick="">
-                      수정
-                    </button>
-                    <button type="button" class="btnregister2" onclick="">
-                      삭제
-                    </button>
                   </div>
                 </div>
+              </div>
+
             </li>
             <div class="pagination"></div>
           </ul>
@@ -68,12 +65,12 @@
             <textarea id="comment" placeholder="내용을 입력해주세요."></textarea>
           </div>
           <div class="boxbtn">
-            <button type="button" class="btnregister" onclick="postcomment()">등록</button>
+            <button type="button" class="btnregister" onclick="postComment()">등록</button>
           </div>
         </div>
       </div>
       <div class="btWrap">
-        <a href="/article/write" class="on">수정</a>
+        <a href="/article/edit/<%= articleId %>" class="on">수정</a>
         <a onclick="deleteArticle()" class="off">삭제</a>
         <a href="/article/list" class="on">목록</a>
       </div>

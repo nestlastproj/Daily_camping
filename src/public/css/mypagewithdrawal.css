@@ -1,3 +1,5 @@
+@import url(mypagesidebar.css);
+
 .withdrawal {
   width: 1000px;
   height: 500px;
@@ -32,7 +34,7 @@ input:active {
 
 #app-cover {
   position: absolute;
-  top: 200px;
+  top: 20%;
   right: 0;
   left: 0;
   width: 196px;

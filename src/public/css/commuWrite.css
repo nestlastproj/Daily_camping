@@ -52,33 +52,29 @@
   border: 1px solid #000;
   border-radius: 2px;
   font-size: 14px;
+  text-decoration: none;
   align-items: center;
   text-align: center;
 }
 .btWrap a:first-child {
   margin-left: 0;
-  text-decoration: none;
 }
 .btWrap .on {
   background: #379683;
   cursor: pointer;
 }
 
-.btWrap button.on a {
-  color: #ffffff;
-}
-
-.btWrap button.off {
+.btWrap .off {
   background: #ffffff;
   cursor: pointer;
 }
-.btWrap button.off a {
+.btWrap .off a {
   text-decoration: none;
   color: #000;
-  font-size: 14px;
+  font-size: 10px;
 }
 
-.ck-editor__editable[role='textbox'] {
+.ck-editor__editable[role="textbox"] {
   /* editing area */
   min-height: 200px;
   font-size: 14px;
@@ -93,7 +89,7 @@ button {
   color: inherit;
   cursor: pointer;
 }
-input[type='submit'] {
+input[type="submit"] {
   background-color: transparent;
   color: #fff;
   cursor: pointer;

@@ -54,7 +54,6 @@ export class ArticleController {
   @Render('commuView.ejs')
   @UsePipes(ValidationPipe)
   getviewarticle(@Param('articleId') articleId: number) {
-    
     return { articleId };
   }
 
@@ -63,38 +62,31 @@ export class ArticleController {
   @Get('/myArticle')
   @UseGuards(JwtAuthGuard)
   async getMyArticle(@Req() req, @Query('page') page: number = 1) {
-    return this.articleService.paginates(req, page);
+    return this.articleService.getMyArticle(req, page);
   }
-
-  @Get('/allarticle')
-  getAllarticle() {
-    return this.articleService.getAllarticle();
-  }
-
-  // ------------------------------------------
 
   @Get('search')
-  async searchAllarticle(@Query('page') page: number = 1) {
-    return await this.articleService.paginate(page);
+  async getArticles(@Query('page') page: number = 1) {
+    return await this.articleService.getArticles(page);
+  }
+
+  @Get('myArticleEdit/:articleId')
+  @UseGuards(JwtAuthGuard)
+  async getMyArticleEdit(@Req() req, @Param('articleId') articleId: number) {
+    return this.articleService.getMyArticleEdit(req, articleId);
+  }
+
+  @Post('write')
+  @UseGuards(JwtAuthGuard)
+  @UseInterceptors(FileInterceptor('file'))
+  async createArticle(@Req() req, @Body() data: CreateArticleDto, @UploadedFile() file?: Express.Multer.File) {
+    return await this.articleService.createArticle(req, data, file);
   }
 
   @Get('/:articleId')
   @UsePipes(ValidationPipe)
   async getArticle(@Param('articleId') articleId: number) {
     return await this.articleService.getArticle(articleId);
-  }
-
-  @Get('myArticleEdit/:articleId')
-  @UseGuards(JwtAuthGuard)
-  async getMyArticleEdit(@Req() req, @Param('articleId') articleId: number) {
-    return this.articleService.getMyArticleEdit(req, articleId)
-  }
-
-  @Post('go')
-  @UseGuards(JwtAuthGuard)
-  @UseInterceptors(FileInterceptor('file'))
-  async createArticle(@Req() req, @Body() data: CreateArticleDto, @UploadedFile() file: Express.Multer.File) {
-    return await this.articleService.createArticle(req, data, file);
   }
 
   @Put('/:articleId')
@@ -109,7 +101,7 @@ export class ArticleController {
     return await this.articleService.updateArticle(req, articleId, data, file);
   }
 
-  @Delete('/delete/:articleId')
+  @Delete('/:articleId')
   @UseGuards(JwtAuthGuard)
   async deleteArticle(@Req() req, @Param('articleId') articleId: number) {
     return await this.articleService.deleteArticle(req, articleId);

@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { InjectRepository } from '@nestjs/typeorm/dist';
-import { Repository } from 'typeorm';
+import { ILike, Like, Repository } from 'typeorm';
 import { Place } from '../entity/api/place.entity';
 import { ConfigService } from '@nestjs/config';
+import { skip } from 'rxjs';
 
 @Injectable()
 export class PlaceService {
@@ -56,9 +57,11 @@ export class PlaceService {
     return allPlaces;
   }
 
-  async paginate(page) {
+  async placeSearch(page: number, keyword: string) {
     const take = 6;
-    const [places, total] = await this.placeRepository.findAndCount({
+    const whereQuery = keyword === '' ? '%%' : `%${keyword}%`;
+    const [placeList, total] = await this.placeRepository.findAndCount({
+      where: [{ name: Like(whereQuery) }, { category: Like(whereQuery) }],
       take,
       skip: (page - 1) * take,
     });
@@ -73,7 +76,7 @@ export class PlaceService {
     }
 
     return {
-      places,
+      placeList,
       meta: {
         firstPage,
         lastPage,

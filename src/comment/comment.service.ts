@@ -12,13 +12,21 @@ export class CommentService {
     private readonly commentRepository: Repository<Comment>,
   ) {}
 
-  async paginate(req, page: number) {
+  async allCommentDelete(articleId: number, commentId: number) {
+    const comments = await this.commentRepository.find({ where: { articles: { id: articleId } } });
+    if (comments) {
+      return await this.commentRepository.delete({ id: commentId });
+    }
+  }
+
+  async myComment(req, page: number) {
     const userId = req.user.id;
     const take = 6;
     const [comments, total] = await this.commentRepository.findAndCount({
       take,
       skip: (page - 1) * take,
       where: { user: { id: userId } },
+      relations: ['articles'],
     });
 
     // 전체 상품 수 : total
@@ -50,13 +58,14 @@ export class CommentService {
     };
   }
 
-  async paginates(articleId, page: number) {
+  async myArticleComment(articleId, page: number) {
     const take = 6;
     const [comments, total] = await this.commentRepository.findAndCount({
       take,
       skip: (page - 1) * take,
       where: { articles: { id: articleId } },
       relations: ['user'],
+      order: { id: 'desc' },
     });
 
     // 전체 상품 수 : total
@@ -88,8 +97,9 @@ export class CommentService {
     };
   }
 
-  async getAllComment(articleId: number) {
-    return await this.commentRepository.find({ where: { articles: { id: articleId }, deletedAt: null } });
+  async getMyComment(req, articleId, commentId) {
+    const userId = req.user.id;
+    return await this.commentRepository.findOne({ where: { id: commentId, user: { id: userId }, articles: { id: articleId } } });
   }
 
   async createComment(req, articleId: number, data: CreateCommentDto) {
@@ -119,4 +129,9 @@ export class CommentService {
       });
     }
   }
+
+  async commentCount(articleId: number) {
+    return await this.commentRepository.createQueryBuilder().select('articleId').where({ articles: articleId }).getCount();
+  }
 }
+//

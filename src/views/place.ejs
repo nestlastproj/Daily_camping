@@ -22,16 +22,14 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
-    <script src="/js/place.js"></script>
     <script src="https://kit.fontawesome.com/fd3102c9a3.js" crossorigin="anonymous"></script>
     <title>nav</title>
   </head>
-
-  <body style="background-color: #edf5e1">
+  <body>
     <%- include('nav.ejs') %>
-    <div class="search">
+    <div class="serch">
       <label>
-        <input type="text" required />
+        <input type="text" id="searchKeyword" required />
         <ul>
           <li s>s</li>
           <li e>e</li>
@@ -40,12 +38,13 @@
           <li c>c</li>
           <li h>h</li>
         </ul>
-        <button class="searchbtn" type="submit"><i class="fa-solid fa-magnifying-glass fa-2x"></i></button>
+        <button class="serchbtn" type="submit"><i class="fa-solid fa-magnifying-glass fa-2x" onclick="search()"></i></button>
       </label>
     </div>
-    <div class="container"></div>
-    <div class="pagination"></div>
+    <div class="container" id="placeContainer"></div>
+    <div class="pagination" id="pagination"></div>
     <%- include('footer.ejs') %>
   </body>
   <link rel="stylesheet" href="../css/place.css" />
+  <script src="/js/place.js"></script>
 </html>
