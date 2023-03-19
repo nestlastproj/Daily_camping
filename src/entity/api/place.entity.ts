@@ -49,5 +49,5 @@ export class Place extends BaseEntity {
   user: User;
 
   @OneToMany((type) => Review, (review) => review.places, { eager: true })
-  review: Review;
+  review: Review[];
 }

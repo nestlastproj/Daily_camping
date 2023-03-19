@@ -24,7 +24,7 @@ export class PlaceService {
     const allPlaces = [];
 
     for (const keyword of keywords) {
-      console.log(keyword)
+      console.log(keyword);
       for (const coordinate of coordinates) {
         let params = {
           query: keyword,
@@ -103,7 +103,12 @@ export class PlaceService {
     };
   }
 
-  async deletePlace() {
-    await this.placeRepository.delete({});
+  async placeDetail(placeId: number) {
+    return this.placeRepository
+      .createQueryBuilder('place')
+      .leftJoinAndSelect('place.review', 'review')
+      .leftJoinAndSelect('review.user', 'user')
+      .where('place.id = :placeId', { placeId })
+      .getMany();
   }
 }
