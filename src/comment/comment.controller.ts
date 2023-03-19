@@ -34,6 +34,12 @@ export class CommentController {
     return this.commentService.paginates(articleId, page);
   }
 
+  @Delete('/delete/:articleId/:commentId')
+  @UseGuards(JwtAuthGuard)
+  async deleteComment(@Req() req, @Param('articleId') articleId: number, @Param('commentId') commentId: number) {
+    return await this.commentService.deleteComment(req, articleId, commentId);
+  }
+
   @Get('/:articleId')
   getAllComment(@Param('articleId') articleId: number) {
     return this.commentService.getAllComment(articleId);
@@ -60,11 +66,5 @@ export class CommentController {
     @Body() data: UpdateCommentDto,
   ) {
     return await this.commentService.updateComment(req, articleId, commentId, data);
-  }
-
-  @Delete('/delete/:articleId/:commentId')
-  @UseGuards(JwtAuthGuard)
-  async deleteComment(@Req() req, @Param('articleId') articleId: number, @Param('commentId') commentId: number) {
-    return await this.commentService.deleteComment(req, articleId, commentId);
   }
 }
