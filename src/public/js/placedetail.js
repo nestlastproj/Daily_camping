@@ -7,19 +7,18 @@ function placeDetailData(placeId) {
   axios({
     url: `/place/placeDetail?placeId=${placeId}`,
     method: 'GET',
-  }).then((res) => {
-    console.log(res);
-    res.data.forEach((data) => {
-      //   console.log(data);
-      let temp_html = `
+  })
+    .then((res) => {
+      res.data.forEach((data) => {
+        let temp_html = `
         <div class="campsite-title">
           <h1>${data.name}</h1>
         </div>
         <div class="map"> 
           <div class="frame">
             <div class="inner-frame">
-              <div class="mat">
-                <img src="">
+              <div class="mat" id="map${data.id}">
+                <img src="" >
               </div>
             </div>
           </div>
@@ -38,17 +37,26 @@ function placeDetailData(placeId) {
           </a>
         </div>
         `;
-      $('.container').append(temp_html);
+        $('.container').append(temp_html);
 
-      res.data[0].review.forEach((data) => {
-        const createdTime = new Date(data.createdAt);
-        const year = createdTime.getFullYear();
-        const month = createdTime.getMonth() + 1;
-        const day = createdTime.getDate();
-        const hour = createdTime.getHours();
-        const minute = createdTime.getMinutes();
-        console.log(data);
-        let temp_html = `
+        let roadviewContainer = document.getElementById(`map${data.id}`);
+        let roadview = new kakao.maps.Roadview(roadviewContainer);
+        let roadviewClient = new kakao.maps.RoadviewClient();
+        let position = new kakao.maps.LatLng(data.y, data.x);
+
+        roadviewClient.getNearestPanoId(position, 50, function (panoId) {
+          roadview.setPanoId(panoId, position);
+        });
+
+        res.data[0].review.forEach((data) => {
+          const createdTime = new Date(data.createdAt);
+          const year = createdTime.getFullYear();
+          const month = createdTime.getMonth() + 1;
+          const day = createdTime.getDate();
+          const hour = createdTime.getHours();
+          const minute = createdTime.getMinutes();
+
+          let temp_html = `
         <div class="card" onclick="location.href=''">
            <img src="${data.image}" class="card__image" alt="brown couch" />
            <div class="card__content">
@@ -59,9 +67,13 @@ function placeDetailData(placeId) {
            </div>
          </div>
         `;
-        $('.will-fadeIn').append(temp_html);
+          $('.will-fadeIn').append(temp_html);
+        });
       });
-
+    })
+    .catch((err) => {
+      alert('캠핑장 정보 또는 리뷰 정보 로드에 실패하였습니다.');
+      //   location.href = '/';
+      console.log(err);
     });
-  });
 }
