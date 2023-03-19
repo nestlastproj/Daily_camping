@@ -214,7 +214,7 @@ function updateComment(id) {
   const articleIdUrl = window.location.pathname;
   const articleId = articleIdUrl.split('/')[3];
   axios({
-    url: `/comment/${articleId}/${commentId}`,
+    url: `/comment/${articleId}/${id}`,
     method: 'get',
   })
     .then((res) => {
@@ -236,6 +236,16 @@ function updateComment(id) {
     .catch((err) => {
       console.log(err);
     });
+}
+
+function commentPost(commentId) {
+  const content = document.getElementById('commenttext').value;
+  const articleIdUrl = window.location.pathname;
+  const articleId = articleIdUrl.split('/')[3];
+
+  axios.put(`/comment/${articleId}/${commentId}`,
+    { content: content }
+  ).then(window.location.reload());
 }
 
 function countComment(articleId) {

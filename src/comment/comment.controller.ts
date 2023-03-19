@@ -8,6 +8,11 @@ import { UpdateCommentDto } from './dto/update-comment.dto';
 export class CommentController {
   constructor(private commentService: CommentService) {}
 
+  @Delete('/allcomment/delete/:articleId')
+  async allCommentDelete(@Param('articleId') articleId: number, commentId) {
+    return await this.commentService.allCommentDelete(articleId, commentId);
+  }
+
   @Get('/count/:articleId')
   async commentCount(@Param('articleId') articleId: number) {
     return await this.commentService.commentCount(articleId);

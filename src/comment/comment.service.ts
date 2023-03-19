@@ -11,6 +11,12 @@ export class CommentService {
     @InjectRepository(Comment)
     private readonly commentRepository: Repository<Comment>,
   ) {}
+  async allCommentDelete(articleId: number, commentId: number) {
+    const comments = await this.commentRepository.find({ where: { articles: { id: articleId } } });
+    if (comments) {
+      return await this.commentRepository.delete({ id: commentId });
+    }
+  }
 
   async paginate(req, page: number) {
     const userId = req.user.id;
