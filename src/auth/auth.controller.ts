@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
   Post,
   Put,
   Req,
@@ -20,6 +22,7 @@ import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { User } from 'src/entity/user.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -71,6 +74,22 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   async getinfo(@Req() req) {
     return await this.authService.getinfo(req);
+  }
+
+  @Get()
+  findAll(): Promise<User[]> {
+    return this.userService.findAll();
+  }
+
+  @Get('/:id')
+  findOne(@Param() id: number): Promise<User> {
+    return this.userService.findOne(id);
+  }
+
+  @Delete('/logOff')
+  @UseGuards(JwtAuthGuard)
+  async remove(@Req() req) {
+    await this.userService.remove(req);
   }
 
   @Put('/edit')

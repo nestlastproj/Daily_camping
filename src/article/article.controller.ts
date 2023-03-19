@@ -70,17 +70,9 @@ export class ArticleController {
     return this.articleService.getAllarticle();
   }
 
-  // ------------------------------------------
-
   @Get('search')
   async searchAllarticle(@Query('page') page: number = 1) {
     return await this.articleService.paginate(page);
-  }
-
-  @Get('/:articleId')
-  @UsePipes(ValidationPipe)
-  async getArticle(@Param('articleId') articleId: number) {
-    return await this.articleService.getArticle(articleId);
   }
 
   @Get('myArticleEdit/:articleId')
@@ -94,6 +86,12 @@ export class ArticleController {
   @UseInterceptors(FileInterceptor('file'))
   async createArticle(@Req() req, @Body() data: CreateArticleDto, @UploadedFile() file?: Express.Multer.File) {
     return await this.articleService.createArticle(req, data, file);
+  }
+
+  @Get('/:articleId')
+  @UsePipes(ValidationPipe)
+  async getArticle(@Param('articleId') articleId: number) {
+    return await this.articleService.getArticle(articleId);
   }
 
   @Put('/:articleId')
