@@ -29,6 +29,11 @@ export class AuthService {
     }
   }
 
+  async getinfo(req) {
+    const userId = req.user.id;
+    return await this.userRepository.findOne({ where: { id: userId } });
+  }
+
   // 회원가입
   async signup(createUserDto: CreateUserDto) {
     const { email, name, password, phone, nickname } = createUserDto;

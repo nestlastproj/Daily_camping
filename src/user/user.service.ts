@@ -55,11 +55,6 @@ export class UserService {
     throw new UnauthorizedException();
   }
 
-  async getinfo(req): Promise<User> {
-    const userId = req.user.id;
-    return await this.userRepository.findOne({ where: { id: userId } });
-  }
-
   async verifyPassword(plainTextPassword: string, hashedPassword: string) {
     const isPasswordMatch = await bcrypt.compare(plainTextPassword, hashedPassword);
     if (!isPasswordMatch) {

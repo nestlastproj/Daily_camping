@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { NotFoundError } from 'rxjs';
 import { Article } from 'src/entity/article.entity';
+import { Comment } from 'src/entity/comment.entity';
 import { Repository } from 'typeorm';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
@@ -11,6 +12,8 @@ export class ArticleService {
   constructor(
     @InjectRepository(Article)
     private readonly articleRepository: Repository<Article>,
+    @InjectRepository(Comment)
+    private readonly commentRepository: Repository<Comment>,
   ) {}
 
   async getAllarticle() {
@@ -127,6 +130,9 @@ export class ArticleService {
 
   async deleteArticle(req, articleId: number) {
     const userId = req.user.id;
+
+    await this.commentRepository.delete({ articles: { id: articleId } });
+
     const article = await this.articleRepository.findOne({ where: { id: articleId } });
     if (!article) {
       throw new Error('존재 하지 않는 게시물 입니다');

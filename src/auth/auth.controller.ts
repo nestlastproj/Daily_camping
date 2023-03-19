@@ -70,7 +70,7 @@ export class AuthController {
   @Get('/mypage/get')
   @UseGuards(JwtAuthGuard)
   async getinfo(@Req() req) {
-    return await this.userService.getinfo(req);
+    return await this.authService.getinfo(req);
   }
 
   @Put('/edit')
