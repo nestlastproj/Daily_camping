@@ -25,6 +25,7 @@ export class CommentService {
       take,
       skip: (page - 1) * take,
       where: { user: { id: userId } },
+      relations: ['articles']
     });
 
     // 전체 상품 수 : total
