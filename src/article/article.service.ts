@@ -23,14 +23,6 @@ export class ArticleService {
       relations: ['comments'],
       order: { comments: { createdAt: 'DESC' } },
     });
-
-    // return await this.articleRepository
-    //   .createQueryBuilder('article')
-    //   .select('article.title')
-    //   .select('article.content')
-    //   .leftJoinAndSelect('article.comments', 'comment')
-    //   .orderBy('comment.createdAt', 'DESC')
-    //   .getMany();
   }
 
   async paginate(page) {
@@ -40,6 +32,7 @@ export class ArticleService {
       take, // Limit; 한 페이지에 가져올 데이터의 제한 갯수
       skip: (page - 1) * take, // Offset; 이전의 요청 데이터 갯수 = 현재 요청이 시작되는 위치
       relations: ['user'],
+      order: { id: 'desc' },
     });
     const totalPage = Math.ceil(total / take);
     const pageGroup = Math.ceil(page / 5);
