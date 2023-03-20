@@ -57,14 +57,33 @@ function getmyprofiledata(articleId) {
                         </div>
                         <div id="content">${content}</div>`;
       $('.boardView').append(temp);
+      getMyArticleLike();
     })
-    // <dl>
-    //     <dt>조회</dt>
-    //     <dd>카운트</dd>
-    // </dl>
     .catch((err) => {
       console.log(err, 'err');
     });
+}
+
+function getMyArticleLike() {
+  const articleIdUrl = window.location.pathname;
+  const articleId = articleIdUrl.split('/')[3];
+
+  axios({
+    url: `/myArticleLike`,
+    method: 'get',
+  })
+    .then((res) => {
+      const data = res.data
+      data.forEach((data) => {
+        if (data.id === articleId) {
+          // document.getElementById(`myLike${data.id}`).checked = true
+        }
+      })
+    })
+    .catch((err) => {
+      console.log('error', err);
+    });
+
 }
 
 function deleteArticle() {

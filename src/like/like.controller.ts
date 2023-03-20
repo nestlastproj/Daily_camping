@@ -50,6 +50,12 @@ export class LikeController {
     return await this.likeService.getMyLike(req);
   }
 
+  @Get('myArticleLike')
+  @UseGuards(JwtAuthGuard)
+  async getMyArticleLike(@Req() req) {
+    return await this.likeService.getMyArticleLike(req);
+  }
+
   @Get('allplacelike')
   async allPlaceLike() {
     return this.likeService.allPlaceLike();
