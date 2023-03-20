@@ -41,9 +41,7 @@ export class User extends BaseEntity {
   @Column({ default: false })
   admin: boolean;
 
-  @Column({
-    default: '../image/img_default.jpg',
-  })
+  @Column({ nullable: true })
   image: string;
 
   @CreateDateColumn()

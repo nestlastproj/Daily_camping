@@ -1,16 +1,14 @@
 @import url(nav.css);
 @import url(serch.css);
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 .image img {
   display: block;
   max-width: 100%;
 }
-
 .container {
   max-width: 1850px;
 }
-
 .stack {
   margin: 50px 100px;
   width: 85%;
@@ -19,15 +17,12 @@
   display: inline-flex;
   justify-content: center;
 }
-
 .stack:hover {
   transform: rotate(5deg);
 }
-
 .stack:hover .card:before {
   transform: translatey(-2%) rotate(-4deg);
 }
-
 .stack:hover .card:after {
   transform: translatey(2%) rotate(4deg);
 }
@@ -43,10 +38,9 @@
   display: block;
   font-size: 0;
 }
-
 .card:before,
 .card:after {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   height: 100%;
@@ -59,11 +53,9 @@
   top: 0;
   left: 0;
 }
-
 .card:before {
   transform: translatey(-2%) rotate(-6deg);
 }
-
 .card:after {
   transform: translatey(2%) rotate(6deg);
 }
@@ -119,7 +111,7 @@
 }
 
 .hearth {
-  background-image: url("https://assets.codepen.io/23500/Hashflag-AppleEvent.svg");
+  background-image: url('https://assets.codepen.io/23500/Hashflag-AppleEvent.svg');
   background-size: calc(var(--size) * var(--frames)) var(--size);
   background-repeat: no-repeat;
   background-position-x: calc(var(--size) * (var(--frames) * -1 + 2));
@@ -128,7 +120,7 @@
   height: var(--size);
 }
 
-input:checked+.hearth {
+input:checked + .hearth {
   animation: like 1s steps(calc(var(--frames) - 3));
   animation-fill-mode: forwards;
 }
@@ -137,17 +129,14 @@ input:checked+.hearth {
   0% {
     background-position-x: 0;
   }
-
   100% {
     background-position-x: calc(var(--size) * (var(--frames) * -1 + 3));
   }
 }
-
 @media (hover: hover) {
   .like:hover {
     background-color: #e1255e15;
   }
-
   .like:hover .hearth {
     background-position-x: calc(var(--size) * (var(--frames) * -1 + 1));
   }
@@ -157,4 +146,12 @@ input:checked+.hearth {
   display: flex;
   font-size: 25px;
   justify-content: center;
+}
+
+h4 {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 28px;
+  line-height: 130px;
+  margin-left: 20px;
 }

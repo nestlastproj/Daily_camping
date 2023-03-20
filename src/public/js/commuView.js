@@ -4,7 +4,7 @@ $(document).ready(function () {
   const page = new URLSearchParams(location.search).get('page') || 1;
   getmyprofiledata(articleId);
   getComment(articleId, page);
-  countComment(articleId)
+  countComment(articleId);
   articleLikeCount();
 });
 
@@ -16,12 +16,18 @@ function articleLikeCount() {
     url: `/article/likecount/${articleId}`,
   })
     .then((res) => {
-      let temp = `<h3>${res.data}</h3>`
+      let temp = `<div class="heart">
+                    <label class="like">
+                      <input id="myLike${articleId}" type="checkbox" />
+                      <div class="hearth" onclick="likeArticle()"></div>
+                    </label>
+                  </div>
+                  <h3>${res.data}</h3>`;
       $('.articlelikecount').append(temp);
     })
     .catch((err) => {
-      console.log(err)
-    })
+      console.log(err);
+    });
 }
 
 function getmyprofiledata(articleId) {
@@ -30,7 +36,9 @@ function getmyprofiledata(articleId) {
     url: `/article/${articleId}`,
   })
     .then((res) => {
-      let { title, content, createdAt, image } = res.data;
+      console.log(res)
+      let { title, content, createdAt, image, user } = res.data;
+      let nickname = user.nickname;
       const createdTime = new Date(createdAt);
       const year = createdTime.getFullYear();
       const month = createdTime.getMonth() + 1;
@@ -48,7 +56,11 @@ function getmyprofiledata(articleId) {
                                 <dl>
                                     <dt>작성일</dt>
                                     <dd>
-                                    <div id="createdAt">${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분</div>
+                                    <div id="createdAt">${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분</div>                                 
+                                    </dd>
+                                    <dt>작성자</dt>
+                                    <dd>
+                                    <div id="nickname">${nickname}</div>                                 
                                     </dd>
                                 </dl>
                             </div>
@@ -57,14 +69,33 @@ function getmyprofiledata(articleId) {
                         </div>
                         <div id="content">${content}</div>`;
       $('.boardView').append(temp);
+      getMyArticleLike();
     })
-    // <dl>
-    //     <dt>조회</dt>
-    //     <dd>카운트</dd>
-    // </dl>
     .catch((err) => {
       console.log(err, 'err');
     });
+}
+
+function getMyArticleLike() {
+  const articleIdUrl = window.location.pathname;
+  const articleId = articleIdUrl.split('/')[3];
+
+  axios({
+    url: `/myArticleLike`,
+    method: 'get',
+  })
+    .then((res) => {
+      const data = res.data
+      data.forEach((data) => {
+        if (data.id == articleId) {
+          document.getElementById(`myLike${articleId}`).checked = true
+        }
+      })
+    })
+    .catch((err) => {
+      console.log('error', err);
+    });
+
 }
 
 function deleteArticle() {
@@ -119,13 +150,11 @@ function getComment(articleId, page) {
                           <button type="button" class="btnregister" onclick="likeComment(${data.id})">
                             좋아요
                           </button>
-                          <div class="commentlikecount${data.id}"></div>
+                          <div class="commentlikenumber commentlikecount${data.id}"></div>
                             `;
       $('.boxcontent').append(temp_html);
       commentLikeCount(data.id);
     });
-
-
 
     const pages = [];
 
@@ -153,10 +182,6 @@ function getComment(articleId, page) {
 
     $('.pagination').append(pages.join(''));
   });
-  // .catch((err) => {
-  //   alert('상품 정보 로드에 실패하였습니다.');
-  //   window.location.href = '/';
-  // });
 }
 
 function commentLikeCount(id) {
@@ -165,16 +190,12 @@ function commentLikeCount(id) {
     url: `/commentlikecount/${id}`,
   })
     .then((res) => {
-      // let divTemp = document.querySelector(`.commentlikecount${id}`)
-      // divTemp.innerHTML = `${res.data}`
-      // $(`.commentlikecount1`).append(0);
       $(`.commentlikecount${id}`).append(`${res.data}`);
     })
     .catch((err) => {
-      console.log(err)
-    })
+      console.log(err);
+    });
 }
-
 
 function postComment() {
   let comment = document.getElementById('comment').value;
@@ -243,9 +264,7 @@ function commentPost(commentId) {
   const articleIdUrl = window.location.pathname;
   const articleId = articleIdUrl.split('/')[3];
 
-  axios.put(`/comment/${articleId}/${commentId}`,
-    { content: content }
-  ).then(window.location.reload());
+  axios.put(`/comment/${articleId}/${commentId}`, { content: content }).then(window.location.reload());
 }
 
 function countComment(articleId) {
@@ -256,7 +275,7 @@ function countComment(articleId) {
     .then((res) => {
       let temp = `<div class="boxtotal">
                     댓글 <span><span>${res.data}</span></span>
-                  </div>`
+                  </div>`;
       $('#count').append(temp);
     })
     .catch((err) => {
@@ -291,4 +310,3 @@ function likeComment(id) {
       console.log(err);
     });
 }
-

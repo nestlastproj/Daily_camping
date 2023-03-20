@@ -45,7 +45,10 @@ export class ArticleService {
   }
 
   getArticle(articleId: number) {
-    return this.articleRepository.findOne({ where: { id: articleId } });
+    return this.articleRepository.findOne({
+      where: { id: articleId },
+      relations: ['user'],
+    });
   }
 
   async getMyArticleEdit(req, articleId: number) {
