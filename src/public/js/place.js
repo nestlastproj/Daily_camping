@@ -22,22 +22,23 @@ function placeApidata(page, keyword) {
 
       placeList.forEach((data) => {
         let temp_html = `
-          <div class="stack">
-            <div class="card">
-              <div class="image" id="map${data.id}"></div>
-              <div class="text" onclick="window.open('${data.url}')" target="blank">
-                <h3>${data.name}</h3>
-                <h3>${data.address}</h3>
-              </div>
-              <div class="heart">
-                <label class="like">
-                  <input id="myLike${data.id}" type="checkbox" />
-                  <div class="hearth" onclick="like(${data.id})"></div>
-                </label>
-              </div>
-              <h4><div class="totalcount${data.id}"></div></h4>
-            </div>
-          </div>`;
+        <div class="stack">
+        <div class="card">
+          <div class="image" id="map${data.id}">
+          </div>
+          <div class="text" onclick="location.href='/place/placeInfo?placeId=${data.id}'">
+            <h3>${data.name}</h3>
+            <h3>${data.address}</h3>
+          </div>
+          <div class="heart">
+            <label class="like">
+              <input type="checkbox" />
+              <div class="hearth"></div>
+            </label>
+          </div>
+        </div>
+      </div>
+      `;
         $('.container').append(temp_html);
 
         placeLike(`${data.id}`);
