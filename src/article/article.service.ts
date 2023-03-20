@@ -108,11 +108,12 @@ export class ArticleService {
 
   async createArticle(req, data: CreateArticleDto, file?: Express.MulterS3.File) {
     const userId = req.user.id;
+    const filename = file.key
     return await this.articleRepository.insert({
       user: { id: userId },
       title: data.title,
       content: data.content,
-      image: file.filename,
+      image: filename,
     });
   }
 
