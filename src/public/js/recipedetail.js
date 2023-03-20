@@ -7,17 +7,17 @@ function recipeDetailData(recipeId) {
     url: `/recipe/recipeDetail?recipeId=${recipeId}`,
     method: 'GET',
   }).then((res) => {
-    console.log(res);
+    // console.log(res);
     console.log(res.data);
-    const responese = res.data[0];
+    const responese = res.data;
     document.getElementById('recipe-title').innerHTML = `${responese.name}`;
-    let temp_html = `
+    let temp1 = `
             <div class="page cover-front" onclick="movePage(this, 1)">
-              <img src="${responese.image}" alt="">
+              <img src="https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/${responese.image}" alt="">
             </div>
             <div class="page cover-front" onclick="movePage(this, 2)"></div>
       `;
-    $('.book').append(temp_html);
+    $('.book').append(temp1);
     const contentimages = responese.contentimage.split(',');
     const contentDetail = responese.content
       .split('\n')
@@ -33,8 +33,8 @@ function recipeDetailData(recipeId) {
 
         let temp_html = `
                 <div class="page text-page" onclick="movePage(this, ${page + 3})">
-                  <img src="${img}" alt="">
-                  <p><span>${page}</span>${recipe}</p>
+                  <img src="https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/${img}" alt="">
+                  <p><span>${page + 1}</span>${recipe}</p>
                 </div>
                 `;
         $('.book').append(temp_html);
@@ -47,8 +47,8 @@ function recipeDetailData(recipeId) {
 
         let temp_html = `
                 <div class="page text-page" onclick="movePage(this, ${page + 3})">
-                  <img src="${img}" alt="">
-                  <p><span>${page}</span>${recipe}</p>
+                  <img src="https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/${img}" alt="">
+                  <p><span>${page + 1}</span>${recipe}</p>
                 </div>
                 `;
         $('.book').append(temp_html);

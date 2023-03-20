@@ -65,7 +65,7 @@ function getmyprofiledata(articleId) {
                                 </dl>
                             </div>
                         <div class="profile-image">
-                            <img src="/../uploads/${image}" id="image">
+                            <img src="https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/${image}" id="image">
                         </div>
                         <div id="content">${content}</div>`;
       $('.boardView').append(temp);

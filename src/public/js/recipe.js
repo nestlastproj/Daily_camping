@@ -26,7 +26,7 @@ function recipeCrawling(page, keyword) {
         temp_html += `
         <li class="common_sp_list_li">
             <div class="common_sp_thumb">
-              <a href="${data.url}" class="common_sp_link" target="blank">
+              <a href="/recipe/recipeInfo?recipeId=${data.id}" class="common_sp_link">
                 <img src="${data.image}" />
               </a>
             </div>

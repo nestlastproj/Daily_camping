@@ -21,16 +21,17 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://kit.fontawesome.com/fd3102c9a3.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../css/recipedetail.css" />
     <title>recipedetail</title>
   </head>
-  <body>
+  <body style="background-color: #edf5e1">
     <%- include('nav.ejs') %>
     <main>
       <div class="container">
         <div class="recipe-detail">
-          <div class="recipe-title">레시피 이름</div>
+          <div class="recipe-title" id="recipe-title">레시피 이름</div>
           <div class="heart">
             <label class="like">
               <input type="checkbox" />
@@ -41,7 +42,7 @@
         <div class="information">
           <div class="instruction">Flip the page</div>
           <div class="book">
-            <div class="page cover-front" onclick="movePage(this, 1)">
+            <!-- <div class="page cover-front" onclick="movePage(this, 1)">
               <img src="https://recipe1.ezmember.co.kr/cache/recipe/2018/06/27/6a81ce4e4141af01a2200b4791134c971_m.png" alt="" />
             </div>
             <div class="page cover-front" onclick="movePage(this, 2)"></div>
@@ -68,7 +69,7 @@
             <div class="page text-page" onclick="movePage(this, 6)">
               <img src="https://recipe1.ezmember.co.kr/cache/recipe/2018/06/27/5e941e7ad74ec74dbb451843a4070b351.png" alt="" />
               <p><span>4.</span>이건 캠핑가서 똑같은 레시피로 만들어 먹었답니다^^</p>
-            </div>
+            </div> -->
           </div>
           <div class="book2">
             <div class="page"></div>

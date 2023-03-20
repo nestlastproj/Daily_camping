@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { InjectRepository } from '@nestjs/typeorm/dist';
-import { ILike, Like, Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { Place } from '../entity/api/place.entity';
 import { ConfigService } from '@nestjs/config';
-import { skip } from 'rxjs';
+import { default as coordinates } from '../resource/coordinates.json';
 
 @Injectable()
 export class PlaceService {
@@ -13,47 +13,66 @@ export class PlaceService {
     private readonly configService: ConfigService,
     private readonly httpService: HttpService,
   ) {}
-
+  //위도y , 경도x
   async getPlace(keywords: string[], x: string, y: string) {
-    await this.deletePlace();
+    // await this.deletePlace();
 
     const headers = {
       Authorization: `KakaoAK ${this.configService.get('KAKAO_REST_API_KEY')}`,
     };
-
     const url = 'https://dapi.kakao.com/v2/local/search/keyword.json';
-
     const allPlaces = [];
 
     for (const keyword of keywords) {
-      const params = {
-        query: keyword,
-        x: x,
-        y: y,
-        radius: 20000,
-        category_group_code: 'AD5',
-      };
+      console.log(keyword);
+      for (const coordinate of coordinates) {
+        console.log(coordinate)
+        let params = {
+          query: keyword,
+          x: coordinate.x,
+          y: coordinate.y,
+          category_group_code: 'AD5',
+          sort: 'distance',
+          page: 1,
+        };
 
-      const response = await this.httpService.get(url, { params, headers }).toPromise();
+        const response = await this.httpService.get(url, { params, headers }).toPromise();
+        const { pageable_count, total_count } = response.data.meta;
+        const maxPage = pageable_count === 45 && total_count > 45 ? 3 : Math.ceil(pageable_count / 15);
 
-      const places = response.data.documents.map((doc) => ({
-        address: doc.address_name,
-        name: doc.place_name,
-        category: doc.category_name,
-        phone: doc.phone,
-        url: doc.place_url,
-        keyword: keyword,
-        x: doc.x,
-        y: doc.y,
-      }));
+        for (let i = 1; i <= maxPage; i++) {
+          params.page = i;
+          const response = await this.httpService.get(url, { params, headers }).toPromise();
 
-      for (const place of places) {
-        await this.placeRepository.save(place);
+          let places = response.data.documents
+            .filter((doc) => {
+              return doc.category_name.includes('캠핑장');
+            })
+            .map((doc) => ({
+              address: doc.address_name,
+              name: doc.place_name,
+              category: doc.category_name,
+              phone: doc.phone,
+              url: doc.place_url,
+              keyword: keyword,
+              x: doc.x,
+              y: doc.y,
+            }));
+
+          for (const place of places) {
+            await this.placeRepository
+              .createQueryBuilder('place')
+              .insert()
+              .into('place')
+              .values(place)
+              .orUpdate(['address', 'phone', 'category', 'url', 'x', 'y'], ['name'])
+              .updateEntity(false)
+              .execute();
+          }
+          allPlaces.push(...places);
+        }
       }
-
-      allPlaces.push(...places);
     }
-
     return allPlaces;
   }
 
@@ -85,7 +104,12 @@ export class PlaceService {
     };
   }
 
-  async deletePlace() {
-    await this.placeRepository.delete({});
+  async placeDetail(placeId: number) {
+    return this.placeRepository
+      .createQueryBuilder('place')
+      .leftJoinAndSelect('place.review', 'review')
+      .leftJoinAndSelect('review.user', 'user')
+      .where('place.id = :placeId', { placeId })
+      .getMany();
   }
 }

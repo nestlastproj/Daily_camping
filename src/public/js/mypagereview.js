@@ -18,7 +18,6 @@ function myReviewData(page) {
                 <div class="id">${data.id}</div>
                 <div class="title">${data.title}</div>
                 <div class="date">${data.createdAt}</div>
-                <div class="count">조회</div>
               </div>
           `;
                 $('.boardList').append(temp_html);
