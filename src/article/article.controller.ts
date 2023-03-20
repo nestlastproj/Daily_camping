@@ -62,25 +62,12 @@ export class ArticleController {
   @Get('/myArticle')
   @UseGuards(JwtAuthGuard)
   async getMyArticle(@Req() req, @Query('page') page: number = 1) {
-    return this.articleService.paginates(req, page);
+    return this.articleService.getMyArticle(req, page);
   }
-
-  @Get('/allarticle')
-  getAllarticle() {
-    return this.articleService.getAllarticle();
-  }
-
-  // ------------------------------------------
 
   @Get('search')
-  async searchAllarticle(@Query('page') page: number = 1) {
-    return await this.articleService.paginate(page);
-  }
-
-  @Get('/:articleId')
-  @UsePipes(ValidationPipe)
-  async getArticle(@Param('articleId') articleId: number) {
-    return await this.articleService.getArticle(articleId);
+  async getArticles(@Query('page') page: number = 1) {
+    return await this.articleService.getArticles(page);
   }
 
   @Get('myArticleEdit/:articleId')
@@ -96,6 +83,12 @@ export class ArticleController {
     return await this.articleService.createArticle(req, data, file);
   }
 
+  @Get('/:articleId')
+  @UsePipes(ValidationPipe)
+  async getArticle(@Param('articleId') articleId: number) {
+    return await this.articleService.getArticle(articleId);
+  }
+
   @Put('/:articleId')
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('file'))
@@ -108,7 +101,7 @@ export class ArticleController {
     return await this.articleService.updateArticle(req, articleId, data, file);
   }
 
-  @Delete('/delete/:articleId')
+  @Delete('/:articleId')
   @UseGuards(JwtAuthGuard)
   async deleteArticle(@Req() req, @Param('articleId') articleId: number) {
     return await this.articleService.deleteArticle(req, articleId);

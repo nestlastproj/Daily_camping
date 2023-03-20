@@ -1,7 +1,7 @@
 function deleteuser() {
     axios({
         method: 'delete',
-        url: '/user/logoff'
+        url: '/auth/logOff'
     })
         .then((res) => {
             confirm('정말 탈퇴하시겠습니까?');

@@ -26,6 +26,7 @@ export class PlaceService {
     for (const keyword of keywords) {
       console.log(keyword)
       for (const coordinate of coordinates) {
+        console.log(coordinate)
         let params = {
           query: keyword,
           x: coordinate.x,

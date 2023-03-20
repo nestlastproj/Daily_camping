@@ -35,12 +35,12 @@ function placeApidata(page, keyword) {
                   <div class="hearth" onclick="like(${data.id})"></div>
                 </label>
               </div>
-              <h3><div class="totalcount${data.id}"></div></h3>
+              <h4><div class="totalcount${data.id}"></div></h4>
             </div>
           </div>`;
         $('.container').append(temp_html);
 
-        placeLike(`${data.id}`)
+        placeLike(`${data.id}`);
 
         let roadviewContainer = document.getElementById(`map${data.id}`);
         let roadview = new kakao.maps.Roadview(roadviewContainer);
@@ -76,7 +76,7 @@ function placeApidata(page, keyword) {
           }
         });
       });
-      mylike(page)
+      mylike(page);
 
       const pages = [];
 
@@ -114,11 +114,10 @@ function placeApidata(page, keyword) {
 function placeLike(id) {
   axios({
     url: `/place/likecount/${id}`,
-    method: 'get'
-  })
-    .then((res) => {
-      $(`.totalcount${id}`).append(res.data);
-    })
+    method: 'get',
+  }).then((res) => {
+    $(`.totalcount${id}`).append(res.data);
+  });
 }
 
 function like(id) {
@@ -140,18 +139,18 @@ function mylike(page) {
     method: 'get',
   })
     .then((res) => {
-      const data = res.data
+      const data = res.data;
       data.forEach((data) => {
         if (page === 1) {
           if (data.id <= page * 6) {
-            document.getElementById(`myLike${data.id}`).checked = true
+            document.getElementById(`myLike${data.id}`).checked = true;
           }
         } else {
           if ((page - 1) * 6 < data.id && data.id <= page * 6) {
-            document.getElementById(`myLike${data.id}`).checked = true
+            document.getElementById(`myLike${data.id}`).checked = true;
           }
         }
-      })
+      });
     })
     .catch((err) => {
       console.log('error', err);

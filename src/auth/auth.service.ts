@@ -49,16 +49,7 @@ export class AuthService {
     if (existednickname) {
       throw new Error('이미 존재하는 닉네임입니다.');
     }
-    try {
-      await this.userRepository.save(user);
-    } catch (error) {
-      if (error.code === '23505') {
-        throw new ConflictException('이미 존재하는 회원입니다.');
-      } else {
-        console.log(error);
-        throw new InternalServerErrorException();
-      }
-    }
+    return await this.userRepository.save(user);
   }
 
   // Access Token 발급

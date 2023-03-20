@@ -16,30 +16,14 @@ export class ArticleService {
     private readonly commentRepository: Repository<Comment>,
   ) {}
 
-  async getAllarticle() {
-    return await this.articleRepository.find({
-      where: { deletedAt: null },
-      select: ['id', 'title', 'content'],
-      relations: ['comments'],
-      order: { comments: { createdAt: 'DESC' } },
-    });
-
-    // return await this.articleRepository
-    //   .createQueryBuilder('article')
-    //   .select('article.title')
-    //   .select('article.content')
-    //   .leftJoinAndSelect('article.comments', 'comment')
-    //   .orderBy('comment.createdAt', 'DESC')
-    //   .getMany();
-  }
-
-  async paginate(page) {
+  async getArticles(page) {
     const take = 6;
 
     const [articles, total] = await this.articleRepository.findAndCount({
       take, // Limit; 한 페이지에 가져올 데이터의 제한 갯수
       skip: (page - 1) * take, // Offset; 이전의 요청 데이터 갯수 = 현재 요청이 시작되는 위치
       relations: ['user'],
+      order: { id: 'desc' },
     });
     const totalPage = Math.ceil(total / take);
     const pageGroup = Math.ceil(page / 5);
@@ -61,7 +45,10 @@ export class ArticleService {
   }
 
   getArticle(articleId: number) {
-    return this.articleRepository.findOne({ where: { id: articleId } });
+    return this.articleRepository.findOne({
+      where: { id: articleId },
+      relations: ['user'],
+    });
   }
 
   async getMyArticleEdit(req, articleId: number) {
@@ -69,7 +56,7 @@ export class ArticleService {
     return this.articleRepository.findOne({ where: { id: articleId, user: { id: userId } } });
   }
 
-  async paginates(req, page) {
+  async getMyArticle(req, page) {
     const userId = req.user.id;
     const take = 6;
     const [articles, total] = await this.articleRepository.findAndCount({

@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm/dist';
-import { UserController } from './user.controller';
 import { User } from '../entity/user.entity';
 import { UserService } from './user.service';
 import { MulterModule } from '@nestjs/platform-express';
@@ -19,7 +18,6 @@ import { Comment } from 'src/entity/comment.entity';
     CommentModule,
     MulterModule.registerAsync({ useFactory: multerOptionsFactory }),
   ],
-  controllers: [UserController],
   providers: [UserService, ArticleService, CommentService],
   exports: [UserService],
 })

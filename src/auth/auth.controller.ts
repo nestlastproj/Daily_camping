@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
   Post,
   Put,
   Req,
@@ -20,6 +22,7 @@ import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { User } from 'src/entity/user.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -67,10 +70,16 @@ export class AuthController {
 
   // --------------------------------------------------------------------
 
-  @Get('/mypage/get')
+  @Get('/me')
   @UseGuards(JwtAuthGuard)
   async getinfo(@Req() req) {
     return await this.authService.getinfo(req);
+  }
+
+  @Delete('/logOff')
+  @UseGuards(JwtAuthGuard)
+  async remove(@Req() req) {
+    await this.userService.remove(req);
   }
 
   @Put('/edit')
@@ -81,7 +90,7 @@ export class AuthController {
   }
 
   @Post('/signup')
-  signUp(@Body(ValidationPipe) createUserDto: CreateUserDto): Promise<void> {
+  signUp(@Body(ValidationPipe) createUserDto: CreateUserDto) {
     return this.authService.signup(createUserDto);
   }
 
@@ -116,7 +125,20 @@ export class AuthController {
   refresh(@Req() req, @Res({ passthrough: true }) res: Response) {
     const user = req.user;
     const { accessToken, ...accessOption } = this.authService.getCookieWithJwtAccessToken(user.id, user.nickname);
+    const { refreshToken, ...refreshOption } = this.authService.getCookieWithJwtRefreshToken(user.id, user.nickname);
     res.cookie('Authentication', accessToken, accessOption);
+    res.cookie('Refresh', refreshToken, refreshOption);
+
     return user;
+  }
+
+  @Get()
+  findAll(): Promise<User[]> {
+    return this.userService.findAll();
+  }
+
+  @Get('/:id')
+  findOne(@Param() id: number): Promise<User> {
+    return this.userService.findOne(id);
   }
 }

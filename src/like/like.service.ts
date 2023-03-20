@@ -30,7 +30,7 @@ export class LikeService {
       throw new Error('존재하지 않는 게시물입니다.');
     }
     const exist = await this.articlelikeRepository.find({ where: { user: userId, relationId: articleId } });
-    if (!exist.length) {
+    if (exist.length === 0) {
       return await this.articlelikeRepository.insert({ user: { id: userId }, relationId: articleId });
     } else {
       return await this.articlelikeRepository.delete({ user: userId, relationId: articleId });
@@ -58,7 +58,7 @@ export class LikeService {
       throw new Error('존재하지 않는 댓글입니다.');
     }
     const exist = await this.commentlikeRepository.find({ where: { user: userId, relationId: commentId } });
-    if (!exist.length) {
+    if (exist.length === 0) {
       return await this.commentlikeRepository.insert({ user: { id: userId }, relationId: commentId });
     } else {
       return await this.commentlikeRepository.delete({ user: { id: userId }, relationId: commentId });
@@ -79,6 +79,19 @@ export class LikeService {
       .where({ user: { id: userId } })
       .groupBy('placelike.relationId')
       .orderBy('placelike.relationId')
+      .getRawMany();
+  }
+
+  async getMyArticleLike(req) {
+    const userId = req.user.id;
+    await this.articlelikeRepository.find({ where: { id: userId } });
+    return await this.articlelikeRepository
+      .createQueryBuilder('articlelike')
+      .select('articlelike.relationId AS id')
+      .addSelect('COUNT(*) AS count')
+      .where({ user: { id: userId } })
+      .groupBy('articlelike.relationId')
+      .orderBy('articlelike.relationId')
       .getRawMany();
   }
 
