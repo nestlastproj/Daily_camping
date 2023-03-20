@@ -4,7 +4,7 @@ $(document).ready(function () {
   const page = new URLSearchParams(location.search).get('page') || 1;
   getmyprofiledata(articleId);
   getComment(articleId, page);
-  countComment(articleId)
+  countComment(articleId);
   articleLikeCount();
 });
 
@@ -16,12 +16,12 @@ function articleLikeCount() {
     url: `/article/likecount/${articleId}`,
   })
     .then((res) => {
-      let temp = `<h3>${res.data}</h3>`
+      let temp = `<h3>${res.data}</h3>`;
       $('.articlelikecount').append(temp);
     })
     .catch((err) => {
-      console.log(err)
-    })
+      console.log(err);
+    });
 }
 
 function getmyprofiledata(articleId) {
@@ -119,13 +119,11 @@ function getComment(articleId, page) {
                           <button type="button" class="btnregister" onclick="likeComment(${data.id})">
                             좋아요
                           </button>
-                          <div class="commentlikecount${data.id}"></div>
+                          <div class="commentlikenumber commentlikecount${data.id}"></div>
                             `;
       $('.boxcontent').append(temp_html);
       commentLikeCount(data.id);
     });
-
-
 
     const pages = [];
 
@@ -171,10 +169,9 @@ function commentLikeCount(id) {
       $(`.commentlikecount${id}`).append(`${res.data}`);
     })
     .catch((err) => {
-      console.log(err)
-    })
+      console.log(err);
+    });
 }
-
 
 function postComment() {
   let comment = document.getElementById('comment').value;
@@ -243,9 +240,7 @@ function commentPost(commentId) {
   const articleIdUrl = window.location.pathname;
   const articleId = articleIdUrl.split('/')[3];
 
-  axios.put(`/comment/${articleId}/${commentId}`,
-    { content: content }
-  ).then(window.location.reload());
+  axios.put(`/comment/${articleId}/${commentId}`, { content: content }).then(window.location.reload());
 }
 
 function countComment(articleId) {
@@ -256,7 +251,7 @@ function countComment(articleId) {
     .then((res) => {
       let temp = `<div class="boxtotal">
                     댓글 <span><span>${res.data}</span></span>
-                  </div>`
+                  </div>`;
       $('#count').append(temp);
     })
     .catch((err) => {
@@ -291,4 +286,3 @@ function likeComment(id) {
       console.log(err);
     });
 }
-
