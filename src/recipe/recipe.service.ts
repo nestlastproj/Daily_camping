@@ -126,4 +126,8 @@ export class RecipeService {
       },
     };
   }
+
+  async recipeDetail(recipeId) {
+    return this.recipeRePository.findOne({ where: { id: recipeId } });
+  }
 }

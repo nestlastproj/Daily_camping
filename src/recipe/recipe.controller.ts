@@ -17,7 +17,16 @@ export class RecipeController {
     return await this.recipeService.recipeSearch(page, keyword);
   }
 
+  @Get('/recipeDetail')
+  async recipeDetail(@Query('recipeId') recipeId: number) {
+    return await this.recipeService.recipeDetail(recipeId);
+  }
+
   @Get('/recipeList')
   @Render('recipe')
   recipeList() {}
+
+  @Get('/recipeInfo')
+  @Render('recipedetail')
+  recipeInfo() {}
 }

@@ -29,7 +29,7 @@
     <%- include('nav.ejs') %>
     <div class="serch">
       <label>
-        <input type="text" id="searchKeyword" required />
+        <input type="text" id="searchKeyword" required onkeyup="searchEnterKey()" />
         <ul>
           <li s>s</li>
           <li e>e</li>
@@ -38,7 +38,9 @@
           <li c>c</li>
           <li h>h</li>
         </ul>
-        <button class="serchbtn" type="submit"><i class="fa-solid fa-magnifying-glass fa-2x" onclick="search()"></i></button>
+        <button class="serchbtn" id="serch" type="submit">
+          <i class="fa-solid fa-magnifying-glass fa-2x" onclick="search()"></i>
+        </button>
       </label>
     </div>
     <div class="container" id="placeContainer"></div>
@@ -47,4 +49,5 @@
   </body>
   <link rel="stylesheet" href="../css/place.css" />
   <script src="/js/place.js"></script>
+  <script src="/js/EnterKey.js"></script>
 </html>

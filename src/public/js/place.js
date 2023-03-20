@@ -17,6 +17,7 @@ function placeApidata(page, keyword) {
     .then((res) => {
       document.getElementById('placeContainer').innerHTML = '';
       document.getElementById('pagination').innerHTML = '';
+
       const { meta, placeList } = res.data;
       const { firstPage, lastPage, totalPage } = meta;
 

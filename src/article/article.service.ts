@@ -94,20 +94,22 @@ export class ArticleService {
     };
   }
 
-  async createArticle(req, data: CreateArticleDto, file?: Express.Multer.File) {
+  async createArticle(req, data: CreateArticleDto, file?: Express.MulterS3.File) {
     const userId = req.user.id;
+    const filename = file.key
     const aritcle = { user: { id: userId }, title: data.title, content: data.content };
     if (file) {
-      aritcle['image'] = file.filename;
+      aritcle['image'] = filename;
     }
     return await this.articleRepository.insert(aritcle);
   }
 
-  async updateArticle(req, articleId: number, data: UpdateArticleDto, file?: Express.Multer.File) {
+  async updateArticle(req, articleId: number, data: UpdateArticleDto, file?: Express.MulterS3.File) {
     const userId = req.user.id;
+    const filename = file.key
     const aritcle = { user: { id: userId }, title: data.title, content: data.content };
-    if (file) {
-      aritcle['image'] = file.filename;
+    if (filename) {
+      aritcle['image'] = filename;
     }
     return await this.articleRepository.update(articleId, aritcle);
     // title: data.title,

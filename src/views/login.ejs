@@ -64,7 +64,7 @@
               </div>
               <div class="input-group">
                 <i class="fa-solid fa-key"></i>
-                <input type="password" id="login_password" placeholder="password" />
+                <input type="password" id="login_password" placeholder="password" onkeyup="loginEnterKey()"/>
               </div>
               <button onclick="login()">login</button>
               <p>
@@ -96,6 +96,7 @@
     </div>
     <%- include('footer.ejs') %>
       <script src="../js/login.js"></script>
+      <script src="/js/EnterKey.js"></script>
 </body>
 
 </html>

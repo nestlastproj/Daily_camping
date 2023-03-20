@@ -41,7 +41,9 @@ export class User extends BaseEntity {
   @Column({ default: false })
   admin: boolean;
 
-  @Column({ nullable: true })
+  @Column({
+    default: 'https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/83308917_1679321519298.jpg',
+  })
   image: string;
 
   @CreateDateColumn()

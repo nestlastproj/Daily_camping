@@ -15,9 +15,9 @@
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
-    ></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="/js/product.js"></script>
+      ></script>
+      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+      <script src="/js/product.js"></script>
     <script src="https://kit.fontawesome.com/fd3102c9a3.js" crossorigin="anonymous"></script>
     <title>product</title>
   </head>
@@ -25,7 +25,7 @@
     <%- include('nav.ejs') %>
     <div class="serch">
       <label>
-        <input type="text" id="searchKeyword" required />
+        <input type="text" id="searchKeyword" required onkeyup="searchEnterKey()" />
         <ul>
           <li s>s</li>
           <li e>e</li>
@@ -47,4 +47,5 @@
     <%- include('footer.ejs') %>
   </body>
   <link rel="stylesheet" href="../css/product.css" />
+  <script src="/js/EnterKey.js"></script>
 </html>

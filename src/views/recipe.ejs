@@ -26,7 +26,7 @@
     <%- include('nav.ejs') %>
     <div class="serch">
       <label>
-        <input type="text" id="searchKeyword" required />
+        <input type="text" id="searchKeyword" required onkeyup="searchEnterKey()" />
         <ul>
           <li s>s</li>
           <li e>e</li>
@@ -45,4 +45,5 @@
     <%- include('footer.ejs') %>
   </body>
   <link rel="stylesheet" href="../css/recipe.css" />
+  <script src="/js/EnterKey.js"></script>
 </html>

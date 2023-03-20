@@ -58,7 +58,7 @@ function placeDetailData(placeId) {
 
           let temp_html = `
         <div class="card" onclick="location.href=''">
-           <img src="${data.image}" class="card__image" alt="brown couch" />
+           <img src="https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/${data.image}" class="card__image" alt="brown couch" />
            <div class="card__content">
              <time class="card__date">${year}년 ${month}월 ${day}일  ${hour}시${minute}분</time>
              <time class="card__writer">작성자: ${data.user.nickname}</time>

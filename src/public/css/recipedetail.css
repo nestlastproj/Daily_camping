@@ -1,13 +1,13 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Lora&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
 
 .instruction,
 .book,
 .book2 {
   position: absolute;
-  top: 50%;
+  top: 700px;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -26,7 +26,7 @@
 .book2 {
   width: 847px;
   height: 654.5px;
-  transform: translate(-50%, -50%) rotatex(10deg) rotatey(-10deg);
+  transform: translate(-50.7%, -50%) rotatex(10deg) rotatey(-10deg);
   transform-style: preserve-3d;
 }
 .page {
@@ -1165,18 +1165,17 @@
 .cover-front:nth-child(1) {
   text-align: center;
   background: linear-gradient(#afd2dd, #a1d5e5) 50% 50%/80% 86% no-repeat,
-    linear-gradient(#ffffff, #ffffff) 50% 50%/90% 93% no-repeat,
-    linear-gradient(#9bc8d6, #9bc8d6) no-repeat;
+    linear-gradient(#ffffff, #ffffff) 50% 50%/90% 93% no-repeat, linear-gradient(#9bc8d6, #9bc8d6) no-repeat;
 }
 .cover-front:nth-child(1) h1 {
-  font-family: "Lora", serif;
+  font-family: 'Lora', serif;
   font-size: 45px;
   color: #134a78;
   margin-top: 30px;
   text-transform: uppercase;
 }
 .cover-front:nth-child(1) h2 {
-  font-family: "EB Garamond", serif;
+  font-family: 'EB Garamond', serif;
   font-size: 24px;
   color: #134a78;
   position: relative;
@@ -1191,7 +1190,7 @@
 
 p {
   margin-bottom: 4%;
-  font-family: "EB Garamond", serif;
+  font-family: 'EB Garamond', serif;
   font-size: 16px;
 }
 
@@ -1202,7 +1201,7 @@ p {
 .instruction {
   left: calc(50% - 150px);
   font-size: 26px;
-  font-family: "EB Garamond", serif;
+  font-family: 'EB Garamond', serif;
   color: #0009;
   background: #fff7;
   border-radius: 15px;
@@ -1215,14 +1214,13 @@ p {
 }
 
 .link a {
-  font-family: "Indie Flower", cursive;
+  font-family: 'Indie Flower', cursive;
   font-size: 40px;
   text-decoration: none;
   color: #222022;
 }
 
 .recipe-detail {
-  width: 800px;
   text-align: center;
   margin: 100px auto 0 auto;
   display: block;
@@ -1267,7 +1265,7 @@ p {
 }
 
 .hearth {
-  background-image: url("https://assets.codepen.io/23500/Hashflag-AppleEvent.svg");
+  background-image: url('https://assets.codepen.io/23500/Hashflag-AppleEvent.svg');
   background-size: calc(var(--size) * var(--frames)) var(--size);
   background-repeat: no-repeat;
   background-position-x: calc(var(--size) * (var(--frames) * -1 + 2));
@@ -1321,7 +1319,7 @@ input:checked + .hearth {
 .button::after,
 .button__text::before,
 .button__text::after {
-  content: "";
+  content: '';
   position: absolute;
   height: 3px;
   border-radius: 2px;
@@ -1356,7 +1354,7 @@ input:checked + .hearth {
   overflow: hidden;
 }
 .button__line::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   width: 150%;
@@ -1409,7 +1407,7 @@ input:checked + .hearth {
 .button__drow1::after,
 .button__drow2::before,
 .button__drow2::after {
-  content: "";
+  content: '';
   position: absolute;
 }
 .button__drow1::before {

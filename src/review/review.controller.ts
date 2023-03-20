@@ -49,7 +49,7 @@ export class ReviewController {
     @Req() req,
     @Param('placeId') placeId: number,
     @Body() data: ReviewDto,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile() file: Express.MulterS3.File,
   ) {
     return this.reviewservice.createReview(req, placeId, data, file);
   }
@@ -61,7 +61,7 @@ export class ReviewController {
     @Req() req,
     @Param('reviewId') reviewId: number,
     @Body() data: ReviewDto,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile() file: Express.MulterS3.File,
   ) {
     return this.reviewservice.updateReview(req, reviewId, data, file);
   }
