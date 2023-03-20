@@ -106,7 +106,7 @@ export class ArticleService {
     };
   }
 
-  async createArticle(req, data: CreateArticleDto, file?: Express.Multer.File) {
+  async createArticle(req, data: CreateArticleDto, file?: Express.MulterS3.File) {
     const userId = req.user.id;
     return await this.articleRepository.insert({
       user: { id: userId },

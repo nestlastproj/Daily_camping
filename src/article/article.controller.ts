@@ -93,7 +93,7 @@ export class ArticleController {
   @Post('go')
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('file'))
-  async createArticle(@Req() req, @Body() data: CreateArticleDto, @UploadedFile() file: Express.Multer.File) {
+  async createArticle(@Req() req, @Body() data: CreateArticleDto, @UploadedFile() file: Express.MulterS3.File) {
     return await this.articleService.createArticle(req, data, file);
   }
 

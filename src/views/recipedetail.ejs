@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+        <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- <script src="../js/recipedetail.js"></script> -->
+    <script src="https://kit.fontawesome.com/fd3102c9a3.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/recipedetail.css" />
+    <title>nav</title>
+  </head>
+  <body>
+    <%- include('nav.ejs') %>
+    <main>
+      <div class="container">
+        <div class="recipe-detail">
+          <div class="recipe-title" id="recipe-title">레시피 이름</div>
+          <div class="heart">
+          <label class="like">
+            <input type="checkbox"/>
+            <div class="hearth"></div>
+          </label>
+          </div>
+        </div>
+        <div class="information">
+          <div class="instruction">Flip the page</div>
+          <div class="book">
+            <!-- <div class="page cover-front" onclick="movePage(this, 1)">
+              <img src="https://recipe1.ezmember.co.kr/cache/recipe/2018/06/27/6a81ce4e4141af01a2200b4791134c971_m.png" alt="">
+            </div>
+            <div class="page cover-front" onclick="movePage(this, 2)"></div> -->
+            <!-- <div class="page text-page" onclick="movePage(this, 3)">
+              <img src="https://recipe1.ezmember.co.kr/cache/recipe/2018/06/27/2c0c89aacd9092e4873ed5f5a792daa71.png" alt="">
+              <p><span>1.</span>막창을 식용유 없이 노릇하게 구워주세요!
+처음에 쎈불로 구워주다가 보글보글 할 때쯤 불을 한단계 낮춰주세요. 그래야 타지 않고 바삭하게 구울 수 있어요. 바삭하게 구워지면 더 식감이 좋거든요 ^^ 불을 낮춘 뒤에 입자가 큰 설탕1숟갈을 먼저 넣어 단맛을 넣어주세요. (백선생님 응용해 보았어요)</p>
+            </div>
+            <div class="page text-page" onclick="movePage(this, 4)">
+              <img src="https://recipe1.ezmember.co.kr/cache/recipe/2018/06/27/5caf1dad1f19be9197d7b96108b4db3d1.png" alt="">
+              <p><span>2.</span>바삭하게 막창이 익으면 기름을 살짝만 남겨두고 부어줍니다. 다음으로 준비된 야채를 넣고 양파가 반틈 투명해질때까지 볶아주세요. 청양고추로 맵기 조절 가능하니 불막창을 원하면 2-3개 넣어주면 좋겠습니다.(1개는 매콤, 2개는 맵다, 3개는 완전 맵다.)</p>
+            </div>
+            <div class="page text-page" onclick="movePage(this, 5)">
+              <img src="https://recipe1.ezmember.co.kr/cache/recipe/2018/06/27/67871be3ed7ade5a25652e90455e24a21.png" alt="">
+              <p><span>3.</span>양파가 완전 투명해질때까지 볶아주면 완성이랍니다^^</p>
+            </div>
+            <div class="page text-page" onclick="movePage(this, 6)">
+              <img src="https://recipe1.ezmember.co.kr/cache/recipe/2018/06/27/5e941e7ad74ec74dbb451843a4070b351.png" alt="">
+              <p><span>4.</span>이건 캠핑가서 똑같은 레시피로 만들어 먹었답니다^^</p>
+            </div> -->
+          </div>
+          <!-- <div class="book2">
+            <div class="page"></div>
+          </div> -->
+        </div>
+        <div class="link">
+          <a href="">More recipe information</a>
+        </div>
+      </div>
+    </main>
+    <%- include('footer.ejs') %>
+    <script src="../js/recipedetail.js"></script>
+  </body>
+</html>

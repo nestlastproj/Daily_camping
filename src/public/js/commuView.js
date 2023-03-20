@@ -12,6 +12,7 @@ function getmyprofiledata(articleId) {
     url: `/article/${articleId}`,
   })
     .then((res) => {
+      console.log(res)
       let { title, content, createdAt, image } = res.data;
       const createdTime = new Date(createdAt);
       const year = createdTime.getFullYear();
