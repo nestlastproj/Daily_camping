@@ -32,10 +32,28 @@ export class ReviewController {
   getMyReview(@Req() req, @Query('page') page: number = 1) {
     return this.reviewservice.paginate(req, page);
   }
+  // render
+  // ------------------------------------------
 
   @Get('/mypageReview')
   @Render('mypagereview')
   myreview() {}
+
+  @Get('/reviewWrite')
+  @Render('reviewWrite')
+  reviewWrite() {}
+
+  @Get('/reviewView/:reviewId')
+  @Render('reviewView')
+  reviewView(@Param('reviewId') reviewId: number) {
+    return { reviewId };
+  }
+
+  @Get('/edit/:reviewId')
+  @Render('reviewedit')
+  reviewEdit() {}
+
+  // ------------------------------------------
 
   @Get('reviews/:reviewId')
   getReviews(@Param('reviewId') reviewId: number) {

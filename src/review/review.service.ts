@@ -15,6 +15,7 @@ export class ReviewService {
   getReviews(reviewId: number) {
     return this.reviewRepository.find({
       where: { id: reviewId },
+      relations: ['user'],
     });
   }
 
