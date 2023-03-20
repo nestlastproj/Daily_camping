@@ -29,7 +29,7 @@ async function getWeather(): Promise<void> {
 
   const responses = await Promise.all(requestUrls.map((url) => axios.get(url)));
 
-  // 한번에 오늘 -3일 +3일 날씨 데이터 전체 
+  // 한번에 오늘 -3일 +3일 날씨 데이터 전체
   const weatherList: GetWeatherDto[] = responses.flatMap((response) =>
     response.data.response.body.items.item.map((item) => ({
       numEf: item.numEf, // 발표시간기준 발효번호
@@ -44,7 +44,7 @@ async function getWeather(): Promise<void> {
   );
 
   // 오늘 현재 시간 날씨
-  const nowWeatherList: GetWeatherDto[] = weatherList.filter((item) => item.numEf === 0)
+  const nowWeatherList: GetWeatherDto[] = weatherList.filter((item) => item.numEf === 0);
 
   console.log(nowWeatherList);
 }

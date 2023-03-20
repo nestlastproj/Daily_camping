@@ -19,26 +19,28 @@
 
 <body>
   <%- include('nav.ejs') %>
-  <div class="serch">
-    <label>
-      <input type="text" id="searchKeyword" required />
-      <ul>
-        <li s>s</li>
-        <li e>e</li>
-        <li a>a</li>
-        <li r>r</li>
-        <li c>c</li>
-        <li h>h</li>
+    <div class="serch">
+      <label>
+        <input type="text" id="searchKeyword" required />
+        <ul>
+          <li s>s</li>
+          <li e>e</li>
+          <li a>a</li>
+          <li r>r</li>
+          <li c>c</li>
+          <li h>h</li>
+        </ul>
+        <button class="serchbtn" type="submit"><i class="fa-solid fa-magnifying-glass fa-2x"
+            onclick="search()"></i></button>
+      </label>
+    </div>
+    <div class="container" id="recipeContainer">
+      <ul class="common_sp_list_ul ea4" id="recipeBox" style="padding: 0 0 0 8px">
       </ul>
-      <button class="serchbtn" type="submit"><i class="fa-solid fa-magnifying-glass fa-2x" onclick="search()"></i></button>
-    </label>
-  </div>
-  <div class="container" id="recipeContainer">
-    <ul class="common_sp_list_ul ea4" id="recipeBox" style="padding: 0 0 0 8px">
-    </ul>
-  </div>
-  <div class="pagination" id="pagination"></div>
-  <%- include('footer.ejs') %>
+    </div>
+    <div class="pagination" id="pagination"></div>
+    <%- include('footer.ejs') %>
 </body>
 <link rel="stylesheet" href="../css/recipe.css" />
+
 </html>
