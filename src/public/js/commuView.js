@@ -16,7 +16,13 @@ function articleLikeCount() {
     url: `/article/likecount/${articleId}`,
   })
     .then((res) => {
-      let temp = `<h3>${res.data}</h3>`;
+      let temp = `<div class="heart">
+                    <label class="like">
+                      <input id="myLike${articleId}" type="checkbox" />
+                      <div class="hearth" onclick="likeArticle()"></div>
+                    </label>
+                  </div>
+                  <h3>${res.data}</h3>`;
       $('.articlelikecount').append(temp);
     })
     .catch((err) => {
@@ -30,7 +36,9 @@ function getmyprofiledata(articleId) {
     url: `/article/${articleId}`,
   })
     .then((res) => {
-      let { title, content, createdAt, image } = res.data;
+      console.log(res)
+      let { title, content, createdAt, image, user } = res.data;
+      let nickname = user.nickname;
       const createdTime = new Date(createdAt);
       const year = createdTime.getFullYear();
       const month = createdTime.getMonth() + 1;
@@ -48,7 +56,11 @@ function getmyprofiledata(articleId) {
                                 <dl>
                                     <dt>작성일</dt>
                                     <dd>
-                                    <div id="createdAt">${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분</div>
+                                    <div id="createdAt">${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분</div>                                 
+                                    </dd>
+                                    <dt>작성자</dt>
+                                    <dd>
+                                    <div id="nickname">${nickname}</div>                                 
                                     </dd>
                                 </dl>
                             </div>
@@ -75,8 +87,8 @@ function getMyArticleLike() {
     .then((res) => {
       const data = res.data
       data.forEach((data) => {
-        if (data.id === articleId) {
-          // document.getElementById(`myLike${data.id}`).checked = true
+        if (data.id == articleId) {
+          document.getElementById(`myLike${articleId}`).checked = true
         }
       })
     })
@@ -170,10 +182,6 @@ function getComment(articleId, page) {
 
     $('.pagination').append(pages.join(''));
   });
-  // .catch((err) => {
-  //   alert('상품 정보 로드에 실패하였습니다.');
-  //   window.location.href = '/';
-  // });
 }
 
 function commentLikeCount(id) {
@@ -182,9 +190,6 @@ function commentLikeCount(id) {
     url: `/commentlikecount/${id}`,
   })
     .then((res) => {
-      // let divTemp = document.querySelector(`.commentlikecount${id}`)
-      // divTemp.innerHTML = `${res.data}`
-      // $(`.commentlikecount1`).append(0);
       $(`.commentlikecount${id}`).append(`${res.data}`);
     })
     .catch((err) => {
