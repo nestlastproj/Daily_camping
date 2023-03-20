@@ -31,7 +31,7 @@ function placeDetailData(placeId) {
           <a href="" class="button">
             <div class="button__line"></div>
             <div class="button__line"></div>
-            <span class="button__text">write</span>
+            <span class="button__text" onclick="location.href='/review/reviewWrite'">write</span>
             <div class="button__drow1"></div>
             <div class="button__drow2"></div>
           </a>
