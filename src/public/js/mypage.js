@@ -7,8 +7,6 @@ $(document).ready(function () {
       console.log(res);
       let { image } = res.data;
       document.getElementById('image2').src = `/uploads/${image}`;
-      //   let temp = `<h1 class="profile-user-name">${res.data.nickname}</h1>`;
-      //   $('#nickname').append(temp);
       let temp_html = `
             <h1>
             <div id="nickname" 이름(닉네임)>
