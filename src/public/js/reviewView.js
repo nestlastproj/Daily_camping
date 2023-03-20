@@ -1,37 +1,35 @@
 $(document).ready(function () {
-    const reviewIdUrl = window.location.pathname;
-    const reviewId = reviewIdUrl.split('/')[3];
-    getReviews(1);
+    const reviewId = new URLSearchParams(location.search).get('reviewId');
+    console.log(reviewId)
+    getReviews(reviewId);
 });
 
 function getReviews(reviewId) {
     axios({
         method: 'get',
-        url: `/review/reviews/${reviewId}`,
+        url: `/review/detail?reviewId=${reviewId}`,
     })
         .then((res) => {
-            let { title, content, createdAt, image, user } = res.data;
+            let { id, title, content, createdAt, image, user } = res.data;
             console.log(res.data)
-            let data = res.data;
 
-            data.forEach((data) => {
-                const createdTime = new Date(data.createdAt);
-                const year = createdTime.getFullYear();
-                const month = createdTime.getMonth() + 1;
-                const day = createdTime.getDate();
-                let hour = createdTime.getHours();
-                let minute = createdTime.getMinutes();
-                if (hour.toString().length === 1) {
-                    hour = '0' + hour.toString();
-                }
-                if (minute.toString().length === 1) {
-                    minute = '0' + minute.toString();
-                }
-                let temp = `<div class="title">${data.title}</div>
+            const createdTime = new Date(createdAt);
+            const year = createdTime.getFullYear();
+            const month = createdTime.getMonth() + 1;
+            const day = createdTime.getDate();
+            let hour = createdTime.getHours();
+            let minute = createdTime.getMinutes();
+            if (hour.toString().length === 1) {
+                hour = '0' + hour.toString();
+            }
+            if (minute.toString().length === 1) {
+                minute = '0' + minute.toString();
+            }
+            let temp = `<div class="title">${title}</div>
                 <div class="info">
                     <dl>
                         <dt>글쓴이</dt>
-                        <dd>${data.user.nickname}</dd>
+                        <dd>${user.nickname}</dd>
                     </dl>
                     <dl>
                         <dt>작성일</dt>
@@ -39,11 +37,17 @@ function getReviews(reviewId) {
                     </dl>
                 </div>
                 <div class="profile-image">
-                    <img src="../uploads/${data.image}">
+                    <img src="https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/${image}">
                 </div>
-                <div id="content">${data.content}</div>`
-                $('.boardView').append(temp);
-            })
+                <div id="content">${content}</div>
+                
+                <div class="btWrap">
+                    <a href="/review/edit?reviewId=${id}" class="on">수정</a>
+                    <a onclick="deleteReview()" class="off">삭제</a>
+                    <a href="/place/placelist" class="on">목록</a>
+                </div>`
+            $('.boardView').append(temp);
+
         })
         .catch((err) => {
             console.log(err)
@@ -51,11 +55,13 @@ function getReviews(reviewId) {
 }
 
 function deleteReview() {
+    const reviewId = new URLSearchParams(location.search).get('reviewId');
     axios({
         url: `/review/review/${reviewId}`,
         method: 'delete',
     })
         .then((res) => {
+
             confirm('삭제하시겠습니까?');
             window.location.href = '/place/placelist';
         })

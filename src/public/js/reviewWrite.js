@@ -1,8 +1,7 @@
-$(document).ready(function () {
-    const placeId = new URLSearchParams(location.search).get('placeId');
-});
+function reviewWrite() {
+    const placeIdUrl = window.location.pathname;
+    const placeId = placeIdUrl.split('/')[3];
 
-function reviewWrite(placeId) {
     let title = document.getElementById('title').value
     let content = document.getElementById('content').value
     let image = document.getElementById('image').files[0];
@@ -19,7 +18,7 @@ function reviewWrite(placeId) {
     })
         .then((res) => {
             alert('게시 완료')
-            // location.href = '/review/reviewView'
+            location.href = '/review/reviewView'
         })
         .catch((err) => {
             console.log('error', err);
