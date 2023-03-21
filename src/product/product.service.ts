@@ -12,8 +12,6 @@ export class ProductService {
   private readonly API_URL = 'https://openapi.11st.co.kr/openapi/OpenApiService.tmall';
 
   async getProduct(query: string, page: number = 1, pageSize: number = 5000) {
-    await this.deleteProduct();
-
     const params = {
       key: process.env.ELEVENST_API_KEY,
       apiCode: 'ProductSearch',
@@ -43,14 +41,17 @@ export class ProductService {
 
     const saveProduct = await Promise.all(
       productList.map((product) => {
-        return this.productRepository.save(product);
+        return this.productRepository
+          .createQueryBuilder('product')
+          .insert()
+          .into('product')
+          .values(product)
+          .orUpdate(['price', 'salePrice', 'name', 'image'], ['url'])
+          .updateEntity(false)
+          .execute();
       }),
     );
     return saveProduct;
-  }
-
-  async deleteProduct() {
-    await this.productRepository.delete({});
   }
 
   async productSearch(page: number, keyword: string) {

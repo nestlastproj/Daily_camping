@@ -12,6 +12,7 @@ import {
 } from 'typeorm';
 import { Review } from '../review.entity';
 import { User } from '../user.entity';
+
 @Index(['name'], { unique: true })
 @Entity()
 export class Place extends BaseEntity {

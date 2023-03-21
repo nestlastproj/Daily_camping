@@ -1,5 +1,6 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { BaseEntity, Column, CreateDateColumn, Entity, Index, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
+@Index(['name'], { unique: true })
 @Entity()
 export class Recipe extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
