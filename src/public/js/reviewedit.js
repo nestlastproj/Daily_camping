@@ -46,6 +46,6 @@ function putMyReview() {
         })
         .then((res) => {
             alert('수정 완료');
-            location.href = '/place/placelist'
+            location.href = `/review/reviewView?reviewId=${reviewId}`
         });
 }

@@ -63,6 +63,7 @@ export class ArticleService {
       take,
       skip: (page - 1) * take,
       where: { user: { id: userId } },
+      order: { id: 'desc' },
     });
 
     // 전체 상품 수 : total
@@ -96,9 +97,9 @@ export class ArticleService {
 
   async createArticle(req, data: CreateArticleDto, file?: Express.MulterS3.File) {
     const userId = req.user.id;
-    const filename = file.key;
     const aritcle = { user: { id: userId }, title: data.title, content: data.content };
     if (file) {
+      const filename = file.key;
       aritcle['image'] = filename;
     }
     return await this.articleRepository.insert(aritcle);
@@ -106,15 +107,12 @@ export class ArticleService {
 
   async updateArticle(req, articleId: number, data: UpdateArticleDto, file?: Express.MulterS3.File) {
     const userId = req.user.id;
-    const filename = file.key;
     const aritcle = { user: { id: userId }, title: data.title, content: data.content };
-    if (filename) {
+    if (file) {
+      const filename = file.key;
       aritcle['image'] = filename;
     }
     return await this.articleRepository.update(articleId, aritcle);
-    // title: data.title,
-    // content: data.content,
-    // image: file.filename,
   }
 
   async deleteArticle(req, articleId: number) {

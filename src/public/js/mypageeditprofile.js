@@ -9,7 +9,7 @@ $(document).ready(function () {
             document.getElementById('name').value = `${name}`
             document.getElementById('nickname').value = `${nickname}`
             document.getElementById('phone').value = `${phone}`
-            document.getElementById('image2').src = `/uploads/${image}`
+            document.getElementById('image2').src = `https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/${image}`
         })
         .catch((err) => {
             console.log(err, 'err')

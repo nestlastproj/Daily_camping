@@ -9,10 +9,13 @@ $(document).ready(function () {
 });
 
 function loginuser(userId) {
+  const articleIdUrl = window.location.pathname;
+  const articleId = articleIdUrl.split('/')[3];
+  console.log(articleId, '1111111111')
   axios.get(`/auth/isLoggined`)
     .then((res) => {
       if (userId == res.data.id) {
-        let temp = `<a href="/article/edit/<%= articleId %>" class="on">수정</a>
+        let temp = `<a href="/article/edit/${articleId}" class="on">수정</a>
                     <a onclick="deleteArticle()" class="off">삭제</a>
                     <a href="/article/list" class="on">목록</a>`
         $('.buttons').append(temp)
@@ -125,7 +128,7 @@ function deleteArticle() {
     url: `/article/${articleId}`,
   })
     .then((res) => {
-      confirm('삭제하시겠습니까?');
+      alert('삭제 완료!')
       window.location.href = '/article/list';
     })
     .catch((err) => {
@@ -259,7 +262,7 @@ function deleteComment(id) {
     url: `/comment/articles/${articleId}/comments/${id}`,
   })
     .then((res) => {
-      confirm('삭제하시겠습니까?');
+      alert('삭제 완료!')
       window.location.reload();
     })
     .catch((err) => {
