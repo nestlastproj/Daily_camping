@@ -21,6 +21,11 @@ import { ReviewService } from './review.service';
 export class ReviewController {
   constructor(private readonly reviewservice: ReviewService) {}
 
+  @Get('search')
+  async getPageReviews(@Query('page') page: number = 1) {
+    return await this.reviewservice.getPageReviews(page);
+  }
+
   @Get('/reviews/:reviewId')
   getReviewList(@Param('reviewId') reviewId: number) {
     return this.reviewservice.getReviewList(reviewId);

@@ -8,6 +8,34 @@ import { Review } from '../entity/review.entity';
 export class ReviewService {
   constructor(@InjectRepository(Review) private readonly reviewRepository: Repository<Review>) {}
 
+  async getPageReviews(page) {
+    const take = 2;
+
+    const [reviews, total] = await this.reviewRepository.findAndCount({
+      take, // Limit; 한 페이지에 가져올 데이터의 제한 갯수
+      skip: (page - 1) * take, // Offset; 이전의 요청 데이터 갯수 = 현재 요청이 시작되는 위치
+      relations: ['user'],
+      order: { id: 'desc' },
+    });
+    const totalPage = Math.ceil(total / take);
+    const pageGroup = Math.ceil(page / 5);
+    let lastPage = pageGroup * 5;
+    const firstPage = lastPage - 5 + 1 <= 0 ? 1 : lastPage - 5 + 1;
+
+    if (lastPage > totalPage) {
+      lastPage = totalPage;
+    }
+
+    return {
+      data: reviews,
+      meta: {
+        firstPage,
+        lastPage,
+        totalPage,
+      },
+    };
+  }
+
   async getReviewList(reviewId: number) {
     return await this.reviewRepository.findOne({ where: { id: reviewId } });
   }
