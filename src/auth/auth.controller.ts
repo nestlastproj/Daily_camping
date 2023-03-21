@@ -33,7 +33,6 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   isLoggined(@Req() req) {
     const user = req.user;
-
     return user;
   }
 
@@ -49,23 +48,6 @@ export class AuthController {
   editpage(@Req() req, @Res() res: Response) {
     const id = req.user.id;
     return res.render('mypageeditprofile.ejs', { id });
-  }
-
-  @Get('chat')
-  @UseGuards(JwtAuthGuard)
-  getChat(@Req() req, @Res() res: Response) {
-    const nickname = req.user.nickname;
-    return res.render('chat.ejs', { nickname });
-  }
-
-  @Get('login')
-  getLogin(@Res() res: Response) {
-    return res.render('login.ejs');
-  }
-
-  @Get('withdrawal')
-  getdelete(@Res() res: Response) {
-    return res.render('mypagewithdrawal.ejs');
   }
 
   // --------------------------------------------------------------------

@@ -11,7 +11,6 @@ import {
   UseGuards,
   Req,
   Query,
-  Render,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
@@ -32,26 +31,6 @@ export class ReviewController {
   getMyReview(@Req() req, @Query('page') page: number = 1) {
     return this.reviewservice.paginate(req, page);
   }
-  // render
-  // ------------------------------------------
-
-  @Get('/mypageReview')
-  @Render('mypagereview')
-  myreview() {}
-
-  @Get('/reviewWrite/:placeId')
-  @Render('reviewWrite')
-  reviewWrite(@Param('placeId') placeId: number) {}
-
-  @Get('/reviewView')
-  @Render('reviewView')
-  reviewView() {}
-
-  @Get('/edit')
-  @Render('reviewedit')
-  reviewEdit() {}
-
-  // ------------------------------------------
 
   @Get('detail')
   getReviews(@Query('reviewId') reviewId: number) {

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, Render, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CommentService } from './comment.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
@@ -7,10 +7,6 @@ import { UpdateCommentDto } from './dto/update-comment.dto';
 @Controller('comment')
 export class CommentController {
   constructor(private commentService: CommentService) {}
-
-  @Get('/mypagecomment')
-  @Render('mypagecomment')
-  comment() {}
 
   @Delete('/allcomment/delete/:articleId')
   async allCommentDelete(@Param('articleId') articleId: number, commentId) {

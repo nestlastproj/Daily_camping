@@ -1,4 +1,4 @@
-import { Controller, Get, Query, Render } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { RecipeService } from './recipe.service';
 import { Cron } from '@nestjs/schedule';
 
@@ -21,12 +21,4 @@ export class RecipeController {
   async recipeDetail(@Query('recipeId') recipeId: number) {
     return await this.recipeService.recipeDetail(recipeId);
   }
-
-  @Get('/recipeList')
-  @Render('recipe')
-  recipeList() {}
-
-  @Get('/recipeInfo')
-  @Render('recipedetail')
-  recipeInfo() {}
 }

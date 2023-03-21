@@ -30,26 +30,6 @@ export class ArticleController {
   // render
   // ------------------------------------------
 
-  @Get('/mypageArticle')
-  myArticle(@Res() res: Response) {
-    return res.render('mypagearticle.ejs');
-  }
-
-  @Get('list')
-  getarticlelist(@Res() res: Response) {
-    return res.render('commuity.ejs');
-  }
-
-  @Get('write')
-  getwritearticle(@Res() res: Response) {
-    return res.render('commuWrite.ejs');
-  }
-
-  @Get('edit/:articleId')
-  articleEdit(@Res() res: Response) {
-    return res.render('articleedit.ejs');
-  }
-
   @Get('view/:articleId')
   @Render('commuView.ejs')
   @UsePipes(ValidationPipe)
