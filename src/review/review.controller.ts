@@ -22,9 +22,9 @@ import { ReviewService } from './review.service';
 export class ReviewController {
   constructor(private readonly reviewservice: ReviewService) {}
 
-  @Get('/reviews')
-  getReviewList() {
-    return this.reviewservice.getReviewList();
+  @Get('/reviews/:reviewId')
+  getReviewList(@Param('reviewId') reviewId: number) {
+    return this.reviewservice.getReviewList(reviewId);
   }
 
   @Get('/myReview')
@@ -32,13 +32,29 @@ export class ReviewController {
   getMyReview(@Req() req, @Query('page') page: number = 1) {
     return this.reviewservice.paginate(req, page);
   }
+  // render
+  // ------------------------------------------
 
   @Get('/mypageReview')
   @Render('mypagereview')
   myreview() {}
 
-  @Get('reviews/:reviewId')
-  getReviews(@Param('reviewId') reviewId: number) {
+  @Get('/reviewWrite/:placeId')
+  @Render('reviewWrite')
+  reviewWrite(@Param('placeId') placeId: number) {}
+
+  @Get('/reviewView')
+  @Render('reviewView')
+  reviewView() {}
+
+  @Get('/edit')
+  @Render('reviewedit')
+  reviewEdit() {}
+
+  // ------------------------------------------
+
+  @Get('detail')
+  getReviews(@Query('reviewId') reviewId: number) {
     return this.reviewservice.getReviews(reviewId);
   }
 

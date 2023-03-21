@@ -28,7 +28,7 @@ function placeDetailData(placeId) {
         </div>
         <div class="review">
           <h2>review <span>${data.review.length}</span></h2>
-          <a href="" class="button">
+          <a class="button" onclick="location.href='/review/reviewWrite/${data.id}'">
             <div class="button__line"></div>
             <div class="button__line"></div>
             <span class="button__text">write</span>
@@ -56,8 +56,9 @@ function placeDetailData(placeId) {
           const hour = createdTime.getHours();
           const minute = createdTime.getMinutes();
 
+
           let temp_html = `
-        <div class="card" onclick="location.href=''">
+        <div class="card" onclick="location.href='/review/reviewView?reviewId=${data.id}'">
            <img src="https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/${data.image}" class="card__image" alt="brown couch" />
            <div class="card__content">
              <time class="card__date">${year}년 ${month}월 ${day}일  ${hour}시${minute}분</time>
