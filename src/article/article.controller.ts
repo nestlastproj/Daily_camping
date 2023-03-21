@@ -32,7 +32,7 @@ export class ArticleController {
   @Get('view/:articleId')
   @Render('commuView.ejs')
   @UsePipes(ValidationPipe)
-  getviewarticle(@Param('articleId') articleId: number) {
+  getViewArticle(@Param('articleId') articleId: number) {
     return { articleId };
   }
 

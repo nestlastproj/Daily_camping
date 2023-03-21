@@ -59,23 +59,31 @@ export class ReviewService {
 
   createReview(req, placeId: number, data: ReviewDto, file?: Express.MulterS3.File) {
     const userId = req.user.id;
-    const filename = file.key;
-    return this.reviewRepository.insert({
+    const review = {
       user: { id: userId },
       places: { id: placeId },
       title: data.title,
       content: data.content,
-      image: filename,
-    });
+    };
+    if (file) {
+      const filename = file.key;
+      review['image'] = filename;
+    }
+    return this.reviewRepository.insert(review);
   }
 
   updateReview(req, reviewId: number, data: ReviewDto, file?: Express.MulterS3.File) {
     const userId = req.user.id;
-    const filename = file.key;
-    return this.reviewRepository.update(
-      { user: { id: userId } },
-      { id: reviewId, title: data.title, content: data.content, image: filename },
-    );
+    const review = {
+      user: { id: userId },
+      title: data.title,
+      content: data.content,
+    };
+    if (file) {
+      const filename = file.key;
+      review['image'] = filename;
+    }
+    return this.reviewRepository.update(reviewId, review);
   }
 
   deleteReview(req, reviewId: number) {

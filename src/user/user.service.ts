@@ -22,7 +22,7 @@ export class UserService {
     const filename = file.key;
     const user = { name: data.name, phone: data.phone, nickname: data.nickname, email: data.email };
     if (file) {
-      user['image'] = file.filename;
+      user['image'] = filename;
     }
     return await this.userRepository.update(userId, user);
   }

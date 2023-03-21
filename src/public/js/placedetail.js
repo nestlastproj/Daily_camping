@@ -88,7 +88,6 @@ function placeDetailData(placeId) {
              <time class="card__date">${year}년 ${month}월 ${day}일  ${hour}시${minute}분</time>
              <time class="card__writer">작성자: ${data.user.nickname}</time>
              <span class="card__title">제목: ${data.title}<span>
-             <time class="card__count">조회수</time>
            </div>
          </div>
         `;

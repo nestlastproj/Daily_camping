@@ -97,10 +97,10 @@ export class ArticleService {
   async createArticle(req, data: CreateArticleDto, file?: Express.MulterS3.File) {
     const userId = req.user.id;
     const aritcle = { user: { id: userId }, title: data.title, content: data.content };
-    // if (file) {
-    //   aritcle['image'] = file;
-    // }
-    file ? (aritcle['image'] = file) : null;
+    if (file) {
+      const filename = file.key;
+      aritcle['image'] = filename;
+    }
     return await this.articleRepository.insert(aritcle);
   }
 
@@ -108,7 +108,8 @@ export class ArticleService {
     const userId = req.user.id;
     const aritcle = { user: { id: userId }, title: data.title, content: data.content };
     if (file) {
-      aritcle['image'] = file;
+      const filename = file.key;
+      aritcle['image'] = filename;
     }
     return await this.articleRepository.update(articleId, aritcle);
   }
