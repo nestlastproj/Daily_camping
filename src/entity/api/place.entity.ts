@@ -29,6 +29,12 @@ export class Place extends BaseEntity {
   phone: string;
 
   @Column()
+  city: string;
+
+  @Column()
+  detailcity: string;
+
+  @Column()
   category: string;
 
   @Column()
