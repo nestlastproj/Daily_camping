@@ -59,8 +59,7 @@ function deleteReview() {
         method: 'delete',
     })
         .then((res) => {
-
-            confirm('삭제하시겠습니까?');
+            alert('삭제 완료!')
             window.location.href = '/place/placelist';
         })
         .catch((err) => {

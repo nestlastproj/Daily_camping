@@ -125,7 +125,7 @@ function deleteArticle() {
     url: `/article/${articleId}`,
   })
     .then((res) => {
-      confirm('삭제하시겠습니까?');
+      alert('삭제 완료!')
       window.location.href = '/article/list';
     })
     .catch((err) => {
@@ -259,7 +259,7 @@ function deleteComment(id) {
     url: `/comment/articles/${articleId}/comments/${id}`,
   })
     .then((res) => {
-      confirm('삭제하시겠습니까?');
+      alert('삭제 완료!')
       window.location.reload();
     })
     .catch((err) => {

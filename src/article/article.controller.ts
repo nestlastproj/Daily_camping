@@ -20,7 +20,6 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { ArticleService } from './article.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
-import { Response } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('article')

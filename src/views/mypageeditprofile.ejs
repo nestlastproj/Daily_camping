@@ -22,62 +22,68 @@
 
 <body style="background-color: #edf5e1">
   <%- include('nav.ejs') %>
-  <div class="side">
-    <ul class="sidebar">
-      <li>
-        <a href="/auth/edit">
-          <i class="fa-solid fa-circle-user fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">개인정보 수정</div>
-        </a>
-      </li>
-      <li>
-        <a href="/article/mypagearticle">
-          <i class="fa-solid fa-list fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">게시글 관리</div>
-        </a>
-      </li>
-      <li>
-        <a href="/comment/mypagecomment">
-          <i class="fa-solid fa-comment fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">댓글 관리</div>
-        </a>
-      </li>
-      <li>
-        <a href="/review/mypagereview">
-          <i class="fa-solid fa-pencil fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">리뷰내역</div>
-        </a>
-      </li>
-      <li>
-        <a href="/auth/withdrawal">
-          <i class="fa-solid fa-user-xmark fa-3x">
-            <div class="circle"></div>
-          </i>
-          <div class="title">회원탈퇴</div>
-        </a>
-      </li>
-      <div class="background"></div>
-    </ul>
-  </div>
+    <div class="side">
+      <ul class="sidebar">
+        <li>
+          <a href="/auth/edit">
+            <i class="fa-solid fa-circle-user fa-3x">
+              <div class="circle"></div>
+            </i>
+            <div class="title">개인정보 수정</div>
+          </a>
+        </li>
+        <li>
+          <a href="/article/mypagearticle">
+            <i class="fa-solid fa-list fa-3x">
+              <div class="circle"></div>
+            </i>
+            <div class="title">게시글 관리</div>
+          </a>
+        </li>
+        <li>
+          <a href="/comment/mypagecomment">
+            <i class="fa-solid fa-comment fa-3x">
+              <div class="circle"></div>
+            </i>
+            <div class="title">댓글 관리</div>
+          </a>
+        </li>
+        <li>
+          <a href="/review/mypagereview">
+            <i class="fa-solid fa-pencil fa-3x">
+              <div class="circle"></div>
+            </i>
+            <div class="title">리뷰내역</div>
+          </a>
+        </li>
+        <li>
+          <a href="/auth/withdrawal">
+            <i class="fa-solid fa-user-xmark fa-3x">
+              <div class="circle"></div>
+            </i>
+            <div class="title">회원탈퇴</div>
+          </a>
+        </li>
+        <div class="background"></div>
+      </ul>
+    </div>
     <div class="container">
       <input id="slider" class="customSlider" type="checkbox" />
       <label for="slider"></label>
       <div class="wrapper">
         <div class="profile">
-          <div class="col-md-4">
+          <!-- <div class="col-md-4">
             <img data-src="https://via.placeholder.com/250" id="image2" class="img-thumbnail img-fluid">
-          </div>
-          <div class="inputfield">
+          </div> -->
+          <!-- <div class="inputfield">
             <input type="file" id="image" name="file" class="input" />
-          </div>
+          </div> -->
+          <img src="" id="image2" class="thumbnail img-thumbnail img-fluid" />
+          <label class="editlabel" for="image">
+            <div class="btn-upload">사진 업로드</div>
+          </label>
+          <input class="input myedit_imgupload" type="file" id="image" name="file" value="사진업로드" />
+
           <h3 class="name">이름</h3>
           <input type="text" id='name' class="edit" />
           <h3 class="name">전화번호</h3>

@@ -17,8 +17,9 @@ export class UserService {
     return this.userRepository.findOneBy({ id });
   }
 
-  async editprofile(req, data: UpdateUserDto, file?: Express.Multer.File) {
+  async editprofile(req, data: UpdateUserDto, file?: Express.MulterS3.File) {
     const userId = req.user.id;
+    const filename = file.key;
     const user = { name: data.name, phone: data.phone, nickname: data.nickname, email: data.email };
     if (file) {
       user['image'] = file.filename;
