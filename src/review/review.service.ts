@@ -26,6 +26,7 @@ export class ReviewService {
       take,
       skip: (page - 1) * take,
       where: { user: { id: userId } },
+      order: { id: 'desc' },
     });
 
     // 전체 상품 수 : total
