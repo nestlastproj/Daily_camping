@@ -46,6 +46,31 @@ function placeDetailData(placeId) {
 
         roadviewClient.getNearestPanoId(position, 50, function (panoId) {
           roadview.setPanoId(panoId, position);
+          if (!panoId) {
+            function a() {
+              mapOption = {
+                center: new kakao.maps.LatLng(data.y, data.x),
+                level: 4,
+              };
+              let map = new kakao.maps.Map(roadviewContainer, mapOption);
+
+              let imageSrc = 'https://cdn-icons-png.flaticon.com/512/5695/5695276.png',
+                imageSize = new kakao.maps.Size(64, 69),
+                imageOption = { offset: new kakao.maps.Point(27, 69) };
+
+              let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+                markerPosition = new kakao.maps.LatLng(data.y, data.x);
+
+              let marker = new kakao.maps.Marker({
+                position: markerPosition,
+                image: markerImage,
+              });
+
+              marker.setMap(map);
+            }
+
+            setTimeout(a, 100);
+          }
         });
 
         res.data[0].review.forEach((data) => {
@@ -55,7 +80,6 @@ function placeDetailData(placeId) {
           const day = createdTime.getDate();
           const hour = createdTime.getHours();
           const minute = createdTime.getMinutes();
-
 
           let temp_html = `
         <div class="card" onclick="location.href='/review/reviewView?reviewId=${data.id}'">
