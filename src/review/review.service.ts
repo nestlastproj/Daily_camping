@@ -8,6 +8,34 @@ import { Review } from '../entity/review.entity';
 export class ReviewService {
   constructor(@InjectRepository(Review) private readonly reviewRepository: Repository<Review>) {}
 
+  async getPageReviews(page) {
+    const take = 2;
+
+    const [reviews, total] = await this.reviewRepository.findAndCount({
+      take, // Limit; 한 페이지에 가져올 데이터의 제한 갯수
+      skip: (page - 1) * take, // Offset; 이전의 요청 데이터 갯수 = 현재 요청이 시작되는 위치
+      relations: ['user'],
+      order: { id: 'desc' },
+    });
+    const totalPage = Math.ceil(total / take);
+    const pageGroup = Math.ceil(page / 5);
+    let lastPage = pageGroup * 5;
+    const firstPage = lastPage - 5 + 1 <= 0 ? 1 : lastPage - 5 + 1;
+
+    if (lastPage > totalPage) {
+      lastPage = totalPage;
+    }
+
+    return {
+      data: reviews,
+      meta: {
+        firstPage,
+        lastPage,
+        totalPage,
+      },
+    };
+  }
+
   async getReviewList(reviewId: number) {
     return await this.reviewRepository.findOne({ where: { id: reviewId } });
   }
@@ -26,6 +54,7 @@ export class ReviewService {
       take,
       skip: (page - 1) * take,
       where: { user: { id: userId } },
+      order: { id: 'desc' },
     });
 
     // 전체 상품 수 : total
@@ -59,23 +88,31 @@ export class ReviewService {
 
   createReview(req, placeId: number, data: ReviewDto, file?: Express.MulterS3.File) {
     const userId = req.user.id;
-    const filename = file.key;
-    return this.reviewRepository.insert({
+    const review = {
       user: { id: userId },
       places: { id: placeId },
       title: data.title,
       content: data.content,
-      image: filename,
-    });
+    };
+    if (file) {
+      const filename = file.key;
+      review['image'] = filename;
+    }
+    return this.reviewRepository.insert(review);
   }
 
   updateReview(req, reviewId: number, data: ReviewDto, file?: Express.MulterS3.File) {
     const userId = req.user.id;
-    const filename = file.key;
-    return this.reviewRepository.update(
-      { user: { id: userId } },
-      { id: reviewId, title: data.title, content: data.content, image: filename },
-    );
+    const review = {
+      user: { id: userId },
+      title: data.title,
+      content: data.content,
+    };
+    if (file) {
+      const filename = file.key;
+      review['image'] = filename;
+    }
+    return this.reviewRepository.update(reviewId, review);
   }
 
   deleteReview(req, reviewId: number) {

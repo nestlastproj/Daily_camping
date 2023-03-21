@@ -236,7 +236,7 @@ a {
   display: inline-block;
   top: 0px;
   position: relative;
-  left: 350%;
+  left: 379%;
   transform: translate(-50%, -50%);
 }
 
@@ -519,6 +519,6 @@ input:checked + .hearth {
 
 h3 {
   position: relative;
-  left: 343px;
+  left: 371px;
   bottom: 84px;
 }

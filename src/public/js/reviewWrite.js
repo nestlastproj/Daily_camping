@@ -18,7 +18,7 @@ function reviewWrite() {
     })
         .then((res) => {
             alert('게시 완료')
-            location.href = '/review/reviewView'
+            location.href = `/place/placeInfo?placeId=${placeId}`
         })
         .catch((err) => {
             console.log('error', err);

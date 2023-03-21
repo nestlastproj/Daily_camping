@@ -28,7 +28,7 @@ body {
   font-family: "Fira Code", monospace;
   font-weight: 800;
   font-size: 40px;
-  margin: 200px 0 0 1000px;
+  margin: 0 0 0 50px;
   text-align: left;
   white-space: nowrap;
   overflow: hidden;
@@ -42,7 +42,7 @@ body {
   font-family: "Fira Code", monospace;
   font-weight: 800;
   font-size: 40px;
-  margin: 0 0 0 1100px;
+  margin: 10px 0 0 200px;
   text-align: left;
   white-space: nowrap;
   overflow: hidden;
@@ -53,7 +53,7 @@ body {
 .container h1:nth-child(3) {
   opacity: 0;
   font-family: "Work Sans", sans-serif;
-  margin: 0 0 0 1100px;
+  margin: 0 0 0 150px;
   background: linear-gradient(to right, #f8b195, #f67280, #c06c84);
   font-weight: 800;
   font-size: 100px;
@@ -72,7 +72,7 @@ body {
   font-family: "Fira Code", monospace;
   font-weight: 800;
   font-size: 40px;
-  margin: 0 0 0 1350px;
+  margin: 10px 0 0 450px;
   text-align: left;
   white-space: nowrap;
   overflow: hidden;

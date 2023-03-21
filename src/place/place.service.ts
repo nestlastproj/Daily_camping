@@ -15,7 +15,6 @@ export class PlaceService {
   ) {}
   //위도y , 경도x
   async getPlace(keywords: string[], x: string, y: string) {
-
     const headers = {
       Authorization: `KakaoAK ${this.configService.get('KAKAO_REST_API_KEY')}`,
     };
@@ -25,7 +24,7 @@ export class PlaceService {
     for (const keyword of keywords) {
       console.log(keyword);
       for (const coordinate of coordinates) {
-        console.log(coordinate.city , coordinate.name)
+        console.log(coordinate.city, coordinate.name);
         let params = {
           query: keyword,
           x: coordinate.x,
@@ -147,11 +146,36 @@ export class PlaceService {
     };
   }
 
-  async placeCategorySearch(page: number, keyword: string) {
+  async placeCategorySearch(page: number, cityname: string, detailcity?: string) {
     const take = 6;
-    const whereQuery = keyword === '' ? '%%' : `%${keyword}%`;
+
+    if (detailcity !== '전체') {
+      const [placeList, total] = await this.placeRepository.findAndCount({
+        where: { detailcity: detailcity, city: cityname },
+        take,
+        skip: (page - 1) * take,
+      });
+
+      const totalPage = Math.ceil(total / take);
+      const pageGroup = Math.ceil(page / 5);
+      let lastPage = pageGroup * 5;
+      const firstPage = lastPage - 5 + 1 <= 0 ? 1 : lastPage - 5 + 1;
+      if (lastPage > totalPage) {
+        lastPage = totalPage;
+      }
+
+      return {
+        placeList,
+        meta: {
+          firstPage,
+          lastPage,
+          totalPage,
+        },
+      };
+    }
+
     const [placeList, total] = await this.placeRepository.findAndCount({
-      where: [{ address: Like(whereQuery) }],
+      where: { city: cityname },
       take,
       skip: (page - 1) * take,
     });
