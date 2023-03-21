@@ -8,6 +8,23 @@ $(document).ready(function () {
   articleLikeCount();
 });
 
+function loginuser(userId) {
+  axios.get(`/auth/isLoggined`)
+    .then((res) => {
+      if (userId == res.data.id) {
+        let temp = `<a href="/article/edit/<%= articleId %>" class="on">수정</a>
+                    <a onclick="deleteArticle()" class="off">삭제</a>
+                    <a href="/article/list" class="on">목록</a>`
+        $('.buttons').append(temp)
+      }
+      else {
+        let temp = `<a href="/article/list" class="on">목록</a>`
+        $('.buttons').append(temp)
+      }
+    })
+}
+
+
 function articleLikeCount() {
   const articleIdUrl = window.location.pathname;
   const articleId = articleIdUrl.split('/')[3];
@@ -36,9 +53,9 @@ function getmyprofiledata(articleId) {
     url: `/article/${articleId}`,
   })
     .then((res) => {
-      console.log(res)
       let { title, content, createdAt, image, user } = res.data;
       let nickname = user.nickname;
+      let userId = user.id;
       const createdTime = new Date(createdAt);
       const year = createdTime.getFullYear();
       const month = createdTime.getMonth() + 1;
@@ -51,6 +68,7 @@ function getmyprofiledata(articleId) {
       if (minute.toString().length === 1) {
         minute = '0' + minute.toString();
       }
+
       let temp = `<div class="title" id="title">${title}</div>
                             <div class="info">
                                 <dl>
@@ -70,6 +88,7 @@ function getmyprofiledata(articleId) {
                         <div id="content">${content}</div>`;
       $('.boardView').append(temp);
       getMyArticleLike();
+      loginuser(userId);
     })
     .catch((err) => {
       console.log(err, 'err');

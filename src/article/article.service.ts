@@ -96,7 +96,7 @@ export class ArticleService {
 
   async createArticle(req, data: CreateArticleDto, file?: Express.MulterS3.File) {
     const userId = req.user.id;
-    const filename = file.key
+    const filename = file.key;
     const aritcle = { user: { id: userId }, title: data.title, content: data.content };
     if (file) {
       aritcle['image'] = filename;
@@ -106,7 +106,7 @@ export class ArticleService {
 
   async updateArticle(req, articleId: number, data: UpdateArticleDto, file?: Express.MulterS3.File) {
     const userId = req.user.id;
-    const filename = file.key
+    const filename = file.key;
     const aritcle = { user: { id: userId }, title: data.title, content: data.content };
     if (filename) {
       aritcle['image'] = filename;
