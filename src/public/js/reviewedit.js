@@ -8,7 +8,6 @@ function myReviewEdit(reviewId) {
         url: `/review/detail?reviewId=${reviewId}`,
         method: 'GET',
     }).then((res) => {
-        console.log(res)
         let { title, content, image } = res.data;
         let temp_html = `
             <div class="title">

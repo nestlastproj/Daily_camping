@@ -1,6 +1,5 @@
 $(document).ready(function () {
     const reviewId = new URLSearchParams(location.search).get('reviewId');
-    console.log(reviewId)
     getReviews(reviewId);
 });
 
@@ -11,7 +10,6 @@ function getReviews(reviewId) {
     })
         .then((res) => {
             let { id, title, content, createdAt, image, user } = res.data;
-            console.log(res.data)
 
             const createdTime = new Date(createdAt);
             const year = createdTime.getFullYear();

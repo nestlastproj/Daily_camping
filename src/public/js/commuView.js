@@ -153,26 +153,23 @@ function getComment(articleId, page) {
       if (minute.toString().length === 1) {
         minute = '0' + minute.toString();
       }
-      let temp_html = `   <div class="boxmeta">
-                                    <strong>${data.user.nickname}</strong>
-                                    <span class="date">${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분</span>
-                          </div>
-                          <div>
-                              <p class="text">${data.content}</p>
-                          </div>
-                          <button type="button" class="btnregister" onclick="updateComment(${data.id})">
-                            수정
-                          </button>
-                          <button type="button" class="btnregister2" onclick="deleteComment(${data.id})">
-                            삭제
-                          </button>
-                          <button type="button" class="btnregister" onclick="likeComment(${data.id})">
-                            좋아요
-                          </button>
-                          <div class="commentlikenumber commentlikecount${data.id}"></div>
-                            `;
+      let temp_html = `<div class="boxmeta">
+                          <strong>${data.user.nickname}</strong>
+                          <span class="date">${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분</span>
+                        </div>
+                        <div>
+                            <p class="text">${data.content}</p>
+                        </div>
+                        <div class="button${data.id}">
+                        <button type="button" class="btnregister" onclick="likeComment(${data.id})">
+                          좋아요
+                        </button>
+                        <div class="commentlikenumber commentlikecount${data.id}"></div>
+                        </div>
+                      `;
       $('.boxcontent').append(temp_html);
       commentLikeCount(data.id);
+      loginuser2(data)
     });
 
     const pages = [];
@@ -201,6 +198,26 @@ function getComment(articleId, page) {
 
     $('.pagination').append(pages.join(''));
   });
+}
+
+function loginuser2(data) {
+  axios.get(`/auth/isLoggined`)
+    .then((res) => {
+      if (data.user.id == res.data.id) {
+        let temp = `<button type="button" class="btnregister" onclick="updateComment(${data.id})">
+                      수정
+                    </button>
+                    <button type="button" class="btnregister2" onclick="deleteComment(${data.id})">
+                      삭제
+                    </button>
+                    `
+        $(`.button${data.id}`).append(temp)
+      }
+      else {
+        let temp = ``
+        $(`.button${data.id}`).append(temp)
+      }
+    })
 }
 
 function commentLikeCount(id) {
@@ -266,7 +283,7 @@ function updateComment(id) {
         <button type="button" class="btnregister" onclick="commentPost(${res.data.id})">
           수정
         </button>
-        <button type="button" class="btnregister2">
+        <button type="button" class="btnregister2" onclick="location.href='/article/view/${articleId}'">
           취소
         </button>
       `;
