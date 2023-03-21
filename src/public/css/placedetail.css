@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
 
 .pagination {
   font-size: 25px;
@@ -9,8 +9,8 @@
 }
 
 :root {
-  --font-family-primary: "Vollkorn", serif;
-  --font-family-secondary: "PT Sans", sans-serif;
+  --font-family-primary: 'Vollkorn', serif;
+  --font-family-secondary: 'PT Sans', sans-serif;
   --font-size-title: 32px;
   --line-height-title: 1.4;
   --font-size-caption: 14px;
@@ -28,8 +28,7 @@
   padding: 15px;
   height: 800px;
   width: 800px;
-  box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.5),
-    -1px -1px 2px rgba(255, 255, 255, 1);
+  box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.5), -1px -1px 2px rgba(255, 255, 255, 1);
 }
 
 .inner-frame {
@@ -39,8 +38,7 @@
   border-left: 25px solid rgba(0, 0, 0, 0.15);
   border-right: 25px solid rgba(0, 0, 0, 0.08);
   border-bottom: 25px solid rgba(0, 0, 0, 0.05);
-  box-shadow: -1px -1px 1px rgba(0, 0, 0, 0.6),
-    1px 1px 2px rgba(255, 255, 255, 1);
+  box-shadow: -1px -1px 1px rgba(0, 0, 0, 0.6), 1px 1px 2px rgba(255, 255, 255, 1);
 }
 
 .mat {
@@ -311,7 +309,7 @@
   }
 }
 .card {
-  max-width: 960px;
+  height: 470px;
   border-radius: var(--border-radius-primary);
   box-shadow: 24px 24px 80px rgba(0, 0, 0, 0.1);
   padding: 20px 20px 28px 20px;
@@ -331,17 +329,17 @@
 }
 
 .card__image {
-  width: 100%;
-  max-height: 300px;
+  width: 200px;
+  height: 200px;
   border-radius: var(--border-radius-primary);
   object-fit: cover;
   margin-bottom: 18px;
 }
 @media (min-width: 576px) {
   .card__image {
-    width: 45%;
+    width: 200px;
     max-height: none;
-    min-height: 400px;
+    min-height: 200px;
     margin-bottom: 0;
   }
 }
@@ -394,11 +392,7 @@
   line-height: var(--line-height-title);
   color: var(--color-text);
   box-decoration-break: clone;
-  background-image: linear-gradient(
-    90deg,
-    var(--color-highlight-primary),
-    var(--color-highlight-secondary)
-  );
+  background-image: linear-gradient(90deg, var(--color-highlight-primary), var(--color-highlight-secondary));
   background-size: 100% 42%;
   background-repeat: no-repeat;
   background-position: 0 85%;
@@ -419,7 +413,7 @@
 }
 
 .link a {
-  font-family: "Indie Flower", cursive;
+  font-family: 'Indie Flower', cursive;
   font-size: 40px;
   text-decoration: none;
   color: #222022;
@@ -465,7 +459,7 @@
 .button::after,
 .button__text::before,
 .button__text::after {
-  content: "";
+  content: '';
   position: absolute;
   height: 3px;
   border-radius: 2px;
@@ -500,7 +494,7 @@
   overflow: hidden;
 }
 .button__line::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   width: 150%;
@@ -553,7 +547,7 @@
 .button__drow1::after,
 .button__drow2::before,
 .button__drow2::after {
-  content: "";
+  content: '';
   position: absolute;
 }
 .button__drow1::before {

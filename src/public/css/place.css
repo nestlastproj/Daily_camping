@@ -1,6 +1,5 @@
-@import url(nav.css);
-@import url(serch.css);
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+@import url(search.css);
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 .image img {
   display: block;
@@ -40,7 +39,7 @@
 }
 .card:before,
 .card:after {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   height: 100%;
@@ -111,7 +110,7 @@
 }
 
 .hearth {
-  background-image: url("https://assets.codepen.io/23500/Hashflag-AppleEvent.svg");
+  background-image: url('https://assets.codepen.io/23500/Hashflag-AppleEvent.svg');
   background-size: calc(var(--size) * var(--frames)) var(--size);
   background-repeat: no-repeat;
   background-position-x: calc(var(--size) * (var(--frames) * -1 + 2));
@@ -146,4 +145,12 @@ input:checked + .hearth {
   display: flex;
   font-size: 25px;
   justify-content: center;
+}
+
+h4 {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 28px;
+  line-height: 130px;
+  margin-left: 20px;
 }

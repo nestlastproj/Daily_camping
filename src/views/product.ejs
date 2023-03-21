@@ -21,21 +21,23 @@
     <script src="https://kit.fontawesome.com/fd3102c9a3.js" crossorigin="anonymous"></script>
     <title>product</title>
   </head>
-  <body>
+  <body style="background-color: #edf5e1">
     <%- include('nav.ejs') %>
-    <div class="serch">
-      <label>
-        <input type="text" id="searchKeyword" required />
-        <ul>
-          <li s>s</li>
-          <li e>e</li>
-          <li a>a</li>
-          <li r>r</li>
-          <li c>c</li>
-          <li h>h</li>
-        </ul>
-        <button class="serchbtn" type="submit"><i class="fa-solid fa-magnifying-glass fa-2x" onclick="search()"></i></button>
-      </label>
+    <div class="search">
+      <div class="textsearch">
+        <label>
+          <input type="text" id="searchKeyword" required onkeyup="searchEnterKey()" />
+          <ul>
+            <li s>s</li>
+            <li e>e</li>
+            <li a>a</li>
+            <li r>r</li>
+            <li c>c</li>
+            <li h>h</li>
+          </ul>
+          <button class="searchbtn" type="submit"><i class="fa-solid fa-magnifying-glass fa-2x" onclick="search()"></i></button>
+        </label>
+      </div>
     </div>
     <div class="container">
       <div class="cardBox" id="productContainer"></div>
@@ -47,4 +49,5 @@
     <%- include('footer.ejs') %>
   </body>
   <link rel="stylesheet" href="../css/product.css" />
+  <script src="/js/EnterKey.js"></script>
 </html>

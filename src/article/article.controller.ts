@@ -30,26 +30,6 @@ export class ArticleController {
   // render
   // ------------------------------------------
 
-  @Get('/mypageArticle')
-  myArticle(@Res() res: Response) {
-    return res.render('mypagearticle.ejs');
-  }
-
-  @Get('list')
-  getarticlelist(@Res() res: Response) {
-    return res.render('commuity.ejs');
-  }
-
-  @Get('write')
-  getwritearticle(@Res() res: Response) {
-    return res.render('commuWrite.ejs');
-  }
-
-  @Get('edit/:articleId')
-  articleEdit(@Res() res: Response) {
-    return res.render('articleedit.ejs');
-  }
-
   @Get('view/:articleId')
   @Render('commuView.ejs')
   @UsePipes(ValidationPipe)
@@ -79,7 +59,7 @@ export class ArticleController {
   @Post('write')
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('file'))
-  async createArticle(@Req() req, @Body() data: CreateArticleDto, @UploadedFile() file?: Express.Multer.File) {
+  async createArticle(@Req() req, @Body() data: CreateArticleDto, @UploadedFile() file?: Express.MulterS3.File) {
     return await this.articleService.createArticle(req, data, file);
   }
 
@@ -96,7 +76,7 @@ export class ArticleController {
     @Req() req,
     @Param('articleId') articleId: number,
     @Body() data: UpdateArticleDto,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile() file: Express.MulterS3.File,
   ) {
     return await this.articleService.updateArticle(req, articleId, data, file);
   }

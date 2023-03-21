@@ -8,13 +8,14 @@ import { Review } from '../entity/review.entity';
 export class ReviewService {
   constructor(@InjectRepository(Review) private readonly reviewRepository: Repository<Review>) {}
 
-  getReviewList() {
-    return this.reviewRepository.find();
+  async getReviewList(reviewId: number) {
+    return await this.reviewRepository.findOne({ where: { id: reviewId } });
   }
 
-  getReviews(reviewId: number) {
-    return this.reviewRepository.find({
+  async getReviews(reviewId: number) {
+    return await this.reviewRepository.findOne({
       where: { id: reviewId },
+      relations: ['user'],
     });
   }
 
@@ -56,22 +57,24 @@ export class ReviewService {
     };
   }
 
-  createReview(req, placeId: number, data: ReviewDto, file?: Express.Multer.File) {
+  createReview(req, placeId: number, data: ReviewDto, file?: Express.MulterS3.File) {
     const userId = req.user.id;
+    const filename = file.key;
     return this.reviewRepository.insert({
       user: { id: userId },
       places: { id: placeId },
       title: data.title,
       content: data.content,
-      image: file.filename,
+      image: filename,
     });
   }
 
-  updateReview(req, reviewId: number, data: ReviewDto, file?: Express.Multer.File) {
+  updateReview(req, reviewId: number, data: ReviewDto, file?: Express.MulterS3.File) {
     const userId = req.user.id;
+    const filename = file.key;
     return this.reviewRepository.update(
       { user: { id: userId } },
-      { id: reviewId, title: data.title, content: data.content, image: file.filename },
+      { id: reviewId, title: data.title, content: data.content, image: filename },
     );
   }
 

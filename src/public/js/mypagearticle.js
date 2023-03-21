@@ -30,7 +30,6 @@ function myArticleData(page) {
             <div class="id">${data.id}</div>
             <div class="title">${data.title}</div>
             <div class="date">${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분</div>
-            <div class="count">조회</div>
           </div>
             `;
                 $('.boardList').append(temp_html);

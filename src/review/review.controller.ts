@@ -11,7 +11,6 @@ import {
   UseGuards,
   Req,
   Query,
-  Render,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
@@ -22,9 +21,9 @@ import { ReviewService } from './review.service';
 export class ReviewController {
   constructor(private readonly reviewservice: ReviewService) {}
 
-  @Get('/reviews')
-  getReviewList() {
-    return this.reviewservice.getReviewList();
+  @Get('/reviews/:reviewId')
+  getReviewList(@Param('reviewId') reviewId: number) {
+    return this.reviewservice.getReviewList(reviewId);
   }
 
   @Get('/myReview')
@@ -33,12 +32,8 @@ export class ReviewController {
     return this.reviewservice.paginate(req, page);
   }
 
-  @Get('/mypageReview')
-  @Render('mypagereview')
-  myreview() {}
-
-  @Get('reviews/:reviewId')
-  getReviews(@Param('reviewId') reviewId: number) {
+  @Get('detail')
+  getReviews(@Query('reviewId') reviewId: number) {
     return this.reviewservice.getReviews(reviewId);
   }
 
@@ -49,7 +44,7 @@ export class ReviewController {
     @Req() req,
     @Param('placeId') placeId: number,
     @Body() data: ReviewDto,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile() file: Express.MulterS3.File,
   ) {
     return this.reviewservice.createReview(req, placeId, data, file);
   }
@@ -61,7 +56,7 @@ export class ReviewController {
     @Req() req,
     @Param('reviewId') reviewId: number,
     @Body() data: ReviewDto,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile() file: Express.MulterS3.File,
   ) {
     return this.reviewservice.updateReview(req, reviewId, data, file);
   }

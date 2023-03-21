@@ -6,7 +6,7 @@ $(document).ready(function () {
     .then((res) => {
       console.log(res);
       let { image } = res.data;
-      document.getElementById('image2').src = `/uploads/${image}`;
+      document.getElementById('image2').src = `${image}`;
       //   let temp = `<h1 class="profile-user-name">${res.data.nickname}</h1>`;
       //   $('#nickname').append(temp);
       let temp_html = `

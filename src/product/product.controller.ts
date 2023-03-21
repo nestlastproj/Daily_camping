@@ -1,4 +1,4 @@
-import { Controller, Get, Query, Render } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { Cron } from '@nestjs/schedule/dist/decorators';
 
@@ -17,8 +17,4 @@ export class ProductController {
   async productSearch(@Query('page') page: number, @Query('keyword') keyword: string) {
     return await this.productService.productSearch(page, keyword);
   }
-
-  @Get('/productList')
-  @Render('product')
-  productList() {}
 }

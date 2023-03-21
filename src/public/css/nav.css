@@ -1,8 +1,8 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
 body {
   background: #edf5e1;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
   text-shadow: 0.5px 0.5px 0 #cccccc;
 }
@@ -101,19 +101,19 @@ nav {
   background: #8ee4af !important;
 }
 
-.nav li:first-child:hover~.background {
+.nav li:first-child:hover ~ .background {
   background: #17baba;
 }
 
-.nav li:nth-child(2):hover~.background {
+.nav li:nth-child(2):hover ~ .background {
   background: #379683;
 }
 
-.nav li:nth-child(3):hover~.background {
+.nav li:nth-child(3):hover ~ .background {
   background: #5cdb95;
 }
 
-.nav li:nth-child(4):hover~.background {
+.nav li:nth-child(4):hover ~ .background {
   background: #8ee4af;
 }
 
@@ -172,10 +172,8 @@ nav {
   transition: border-top-left-radius var(--dur) var(--delay) ease-out,
     border-top-right-radius var(--dur) calc(var(--delay) * 2) ease-out,
     border-bottom-right-radius var(--dur) calc(var(--delay) * 3) ease-out,
-    border-bottom-left-radius var(--dur) calc(var(--delay) * 4) ease-out,
-    box-shadow calc(var(--dur) * 4) ease-out,
-    transform calc(var(--dur) * 4) ease-out,
-    background calc(var(--dur) * 4) steps(4, jump-end);
+    border-bottom-left-radius var(--dur) calc(var(--delay) * 4) ease-out, box-shadow calc(var(--dur) * 4) ease-out,
+    transform calc(var(--dur) * 4) ease-out, background calc(var(--dur) * 4) steps(4, jump-end);
 }
 
 .button-arounder:hover,
@@ -187,4 +185,14 @@ nav {
   border-top-right-radius: var(--radius);
   border-bottom-left-radius: var(--radius);
   border-bottom-right-radius: var(--radius);
+}
+
+.title {
+  color: #ffffff;
+  font-family: 'Roboto', sans-serif;
+}
+
+.title-sub {
+  position: relative;
+  top: 10px;
 }

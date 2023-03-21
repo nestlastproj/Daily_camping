@@ -14,51 +14,8 @@
 
 <body style="background-color: #edf5e1">
   <%- include('nav.ejs') %>
-    <div class="side">
-      <ul class="sidebar">
-        <li>
-          <a href="/auth/edit">
-            <i class="fa-solid fa-circle-user fa-3x">
-              <div class="circle"></div>
-            </i>
-            <div class="title">개인정보 수정</div>
-          </a>
-        </li>
-        <li>
-          <a href="/article/mypagearticle">
-            <i class="fa-solid fa-list fa-3x">
-              <div class="circle"></div>
-            </i>
-            <div class="title">게시글 관리</div>
-          </a>
-        </li>
-        <li>
-          <a href="/comment/mypagecomment">
-            <i class="fa-solid fa-comment fa-3x">
-              <div class="circle"></div>
-            </i>
-            <div class="title">댓글 관리</div>
-          </a>
-        </li>
-        <li>
-          <a href="/review/mypagereview">
-            <i class="fa-solid fa-pencil fa-3x">
-              <div class="circle"></div>
-            </i>
-            <div class="title">리뷰내역</div>
-          </a>
-        </li>
-        <li>
-          <a href="/auth/withdrawal">
-            <i class="fa-solid fa-user-xmark fa-3x">
-              <div class="circle"></div>
-            </i>
-            <div class="title">회원탈퇴</div>
-          </a>
-        </li>
-        <div class="background"></div>
-      </ul>
-    </div>
+  <%- include('mypagesidebar.ejs') %>
+    
     <div class="container">
       <form id="profile-header"></form>
       <!-- <form id="nickname"></form> -->
@@ -72,7 +29,7 @@
         <div class="content">
           <div class="card">
             <div class="firstinfo">
-              <img src="https://via.placeholder.com/250" id="image2">
+              <img src="https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/83308917_1679321519298.jpg" id="image2">
               <div class="profileinfo">
                 <!-- <h1>
                   <div id="nickname" 이름(닉네임)>

@@ -1,7 +1,19 @@
 import { Cipher } from 'crypto';
-import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  Index,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { Review } from '../review.entity';
 import { User } from '../user.entity';
+
+@Index(['name'], { unique: true })
 @Entity()
 export class Place extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
@@ -15,6 +27,12 @@ export class Place extends BaseEntity {
 
   @Column()
   phone: string;
+
+  @Column()
+  city: string;
+
+  @Column()
+  detailcity: string;
 
   @Column()
   category: string;
@@ -38,5 +56,5 @@ export class Place extends BaseEntity {
   user: User;
 
   @OneToMany((type) => Review, (review) => review.places, { eager: true })
-  review: Review;
+  review: Review[];
 }
