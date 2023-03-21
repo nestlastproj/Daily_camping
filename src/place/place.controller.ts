@@ -17,8 +17,10 @@ export class PlaceController {
     return await this.placeService.placeSearch(page, keyword);
   }
 
-  // @Get('placeCategorySearch')
-  // async placeCategorySearch(@Query(''))
+  @Get('/placeCategorySearch')
+  async placeCategorySearch(@Query('page') page: number, @Query('cityname') cityname: string, @Query('detailcity') detailcity?: string) {
+    return this.placeService.placeCategorySearch(page, cityname, detailcity);
+  }
 
   @Get('/placeDetail')
   async placeDetail(@Query('placeId') placeId: number) {

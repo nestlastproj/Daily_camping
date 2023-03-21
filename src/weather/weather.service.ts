@@ -14,7 +14,6 @@ export class WeatherService {
 
   async getWeather() {
     await this.deleteWeather();
-
     const regionlds = [
       '11D10301', //'춘천'
       '11B10101', //'서울'
@@ -61,7 +60,6 @@ export class WeatherService {
 
     const responses = await Promise.all(requestUrls.map((url) => axios.get(url)));
     // 한번에 오늘 -3일 +3일 날씨 데이터 전체
-
     const addressName = {
       '11D10301': '춘천',
       '11B10101': '서울',
@@ -112,7 +110,6 @@ export class WeatherService {
     const nowWeatherList = weatherList.filter((item) => item.numEf === 0);
 
     const nowHours = time.getHours();
-
     if (5 <= nowHours && nowHours < 11) {
       let nowWeather = nowWeatherList.map((responses) => ({
         min_temperature: responses.temperature,
@@ -155,7 +152,6 @@ export class WeatherService {
         address: responses.address,
         wind: responses.wind,
       }));
-
       nowWeather.map((weather) => {
         return this.weatherRepository.save(weather);
       });
