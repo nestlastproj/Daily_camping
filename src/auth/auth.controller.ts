@@ -94,12 +94,12 @@ export class AuthController {
   @UseGuards(JwtRefreshGuard)
   @Post('/logout')
   async logOut(@Req() req, @Res({ passthrough: true }) res: Response) {
-    const { accessOption, refreshOption } = this.authService.getCookiesForLogOut();
+    const Option = this.authService.getCookiesForLogOut();
 
     await this.userService.removeRefreshToken(req.user.id);
 
-    res.cookie('Authentication', '', accessOption);
-    res.cookie('Refresh', '', refreshOption);
+    res.cookie('Authentication', Option);
+    res.cookie('Refresh', Option);
   }
 
   @UseGuards(JwtRefreshGuard)

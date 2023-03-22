@@ -3,9 +3,9 @@ function deleteuser() {
         method: 'delete',
         url: '/auth/logOff'
     })
-        .then((res) => {
-            confirm('정말 탈퇴하시겠습니까?');
-            window.location.href = '/auth/login';
+        .then(() => {
+            alert('회원 탈퇴 성공!')
+            window.location.href = '/main';
         })
         .catch((err) => {
             console.log(err);

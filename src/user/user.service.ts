@@ -46,7 +46,6 @@ export class UserService {
   async getById(id: number, nickname: string) {
     const user = await this.userRepository.findOne({
       where: { id, nickname },
-      select: ['id', 'nickname', 'currentHashedRefreshToken'],
     });
     if (user) {
       return user;

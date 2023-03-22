@@ -95,18 +95,10 @@ export class AuthService {
   // 초기화된 쿠키의 옵션을 가져옴
   getCookiesForLogOut() {
     return {
-      accessOption: {
-        domain: this.configService.get('DATABASE_HOST'),
-        path: '/',
-        httpOnly: true,
-        maxAge: 0,
-      },
-      refreshOption: {
-        domain: this.configService.get('DATABASE_HOST'),
-        path: '/',
-        httpOnly: true,
-        maxAge: 0,
-      },
+      domain: this.configService.get('DATABASE_HOST'),
+      path: '/',
+      httpOnly: true,
+      maxAge: 0,
     };
   }
 }

@@ -11,15 +11,17 @@ $(document).ready(function () {
 })
 
 function logout() {
-    $.ajax({
-        type: "post",
+    axios({
+        method: "post",
         url: "/auth/logout",
-        data: {},
-        success: function (response) {
+    })
+        .then((res) => {
+            console.log('11111111')
             location.href = "/main";
-        },
-        error: function (error) {
-            console.log(error);
-        },
-    });
+        })
+        .catch((error) => {
+            console.log('222222222')
+            alert('알 수 없는 에러가 발생했습니다');
+            console.log(error)
+        })
 }

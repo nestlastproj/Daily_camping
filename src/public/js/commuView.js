@@ -2,11 +2,20 @@ $(document).ready(function () {
   const articleIdUrl = window.location.pathname;
   const articleId = articleIdUrl.split('/')[3];
   const page = new URLSearchParams(location.search).get('page') || 1;
+  access()
   getmyprofiledata(articleId);
-  getComment(articleId, page);
   countComment(articleId);
   articleLikeCount();
+  getComment(articleId, page);
 });
+
+function access() {
+  axios.get('/auth/isLoggined').then((res) => {
+  }).catch((err) => {
+    alert('로그인 후 이용 가능 합니다.')
+    location.href = '/auth/login'
+  })
+}
 
 function loginuser(userId) {
   const articleIdUrl = window.location.pathname;
