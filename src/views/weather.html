@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/js/weather.js"></script>
+    <title>Document</title>
+  </head>
+  <style>
+    #weatherbox {
+      background-color: green;
+      width: 500px;
+      height: 650px;
+      position: fixed;
+      /* left: 1500px; */
+      /* top: 300px; */
+    }
+    #imagediv {
+      background-image: url('../public/image/weathermap3.jpg');
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+    }
+    #s1 {
+      top: 100px;
+      /* background-color: red; */
+      width: 15%;
+      height: 10%;
+      position: relative;
+      top: 15%;
+      left: 0%;
+    }
+    #s2 {
+      width: 15%;
+      height: 10%;
+      /* background-color: green; */
+      position: relative;
+      top: -5%;
+      left: 38%;
+    }
+    #s3 {
+      width: 15%;
+      height: 10%;
+      /* background-color: blue; */
+      position: relative;
+      top: -5%;
+      left: 55%;
+    }
+    #s4 {
+      width: 15%;
+      height: 10%;
+      /* background-color: brown; */
+      position: relative;
+      top: -12%;
+      left: 80%;
+    }
+    #s5 {
+      width: 15%;
+      height: 10%;
+      /* background-color: cyan; */
+      position: relative;
+      top: -20%;
+      left: 40%;
+    }
+    #s6 {
+      width: 15%;
+      height: 10%;
+      /* background-color: darkorange; */
+      position: relative;
+      top: -38%;
+      left: 20%;
+    }
+    #s7 {
+      width: 15%;
+      height: 10%;
+      /* background-color: gray; */
+      position: relative;
+      top: -30%;
+      left: 55%;
+    }
+    #s8 {
+      width: 15%;
+      height: 10%;
+      /* background-color: navy; */
+      position: relative;
+      top: -40%;
+      left: 18%;
+    }
+    #s9 {
+      width: 15%;
+      height: 10%;
+      /* background-color: black; */
+      position: relative;
+      top: -45%;
+      left: 32%;
+    }
+    #s10 {
+      width: 15%;
+      height: 10%;
+      /* background-color: black; */
+      position: relative;
+      top: -45%;
+      left: 20%;
+    }
+    #s11 {
+      width: 15%;
+      height: 10%;
+      /* background-color: black; */
+      position: relative;
+      top: -55%;
+      left: 48%;
+    }
+    #s12 {
+      width: 15%;
+      height: 10%;
+      /* background-color: black; */
+      position: relative;
+      top: -60%;
+      left: 63%;
+    }
+    #s13 {
+      width: 15%;
+      height: 10%;
+      /* background-color: black; */
+      position: relative;
+      top: -63%;
+      left: 20%;
+    }
+    #s14 {
+      width: 15%;
+      height: 10%;
+      /* background-color: black; */
+      position: relative;
+      top: -68%;
+      left: 58%;
+    }
+    #s15 {
+      width: 15%;
+      height: 10%;
+      /* background-color: black; */
+      position: relative;
+      top: -75%;
+      left: 35%;
+    }
+    #s16 {
+      width: 15%;
+      height: 10%;
+      /* background-color: black; */
+      position: relative;
+      top: -83%;
+      left: 5%;
+    }
+    #s17 {
+      width: 15%;
+      height: 10%;
+      /* background-color: black; */
+      position: relative;
+      top: -70%;
+      left: 10%;
+    }
+    .weathericon {
+      background-size: cover;
+      /* background-position: center; */
+      background-size: contain;
+      background-size: 100%;
+      align-items: center;
+      width: 65%;
+      height: 65%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: auto;
+    }
+    .weatheraddress {
+      text-align: center;
+      font-size: 13px;
+      /* margin-top: 15px; */
+      font-family: 'SF UI Display', -apple-system, BlinkMacSystemFont, HelveticaNeue, Helvetica, Roboto, NotosansKR, Arial,
+        AppleSDGothicNeo-Regular, 'Malgun Gothic', '맑은고딕', Dotum, '돋움', sans-serif;
+      font-weight: 700;
+    }
+  </style>
+  <body>
+    <div id="weatherbox">
+      <div id="imagediv">
+        <div id="s1" class="weatherlist">
+          <div class="weathericon" style="background-image: url('../public/weathericon/cloud.png')"></div>
+          <div class="weatheraddress">백령도 23.2˚</div>
+        </div>
+        <div id="s2" class="weatherlist">
+          <div class="weathericon"  style="background-image: url('../public/weathericon/cloud2.png')"></div>
+          <div class="weatheraddress">춘천 23.2˚</div>
+        </div>
+        <div id="s3" class="weatherlist">
+          <div class="weathericon"  style="background-image: url('../public/weathericon/rain.png')"></div>
+          <div class="weatheraddress">강릉 23.2˚</div>
+        </div>
+        <div id="s4" class="weatherlist">
+          <div class="weathericon"  style="background-image: url('../public/weathericon/snow.png')"></div>
+          <div class="weatheraddress">울릉/독도 23.2˚</div>
+        </div>
+        <div id="s5" class="weatherlist">
+          <div class="weathericon" style="background-image: url('../public/weathericon/sun.png')"></div>
+          <div class="weatheraddress">청주 23.2˚</div>
+        </div>
+        <div id="s6" class="weatherlist">
+          <div class="weathericon" style="background-image: url('../public/weathericon/sun.png')"></div>
+          <div class="weatheraddress">서울 23.2˚</div>
+        </div>
+        <div id="s7" class="weatherlist">
+          <div class="weathericon" style="background-image: url('../public/weathericon/sun.png')"></div>
+          <div class="weatheraddress">안동 23.2˚</div>
+        </div>
+        <div id="s8" class="weatherlist">
+          <div class="weathericon" style="background-image: url('../public/weathericon/sun.png')"></div>
+          <div class="weatheraddress">수원 23.2˚</div>
+        </div>
+        <div id="s9" class="weatherlist">
+          <div class="weathericon" style="background-image: url('../public/weathericon/sun.png')"></div>
+          <div class="weatheraddress">대전 23.2˚</div>
+        </div>
+        <div id="s10" class="weatherlist">
+          <div class="weathericon" style="background-image: url('../public/weathericon/sun.png')"></div>
+          <div class="weatheraddress">전주 23.2˚</div>
+        </div>
+        <div id="s11" class="weatherlist">
+          <div class="weathericon" style="background-image: url('../public/weathericon/sun.png')"></div>
+          <div class="weatheraddress">대구 23.2˚</div>
+        </div>
+        <div id="s12" class="weatherlist">
+          <div class="weathericon" style="background-image: url('../public/weathericon/sun.png')"></div>
+          <div class="weatheraddress">울산 23.2˚</div>
+        </div>
+        <div id="s13" class="weatherlist">
+          <div class="weathericon" style="background-image: url('../public/weathericon/sun.png')"></div>
+          <div class="weatheraddress">광주 23.2˚</div>
+        </div>
+        <div id="s14" class="weatherlist">
+          <div class="weathericon" style="background-image: url('../public/weathericon/sun.png')"></div>
+          <div class="weatheraddress">부산 23.2˚</div>
+        </div>
+        <div id="s15" class="weatherlist">
+          <div class="weathericon" style="background-image: url('../public/weathericon/sun.png')"></div>
+          <div class="weatheraddress">여수 23.2˚</div>
+        </div>
+        <div id="s16" class="weatherlist">
+          <div class="weathericon" style="background-image: url('../public/weathericon/sun.png')"></div>
+          <div class="weatheraddress">목포 23.2˚</div>
+        </div>
+        <div id="s17" class="weatherlist">
+          <div class="weathericon" style="background-image: url('../public/weathericon/sun.png')"></div>
+          <div class="weatheraddress">제주 23.2˚</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

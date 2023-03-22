@@ -164,7 +164,7 @@ export class WeatherService {
     await this.weatherRepository.delete({});
   }
 
-  findAllWeather() {
-    return this.weatherRepository.find();
+  async findAllWeather() {
+    return await this.weatherRepository.find();
   }
 }
