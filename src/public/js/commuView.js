@@ -26,7 +26,6 @@ function loginuser(userId) {
     })
 }
 
-
 function articleLikeCount() {
   const articleIdUrl = window.location.pathname;
   const articleId = articleIdUrl.split('/')[3];
@@ -70,8 +69,27 @@ function getmyprofiledata(articleId) {
       if (minute.toString().length === 1) {
         minute = '0' + minute.toString();
       }
+      if (image === null) {
 
-      let temp = `<div class="title" id="title">${title}</div>
+        let temp = `<div class="title" id="title">${title}</div>
+                            <div class="info">
+                                <dl>
+                                    <dt>작성일</dt>
+                                    <dd>
+                                    <div id="createdAt">${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분</div>                                 
+                                    </dd>
+                                    <dt>작성자</dt>
+                                    <dd>
+                                    <div id="nickname">${nickname}</div>                                 
+                                    </dd>
+                                </dl>
+                            </div>
+                        <div id="content">${content}</div>`;
+        $('.boardView').append(temp);
+        getMyArticleLike();
+        loginuser(userId);
+      } else {
+        let temp = `<div class="title" id="title">${title}</div>
                             <div class="info">
                                 <dl>
                                     <dt>작성일</dt>
@@ -88,9 +106,11 @@ function getmyprofiledata(articleId) {
                             <img src="https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/${image}" id="image">
                         </div>
                         <div id="content">${content}</div>`;
-      $('.boardView').append(temp);
-      getMyArticleLike();
-      loginuser(userId);
+        $('.boardView').append(temp);
+        getMyArticleLike();
+        loginuser(userId);
+      }
+
     })
     .catch((err) => {
       console.log(err, 'err');
@@ -155,7 +175,7 @@ function getComment(articleId, page) {
       if (minute.toString().length === 1) {
         minute = '0' + minute.toString();
       }
-      let temp_html = `<div class="boxmeta">
+      let temp_html = `   <div class="boxmeta">
                           <strong>${data.user.nickname}</strong>
                           <span class="date">${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분</span>
                         </div>
@@ -168,7 +188,7 @@ function getComment(articleId, page) {
                         </button>
                         <div class="commentlikenumber commentlikecount${data.id}"></div>
                         </div>
-                      `;
+                            `;
       $('.boxcontent').append(temp_html);
       commentLikeCount(data.id);
       loginuser2(data)
@@ -213,11 +233,7 @@ function loginuser2(data) {
                       삭제
                     </button>
                     `
-        $(`.button${data.id}`).append(temp)
-      }
-      else {
-        let temp = ``
-        $(`.button${data.id}`).append(temp)
+        $(`.button${data.id}`).prepend(temp)
       }
     })
 }

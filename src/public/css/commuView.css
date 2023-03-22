@@ -13,6 +13,7 @@
   padding: 20px 15px;
   border-bottom: 1px dashed #ddd;
   font-size: 20px;
+  color: #000;
 }
 .boardView .info {
   padding: 15px;
@@ -49,6 +50,14 @@
 .boardView .info dl dd {
   margin-left: 10px;
   color: #777;
+}
+
+.boardView .info dt{
+  margin: 0 0 0 10px;
+}
+
+.boardView .info dt:nth-child(1) {
+  margin: 0;
 }
 
 .boardView .cont {
@@ -235,6 +244,8 @@ a {
   display: inline-block;
   top: 0px;
   position: relative;
+  left: 379%;
+  transform: translate(-50%, -50%);
 }
 
 .like input {
@@ -512,4 +523,46 @@ input:checked + .hearth {
   100% {
     width: 124px;
   }
+}
+
+.articlelikecount h3 {
+  position: relative;
+  left: 371px;
+  bottom: 84px;
+}
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.6rem;
+  background: transparent;
+}
+
+.pagination a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.8rem;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 0.4rem;
+  text-decoration: none;
+  color: #23adad;
+}
+
+.pagination a:hover {
+  background-color: #23adad;
+  color: #ffffff;
+}
+
+.page-link {
+  color: #23adad;
+}
+
+.page-link:hover {
+  background-color: #23adad;
 }

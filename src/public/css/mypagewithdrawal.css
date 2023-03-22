@@ -34,7 +34,7 @@ input:active {
 
 #app-cover {
   position: absolute;
-  top: 20%;
+  top: 200px;
   right: 0;
   left: 0;
   width: 196px;
@@ -81,7 +81,7 @@ input:active {
 }
 
 #lid:before {
-  content: "";
+  content: '';
   position: absolute;
   top: -4px;
   right: 0;
@@ -125,7 +125,7 @@ input:active {
 
 #bin-lines:before,
 #bin-lines:after {
-  content: "";
+  content: '';
   position: absolute;
 }
 
@@ -177,8 +177,7 @@ input:active {
 }
 
 #checkbox:checked + #bin-icon #lid {
-  animation: lift-up 0.8s ease 0.1s, shake_u 0.8s ease 0.1s,
-    shake_l 0.2s ease 0.8s;
+  animation: lift-up 0.8s ease 0.1s, shake_u 0.8s ease 0.1s, shake_l 0.2s ease 0.8s;
 }
 
 #checkbox:checked ~ #layer {

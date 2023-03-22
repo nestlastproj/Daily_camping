@@ -15,37 +15,36 @@
   <script src="https://kit.fontawesome.com/fd3102c9a3.js" crossorigin="anonymous"></script>
   <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/super-build/ckeditor.js"></script>
   <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/super-build/translations/es.js"></script>
-  <script src="../js/commuWrite.js"></script>
   <link rel="stylesheet" href="../css/commuWrite.css" />
   <title>write</title>
 </head>
 
 <body style="background-color: #edf5e1">
   <%- include('nav.ejs') %>
-    <div class="container">
-      <div class="boardWriteWrap">
-        <div class="boardWrite">
-          <div class="title">
-            <dl>
-              <dt>제목</dt>
-              <dd><input type="text" id="title" name="title" class="form-control" placeholder="제목을 입력하세요!"></dd>
-            </dl>
-          </div>
-          <div id="container">
-            <textarea name="contents" id="content" name="content" class="form-control"></textarea>
-          </div>
-          <div class="inputfield">
-            <input type="file" id="image" name="file" class="input" />
-          </div>
+  <div class="container">
+    <div class="boardWriteWrap">
+      <div class="boardWrite">
+        <div class="title">
+          <dl>
+            <dt>제목</dt>
+            <dd><input type="text" id="title" name="subject" class="form-control" placeholder="제목을 입력하세요!"></dd>
+          </dl>
         </div>
-        <div class="btWrap">
-          <button onclick="articleWrite()" class="on"><a><input type="submit" value="저장"
-                class="btn btn-default"></a></button>
-          <button class="off"><a href="/article/list">취소</a></button>
+        <div id="container">
+          <textarea name="contents" id="content" class="form-control"></textarea>
+        </div>
+        <div class="inputfield">
+          <input type="file" id="image" name="file" class="input" />
         </div>
       </div>
+      <div class="btWrap">
+        <button onclick="articleWrite()" class="on"><a><input type="submit" value="저장"
+              class="btn btn-default"></a></button>
+        <button class="off"><a href="/article/list">취소</a></button>
+      </div>
     </div>
-    <%- include('footer.ejs') %>
+  </div>
+  <%- include('footer.ejs') %>
+  <script src="../js/commuWrite.js"></script>
 </body>
-
 </html>

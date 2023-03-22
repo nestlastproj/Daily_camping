@@ -1,4 +1,4 @@
-// let container = document.getElementById("container");
+let container = document.getElementById("container");
 
 toggle = () => {
     container.classList.toggle("sign-in");
@@ -27,7 +27,7 @@ function login() {
             },
             success: function (success) {
                 alert(`로그인 성공, 환영합니다 ${email}님`);
-                location.href = '/main';
+                location.href = '/';
             },
             error: function (error) {
                 alert('로그인 실패');
@@ -64,8 +64,22 @@ function signup() {
                 location.href = "/auth/login";
             },
             error: function (error) {
-                alert(error.responseJSON.message);
+                alert("회원가입 실패");
             },
         });
     }
+}
+
+function logout() {
+    $.ajax({
+        type: "post",
+        url: "/auth/logout",
+        data: {},
+        success: function (response) {
+            location.href = "http://localhost:3000";
+        },
+        error: function (error) {
+            console.log("에러이유:", error);
+        },
+    });
 }

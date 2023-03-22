@@ -23,16 +23,35 @@ function myReviewData(page, placeId) {
         const hour = createdTime.getHours();
         const minute = createdTime.getMinutes();
 
-        let temp_html = `<div class="card" onclick="location.href='/review/reviewView?reviewId=${data.id}'">
-                          <img src="https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/${data.image}" class="card__image" alt="brown couch" />
-                          <div class="card__content">
-                            <time class="card__date">${year}년 ${month}월 ${day}일  ${hour}시${minute}분</time>
-                            <time class="card__writer">작성자: ${data.user.nickname}</time>
-                            <span class="card__title">제목: ${data.title}<span>
-                          </div>
-                        </div>
-                        `;
-        $('.will-fadeIn').append(temp_html);
+        if (data.image === null) {
+          let temp_html = `
+          <div class="will-fadeIn">
+            <div class="card" onclick="location.href='/review/reviewView?reviewId=${data.id}'">
+              <img src="https://th.bing.com/th/id/OIP.h37CXdYYx79P7-iIoGqrcAHaEK?w=287&h=180&c=7&r=0&o=5&pid=1.7" class="card__image" alt="" />
+              <div class="card__content">
+                <time class="card__date">${year}년 ${month}월 ${day}일  ${hour}시${minute}분</time>
+                <time class="card__writer">작성자: ${data.user.nickname}</time>
+                <span class="card__title">제목: ${data.title}<span>
+              </div>
+            </div>
+          </div>
+        `;
+          $('.reviewcard').append(temp_html);
+        } else {
+          let temp_html = `
+          <div class="will-fadeIn">
+            <div class="card" onclick="location.href='/review/reviewView?reviewId=${data.id}'">
+              <img src="https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/${data.image}" class="card__image" alt="brown couch" />
+              <div class="card__content">
+                <time class="card__date">${year}년 ${month}월 ${day}일  ${hour}시${minute}분</time>
+                <time class="card__writer">작성자: ${data.user.nickname}</time>
+                <span class="card__title">제목: ${data.title}<span>
+              </div>
+            </div>
+          </div>
+        `;
+          $('.reviewcard').append(temp_html);
+        }
       });
 
       const pages = [];
