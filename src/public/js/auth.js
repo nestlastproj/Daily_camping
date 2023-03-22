@@ -76,7 +76,7 @@ function logout() {
         url: "/auth/logout",
         data: {},
         success: function (response) {
-            location.href = "http://localhost:3000";
+            location.href = "/main";
         },
         error: function (error) {
             console.log("에러이유:", error);

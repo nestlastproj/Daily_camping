@@ -16,7 +16,7 @@ function logout() {
         url: "/auth/logout",
         data: {},
         success: function (response) {
-            location.href = "http://localhost:3000/auth/login";
+            location.href = "/main";
         },
         error: function (error) {
             console.log(error);
