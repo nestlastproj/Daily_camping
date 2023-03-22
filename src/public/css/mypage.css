@@ -43,10 +43,12 @@
   border-radius: 50%;
   width: 150px;
   height: 150px;
+  position: absolute;
+  left: -9px;
 }
 .firstinfo .profileinfo {
   width: 75%;
-  margin-left: 80px;
+  margin-left: 235px;
   padding-top: 50px;
 }
 .firstinfo .profileinfo h1 {

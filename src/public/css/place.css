@@ -6,9 +6,7 @@
   display: block;
   max-width: 100%;
 }
-.container {
-  max-width: 1850px;
-}
+
 .stack {
   margin: 50px 100px;
   width: 85%;
@@ -142,12 +140,9 @@ input:checked + .hearth {
   }
 }
 
-
-
-h4 {
-  display: inline-block;
-  vertical-align: top;
-  font-size: 28px;
-  line-height: 130px;
-  margin-left: 20px;
+.card h4 {
+  position: relative;
+  left: 100px;
+  bottom: 50px;
+  font-size: 30px;
 }

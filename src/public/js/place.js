@@ -37,7 +37,7 @@ function placeApidata(page, keyword) {
               <div class="hearth" onclick="like(${data.id})"></div>
             </label>
           </div>
-          <h3><div class="totalcount${data.id}"></div></h3>
+          <h4><div class="totalcount${data.id}"></div></h4>
         </div>
       </div>
       `;
