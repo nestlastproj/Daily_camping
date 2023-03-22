@@ -187,7 +187,7 @@ nav {
   border-bottom-right-radius: var(--radius);
 }
 
-.title {
+nav .title {
   color: #ffffff;
   font-family: 'Roboto', sans-serif;
 }

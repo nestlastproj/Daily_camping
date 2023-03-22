@@ -4,11 +4,12 @@ $(document).ready(function () {
     url: '/auth/me',
   })
     .then((res) => {
-      console.log(res);
       let { image } = res.data;
-      document.getElementById('image2').src = `${image}`;
-      //   let temp = `<h1 class="profile-user-name">${res.data.nickname}</h1>`;
-      //   $('#nickname').append(temp);
+      if (image === null) {
+        document.getElementById('image2').src = 'https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/83308917_1679321519298.jpg';
+      } else {
+        document.getElementById('image2').src = `https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/${image}`;
+      }
       let temp_html = `
             <h1>
             <div id="nickname" 이름(닉네임)>

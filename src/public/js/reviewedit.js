@@ -8,7 +8,6 @@ function myReviewEdit(reviewId) {
         url: `/review/detail?reviewId=${reviewId}`,
         method: 'GET',
     }).then((res) => {
-        console.log(res)
         let { title, content, image } = res.data;
         let temp_html = `
             <div class="title">
@@ -47,6 +46,6 @@ function putMyReview() {
         })
         .then((res) => {
             alert('수정 완료');
-            location.href = '/place/placelist'
+            location.href = `/review/reviewView?reviewId=${reviewId}`
         });
 }

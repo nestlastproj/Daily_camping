@@ -1,3 +1,5 @@
+@import url(pagination.css);
+
 .boardWrap {
   width: 1000px;
   margin: 100px auto;

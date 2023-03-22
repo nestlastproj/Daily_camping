@@ -11,25 +11,20 @@ function myReviewData(page) {
         .then((res) => {
             const { meta, reviews } = res.data;
             const { firstPage, lastPage, totalPage } = meta;
-
+            let count = 0;
             reviews.forEach((data) => {
+                count++
                 const createdTime = new Date(data.createdAt);
                 const year = createdTime.getFullYear();
                 const month = createdTime.getMonth() + 1;
                 const day = createdTime.getDate();
-                let hour = createdTime.getHours();
-                let minute = createdTime.getMinutes();
-                if (hour.toString().length === 1) {
-                    hour = '0' + hour.toString();
-                }
-                if (minute.toString().length === 1) {
-                    minute = '0' + minute.toString();
-                }
+                const hour = createdTime.getHours();
+                const minute = createdTime.getMinutes();
                 let temp_html = `
                 <div class="list" onclick="location.href=''">
-                <div class="id">${data.id}</div>
+                <div class="id">${count}</div>
                 <div class="title">${data.title}</div>
-                <div class="date">${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분</div>
+                <div class="date">${year}년 ${month}월 ${day}일  ${hour}시${minute}분</div>
               </div>
           `;
                 $('.boardList').append(temp_html);

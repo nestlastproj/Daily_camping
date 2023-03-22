@@ -1,4 +1,5 @@
 @import url(search.css);
+@import url(pagination.css);
 
 .common_sp_list_ul {
   vertical-align: top;

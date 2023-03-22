@@ -1,7 +1,86 @@
 $(document).ready(function () {
   const placeId = new URLSearchParams(location.search).get('placeId');
   placeDetailData(placeId);
+  const page = new URLSearchParams(location.search).get('page') || 1;
+  myReviewData(page);
 });
+
+function myReviewData(page) {
+  axios({
+    url: `/review/search?page=${page}`,
+    method: 'GET',
+  })
+    .then((response) => {
+      const { data, meta } = response.data;
+      const { firstPage, lastPage, totalPage } = meta;
+
+      data.forEach((data) => {
+        const createdTime = new Date(data.createdAt);
+        const year = createdTime.getFullYear();
+        const month = createdTime.getMonth() + 1;
+        const day = createdTime.getDate();
+        const hour = createdTime.getHours();
+        const minute = createdTime.getMinutes();
+        if (data.image === "") {
+            let temp_html = `
+          <div class="will-fadeIn">
+            <div class="card" onclick="location.href='/review/reviewView?reviewId=${data.id}'">
+              <img src="https://th.bing.com/th/id/OIP.h37CXdYYx79P7-iIoGqrcAHaEK?w=287&h=180&c=7&r=0&o=5&pid=1.7" class="card__image" alt="" />
+              <div class="card__content">
+                <time class="card__date">${year}년 ${month}월 ${day}일  ${hour}시${minute}분</time>
+                <time class="card__writer">작성자: ${data.user.nickname}</time>
+                <span class="card__title">제목: ${data.title}<span>
+                <time class="card__count">조회수</time>
+              </div>
+            </div>
+          </div>
+        `;
+          $('.reviewcard').append(temp_html);
+        } else {
+            let temp_html = `
+          <div class="will-fadeIn">
+            <div class="card" onclick="location.href='/review/reviewView?reviewId=${data.id}'">
+              <img src="https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/${data.image}" class="card__image" alt="brown couch" />
+              <div class="card__content">
+                <time class="card__date">${year}년 ${month}월 ${day}일  ${hour}시${minute}분</time>
+                <time class="card__writer">작성자: ${data.user.nickname}</time>
+                <span class="card__title">제목: ${data.title}<span>
+                <time class="card__count">조회수</time>
+              </div>
+            </div>
+          </div>
+        `;
+          $('.reviewcard').append(temp_html);
+      }});
+
+      const pages = [];
+
+      // prev
+      if (page > 1) {
+        const prev = `<a class="page-link" href='?page=${Number(page) - 1}'>
+              <span>&laquo;</span>
+          </a>`;
+        pages.push(prev);
+      }
+
+      // pages
+      for (let i = firstPage; i <= lastPage; i++) {
+        const pagesLink = `<a "page-link" href='?page=${i}'>${i}</a>`;
+        pages.push(pagesLink);
+      }
+
+      // next
+      if (page < totalPage) {
+        const next = `<a class="page-link" href='?page=${Number(page) + 1}'>
+              <span>&raquo;</span>
+          </a>`;
+        pages.push(next);
+      }
+
+      $('.pagination').append(pages.join(''));
+    })
+}
+
 
 function placeDetailData(placeId) {
   axios({
@@ -73,29 +152,7 @@ function placeDetailData(placeId) {
           }
         });
 
-        res.data[0].review.forEach((data) => {
-          const createdTime = new Date(data.createdAt);
-          const year = createdTime.getFullYear();
-          const month = createdTime.getMonth() + 1;
-          const day = createdTime.getDate();
-          const hour = createdTime.getHours();
-          const minute = createdTime.getMinutes();
 
-          let temp_html = `
-          <div class="will-fadeIn">
-        <div class="card" onclick="location.href='/review/reviewView?reviewId=${data.id}'">
-           <img src="https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/${data.image}" class="card__image" alt="brown couch" />
-           <div class="card__content">
-             <time class="card__date">${year}년 ${month}월 ${day}일  ${hour}시${minute}분</time>
-             <time class="card__writer">작성자: ${data.user.nickname}</time>
-             <span class="card__title">제목: ${data.title}<span>
-             <time class="card__count">조회수</time>
-           </div>
-         </div>
-         </div>
-        `;
-          $('.reviewcard').append(temp_html);
-        });
       });
     })
     .catch((err) => {
@@ -103,45 +160,4 @@ function placeDetailData(placeId) {
       //   location.href = '/';
       console.log(err);
     });
-}
-
-function Utils() {}
-Utils.prototype = {
-  constructor: Utils,
-  isElementInView: function (element, fullyInView) {
-    var pageTop = $(window).scrollTop();
-    var pageBottom = pageTop + $(window).height();
-    var elementTop = $(element).offset().top;
-    var elementBottom = elementTop + $(element).height();
-
-    if (fullyInView === true) {
-      return pageTop < elementTop && pageBottom > elementBottom;
-    } else {
-      return elementTop <= pageBottom && elementBottom >= pageTop;
-    }
-  },
-};
-
-var Utils = new Utils();
-$(window).on('load', addFadeIn());
-
-$(window).scroll(function () {
-  addFadeIn(true);
-});
-
-function addFadeIn(repeat) {
-  var classToFadeIn = '.will-fadeIn';
-
-  $(classToFadeIn).each(function (index) {
-    var isElementInView = Utils.isElementInView($(this), false);
-    if (isElementInView) {
-      if (!$(this).hasClass('fadeInRight') && !$(this).hasClass('fadeInLeft')) {
-        if (index % 2 == 0) $(this).addClass('fadeInRight');
-        else $(this).addClass('fadeInLeft');
-      }
-    } else if (repeat) {
-      $(this).removeClass('fadeInRight');
-      $(this).removeClass('fadeInLeft');
-    }
-  });
 }

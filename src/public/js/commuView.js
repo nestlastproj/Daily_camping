@@ -8,6 +8,24 @@ $(document).ready(function () {
   articleLikeCount();
 });
 
+function loginuser(userId) {
+  axios.get(`/auth/isLoggined`)
+    .then((res) => {
+      console.log(res.data.id,"현재");
+      console.log(userId,"작성자");
+      if (userId === res.data.id) {
+        let temp = `<a href="/article/edit/${articleId}" class="on">수정</a>
+                    <a onclick="deleteArticle()" class="off">삭제</a>
+                    <a href="/article/list" class="on">목록</a>`
+        $('.buttons').append(temp)
+      }
+      else {
+        let temp = `<a href="/article/list" class="on">목록</a>`
+        $('.buttons').append(temp)
+      }
+    })
+}
+
 function articleLikeCount() {
   const articleIdUrl = window.location.pathname;
   const articleId = articleIdUrl.split('/')[3];
@@ -36,9 +54,9 @@ function getmyprofiledata(articleId) {
     url: `/article/${articleId}`,
   })
     .then((res) => {
-      console.log(res)
       let { title, content, createdAt, image, user } = res.data;
       let nickname = user.nickname;
+      let userId = user.id;
       const createdTime = new Date(createdAt);
       const year = createdTime.getFullYear();
       const month = createdTime.getMonth() + 1;
@@ -51,7 +69,26 @@ function getmyprofiledata(articleId) {
       if (minute.toString().length === 1) {
         minute = '0' + minute.toString();
       }
-      let temp = `<div class="title" id="title">${title}</div>
+      loginuser(userId)
+      if (image === null) {
+        let temp = `<div class="title" id="title">${title}</div>
+                            <div class="info">
+                                <dl>
+                                    <dt>작성일</dt>
+                                    <dd>
+                                    <div id="createdAt">${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분</div>                                 
+                                    </dd>
+                                    <dt>작성자</dt>
+                                    <dd>
+                                    <div id="nickname">${nickname}</div>                                 
+                                    </dd>
+                                </dl>
+                            </div>
+                        <div id="content">${content}</div>`;
+        $('.boardView').append(temp);
+        getMyArticleLike();
+      } else {
+        let temp = `<div class="title" id="title">${title}</div>
                             <div class="info">
                                 <dl>
                                     <dt>작성일</dt>
@@ -68,8 +105,10 @@ function getmyprofiledata(articleId) {
                             <img src="https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/${image}" id="image">
                         </div>
                         <div id="content">${content}</div>`;
-      $('.boardView').append(temp);
-      getMyArticleLike();
+        $('.boardView').append(temp);
+        getMyArticleLike();
+      }
+      
     })
     .catch((err) => {
       console.log(err, 'err');
@@ -106,7 +145,7 @@ function deleteArticle() {
     url: `/article/${articleId}`,
   })
     .then((res) => {
-      confirm('삭제하시겠습니까?');
+      alert('삭제 완료!')
       window.location.href = '/article/list';
     })
     .catch((err) => {
@@ -135,25 +174,22 @@ function getComment(articleId, page) {
         minute = '0' + minute.toString();
       }
       let temp_html = `   <div class="boxmeta">
-                                    <strong>${data.user.nickname}</strong>
-                                    <span class="date">${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분</span>
-                          </div>
-                          <div>
-                              <p class="text">${data.content}</p>
-                          </div>
-                          <button type="button" class="btnregister" onclick="updateComment(${data.id})">
-                            수정
-                          </button>
-                          <button type="button" class="btnregister2" onclick="deleteComment(${data.id})">
-                            삭제
-                          </button>
-                          <button type="button" class="btnregister" onclick="likeComment(${data.id})">
-                            좋아요
-                          </button>
-                          <div class="commentlikenumber commentlikecount${data.id}"></div>
+                          <strong>${data.user.nickname}</strong>
+                          <span class="date">${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분</span>
+                        </div>
+                        <div>
+                            <p class="text">${data.content}</p>
+                        </div>
+                        <div class="button${data.id}">
+                        <button type="button" class="btnregister" onclick="likeComment(${data.id})">
+                          좋아요
+                        </button>
+                        <div class="commentlikenumber commentlikecount${data.id}"></div>
+                        </div>
                             `;
       $('.boxcontent').append(temp_html);
       commentLikeCount(data.id);
+      loginuser2(data)
     });
 
     const pages = [];
@@ -182,6 +218,22 @@ function getComment(articleId, page) {
 
     $('.pagination').append(pages.join(''));
   });
+}
+
+function loginuser2(data) {
+  axios.get(`/auth/isLoggined`)
+    .then((res) => {
+      if (data.user.id == res.data.id) {
+        let temp = `<button type="button" class="btnregister" onclick="updateComment(${data.id})">
+                      수정
+                    </button>
+                    <button type="button" class="btnregister2" onclick="deleteComment(${data.id})">
+                      삭제
+                    </button>
+                    `
+        $(`.button${data.id}`).prepend(temp)
+      }
+    })
 }
 
 function commentLikeCount(id) {
@@ -223,7 +275,7 @@ function deleteComment(id) {
     url: `/comment/articles/${articleId}/comments/${id}`,
   })
     .then((res) => {
-      confirm('삭제하시겠습니까?');
+      alert('삭제 완료!')
       window.location.reload();
     })
     .catch((err) => {
@@ -247,7 +299,7 @@ function updateComment(id) {
         <button type="button" class="btnregister" onclick="commentPost(${res.data.id})">
           수정
         </button>
-        <button type="button" class="btnregister2">
+        <button type="button" class="btnregister2" onclick="location.href='/article/view/${articleId}'">
           취소
         </button>
       `;

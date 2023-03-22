@@ -52,6 +52,14 @@
   color: #777;
 }
 
+.boardView .info dt{
+  margin: 0 0 0 10px;
+}
+
+.boardView .info dt:nth-child(1) {
+  margin: 0;
+}
+
 .boardView .cont {
   padding: 15px;
   border-bottom: 1px solid #000;
@@ -517,8 +525,44 @@ input:checked + .hearth {
   }
 }
 
-h3 {
+.articlelikecount h3 {
   position: relative;
   left: 371px;
   bottom: 84px;
+}
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.6rem;
+  background: transparent;
+}
+
+.pagination a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.8rem;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 0.4rem;
+  text-decoration: none;
+  color: #23adad;
+}
+
+.pagination a:hover {
+  background-color: #23adad;
+  color: #ffffff;
+}
+
+.page-link {
+  color: #23adad;
+}
+
+.page-link:hover {
+  background-color: #23adad;
 }
