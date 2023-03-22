@@ -1,7 +1,21 @@
 $(document).ready(function () {
     const page = new URLSearchParams(location.search).get('page') || 1;
     getarticlelist(page);
+    loginuser()
 });
+
+function loginuser() {
+    axios.get(`/auth/isLoggined`)
+        .then((res) => {
+            let temp = `<button class="on" onclick="location.href='/article/write'">글쓰기</button>`
+            $('.loginwrite').append(temp)
+        })
+        .catch((err) => {
+            let temp = ``
+            $('.loginwrite').append(temp)
+        })
+}
+
 function getarticlelist(page) {
     axios({
         method: 'get',
