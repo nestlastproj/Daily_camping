@@ -9,7 +9,6 @@ import {
   Query,
   Render,
   Req,
-  Res,
   UploadedFile,
   UseGuards,
   UseInterceptors,

@@ -25,18 +25,6 @@
   <%- include('nav.ejs') %>
     <div class="boardViewWrap">
       <div class="boardView">
-        <!-- <div id="content"></div> -->
-        <!-- <script>
-          let tmpStr = "내용";
-          tmpStr = tmpStr.replaceAll("&lt;", "<");
-          tmpStr = tmpStr.replaceAll("&gt;", ">");
-          tmpStr = tmpStr.replaceAll("&amp;lt;", "<");
-          tmpStr = tmpStr.replaceAll("&amp;gt;", ">");
-          tmpStr = tmpStr.replaceAll("&amp;nbsp;", " ");
-          tmpStr = tmpStr.replaceAll("&amp;amp;", "&");
-          tmpStr = tmpStr.replaceAll("&#34;", '"');
-          document.getElementById("content").innerHTML = tmpStr;
-        </script> -->
       </div>
       <div class="articlelikecount"></div>
     </div>
@@ -53,6 +41,7 @@
                   </div>
                 </div>
               </div>
+
             </li>
             <div class="pagination"></div>
           </ul>
@@ -68,9 +57,7 @@
         </div>
       </div>
       <div class="btWrap">
-        <a href="/article/edit/<%= articleId %>" class="on">수정</a>
-        <a onclick="deleteArticle()" class="off">삭제</a>
-        <a href="/article/list" class="on">목록</a>
+        <div class="buttons"></div>
       </div>
       <%- include('footer.ejs') %>
 </body>

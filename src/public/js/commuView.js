@@ -9,11 +9,11 @@ $(document).ready(function () {
 });
 
 function loginuser(userId) {
+  const articleIdUrl = window.location.pathname;
+  const articleId = articleIdUrl.split('/')[3];
   axios.get(`/auth/isLoggined`)
     .then((res) => {
-      console.log(res.data.id,"현재");
-      console.log(userId,"작성자");
-      if (userId === res.data.id) {
+      if (userId == res.data.id) {
         let temp = `<a href="/article/edit/${articleId}" class="on">수정</a>
                     <a onclick="deleteArticle()" class="off">삭제</a>
                     <a href="/article/list" class="on">목록</a>`
@@ -69,8 +69,8 @@ function getmyprofiledata(articleId) {
       if (minute.toString().length === 1) {
         minute = '0' + minute.toString();
       }
-      loginuser(userId)
       if (image === null) {
+
         let temp = `<div class="title" id="title">${title}</div>
                             <div class="info">
                                 <dl>
@@ -87,6 +87,7 @@ function getmyprofiledata(articleId) {
                         <div id="content">${content}</div>`;
         $('.boardView').append(temp);
         getMyArticleLike();
+        loginuser(userId);
       } else {
         let temp = `<div class="title" id="title">${title}</div>
                             <div class="info">
@@ -107,8 +108,9 @@ function getmyprofiledata(articleId) {
                         <div id="content">${content}</div>`;
         $('.boardView').append(temp);
         getMyArticleLike();
+        loginuser(userId);
       }
-      
+
     })
     .catch((err) => {
       console.log(err, 'err');
