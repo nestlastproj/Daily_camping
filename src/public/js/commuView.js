@@ -11,7 +11,6 @@ $(document).ready(function () {
 function loginuser(userId) {
   const articleIdUrl = window.location.pathname;
   const articleId = articleIdUrl.split('/')[3];
-  console.log(articleId, '1111111111')
   axios.get(`/auth/isLoggined`)
     .then((res) => {
       if (userId == res.data.id) {
