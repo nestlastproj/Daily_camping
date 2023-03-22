@@ -1,4 +1,10 @@
-import { ConflictException, Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
+import {
+  ConflictException,
+  HttpException,
+  Injectable,
+  InternalServerErrorException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -43,11 +49,11 @@ export class AuthService {
     const user = await this.userRepository.create({ email, name, password: hashedPassword, phone, nickname });
     const existedemail = await this.userRepository.findOneBy({ email });
     if (existedemail) {
-      throw new Error('이미 존재하는 이메일입니다.');
+      throw new ConflictException('이미 존재하는 이메일입니다.');
     }
     const existednickname = await this.userRepository.findOneBy({ nickname });
     if (existednickname) {
-      throw new Error('이미 존재하는 닉네임입니다.');
+      throw new ConflictException('이미 존재하는 닉네임입니다.');
     }
     return await this.userRepository.save(user);
   }

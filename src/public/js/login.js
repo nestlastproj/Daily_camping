@@ -64,7 +64,7 @@ function signup() {
                 location.href = "/auth/login";
             },
             error: function (error) {
-                alert("회원가입 실패");
+                alert(error.responseJSON.message);
             },
         });
     }

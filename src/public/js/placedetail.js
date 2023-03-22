@@ -2,12 +2,12 @@ $(document).ready(function () {
   const placeId = new URLSearchParams(location.search).get('placeId');
   placeDetailData(placeId);
   const page = new URLSearchParams(location.search).get('page') || 1;
-  myReviewData(page);
+  myReviewData(page, placeId);
 });
 
-function myReviewData(page) {
+function myReviewData(page, placeId) {
   axios({
-    url: `/review/search?page=${page}`,
+    url: `/review/search?page=${page}&placeId=${placeId}`,
     method: 'GET',
   })
     .then((response) => {
@@ -15,6 +15,7 @@ function myReviewData(page) {
       const { firstPage, lastPage, totalPage } = meta;
 
       data.forEach((data) => {
+        console.log(data)
         const createdTime = new Date(data.createdAt);
         const year = createdTime.getFullYear();
         const month = createdTime.getMonth() + 1;
@@ -22,16 +23,15 @@ function myReviewData(page) {
         const hour = createdTime.getHours();
         const minute = createdTime.getMinutes();
 
-        let temp_html = `
-      <div class="card" onclick="location.href='/review/reviewView?reviewId=${data.id}'">
-         <img src="https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/${data.image}" class="card__image" alt="brown couch" />
-         <div class="card__content">
-           <time class="card__date">${year}년 ${month}월 ${day}일  ${hour}시${minute}분</time>
-           <time class="card__writer">작성자: ${data.user.nickname}</time>
-           <span class="card__title">제목: ${data.title}<span>
-         </div>
-       </div>
-      `;
+        let temp_html = `<div class="card" onclick="location.href='/review/reviewView?reviewId=${data.id}'">
+                          <img src="https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/${data.image}" class="card__image" alt="brown couch" />
+                          <div class="card__content">
+                            <time class="card__date">${year}년 ${month}월 ${day}일  ${hour}시${minute}분</time>
+                            <time class="card__writer">작성자: ${data.user.nickname}</time>
+                            <span class="card__title">제목: ${data.title}<span>
+                          </div>
+                        </div>
+                        `;
         $('.will-fadeIn').append(temp_html);
       });
 
@@ -39,7 +39,7 @@ function myReviewData(page) {
 
       // prev
       if (page > 1) {
-        const prev = `<a class="page-link" href='?page=${Number(page) - 1}'>
+        const prev = `<a class="page-link" href='?page=${Number(page) - 1}&placeId=${placeId}'>
               <span>&laquo;</span>
           </a>`;
         pages.push(prev);
@@ -47,13 +47,13 @@ function myReviewData(page) {
 
       // pages
       for (let i = firstPage; i <= lastPage; i++) {
-        const pagesLink = `<a "page-link" href='?page=${i}'>${i}</a>`;
+        const pagesLink = `<a "page-link" href='?page=${i}&placeId=${placeId}'>${i}</a>`;
         pages.push(pagesLink);
       }
 
       // next
       if (page < totalPage) {
-        const next = `<a class="page-link" href='?page=${Number(page) + 1}'>
+        const next = `<a class="page-link" href='?page=${Number(page) + 1}&placeId=${placeId}'>
               <span>&raquo;</span>
           </a>`;
         pages.push(next);
@@ -71,33 +71,32 @@ function placeDetailData(placeId) {
   })
     .then((res) => {
       res.data.forEach((data) => {
-        let temp_html = `
-        <div class="campsite-title">
-          <h1>${data.name}</h1>
-        </div>
-        <div class="map"> 
-          <div class="frame">
-            <div class="inner-frame">
-              <div class="mat" id="map${data.id}">
-                <img src="" >
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="link">
-          <a href="${data.url}" target="blank">More campsite information</a>
-        </div>
-        <div class="review">
-          <h2>review <span>${data.review.length}</span></h2>
-          <a class="button" onclick="location.href='/review/reviewWrite/${data.id}'">
-            <div class="button__line"></div>
-            <div class="button__line"></div>
-            <span class="button__text">write</span>
-            <div class="button__drow1"></div>
-            <div class="button__drow2"></div>
-          </a>
-        </div>
-        `;
+        let temp_html = ` <div class="campsite-title">
+                            <h1>${data.name}</h1>
+                          </div>
+                          <div class="map"> 
+                            <div class="frame">
+                              <div class="inner-frame">
+                                <div class="mat" id="map${data.id}">
+                                  <img src="" >
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="link">
+                            <a href="${data.url}" target="blank">More campsite information</a>
+                          </div>
+                          <div class="review">
+                            <h2>review <span>${data.review.length}</span></h2>
+                              <a class="button" onclick="location.href='/review/reviewWrite/${data.id}'">
+                                <div class="button__line"></div>
+                                <div class="button__line"></div>
+                                <span class="button__text">write</span>
+                                <div class="button__drow1"></div>
+                                <div class="button__drow2"></div>
+                              </a>
+                          </div>
+                        `;
         $('.container').append(temp_html);
 
         let roadviewContainer = document.getElementById(`map${data.id}`);
