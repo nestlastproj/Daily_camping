@@ -18,7 +18,6 @@ $(document).ready(function () {
 
             $("input[type=file]").change(function (event) {
                 let tmpPath = URL.createObjectURL(event.target.files[0]);
-                console.log(tmpPath);
                 $("#image2").attr("src", tmpPath);
             })
         })
@@ -45,11 +44,12 @@ function updateprofile() {
         },
     })
         .then((res) => {
-            alert('수정 완료!');
-            window.location.reload();
-        })
-        .catch((err) => {
-            console.log('error', err);
+            axios.get('/auth/isLoggined').then(() => {
+                window.location.reload();
+            }).catch(() => {
+                alert('수정 완료! 다시 로그인 해주세요');
+                location.href = '/auth/login';
+            })
         })
 }
 

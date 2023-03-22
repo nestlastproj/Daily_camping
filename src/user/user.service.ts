@@ -19,13 +19,12 @@ export class UserService {
 
   async editprofile(req, data: UpdateUserDto, file?: Express.MulterS3.File) {
     const userId = req.user.id;
-    const filename = file.key;
     const user = { name: data.name, phone: data.phone, nickname: data.nickname, email: data.email };
     if (file) {
+      const filename = file.key;
       user['image'] = filename;
     }
-    await this.userRepository.update(userId, user);
-    return await this.removeRefreshToken(userId);
+    return await this.userRepository.update(userId, user);
   }
 
   async remove(req) {

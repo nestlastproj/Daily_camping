@@ -7,7 +7,6 @@ $(document).ready(function () {
     }).catch((err) => {
         let temp = `<button onclick="location.href='/auth/login'" class="button-arounder">로그인</button>`
         $('.buttons-container').append(temp)
-
     })
 })
 

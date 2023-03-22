@@ -23,7 +23,6 @@ function getReviews(reviewId) {
             if (minute.toString().length === 1) {
                 minute = '0' + minute.toString();
             }
-            console.log(image, "222222222");
             if (image === null) {
                 let temp = `<div class="title">${title}</div>
                 <div class="info">
@@ -43,7 +42,7 @@ function getReviews(reviewId) {
                 <div class="btWrap">
                     <div class="buttons2"></div>
                 </div>`
-            $('.boardView').append(temp);
+                $('.boardView').append(temp);
             } else {
                 let temp = `<div class="title">${title}</div>
                 <div class="info">
@@ -64,9 +63,9 @@ function getReviews(reviewId) {
                 <div class="btWrap">
                     <div class="buttons2"></div>
                 </div>`
-            $('.boardView').append(temp);
+                $('.boardView').append(temp);
             }
-            
+
             loginUser3(userId);
         })
         .catch((err) => {

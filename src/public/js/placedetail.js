@@ -15,7 +15,6 @@ function myReviewData(page, placeId) {
       const { firstPage, lastPage, totalPage } = meta;
 
       data.forEach((data) => {
-        console.log(data)
         const createdTime = new Date(data.createdAt);
         const year = createdTime.getFullYear();
         const month = createdTime.getMonth() + 1;

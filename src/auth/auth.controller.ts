@@ -68,7 +68,7 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('file'))
   async editprofile(@Req() req, @Body() data: UpdateUserDto, @UploadedFile() file: Express.MulterS3.File) {
-    return await this.authService.editprofile(req, data, file);
+    return await this.userService.editprofile(req, data, file);
   }
 
   @Post('/signup')
@@ -80,13 +80,13 @@ export class AuthController {
   @Post('/login')
   async login(@Req() req, @Res({ passthrough: true }) res: Response) {
     const user = req.user;
-    const { accessToken, ...accessOption } = this.authService.getCookieWithJwtAccessToken(user.id, user.nickname);
-    const { refreshToken, ...refreshOption } = this.authService.getCookieWithJwtRefreshToken(user.id, user.nickname);
+    const { accessToken } = this.authService.getCookieWithJwtAccessToken(user.id, user.nickname);
+    const { refreshToken } = this.authService.getCookieWithJwtRefreshToken(user.id, user.nickname);
 
     await this.userService.setCurrentRefreshToken(refreshToken, user.id);
 
-    res.cookie('Authentication', accessToken, accessOption);
-    res.cookie('Refresh', refreshToken, refreshOption);
+    res.cookie('Authentication', accessToken);
+    res.cookie('Refresh', refreshToken);
 
     return user;
   }
