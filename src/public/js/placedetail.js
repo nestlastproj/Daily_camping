@@ -22,7 +22,7 @@ function myReviewData(page) {
         const hour = createdTime.getHours();
         const minute = createdTime.getMinutes();
         if (data.image === "") {
-            let temp_html = `
+          let temp_html = `
           <div class="will-fadeIn">
             <div class="card" onclick="location.href='/review/reviewView?reviewId=${data.id}'">
               <img src="https://th.bing.com/th/id/OIP.h37CXdYYx79P7-iIoGqrcAHaEK?w=287&h=180&c=7&r=0&o=5&pid=1.7" class="card__image" alt="" />
@@ -30,14 +30,13 @@ function myReviewData(page) {
                 <time class="card__date">${year}년 ${month}월 ${day}일  ${hour}시${minute}분</time>
                 <time class="card__writer">작성자: ${data.user.nickname}</time>
                 <span class="card__title">제목: ${data.title}<span>
-                <time class="card__count">조회수</time>
               </div>
             </div>
           </div>
         `;
           $('.reviewcard').append(temp_html);
         } else {
-            let temp_html = `
+          let temp_html = `
           <div class="will-fadeIn">
             <div class="card" onclick="location.href='/review/reviewView?reviewId=${data.id}'">
               <img src="https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/${data.image}" class="card__image" alt="brown couch" />
@@ -45,13 +44,13 @@ function myReviewData(page) {
                 <time class="card__date">${year}년 ${month}월 ${day}일  ${hour}시${minute}분</time>
                 <time class="card__writer">작성자: ${data.user.nickname}</time>
                 <span class="card__title">제목: ${data.title}<span>
-                <time class="card__count">조회수</time>
               </div>
             </div>
           </div>
         `;
           $('.reviewcard').append(temp_html);
-      }});
+        }
+      });
 
       const pages = [];
 
