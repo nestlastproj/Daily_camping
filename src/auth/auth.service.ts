@@ -58,7 +58,10 @@ export class AuthService {
 
   async getinfo(req) {
     const userId = req.user.id;
-    return await this.userRepository.findOne({ where: { id: userId }, select: ['id', 'nickname', 'phone', 'email', 'image'] });
+    return await this.userRepository.findOne({
+      where: { id: userId },
+      select: ['id', 'name', 'nickname', 'phone', 'email', 'image'],
+    });
   }
 
   async myArticleAndComments(req) {
@@ -116,6 +119,7 @@ export class AuthService {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
     const user = await this.userRepository.create({ email, name, password: hashedPassword, phone, nickname });
+
     const existedemail = await this.userRepository.findOneBy({ email });
     if (existedemail) {
       throw new ConflictException('이미 존재하는 이메일입니다.');
