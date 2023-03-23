@@ -14,6 +14,7 @@ function myReviewData(page) {
             let count = 0;
             reviews.forEach((data) => {
                 count++
+                console.log(data)
                 const createdTime = new Date(data.createdAt);
                 const year = createdTime.getFullYear();
                 const month = createdTime.getMonth() + 1;
@@ -21,7 +22,7 @@ function myReviewData(page) {
                 const hour = createdTime.getHours();
                 const minute = createdTime.getMinutes();
                 let temp_html = `
-                <div class="list" onclick="location.href=''">
+                <div class="list" onclick="location.href='/review/reviewView?reviewId=${data.id}'">
                 <div class="id">${count}</div>
                 <div class="title" style="cursor:pointer">${data.title}</div>
                 <div class="date">${year}년 ${month}월 ${day}일  ${hour}시${minute}분</div>
