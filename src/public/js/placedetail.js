@@ -65,7 +65,7 @@ function myReviewData(page, placeId) {
 
       // pages
       for (let i = firstPage; i <= lastPage; i++) {
-        const pagesLink = `<a "page-link" href='?page=${i}&placeId=${placeId}'>${i}</a>`;
+        const pagesLink = `<a class="page-link-number" href='?page=${i}&placeId=${placeId}'>${i}</a>`;
         pages.push(pagesLink);
       }
 
@@ -78,6 +78,16 @@ function myReviewData(page, placeId) {
       }
 
       $('.pagination').append(pages.join(''));
+      if (page > 5) {
+        const now = page % 5 - 1
+        var links = document.querySelectorAll(".page-link-number");
+        links[now].classList.add("active");
+      } else {
+        const now = page - 1
+        var links = document.querySelectorAll(".page-link-number");
+        links[now].classList.add("active");
+      }
+
     })
 }
 
