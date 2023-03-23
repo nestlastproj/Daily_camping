@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm/dist';
 import { AppController } from './app.controller';
@@ -19,6 +19,7 @@ import { RecipeModule } from './recipe/recipe.module';
 import { ArticleModule } from './article/article.module';
 import { CommentModule } from './comment/comment.module';
 import { LikeModule } from './like/like.module';
+import { ForbiddenWordsMiddleware } from './auth/ForbiddenWordsMiddleware';
 
 @Module({
   imports: [
@@ -50,4 +51,8 @@ import { LikeModule } from './like/like.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(ForbiddenWordsMiddleware).forRoutes('*');
+  }
+}
