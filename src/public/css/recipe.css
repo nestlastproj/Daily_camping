@@ -3,6 +3,7 @@
 
 .common_sp_list_ul {
   vertical-align: top;
+  margin: auto;
 }
 
 ul {
@@ -21,6 +22,7 @@ li {
 .common_sp_list_ul.ea4 li {
   width: 282px;
 }
+
 .common_sp_list_li {
   list-style: none;
   padding: 0;
@@ -35,16 +37,20 @@ li {
   border-radius: 4px;
   overflow: hidden;
 }
+
 .common_sp_link {
   color: #333;
   text-decoration: none;
 }
+
 .common_sp_link {
   background-color: transparent;
 }
+
 .common_sp_caption {
   padding: 10px 2px;
 }
+
 .common_sp_caption_tit.line2 {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -55,12 +61,14 @@ li {
   white-space: normal;
   line-height: 1.5;
 }
+
 .common_sp_caption_tit {
   margin: 0 0 6px 0;
   color: #000;
   text-align: left;
   font-size: 15px;
 }
+
 .common_sp_caption_rv_name {
   color: #999;
   text-overflow: ellipsis;
@@ -71,11 +79,13 @@ li {
   padding: 0 1px 7px 0;
   font-weight: 300;
 }
+
 .common_sp_caption_rv {
   vertical-align: super;
   line-height: 1;
   margin: 0 0 9px 0;
 }
+
 .common_sp_caption_rv_ea {
   color: #999;
   text-overflow: ellipsis;
@@ -91,17 +101,20 @@ li {
 .common_sp_caption_rv_star {
   vertical-align: 1px;
 }
+
 .common_sp_caption_rv_star img {
   width: 14px;
   margin-right: 1px;
   margin: 0;
 }
+
 .common_sp_caption_buyer {
   color: #999;
   font-size: 13px;
   margin-left: 2px;
   font-weight: 300;
 }
+
 .common_sp_caption_rv_name img {
   width: 22px;
   height: 22px;
@@ -109,6 +122,7 @@ li {
   margin: 0 4px -2px 0;
   vertical-align: text-bottom;
 }
+
 .common_sp_thumb img {
   width: 300px;
   height: 300px;

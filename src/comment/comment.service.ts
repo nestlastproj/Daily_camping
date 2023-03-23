@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Comment } from 'src/entity/comment.entity';
 import { Repository } from 'typeorm';
@@ -105,6 +105,9 @@ export class CommentService {
 
   async createComment(req, articleId: number, data: CreateCommentDto) {
     const userId = req.user.id;
+    if (!data.content) {
+      throw new BadRequestException('내용을 입력해주세요');
+    }
     return await this.commentRepository.save({ user: { id: userId }, articles: { id: articleId }, content: data.content });
   }
 

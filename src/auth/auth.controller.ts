@@ -58,17 +58,23 @@ export class AuthController {
     return await this.authService.getinfo(req);
   }
 
+  @Delete('/myArticleAndComments')
+  @UseGuards(JwtAuthGuard)
+  async myArticleAndComments(@Req() req) {
+    return await this.authService.myArticleAndComments(req);
+  }
+
   @Delete('/logOff')
   @UseGuards(JwtAuthGuard)
   async remove(@Req() req) {
-    await this.userService.remove(req);
+    await this.authService.remove(req);
   }
 
   @Put('/edit')
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('file'))
   async editprofile(@Req() req, @Body() data: UpdateUserDto, @UploadedFile() file: Express.MulterS3.File) {
-    return await this.authService.editprofile(req, data, file);
+    return await this.userService.editprofile(req, data, file);
   }
 
   @Post('/signup')
@@ -80,13 +86,13 @@ export class AuthController {
   @Post('/login')
   async login(@Req() req, @Res({ passthrough: true }) res: Response) {
     const user = req.user;
-    const { accessToken, ...accessOption } = this.authService.getCookieWithJwtAccessToken(user.id, user.nickname);
-    const { refreshToken, ...refreshOption } = this.authService.getCookieWithJwtRefreshToken(user.id, user.nickname);
+    const { accessToken } = this.authService.getCookieWithJwtAccessToken(user.id, user.nickname);
+    const { refreshToken } = this.authService.getCookieWithJwtRefreshToken(user.id, user.nickname);
 
     await this.userService.setCurrentRefreshToken(refreshToken, user.id);
 
-    res.cookie('Authentication', accessToken, accessOption);
-    res.cookie('Refresh', refreshToken, refreshOption);
+    res.cookie('Authentication', accessToken);
+    res.cookie('Refresh', refreshToken);
 
     return user;
   }
@@ -94,12 +100,12 @@ export class AuthController {
   @UseGuards(JwtRefreshGuard)
   @Post('/logout')
   async logOut(@Req() req, @Res({ passthrough: true }) res: Response) {
-    const { accessOption, refreshOption } = this.authService.getCookiesForLogOut();
+    const Option = this.authService.getCookiesForLogOut();
 
     await this.userService.removeRefreshToken(req.user.id);
 
-    res.cookie('Authentication', '', accessOption);
-    res.cookie('Refresh', '', refreshOption);
+    res.cookie('Authentication', Option);
+    res.cookie('Refresh', Option);
   }
 
   @UseGuards(JwtRefreshGuard)

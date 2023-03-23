@@ -21,6 +21,6 @@ function reviewWrite() {
             location.href = `/place/placeInfo?placeId=${placeId}`
         })
         .catch((err) => {
-            console.log('error', err);
+            alert(err.response.data.message);
         })
 }

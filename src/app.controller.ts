@@ -4,81 +4,81 @@ import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) { }
-
-  @Get('/')
-  @Render('open2')
-  open2() { }
+  constructor(private readonly appService: AppService) {}
 
   @Get('/open')
   @Render('open1')
-  open1() { }
+  open1() {}
 
   @Get('/main')
   @Render('main')
-  main() { }
+  main() {}
 
   @Get('/auth/login')
   @Render('login')
-  getLogin() { }
+  getLogin() {}
 
   @Get('/auth/withdrawal')
   @Render('mypagewithdrawal')
-  getDelete() { }
+  getDelete() {}
 
   @Get('/article/mypageArticle')
   @Render('mypagearticle')
-  myArticle() { }
+  myArticle() {}
 
   @Get('/article/list')
   @Render('commuity')
-  getArticleList() { }
+  getArticleList() {}
 
   @Get('/article/write')
   @Render('commuWrite')
-  getWriteArticle() { }
+  getWriteArticle() {}
 
   @Get('/article/edit/:articleId')
   @Render('articleedit')
-  articleEdit() { }
+  articleEdit() {}
 
   @Get('/comment/mypagecomment')
   @Render('mypagecomment')
-  comment() { }
+  comment() {}
 
   @Get('/place/placeList')
   @Render('place')
-  placeList() { }
+  placeList() {}
 
   @Get('/place/placeInfo')
   @Render('placedetail')
-  placeInfo() { }
+  placeInfo() {}
 
   @Get('/product/productList')
   @Render('product')
-  productList() { }
+  productList() {}
 
   @Get('/recipe/recipeList')
   @Render('recipe')
-  recipeList() { }
+  recipeList() {}
 
   @Get('/recipe/recipeInfo')
   @Render('recipedetail')
-  recipeInfo() { }
+  recipeInfo() {}
 
   @Get('/review/mypageReview')
   @Render('mypagereview')
-  myReview() { }
+  myReview() {}
 
   @Get('/review/reviewWrite/:placeId')
   @Render('reviewWrite')
-  reviewWrite() { }
+  reviewWrite() {}
 
   @Get('/review/reviewView')
   @Render('reviewView')
-  reviewView() { }
+  reviewView() {}
 
   @Get('/review/edit')
   @Render('reviewedit')
-  reviewEdit() { }
+  reviewEdit() {}
+
+  @Get('/')
+  @Render('open2')
+  open2() {}
 }

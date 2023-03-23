@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ReviewDto } from '../dto/review.dto';
@@ -96,6 +96,12 @@ export class ReviewService {
       title: data.title,
       content: data.content,
     };
+    if (!data.title) {
+      throw new BadRequestException('제목을 입력해주세요.');
+    }
+    if (!data.content) {
+      throw new BadRequestException('내용을 입력해주세요.');
+    }
     if (file) {
       const filename = file.key;
       review['image'] = filename;

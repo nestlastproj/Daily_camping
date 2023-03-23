@@ -28,6 +28,11 @@
   color: #ffffff;
 }
 
+.pagination .active {
+  background-color: #23ADAD;
+  color: #FFFFFF;
+}
+
 .page-link {
   color: #23adad;
 }

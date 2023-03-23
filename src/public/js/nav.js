@@ -7,20 +7,19 @@ $(document).ready(function () {
     }).catch((err) => {
         let temp = `<button onclick="location.href='/auth/login'" class="button-arounder">로그인</button>`
         $('.buttons-container').append(temp)
-
     })
 })
 
 function logout() {
-    $.ajax({
-        type: "post",
+    axios({
+        method: "post",
         url: "/auth/logout",
-        data: {},
-        success: function (response) {
-            location.href = "http://localhost:3000/auth/login";
-        },
-        error: function (error) {
-            console.log(error);
-        },
-    });
+    })
+        .then((res) => {
+            location.href = "/main";
+        })
+        .catch((error) => {
+            alert('알 수 없는 에러가 발생했습니다');
+            console.log(error)
+        })
 }
