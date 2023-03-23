@@ -14,7 +14,6 @@ function myReviewData(page) {
             let count = 0;
             reviews.forEach((data) => {
                 count++
-                console.log(data)
                 const createdTime = new Date(data.createdAt);
                 const year = createdTime.getFullYear();
                 const month = createdTime.getMonth() + 1;
