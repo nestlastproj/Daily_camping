@@ -58,10 +58,16 @@ export class AuthController {
     return await this.authService.getinfo(req);
   }
 
+  @Delete('/myArticleAndComments')
+  @UseGuards(JwtAuthGuard)
+  async myArticleAndComments(@Req() req) {
+    return await this.authService.myArticleAndComments(req);
+  }
+
   @Delete('/logOff')
   @UseGuards(JwtAuthGuard)
   async remove(@Req() req) {
-    await this.userService.remove(req);
+    await this.authService.remove(req);
   }
 
   @Put('/edit')

@@ -23,7 +23,7 @@ function myReviewData(page) {
                 let temp_html = `
                 <div class="list" onclick="location.href=''">
                 <div class="id">${count}</div>
-                <div class="title">${data.title}</div>
+                <div class="title" style="cursor:pointer">${data.title}</div>
                 <div class="date">${year}년 ${month}월 ${day}일  ${hour}시${minute}분</div>
               </div>
           `;

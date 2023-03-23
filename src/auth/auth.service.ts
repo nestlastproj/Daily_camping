@@ -10,16 +10,25 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from '../auth/dto/create-user.dto';
 import { User } from '../entity/user.entity';
+import { Article } from 'src/entity/article.entity';
+import { Comment } from 'src/entity/comment.entity';
 import * as bcrypt from 'bcryptjs';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from 'src/user/user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Review } from 'src/entity/review.entity';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    @InjectRepository(Article)
+    private readonly articleRepository: Repository<Article>,
+    @InjectRepository(Comment)
+    private readonly commentRepository: Repository<Comment>,
+    @InjectRepository(Review)
+    private readonly reviewRepository: Repository<Review>,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
     private readonly userService: UserService,
@@ -38,6 +47,36 @@ export class AuthService {
   async getinfo(req) {
     const userId = req.user.id;
     return await this.userRepository.findOne({ where: { id: userId } });
+  }
+
+  async myArticleAndComments(req) {
+    const userId = req.user.id;
+    await this.commentRepository
+      .createQueryBuilder()
+      .delete()
+      .from(Comment)
+      .where({ user: { id: userId } })
+      .execute();
+    await this.articleRepository
+      .createQueryBuilder()
+      .delete()
+      .from(Article)
+      .where({ user: { id: userId } })
+      .execute();
+    await this.reviewRepository
+      .createQueryBuilder()
+      .delete()
+      .from(Review)
+      .where({ user: { id: userId } })
+      .execute();
+  }
+
+  async remove(req) {
+    const userId = req.user.id;
+    await this.myArticleAndComments(req);
+    await this.userRepository.findOne({ where: { id: userId } });
+    await this.userService.removeRefreshToken(userId);
+    return await this.userRepository.delete({ id: userId });
   }
 
   // 회원가입

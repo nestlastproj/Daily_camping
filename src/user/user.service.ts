@@ -1,13 +1,14 @@
-import { Injectable, Res, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../entity/user.entity';
 import * as bcrypt from 'bcryptjs';
 import { UpdateUserDto } from 'src/auth/dto/update-user.dto';
+import { ArticleService } from 'src/article/article.service';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectRepository(User) private userRepository: Repository<User>) {}
+  constructor(@InjectRepository(User) private userRepository: Repository<User>, private articleService: ArticleService) {}
 
   findAll(): Promise<User[]> {
     return this.userRepository.find();
@@ -25,13 +26,6 @@ export class UserService {
       user['image'] = filename;
     }
     return await this.userRepository.update(userId, user);
-  }
-
-  async remove(req) {
-    const userId = req.user.id;
-    const user = await this.userRepository.findOne({ where: { id: userId } });
-    await this.removeRefreshToken(req.user.id);
-    return await this.userRepository.softDelete({ id: userId });
   }
 
   async getByEmail(email: string) {
