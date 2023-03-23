@@ -29,7 +29,7 @@ export class LikeService {
     if (!article.length) {
       throw new Error('존재하지 않는 게시물입니다.');
     }
-    const exist = await this.articlelikeRepository.find({ where: { user: userId, relationId: articleId } });
+    const exist = await this.articlelikeRepository.find({ where: { user: { id: userId }, relationId: articleId } });
     if (exist.length === 0) {
       return await this.articlelikeRepository.insert({ user: { id: userId }, relationId: articleId });
     } else {
@@ -57,7 +57,7 @@ export class LikeService {
     if (!comment.length) {
       throw new Error('존재하지 않는 댓글입니다.');
     }
-    const exist = await this.commentlikeRepository.find({ where: { user: userId, relationId: commentId } });
+    const exist = await this.commentlikeRepository.find({ where: { user: { id: userId }, relationId: commentId } });
     if (exist.length === 0) {
       return await this.commentlikeRepository.insert({ user: { id: userId }, relationId: commentId });
     } else {
