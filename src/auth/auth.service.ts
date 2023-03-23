@@ -17,6 +17,7 @@ import { ConfigService } from '@nestjs/config';
 import { UserService } from 'src/user/user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Review } from 'src/entity/review.entity';
+import { ArticleLike, CommentLike, PlaceLike } from 'src/entity/like.entity';
 
 @Injectable()
 export class AuthService {
@@ -29,6 +30,12 @@ export class AuthService {
     private readonly commentRepository: Repository<Comment>,
     @InjectRepository(Review)
     private readonly reviewRepository: Repository<Review>,
+    @InjectRepository(ArticleLike)
+    private readonly articlelikeRepository: Repository<ArticleLike>,
+    @InjectRepository(CommentLike)
+    private readonly commentlikeRepository: Repository<CommentLike>,
+    @InjectRepository(PlaceLike)
+    private readonly placelikeRepository: Repository<PlaceLike>,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
     private readonly userService: UserService,
@@ -51,6 +58,24 @@ export class AuthService {
 
   async myArticleAndComments(req) {
     const userId = req.user.id;
+    await this.commentlikeRepository
+      .createQueryBuilder()
+      .delete()
+      .from(CommentLike)
+      .where({ user: { id: userId } })
+      .execute();
+    await this.articlelikeRepository
+      .createQueryBuilder()
+      .delete()
+      .from(ArticleLike)
+      .where({ user: { id: userId } })
+      .execute();
+    await this.placelikeRepository
+      .createQueryBuilder()
+      .delete()
+      .from(PlaceLike)
+      .where({ user: { id: userId } })
+      .execute();
     await this.commentRepository
       .createQueryBuilder()
       .delete()

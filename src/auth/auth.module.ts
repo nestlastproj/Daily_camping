@@ -19,9 +19,10 @@ import { ArticleModule } from 'src/article/article.module';
 import { CommentModule } from 'src/comment/comment.module';
 import { Review } from 'src/entity/review.entity';
 import { ReviewModule } from 'src/review/review.module';
+import { ArticleLike, CommentLike, PlaceLike } from 'src/entity/like.entity';
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Article, Comment, Review]),
+    TypeOrmModule.forFeature([User, Article, Comment, Review, ArticleLike, CommentLike, PlaceLike]),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useClass: JwtConfigService,

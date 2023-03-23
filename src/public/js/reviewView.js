@@ -80,11 +80,11 @@ function loginUser3(userId) {
             if (userId == res.data.id) {
                 let temp = `<a href="/review/edit?reviewId=${id}" class="on">수정</a>
                             <a onclick="deleteReview()" class="off">삭제</a>
-                            <a href="javascript:window.history.back();" class="on">목록</a>`
+                            <a href="/place/placelist" class="on">목록</a>`
                 $('.buttons2').append(temp)
             }
             else {
-                let temp = `<a href="javascript:window.history.back();" class="on">목록</a>`
+                let temp = `<a href="/place/placelist" class="on">목록</a>`
                 $('.buttons2').append(temp)
             }
         })

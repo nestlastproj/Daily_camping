@@ -16,11 +16,9 @@ function logout() {
         url: "/auth/logout",
     })
         .then((res) => {
-            console.log('11111111')
             location.href = "/main";
         })
         .catch((error) => {
-            console.log('222222222')
             alert('알 수 없는 에러가 발생했습니다');
             console.log(error)
         })
