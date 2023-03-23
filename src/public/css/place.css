@@ -85,11 +85,13 @@
 .text {
   display: inline-block;
   min-width: 252px;
+  text-align: left;
 }
 
 .heart {
   display: inline-block;
   top: 16px;
+  left: -132px;
   position: relative;
 }
 
@@ -142,7 +144,7 @@ input:checked + .hearth {
 
 .card h4 {
   position: relative;
-  left: 100px;
+  left: -65px;
   bottom: 50px;
   font-size: 30px;
 }

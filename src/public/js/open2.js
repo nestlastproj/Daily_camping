@@ -1,4 +1,4 @@
-setTimeout("gotoPage()", 6500);
+setTimeout("gotoPage()", 4500);
 
 function gotoPage() {
   location.href = "/open"; // 이동주소
