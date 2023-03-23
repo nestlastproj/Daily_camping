@@ -31,9 +31,8 @@ export class AuthController {
   // --------------------------------------------------------------------
   @Get('/isLoggined')
   @UseGuards(JwtAuthGuard)
-  isLoggined(@Req() req) {
-    const user = req.user;
-    return user;
+  async isLoggined(@Req() req) {
+    return await this.authService.isLoggined(req);
   }
 
   @Get('/mypage')

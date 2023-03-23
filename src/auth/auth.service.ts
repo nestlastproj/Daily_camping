@@ -41,6 +41,11 @@ export class AuthService {
     private readonly userService: UserService,
   ) {}
 
+  async isLoggined(req) {
+    const userId = req.user.id;
+    return await this.userRepository.findOne({ where: { id: userId }, select: ['id', 'nickname'] });
+  }
+
   async validateUser(email: string, plainTextPassword: string) {
     try {
       const user = await this.userService.getByEmail(email);
