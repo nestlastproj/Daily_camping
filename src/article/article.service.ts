@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { NotFoundError } from 'rxjs';
 import { Article } from 'src/entity/article.entity';
@@ -98,6 +98,12 @@ export class ArticleService {
   async createArticle(req, data: CreateArticleDto, file?: Express.MulterS3.File) {
     const userId = req.user.id;
     const aritcle = { user: { id: userId }, title: data.title, content: data.content };
+    if (!data.title) {
+      throw new BadRequestException('제목을 입력해주세요.');
+    }
+    if (!data.content) {
+      throw new BadRequestException('내용을 입력해주세요.');
+    }
     if (file) {
       const filename = file.key;
       aritcle['image'] = filename;

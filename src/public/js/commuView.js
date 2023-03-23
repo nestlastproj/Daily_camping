@@ -274,7 +274,7 @@ function postComment() {
       window.location.reload();
     })
     .catch((err) => {
-      console.log('error', err);
+      alert(err.response.data.message);
     });
 }
 
