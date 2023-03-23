@@ -58,7 +58,7 @@ export class AuthService {
 
   async getinfo(req) {
     const userId = req.user.id;
-    return await this.userRepository.findOne({ where: { id: userId } });
+    return await this.userRepository.findOne({ where: { id: userId }, select: ['id', 'nickname', 'phone', 'email', 'image'] });
   }
 
   async myArticleAndComments(req) {
