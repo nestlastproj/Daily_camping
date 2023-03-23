@@ -148,7 +148,6 @@ export class PlaceService {
 
   async placeCategorySearch(page: number, cityname: string, detailcity?: string) {
     const take = 6;
-
     if (detailcity !== '전체') {
       const [placeList, total] = await this.placeRepository.findAndCount({
         where: { detailcity: detailcity, city: cityname },

@@ -270,14 +270,15 @@ function addressKindChange(e) {
     target.appendChild(opt);
   }
 
-  const city = $('#do option:selected').text();
-  const detailCity = $('#si option:selected').text();
+  const cityname = $('#do option:selected').text();
+  const detailcity = $('#si option:selected').text();
   const page = new URLSearchParams(location.search).get('page') || 1;
 
   axios({
-    url: `/place/placeCategorySearch?page=${page}&cityname=${city}&detailcity=${detailCity}`,
+    url: `/place/placeCategorySearch?page=${page}&cityname=${cityname}&detailcity=${detailcity}`,
     method: 'GET',
   }).then((res) => {
+    console.log(res);
     document.getElementById('placeContainer').innerHTML = '';
     document.getElementById('pagination').innerHTML = '';
 
@@ -348,7 +349,7 @@ function addressKindChange(e) {
 
     // prev
     if (page > 1) {
-      const prev = `<a class="page-link" href='?page=${Number(page) - 1}&city=${city}&detailCity=${detailCity}'>
+      const prev = `<a class="page-link" onclick="pageCheck('${Number(page) - 1}','${cityname}','${detailcity}')">
             <span>&laquo;</span>
         </a>`;
       pages.push(prev);
@@ -356,13 +357,13 @@ function addressKindChange(e) {
 
     // pages
     for (let i = firstPage; i <= lastPage; i++) {
-      const pagesLink = `<a "page-link" href='?page=${i}&city=${city}&detailCity=${detailCity}'>${i}</a>`;
+      const pagesLink = `<a "page-link" onclick="pageCheck('${i - 1}','${cityname}','${detailcity}')">${i}</a>`;
       pages.push(pagesLink);
     }
 
     // next
     if (page < totalPage) {
-      const next = `<a class="page-link" href='?page=${Number(page) + 1}&city=${city}&detailCity=${detailCity}'>
+      const next = `<a class="page-link" onclick="pageCheck('${Number(page) + 1}','${cityname}','${detailcity}')">
             <span>&raquo;</span>
         </a>`;
       pages.push(next);
@@ -372,13 +373,13 @@ function addressKindChange(e) {
   });
 }
 
-function detail(e) {
-  const city = $('#do option:selected').text();
-  const detailCity = $('#si option:selected').text();
+function detail() {
+  const cityname = $('#do option:selected').text();
+  const detailcity = $('#si option:selected').text();
   const page = new URLSearchParams(location.search).get('page') || 1;
 
   axios({
-    url: `/place/placeCategorySearch?page=${page}&cityname=${city}&detailcity=${detailCity}`,
+    url: `/place/placeCategorySearch?page=${page}&cityname=${cityname}&detailcity=${detailcity}`,
     method: 'GET',
   }).then((res) => {
     document.getElementById('placeContainer').innerHTML = '';
@@ -386,7 +387,7 @@ function detail(e) {
 
     const { meta, placeList } = res.data;
     const { firstPage, lastPage, totalPage } = meta;
-
+    console.log(placeList);
     if (placeList.length !== 0) {
       placeList.forEach((data) => {
         let temp_html = `
@@ -449,10 +450,10 @@ function detail(e) {
       mylike(page);
 
       const pages = [];
-
+      console.log(pages, 1111111111111);
       // prev
       if (page > 1) {
-        const prev = `<a class="page-link" href='?page=${Number(page) - 1}&city=${city}&detailCity=${detailCity}'>
+        const prev = `<a class="page-link" onclick="pageCheck('${Number(page) - 1}','${cityname}','${detailcity}')">
             <span>&laquo;</span>
         </a>`;
         pages.push(prev);
@@ -460,13 +461,13 @@ function detail(e) {
 
       // pages
       for (let i = firstPage; i <= lastPage; i++) {
-        const pagesLink = `<a "page-link" href='?page=${i}&city=${city}&detailCity=${detailCity}'>${i}</a>`;
+        const pagesLink = `<a "page-link" onclick="pageCheck('${i - 1}','${cityname}','${detailcity}')">${i}</a>`;
         pages.push(pagesLink);
       }
 
       // next
       if (page < totalPage) {
-        const next = `<a class="page-link" href='?page=${Number(page) + 1}&city=${city}&detailCity=${detailCity}'>
+        const next = `<a class="page-link" onclick="pageCheck('${Number(page) + 1}','${cityname}','${detailcity}')">
             <span>&raquo;</span>
         </a>`;
         pages.push(next);
@@ -477,4 +478,33 @@ function detail(e) {
       alert('해당 지역의 캠핑장이 없습니다.');
     }
   });
+}
+
+function pageCheck(page, cityname, detailcity) {
+  history.pushState(null, null, `?page=${Number(page) + 1}&cityname=${cityname}&detailcity=${detailcity}`);
+  detail();
+}
+
+function mylike(page) {
+  axios({
+    url: `/myplacelike`,
+    method: 'get',
+  })
+    .then((res) => {
+      const data = res.data;
+      data.forEach((data) => {
+        if (page === 1) {
+          if (data.id <= page * 6) {
+            document.getElementById(`myLike${data.id}`).checked = true;
+          }
+        } else {
+          if ((page - 1) * 6 < data.id && data.id <= page * 6) {
+            document.getElementById(`myLike${data.id}`).checked = true;
+          }
+        }
+      });
+    })
+    .catch((err) => {
+      console.log('error', err);
+    });
 }

@@ -42,6 +42,10 @@ export class AppController {
   @Render('place')
   placeList() {}
 
+  @Get('/place/placeCategory')
+  @Render('placecategory')
+  placecategory() {}
+
   @Get('/place/placeInfo')
   @Render('placedetail')
   placeInfo() {}
