@@ -43,7 +43,7 @@ function signup() {
     const phone = $("#phone").val();
     const nickname = $("#nickname").val();
     const re_email = /^[a-z0-9]+@[a-z0-9]+\.[a-z]{2,3}$/;
-    const re_nickname = /^([a-zA-Zㄱ-ㅎ|ㅏ-ㅣ|가-힣][a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣])$/
+    const re_nickname = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/
     const re_name = /^([ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/
 
     if (!name || !email || !password || !phone || !nickname) {
@@ -51,7 +51,7 @@ function signup() {
     } if (email.search(re_email) === -1) {
         alert('email 형식이 일치하지 않습니다');
     } else if (nickname.search(re_nickname) === -1) {
-        alert('닉네임은 한글, 영문, 숫자만 가능합니다.')
+        alert('닉네임은 2자 이상 16자 이하, 영어 또는 숫자 또는 한글로 구성 가능합니다.')
     } else if (name.search(re_name) === -1) {
         alert('이름(한글)을 올바르게 기재해주세요.')
     } else {
