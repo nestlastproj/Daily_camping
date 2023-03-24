@@ -24,7 +24,7 @@ import { ElasticsearchModule } from '@nestjs/elasticsearch';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    HttpModule,
+    ElasticsearchModule.register({ node: 'http://localhost:9200' }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useClass: TypeOrmConfigService,
@@ -35,7 +35,7 @@ import { ElasticsearchModule } from '@nestjs/elasticsearch';
       useClass: JwtConfigService,
       inject: [ConfigService],
     }),
-    ElasticsearchModule.register({ node: 'http://localhost:9200' }) ,
+    HttpModule,
     UserModule,
     AuthModule,
     PlaceModule,
