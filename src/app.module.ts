@@ -6,7 +6,6 @@ import { AppService } from './app.service';
 import { TypeOrmConfigService } from './config/typeorm.config.service';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
-import { ChatModule } from './chat/chat.module';
 import { PlaceModule } from './place/place.module';
 import { WeatherModule } from './weather/weather.module';
 import { ProductModule } from './product/product.module';
@@ -17,6 +16,10 @@ import { JwtConfigService } from './config/jwt.config.service';
 import { JwtModule } from '@nestjs/jwt';
 import { ReviewModule } from './review/review.module';
 import { RecipeModule } from './recipe/recipe.module';
+import { ArticleModule } from './article/article.module';
+import { CommentModule } from './comment/comment.module';
+import { LikeModule } from './like/like.module';
+import { ElasticsearchModule } from '@nestjs/elasticsearch';
 
 @Module({
   imports: [
@@ -32,15 +35,19 @@ import { RecipeModule } from './recipe/recipe.module';
       useClass: JwtConfigService,
       inject: [ConfigService],
     }),
+    ElasticsearchModule.register({ node: 'http://localhost:9200' }) ,
     UserModule,
     AuthModule,
-    ChatModule,
     PlaceModule,
     WeatherModule,
     ProductModule,
     ReviewModule,
     RecipeModule,
     ScheduleModule.forRoot(),
+    parser.XMLParser,
+    ArticleModule,
+    CommentModule,
+    LikeModule,
   ],
   controllers: [AppController],
   providers: [AppService],

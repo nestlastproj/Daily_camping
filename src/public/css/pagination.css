@@ -1,0 +1,42 @@
+.pagination {
+  display: flex;
+  font-size: 25px;
+  justify-content: center;
+  align-items: center;
+  height: 5rem;
+  margin: 3rem;
+  border-radius: 0.6rem;
+  background: transparent;
+}
+
+.pagination a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.8rem;
+  font-size: 1.4rem;
+  cursor: pointer;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 0.4rem;
+  text-decoration: none;
+  color: #23adad;
+}
+
+.pagination a:hover {
+  background-color: #23adad;
+  color: #ffffff;
+}
+
+.pagination .active {
+  background-color: #23ADAD;
+  color: #FFFFFF;
+}
+
+.page-link {
+  color: #23adad;
+}
+
+.page-link:hover {
+  background-color: #23adad;
+}

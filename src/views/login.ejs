@@ -2,41 +2,101 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>로그인 회원가입</title>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <link rel="stylesheet" href="../css/login.css" type="text/css">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/fd3102c9a3.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../css/login.css" type="text/css" />
+
+  <title>login</title>
 </head>
 
-<body>
-    <div class=" login-page">
-        <div class="form">
-            <form class="register-form">
-                <input type="text" id="name" placeholder="name" />
-                <input type="password" id="password" placeholder="password" />
-                <input type="text" id="email" placeholder="email" />
-                <input type="text" id="phone" placeholder="phone" />
-                <input type="text" id="nickname" placeholder="nickname" />
-                <button onclick="signup()">create</button>
-                <p class="message">이미 회원이신가요? <a href="#">로그인하기</a></p>
-            </form>
-            <form class="login-form">
-                <input type="text" id="login_email" placeholder="email" />
-                <input type="password" id="login_password" placeholder="password" />
-                <button onclick="login()">login</button>
-                <p class="message">아직 회원이 아니신가요? <a href="#">회원가입하기</a></p>
-            </form>
-            <button onclick="logout()">logout</button>
+<body style="background-color: #edf5e1">
+  <%- include('nav.ejs') %>
+    <div id="container" class="container">
+      <!-- FORM SECTION -->
+      <div class="row">
+        <!-- SIGN UP -->
+        <div class="col align-items-center flex-col sign-up">
+          <div class="form-wrapper align-items-center">
+            <div class="form sign-up">
+              <div class="input-group">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" id="name" placeholder="Username" />
+              </div>
+              <div class="input-group">
+                <i class="fa-solid fa-key"></i>
+                <input type="password" id="password" placeholder="Password" />
+              </div>
+              <div class="input-group">
+                <i class="fa-solid fa-at"></i>
+                <input type="email" id="email" placeholder="Email" />
+              </div>
+              <div class="input-group">
+                <i class="fa-solid fa-phone"></i>
+                <input type="email" id="phone" placeholder="Phone" />
+              </div>
+              <div class="input-group">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" id="nickname" placeholder="Nickname" />
+              </div>
+              <button onclick="signup()">create</button>
+              <p>
+                <span> Already have an account? </span>
+                <b onclick="toggle()" class="pointer"> Sign in here </b>
+              </p>
+            </div>
+          </div>
         </div>
+
+        <div class="col align-items-center flex-col sign-in">
+          <div class="form-wrapper align-items-center">
+            <div class="form sign-in">
+              <div class="input-group">
+                <i class="fa-regular fa-id-badge"></i>
+                <input type="text" id="login_email" placeholder="email" />
+              </div>
+              <div class="input-group">
+                <i class="fa-solid fa-key"></i>
+                <input type="password" id="login_password" placeholder="password" onkeyup="loginEnterKey()"/>
+              </div>
+              <button onclick="login()">login</button>
+              <p>
+                <!-- <b> Forgot password? </b> -->
+              </p>
+              <p>
+                <span> Don't have an account? </span>
+                <b onclick="toggle()" class="pointer"> Sign up here </b>
+              </p>
+            </div>
+          </div>
+          <div class="form-wrapper"></div>
+        </div>
+      </div>
+      <div class="row content-row">
+        <div class="col align-items-center flex-col">
+          <div class="text sign-in">
+            <h2>Welcome</h2>
+          </div>
+          <div class="img sign-in"></div>
+        </div>
+        <div class="col align-items-center flex-col">
+          <div class="img sign-up"></div>
+          <div class="text sign-up">
+            <h2>Join with us</h2>
+          </div>
+        </div>
+      </div>
     </div>
+    <%- include('footer.ejs') %>
+      <script src="../js/login.js"></script>
+      <script src="/js/EnterKey.js"></script>
 </body>
-<script>
-    $('.message a').click(function () {
-        $('form').animate({ height: "toggle", opacity: "toggle" }, "slow");
-    });
-</script>
-<script src="../js/auth.js"></script>
 
 </html>

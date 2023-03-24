@@ -1,29 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Recipe } from 'src/entity/api/recipe.entity';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import axios from 'axios';
 import cheerio from 'cheerio';
+import { empty } from 'cheerio/lib/api/manipulation';
 
 @Injectable()
 export class RecipeService {
   constructor(@InjectRepository(Recipe) private readonly recipeRePository: Repository<Recipe>) {}
 
   async getRecipe() {
-    await this.deleteRecipe();
-
     const recipes = [];
 
     const getRecipes = async (page) => {
       const html = await axios.get(`https://www.10000recipe.com/recipe/list.html?q=%EC%BA%A0%ED%95%91&order=reco&page=${page}`);
       const $ = cheerio.load(html.data);
 
-      if ($('a.next').length > 0) {
-        await getRecipes(page + 1);
-      }
-
       $('div.common_sp_caption_tit').each((i, elem) => {
-        const recipeindex = (page - 1) * 40 + i;
+        const recipeindex = (page - 1) * 50 + i;
 
         recipes[recipeindex] = {
           name: $(elem).text(),
@@ -34,32 +29,32 @@ export class RecipeService {
       });
 
       $('span.common_sp_caption_buyer').each((i, elem) => {
-        const recipeindex = (page - 1) * 40 + i;
+        const recipeindex = (page - 1) * 50 + i;
 
         recipes[recipeindex].views = $(elem).text();
       });
 
       $('div.common_sp_thumb').each((i, elem) => {
-        const index = (page - 1) * 40 + i;
+        const index = (page - 1) * 50 + i;
 
         recipes[index].url = `https://www.10000recipe.com/${$(elem).find('a').attr('href')}`;
         recipes[index].image = $(elem).find('a > img').attr('src');
       });
 
-      if ($('a.next').length > 0) {
+      if (page < 5) {
         await getRecipes(page + 1);
       }
     };
 
     await getRecipes(1);
 
-    const detailUrl = recipes.map((response) => {
+    const cleanrecipes = recipes.filter((empty) => empty !== '<10 empty items>');
+    const detailUrl = cleanrecipes.map((response) => {
       return response.url.split('recipe')[2].split('/')[1];
     });
 
-    const contentUrl = detailUrl.map((contentnumber) => `https://www.10000recipe.com//recipe/${contentnumber}`);
+    const contentUrl = detailUrl.map((contentnumber) => `https://www.10000recipe.com/recipe/${contentnumber}`);
     const requestUrls = await Promise.all(contentUrl.map((url) => axios.get(url)));
-
     const contentData: { content: string[]; image: string[] }[] = [];
 
     requestUrls.forEach((response) => {
@@ -81,27 +76,34 @@ export class RecipeService {
       contentData.push({ content: textArray, image: imageArray });
     });
 
-    const entities = recipes.map((recipe, index) => {
+    const recipe = recipes.filter((empty) => empty !== '<10 empty items>');
+
+    const entities = recipe.map((recipe, index) => {
       const entity = new Recipe();
       entity.name = recipe.name;
       entity.url = recipe.url;
       entity.image = recipe.image;
       entity.views = recipe.views;
-      entity.content = contentData[index].content.join('\n');
+      entity.content = contentData[index].content.join('$');
       entity.contentimage = contentData[index].image.join(',');
       return entity;
     });
 
-    return this.recipeRePository.save(entities);
+    return this.recipeRePository
+      .createQueryBuilder('recipe')
+      .insert()
+      .into('recipe')
+      .values(entities)
+      .orUpdate(['content', 'image', 'url', 'views', 'contentimage'], ['name'])
+      .updateEntity(false)
+      .execute();
   }
 
-  async deleteRecipe() {
-    await this.recipeRePository.delete({});
-  }
-
-  async paginate(page) {
+  async recipeSearch(page, keyword) {
     const take = 8;
-    const [recipes, total] = await this.recipeRePository.findAndCount({
+    const whereQuery = keyword === '' ? '%%' : `%${keyword}%`;
+    const [recipeList, total] = await this.recipeRePository.findAndCount({
+      where: { name: Like(whereQuery) },
       take,
       skip: (page - 1) * take,
     });
@@ -116,12 +118,16 @@ export class RecipeService {
     }
 
     return {
-      recipes,
+      recipeList,
       meta: {
         firstPage,
         lastPage,
         totalPage,
       },
     };
+  }
+
+  async recipeDetail(recipeId) {
+    return this.recipeRePository.findOne({ where: { id: recipeId } });
   }
 }

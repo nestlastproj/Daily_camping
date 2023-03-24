@@ -1,3 +1,16 @@
+let container = document.getElementById("container");
+
+toggle = () => {
+    container.classList.toggle("sign-in");
+    container.classList.toggle("sign-up");
+};
+
+setTimeout(() => {
+    container.classList.add("sign-in");
+}, 200);
+
+
+
 function login() {
     const email = $('#login_email').val();
     const password = $('#login_password').val();
@@ -12,14 +25,12 @@ function login() {
                 email,
                 password,
             },
-            success: function (response) {
+            success: function (success) {
                 alert(`로그인 성공, 환영합니다 ${email}님`);
-                // token = response.token;
-                location.href = 'http://localhost:3000';
+                location.href = '/';
             },
             error: function (error) {
-                alert('로그인 실패..............');
-                console.log('에러이유:', error);
+                alert('로그인 실패');
             },
         });
     }
@@ -36,7 +47,7 @@ function signup() {
     if (!name || !email || !password || !phone || !nickname) {
         alert("빈칸 없이 채워주세요.");
     } if (email.search(re_email) === -1) {
-        alert('ID의 형식이 일치하지 않습니다');
+        alert('email 형식이 일치하지 않습니다');
     } else {
         $.ajax({
             type: "post",
@@ -50,11 +61,10 @@ function signup() {
             },
             success: function (response) {
                 alert(`${email}님 회원가입이 완료되었습니다`);
-                // location.href = "/auth/login";
+                location.href = "/auth/login";
             },
             error: function (error) {
                 alert("회원가입 실패");
-                console.log("에러이유:", error);
             },
         });
     }
@@ -66,10 +76,10 @@ function logout() {
         url: "/auth/logout",
         data: {},
         success: function (response) {
-            // location.href = "http://localhost:3000";
+            location.href = "/main";
         },
         error: function (error) {
-            console.log("에러이유:", error);
+            console.log(error);
         },
     });
 }

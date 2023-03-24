@@ -1,4 +1,4 @@
-import { Controller, Get, Query, Render } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { RecipeService } from './recipe.service';
 import { Cron } from '@nestjs/schedule';
 
@@ -8,16 +8,17 @@ export class RecipeController {
 
   // @Cron('* * * 9 * *')
   @Get('/recipeget')
-  getRecipe() {
-    return this.recipeService.getRecipe();
+  async getRecipe() {
+    return await this.recipeService.getRecipe();
   }
 
-  @Get('/recipe')
-  async findAllRecipe(@Query('page') page: number = 1) {
-    return this.recipeService.paginate(page);
+  @Get('/recipeSearch')
+  async recipeSearch(@Query('page') page: number, @Query('keyword') keyword: string) {
+    return await this.recipeService.recipeSearch(page, keyword);
   }
 
-  @Get('/recipeList')
-  @Render('recipe')
-  recipeList() {}
+  @Get('/recipeDetail')
+  async recipeDetail(@Query('recipeId') recipeId: number) {
+    return await this.recipeService.recipeDetail(recipeId);
+  }
 }

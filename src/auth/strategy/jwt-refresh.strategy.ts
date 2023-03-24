@@ -21,6 +21,6 @@ export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'jwt-refresh-
   // 해당 Refresh Token이 유효한지 확인하고 유효한 경우 유저 정보를 반환
   async validate(req, payload) {
     const refreshToken = req.cookies?.Refresh;
-    return this.userService.getUserIfRefreshTokenMatches(refreshToken, payload.id);
+    return this.userService.getUserIfRefreshTokenMatches(refreshToken, payload.id, payload.nickname);
   }
 }

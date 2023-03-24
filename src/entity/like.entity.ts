@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   ManyToOne,
   PrimaryGeneratedColumn,
   TableInheritance,
@@ -17,8 +18,9 @@ export class Like extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   id: number;
 
+  @Index()
   @Column()
-  relationId: string;
+  relationId: number;
 
   @CreateDateColumn()
   createdAt: Date;
@@ -35,3 +37,6 @@ export class ArticleLike extends Like {}
 
 @ChildEntity('comment')
 export class CommentLike extends Like {}
+
+@ChildEntity('place')
+export class PlaceLike extends Like {}

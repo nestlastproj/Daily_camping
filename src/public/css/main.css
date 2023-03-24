@@ -1,0 +1,2542 @@
+@import url(nav.css);
+@import url('https://fonts.googleapis.com/css?family=Sree+Krushnadevaraya&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Catamaran&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
+:root {
+  --margin: 110px;
+  --background: #e2e2f5;
+  --perspective: 1800px;
+  --transition: transform 1s 0.2s, z-index 0s 0.5s;
+  --yellow: #ffce14;
+}
+
+.con .pages_page {
+  width: 50%;
+  position: absolute;
+  right: 0px;
+  height: 100%;
+  transform-origin: 0 50%;
+}
+
+.overlay {
+  background: rgba(245, 142, 171, 0.487);
+  position: fixed;
+  width: 100%;
+  pointer-events: none;
+  height: 100%;
+  z-index: -1;
+}
+
+.con {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Sree Krushnadevaraya', serif;
+}
+.con .logo {
+  font-size: 20px;
+  padding: 33px 30px 30px 30px;
+  line-height: 0;
+}
+
+.content_center .first {
+  color: #17baba;
+}
+
+.con .pagenumber {
+  position: absolute;
+  bottom: 20px;
+  left: 34px;
+  width: 400px;
+  color: #17baba;
+  letter-spacing: 60px;
+}
+.con .pagenumber:after {
+  height: 1px;
+  width: 100px;
+  background: #17baba;
+  content: '';
+  display: block;
+  position: absolute;
+  left: 20px;
+  top: 19px;
+}
+
+.con .pagenumber2 {
+  position: absolute;
+  bottom: 20px;
+  left: 34px;
+  width: 400px;
+  color: #379683;
+  letter-spacing: 60px;
+}
+.con .pagenumber2:after {
+  height: 1px;
+  width: 100px;
+  background: #379683;
+  content: '';
+  display: block;
+  position: absolute;
+  left: 20px;
+  top: 19px;
+}
+
+.con .pagenumber3 {
+  position: absolute;
+  bottom: 20px;
+  left: 34px;
+  width: 400px;
+  color: #5cdb95;
+  letter-spacing: 60px;
+}
+.con .pagenumber3:after {
+  height: 1px;
+  width: 100px;
+  background: #5cdb95;
+  content: '';
+  display: block;
+  position: absolute;
+  left: 20px;
+  top: 19px;
+}
+
+.con .pagenumber4 {
+  position: absolute;
+  bottom: 20px;
+  left: 34px;
+  width: 400px;
+  color: var(--yellow);
+  letter-spacing: 60px;
+}
+.con .pagenumber4:after {
+  height: 1px;
+  width: 100px;
+  background: var(--yellow);
+  content: '';
+  display: block;
+  position: absolute;
+  left: 20px;
+  top: 19px;
+}
+
+.con .hamburger {
+  position: absolute;
+  top: 38px;
+  height: 20px;
+  width: 30px;
+  right: 30px;
+  z-index: 1;
+}
+.con .hamburger_part {
+  width: 20px;
+  height: 1px;
+  position: absolute;
+  right: 0;
+  background: var(--yellow);
+}
+.con .hamburger_part:nth-of-type(1) {
+  top: 0px;
+}
+.con .hamburger_part:nth-of-type(2) {
+  top: 4.5px;
+}
+.con .hamburger_part:nth-of-type(3) {
+  top: 9px;
+}
+.con .hamburger_part:last-child {
+  width: 8px;
+}
+.con .pages {
+  width: calc(100% - var(--margin));
+  height: calc(100% - var(--margin));
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 600px;
+  transform: translateY(-50%);
+  perspective: var(--perspective);
+  box-shadow: 0 41px 38px -20px #0a3150;
+  max-width: 1300px;
+  max-height: 650px;
+}
+.con .pages input {
+  display: none;
+}
+.con .pages input:nth-of-type(3):checked + input + div + div + div + div + div .pagenumber,
+.con .pages input:nth-of-type(3):checked + input + div + div + div + div + div + div .pagenumber {
+  letter-spacing: 59px;
+  transition: all 0.8s 0.7s cubic-bezier(0.6, 0.045, 0.165, 1);
+}
+.con .pages input:nth-of-type(3):checked + input + div + div + div + div + div .pagenumber:after,
+.con .pages input:nth-of-type(3):checked + input + div + div + div + div + div + div .pagenumber:after {
+  width: 100px;
+  transition: all 1s 0.7s cubic-bezier(0.6, 0.045, 0.165, 1);
+}
+.con .pages input:nth-of-type(3):checked + input + div + div + div + div + div .content_centerimage,
+.con .pages input:nth-of-type(3):checked + input + div + div + div + div + div + div .content_centerimage {
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  transition: all 0.8s 0.5s cubic-bezier(0.6, 0.045, 0.165, 1);
+}
+.con .pages input:nth-of-type(3):checked + input + div + div + div + div + div .content h4,
+.con .pages input:nth-of-type(3):checked + input + div + div + div + div + div .content h6,
+.con .pages input:nth-of-type(3):checked + input + div + div + div + div + div + div .content h4,
+.con .pages input:nth-of-type(3):checked + input + div + div + div + div + div + div .content h6 {
+  transition: all 1.5s 0.4s cubic-bezier(0.6, 0.045, 0.165, 1);
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(3):not(checked) + input + div + div + div + div + div .pagenumber,
+.con .pages input:nth-of-type(3):not(:checked) + input + div + div + div + div + div + div .pagenumber {
+  letter-spacing: 0;
+  transition: all 0.5s 0.2s cubic-bezier(0.6, 0.045, 0.165, 1);
+}
+.con .pages input:nth-of-type(3):not(checked) + input + div + div + div + div + div .pagenumber:after,
+.con .pages input:nth-of-type(3):not(:checked) + input + div + div + div + div + div + div .pagenumber:after {
+  width: 0px;
+  transition: all 0.5s 0.2s cubic-bezier(0.6, 0.045, 0.165, 1);
+}
+.con .pages input:nth-of-type(3):not(checked) + input + div + div + div + div + div .content_centerimage,
+.con .pages input:nth-of-type(3):not(:checked) + input + div + div + div + div + div + div .content_centerimage {
+  -webkit-clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+  transition: all 0.8s 0s cubic-bezier(0.6, 0.045, 0.165, 1);
+}
+.con .pages input:nth-of-type(3):not(checked) + input + div + div + div + div + div .content h4,
+.con .pages input:nth-of-type(3):not(checked) + input + div + div + div + div + div .content h6,
+.con .pages input:nth-of-type(3):not(:checked) + input + div + div + div + div + div + div .content h4,
+.con .pages input:nth-of-type(3):not(:checked) + input + div + div + div + div + div + div .content h6 {
+  transition: all 1.5s 0.4s cubic-bezier(0.6, 0.045, 0.165, 1);
+  transform: translateZ(200px);
+}
+.con .pages input:nth-of-type(4):checked + div + div + div + div + div + div + div .pagenumber,
+.con .pages input:nth-of-type(4):checked + div + div + div + div + div + div + div + div .pagenumber {
+  letter-spacing: 59px;
+  transition: all 0.8s 0.7s cubic-bezier(0.6, 0.045, 0.165, 1);
+}
+.con .pages input:nth-of-type(4):checked + div + div + div + div + div + div + div .pagenumber:after,
+.con .pages input:nth-of-type(4):checked + div + div + div + div + div + div + div + div .pagenumber:after {
+  width: 100px;
+  transition: all 1s 0.7s cubic-bezier(0.6, 0.045, 0.165, 1);
+}
+.con .pages input:nth-of-type(4):checked + div + div + div + div + div + div + div .content_section,
+.con .pages input:nth-of-type(4):checked + div + div + div + div + div + div + div + div .content_section {
+  transition: all 0.8s 0.7s cubic-bezier(0.6, 0.045, 0.165, 1);
+  filter: blur(0);
+  opacity: 1;
+}
+.con .pages input:nth-of-type(4):checked + div + div + div + div + div + div + div .content_section:nth-of-type(1),
+.con .pages input:nth-of-type(4):checked + div + div + div + div + div + div + div + div .content_section:nth-of-type(1) {
+  left: 100px;
+  transition: all 0.8s 0.3s cubic-bezier(0.6, 0.045, 0.165, 1);
+}
+.con .pages input:nth-of-type(4):checked + div + div + div + div + div + div + div .content_section:nth-of-type(2),
+.con .pages input:nth-of-type(4):checked + div + div + div + div + div + div + div + div .content_section:nth-of-type(2) {
+  left: 230px;
+  transition: all 0.8s 0.4s cubic-bezier(0.6, 0.045, 0.165, 1);
+}
+.con .pages input:nth-of-type(4):checked + div + div + div + div + div + div + div .content_section:nth-of-type(3),
+.con .pages input:nth-of-type(4):checked + div + div + div + div + div + div + div + div .content_section:nth-of-type(3) {
+  left: 130px;
+  transition: all 0.8s 0.5s cubic-bezier(0.6, 0.045, 0.165, 1);
+}
+.con .pages input:nth-of-type(4):not(checked) + div + div + div + div + div + div + div .pagenumber,
+.con .pages input:nth-of-type(4):not(:checked) + div + div + div + div + div + div + div + div .pagenumber {
+  letter-spacing: 0;
+  transition: all 0.5s 0.2s cubic-bezier(0.6, 0.045, 0.165, 1);
+}
+.con .pages input:nth-of-type(4):not(checked) + div + div + div + div + div + div + div .pagenumber:after,
+.con .pages input:nth-of-type(4):not(:checked) + div + div + div + div + div + div + div + div .pagenumber:after {
+  width: 0px;
+  transition: all 0.5s 0.2s cubic-bezier(0.6, 0.045, 0.165, 1);
+}
+.con .pages input:nth-of-type(4):not(checked) + div + div + div + div + div + div + div .content_section,
+.con .pages input:nth-of-type(4):not(:checked) + div + div + div + div + div + div + div + div .content_section {
+  filter: blur(20px);
+  transition: all 0.8s 0.5s cubic-bezier(0.6, 0.045, 0.165, 1);
+  opacity: 0;
+}
+.con .pages input:nth-of-type(4):not(checked) + div + div + div + div + div + div + div .content_section:nth-of-type(1),
+.con .pages input:nth-of-type(4):not(:checked) + div + div + div + div + div + div + div + div .content_section:nth-of-type(1) {
+  left: 0;
+}
+.con .pages input:nth-of-type(4):not(checked) + div + div + div + div + div + div + div .content_section:nth-of-type(2),
+.con .pages input:nth-of-type(4):not(:checked) + div + div + div + div + div + div + div + div .content_section:nth-of-type(2) {
+  left: 0;
+}
+.con .pages input:nth-of-type(4):not(checked) + div + div + div + div + div + div + div .content_section:nth-of-type(3),
+.con .pages input:nth-of-type(4):not(:checked) + div + div + div + div + div + div + div + div .content_section:nth-of-type(3) {
+  left: 0;
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div h5 span,
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div h5 span {
+  transition: all 1.5s 0.4s cubic-bezier(0.6, 0.045, 0.165, 1);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div h5 span:nth-of-type(1),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div h5 span:nth-of-type(1) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div h5 span:nth-of-type(2),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div h5 span:nth-of-type(2) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div h5 span:nth-of-type(3),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div h5 span:nth-of-type(3) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div h5 span:nth-of-type(4),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div h5 span:nth-of-type(4) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div h5 span:nth-of-type(5),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div h5 span:nth-of-type(5) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div h5 span:nth-of-type(6),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div h5 span:nth-of-type(6) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .pagenumber,
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .pagenumber {
+  letter-spacing: 59px;
+  transition: all 0.8s 0.7s cubic-bezier(0.6, 0.045, 0.165, 1);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .pagenumber:after,
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .pagenumber:after {
+  width: 100px;
+  transition: all 1s 0.7s cubic-bezier(0.6, 0.045, 0.165, 1);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content,
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content {
+  filter: blur(0px);
+  opacity: 1;
+  transition: all 1s 0.5s;
+  perspective: var(--perspective);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content_picture,
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content_picture {
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  transition: all 1s 0.8s cubic-bezier(0.6, 0.045, 0.165, 1);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span,
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span {
+  transition: all 1.5s 0.4s cubic-bezier(0.6, 0.045, 0.165, 1);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(1),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(1) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(2),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(2) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(3),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(3) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(4),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(4) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(5),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(5) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(6),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(6) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(7),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(7) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(8),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(8) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(9),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(9) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(10),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(10) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(11),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(11) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(12),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(12) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(13),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(13) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(14),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(14) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(15),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(15) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(16),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(16) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(17),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(17) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(18),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(18) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(19),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(19) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(20),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(20) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(21),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(21) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(22),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(22) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(23),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(23) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(24),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(24) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(25),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(25) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(26),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(26) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(27),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(27) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(28),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(28) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(29),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(29) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(30),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(30) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(31),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(31) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(32),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(32) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(33),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(33) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(34),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(34) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(35),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(35) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(36),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(36) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(37),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(37) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(38),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(38) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(39),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(39) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div .content h1 span:nth-of-type(40),
+.con .pages input:nth-of-type(2):checked + input + input + div + div + div + div .content h1 span:nth-of-type(40) {
+  transform: translateZ(0);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div h5 span,
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div h5 span {
+  transition: all 1.5s 0.4s cubic-bezier(0.6, 0.045, 0.165, 1);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div h5 span:nth-of-type(1),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div h5 span:nth-of-type(1) {
+  transform: translateZ(40px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div h5 span:nth-of-type(2),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div h5 span:nth-of-type(2) {
+  transform: translateZ(508px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div h5 span:nth-of-type(3),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div h5 span:nth-of-type(3) {
+  transform: translateZ(15px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div h5 span:nth-of-type(4),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div h5 span:nth-of-type(4) {
+  transform: translateZ(246px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div h5 span:nth-of-type(5),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div h5 span:nth-of-type(5) {
+  transform: translateZ(496px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div h5 span:nth-of-type(6),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div h5 span:nth-of-type(6) {
+  transform: translateZ(558px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .pagenumber,
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .pagenumber {
+  letter-spacing: 0;
+  transition: all 0.5s 0.2s cubic-bezier(0.6, 0.045, 0.165, 1);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .pagenumber:after,
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .pagenumber:after {
+  width: 0px;
+  transition: all 0.5s 0.2s cubic-bezier(0.6, 0.045, 0.165, 1);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content,
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content {
+  filter: blur(10px);
+  opacity: 0;
+  transform: translateZ(50px);
+  transition: all 1s 0.2s;
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content_picture,
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content_picture {
+  transition: all 0.4s 0s cubic-bezier(0.6, 0.045, 0.165, 1);
+  -webkit-clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+  clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span,
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span {
+  transition: all 1.5s 0s cubic-bezier(0.6, 0.045, 0.165, 1);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(1),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(1) {
+  transform: translateZ(261px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(2),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(2) {
+  transform: translateZ(453px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(3),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(3) {
+  transform: translateZ(183px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(4),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(4) {
+  transform: translateZ(292px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(5),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(5) {
+  transform: translateZ(733px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(6),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(6) {
+  transform: translateZ(283px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(7),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(7) {
+  transform: translateZ(254px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(8),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(8) {
+  transform: translateZ(726px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(9),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(9) {
+  transform: translateZ(366px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(10),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(10) {
+  transform: translateZ(648px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(11),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(11) {
+  transform: translateZ(213px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(12),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(12) {
+  transform: translateZ(651px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(13),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(13) {
+  transform: translateZ(769px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(14),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(14) {
+  transform: translateZ(339px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(15),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(15) {
+  transform: translateZ(564px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(16),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(16) {
+  transform: translateZ(491px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(17),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(17) {
+  transform: translateZ(578px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(18),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(18) {
+  transform: translateZ(350px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(19),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(19) {
+  transform: translateZ(562px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(20),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(20) {
+  transform: translateZ(427px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(21),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(21) {
+  transform: translateZ(542px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(22),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(22) {
+  transform: translateZ(205px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(23),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(23) {
+  transform: translateZ(503px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(24),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(24) {
+  transform: translateZ(299px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(25),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(25) {
+  transform: translateZ(411px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(26),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(26) {
+  transform: translateZ(317px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(27),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(27) {
+  transform: translateZ(693px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(28),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(28) {
+  transform: translateZ(708px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(29),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(29) {
+  transform: translateZ(622px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(30),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(30) {
+  transform: translateZ(298px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(31),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(31) {
+  transform: translateZ(325px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(32),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(32) {
+  transform: translateZ(721px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(33),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(33) {
+  transform: translateZ(193px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(34),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(34) {
+  transform: translateZ(326px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(35),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(35) {
+  transform: translateZ(258px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(36),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(36) {
+  transform: translateZ(593px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(37),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(37) {
+  transform: translateZ(283px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(38),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(38) {
+  transform: translateZ(759px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(39),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(39) {
+  transform: translateZ(714px);
+}
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div .content h1 span:nth-of-type(40),
+.con .pages input:nth-of-type(2):not(:checked) + input + input + div + div + div + div .content h1 span:nth-of-type(40) {
+  transform: translateZ(611px);
+}
+.con .pages_page {
+  pointer-events: none;
+  float: right;
+  transform-style: preserve-3d;
+}
+.con .pages_page:nth-of-type(1) {
+  z-index: 7;
+  transition: var(--transition);
+}
+.con .pages_page:nth-of-type(2) {
+  z-index: 6;
+  transition: var(--transition);
+}
+.con .pages_page:nth-of-type(3) {
+  z-index: 5;
+  transition: var(--transition);
+}
+.con .pages_page:nth-of-type(4) {
+  z-index: 4;
+  transition: var(--transition);
+}
+.con .pages_page:nth-of-type(5) {
+  z-index: 3;
+  transition: var(--transition);
+}
+.con .pages_page:nth-of-type(6) {
+  z-index: 2;
+  transition: var(--transition);
+}
+.con .pages_page:nth-of-type(7) {
+  z-index: 1;
+  transition: var(--transition);
+}
+.con .pages_page:nth-of-type(8) {
+  z-index: 0;
+  transition: var(--transition);
+}
+.con .pages_page:nth-of-type(1) {
+  left: 0;
+  z-index: 0;
+  transform: rotateY(0deg) !important;
+  pointer-events: none;
+}
+.con .pages_page:nth-of-type(1) .pages_page__inner {
+  transform: rotateY(0deg) !important;
+}
+.con .pages_page:nth-of-type(2) {
+  pointer-events: all;
+}
+.con .pages_page:nth-of-type(odd) .pages_page__inner {
+  transform: rotateY(180deg);
+}
+.con .pages_page:nth-of-type(1) .pages_page__inner {
+  background-size: cover !important;
+  background-position: center !important;
+  background: url('https://www.kkday.com/ko/blog/wp-content/uploads/korea_camping_spot_1.jpg');
+}
+.con .pages_page:nth-of-type(2) .pages_page__inner {
+  background-size: cover !important;
+  background-position: center !important;
+  background: url('https://www.kkday.com/ko/blog/wp-content/uploads/korea_camping_spot_1_1.jpg');
+}
+.con .pages_page:nth-of-type(2) .pages_page__inner h4 {
+  color: black;
+  z-index: 3;
+}
+.con .pages_page:nth-of-type(3) .pages_page__inner {
+  background: url('https://www.kkday.com/ko/blog/wp-content/uploads/korea_camping_spot_2.jpg');
+  background-position: 0 0;
+}
+.con .pages_page:nth-of-type(3) .pages_page__inner .content {
+  -webkit-clip-path: polygon(0% 0%, 50% 0, 50% 100%, 0% 100%);
+  clip-path: polygon(0% 0%, 50% 0, 50% 100%, 0% 100%);
+  height: 100%;
+  transform-style: preserve-3d;
+  width: 200%;
+  position: absolute;
+}
+.con .pages_page:nth-of-type(6) .pages_page__inner {
+  background: #4a5f5c;
+}
+.con .pages_page:nth-of-type(4) .pages_page__inner .content {
+  -webkit-clip-path: polygon(50% 0%, 100% 0, 100% 100%, 50% 100%);
+  clip-path: polygon(50% 0%, 100% 0, 100% 100%, 50% 100%);
+  height: 100%;
+  width: 200%;
+  position: absolute;
+  left: -100%;
+}
+.con .pages_page:nth-of-type(4) .pages_page__inner .bg {
+  -webkit-clip-path: polygon(50% 0%, 100% 0, 100% 100%, 50% 100%);
+  clip-path: polygon(50% 0%, 100% 0, 100% 100%, 50% 100%);
+  height: 100%;
+  width: 200%;
+  position: relative;
+  background: url('https://www.kkday.com/ko/blog/wp-content/uploads/korea_camping_spot_2.jpg');
+  background-size: 1400px !important;
+  left: -100%;
+}
+.con .pages_page:nth-of-type(5) .pages_page__inner {
+  background: url('https://www.kkday.com/ko/blog/wp-content/uploads/korea_camping_spot_3.jpg');
+  background-size: 870px !important;
+  background-position: center !important;
+}
+.con .pages_page:nth-of-type(7) .pages_page__inner {
+  background: url('https://www.kkday.com/ko/blog/wp-content/uploads/korea_camping_spot_4_2.jpg');
+  background-position: 0 0;
+  background-size: 1400px !important;
+}
+.con .pages_page:nth-of-type(7) .pages_page__inner .content_section {
+  position: absolute;
+}
+.con .pages_page:nth-of-type(7) .pages_page__inner .content_section h2 {
+  margin: 0;
+}
+.con .pages_page:nth-of-type(7) .pages_page__inner .content_section h2,
+.con .pages_page:nth-of-type(7) .pages_page__inner .content_section p {
+  margin: 0;
+  color: var(--yellow);
+}
+.con .pages_page:nth-of-type(7) .pages_page__inner .content_section p {
+  line-height: 18px;
+  opacity: 0.95;
+  font-size: 13px;
+}
+.con .pages_page:nth-of-type(7) .pages_page__inner .content_section:nth-of-type(1) {
+  top: 100px;
+  width: 200px;
+}
+.con .pages_page:nth-of-type(7) .pages_page__inner .content_section:nth-of-type(2) {
+  top: 274px;
+  width: 300px;
+}
+.con .pages_page:nth-of-type(7) .pages_page__inner .content_section:nth-of-type(3) {
+  top: 410px;
+  width: 260px;
+}
+.con .pages_page:nth-of-type(8) .pages_page__inner {
+  background: url('https://www.kkday.com/ko/blog/wp-content/uploads/korea_camping_spot_4_2.jpg');
+  background-position: 0 0;
+}
+.con .pages_page:nth-of-type(8) .pages_page__inner .content {
+  -webkit-clip-path: polygon(50% 0%, 100% 0, 100% 100%, 50% 100%);
+  clip-path: polygon(50% 0%, 100% 0, 100% 100%, 50% 100%);
+  height: 100%;
+  width: 200%;
+  position: absolute;
+  left: -100%;
+}
+.con .pages_page:nth-of-type(8) .pages_page__inner .bg {
+  -webkit-clip-path: polygon(50% 0%, 100% 0, 100% 100%, 50% 100%);
+  clip-path: polygon(50% 0%, 100% 0, 100% 100%, 50% 100%);
+  height: 100%;
+  width: 200%;
+  position: relative;
+  background: url('https://www.kkday.com/ko/blog/wp-content/uploads/korea_camping_spot_4_2.jpg');
+  background-size: 1400px !important;
+  left: -100%;
+}
+.con .pages_page__inner {
+  background: url('https://www.kkday.com/ko/blog/wp-content/uploads/korea_camping_spot_4_1.jpg');
+  background-size: 1400px !important;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+.con .pages_page__inner .control {
+  position: absolute;
+  z-index: 1;
+  width: 31px;
+  height: 31px;
+  border: 1px solid black;
+  border-radius: 100px;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 30px;
+  cursor: pointer;
+  transition: all 0.23s;
+  box-shadow: 0 0 0 0px #bf9726;
+}
+.con .pages_page__inner .control:hover {
+  box-shadow: 0 0 0 10px rgba(191, 151, 38, 0.3);
+  left: 34px;
+}
+.con .pages_page__inner .control:hover:before {
+  width: 40px;
+  left: -40px;
+}
+.con .pages_page__inner .control.next {
+  left: auto;
+  right: 30px;
+}
+.con .pages_page__inner .control.next:hover {
+  right: 34px;
+}
+.con .pages_page__inner .control.next:hover:before {
+  width: 40px;
+  right: -40px;
+}
+.con .pages_page__inner .control.next:before {
+  left: auto;
+  right: -33px;
+}
+.con .pages_page__inner .control.next:after {
+  transform: rotate(180deg);
+  top: 5px;
+  left: 11px;
+  pointer-events: none;
+}
+.con .pages_page__inner .control label {
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  cursor: pointer;
+}
+.con .pages_page__inner .control:after {
+  content: '';
+  display: block;
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: black;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all 0.2s;
+}
+.con .pages_page__inner .control:before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: black;
+  top: 50%;
+  transform: translateY(-50%);
+  left: -32px;
+  transition: all 0.2s;
+}
+.con .pages_page__inner .footer {
+  position: absolute;
+  bottom: 26px;
+  z-index: 2;
+  color: var(--yellow);
+  right: 30px;
+  font-size: 12px;
+}
+.con .pages_page__inner .footer i {
+  margin: 0 10px;
+}
+.con .pages_page__inner .content {
+  transform-style: preserve-3d;
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  top: 0;
+  transform: translateZ(0px);
+  width: 100%;
+  height: 100%;
+}
+.con .pages_page__inner .content_centerimage {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 50%;
+  text-align: center;
+  width: 60%;
+  transform: translateY(-50%);
+  max-width: 300px;
+}
+.con .pages_page__inner .content_centerimage img {
+  width: 100%;
+}
+.con .pages_page__inner .content_center {
+  position: absolute;
+  text-align: center;
+  width: 260px;
+  right: -130px;
+  padding-bottom: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  -webkit-clip-path: polygon(0 0, 50% 0, 50% 100%, 0% 100%);
+  clip-path: polygon(0 0, 50% 0, 50% 100%, 0% 100%);
+}
+.con .pages_page__inner .content_center img {
+  width: 300px;
+}
+.con .pages_page__inner .content_center .logo {
+  font-size: 30px;
+}
+.con .pages_page__inner .content_center h4,
+.con .pages_page__inner .content_center h6 {
+  color: #5cdb95;
+  font-size: 38px;
+  font-weight: normal;
+  margin: 0;
+  line-height: 38px;
+}
+.con .pages_page__inner .content_center h4 {
+  color: #5cdb95;
+  font-size: 38px;
+  font-weight: normal;
+  margin: 0;
+  line-height: 38px;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+  padding: 15px 20px 29px;
+}
+.con .pages_page__inner .content_center h6 {
+  font-size: 20px;
+  margin: 0;
+  opacity: 0.5;
+}
+.con .pages_page__inner .content_center h6:nth-of-type(2) {
+  font-size: 16px;
+  margin-top: 10px;
+}
+.con .pages_page__inner .content_center.right {
+  right: auto;
+  left: -130px;
+  -webkit-clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 50% 100%);
+  clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 50% 100%);
+}
+.con .pages_page__inner .content_picture {
+  width: 220px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-40px);
+  top: 294px;
+}
+.con .pages_page__inner .content_picture img {
+  width: 100%;
+  margin: 0;
+  display: inline-block;
+}
+.con .pages_page__inner .content_quote {
+  position: absolute;
+  left: calc(50% + 384px);
+  bottom: 30px;
+  width: 200px;
+}
+.con .pages_page__inner .content_quote h5 span {
+  display: block;
+  color: #379683;
+  font-size: 34px;
+  font-weight: normal;
+  line-height: 24px;
+}
+.con .pages_page__inner .content_quote h5 span.name,
+.con .pages_page__inner .content_quote h5 span.auth {
+  font-size: 13px;
+  opacity: 0.7;
+  margin: 22px 0 0 0;
+  position: Relative;
+  left: 140px;
+}
+.con .pages_page__inner .content_quote h5 span.auth {
+  margin: -7px 0;
+}
+.con .pages_page__inner .content_quote h5 span.quo {
+  font-family: 'Catamaran', sans-serif;
+  font-size: 60px;
+  position: absolute;
+  left: 195px;
+  top: 70px;
+}
+.con .pages_page__inner .content_quote h5 span.quo:nth-of-type(1) i {
+  transform: rotate(180deg);
+  left: -226px;
+  top: -100px;
+  display: block;
+  font-style: normal;
+  position: relative;
+}
+.con .pages_page__inner .content_offset {
+  position: absolute;
+  width: 280px;
+  top: 260px;
+  left: 50%;
+  transform: translateX(-350px);
+  color: var(--yellow);
+}
+.con .pages_page__inner .content_offset h2,
+.con .pages_page__inner .content_offset p {
+  margin: 0;
+}
+.con .pages_page__inner .content_offset h2 {
+  color: #ffffff;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 20px 0 8px 0;
+}
+.con .pages_page__inner .content_offset p {
+  font-size: 13px;
+  line-height: 20px;
+  color: #ffffff;
+}
+.con .pages_page__inner .content h1 {
+  font-size: 53px;
+  color: #379683;
+  text-transform: uppercase;
+  padding: 120px;
+  margin: 0;
+  font-weight: normal;
+  letter-spacing: -6px;
+  line-height: 51px;
+  transform-style: preserve-3d;
+}
+.con .pages_page__inner .content h1 span {
+  transform-style: preserve-3d;
+  display: inline-block;
+}
+.con .pages input[type='radio']:nth-of-type(2):checked + input + input + div + div {
+  pointer-events: all;
+  transform: rotateY(-180deg);
+  z-index: 10;
+  transition: var(--transition);
+}
+.con .pages input[type='radio']:nth-of-type(2):checked + input + input + div + div .control {
+  box-shadow: 0 0 0 200px rgba(0, 0, 0, 0);
+}
+.con .pages input[type='radio']:nth-of-type(2):checked + input + input + div + div + div {
+  pointer-events: all;
+}
+.con .pages input[type='radio']:nth-of-type(2):checked + input + input + div {
+  pointer-events: none;
+  z-index: 9;
+}
+.con .pages input[type='radio']:nth-of-type(2):checked + input + input + div + div + div {
+  pointer-events: all;
+  transform: rotateY(-180deg);
+  z-index: 10;
+  transition: var(--transition);
+}
+.con .pages input[type='radio']:nth-of-type(2):checked + input + input + div + div + div .control {
+  box-shadow: 0 0 0 200px rgba(0, 0, 0, 0);
+}
+.con .pages input[type='radio']:nth-of-type(2):checked + input + input + div + div + div + div {
+  pointer-events: all;
+}
+.con .pages input[type='radio']:nth-of-type(2):checked + input + input + div + div {
+  pointer-events: none;
+  z-index: 9;
+}
+.con .pages input[type='radio']:nth-of-type(3):checked + input + div + div {
+  pointer-events: all;
+  transform: rotateY(-180deg);
+  z-index: 10;
+  transition: var(--transition);
+}
+.con .pages input[type='radio']:nth-of-type(3):checked + input + div + div .control {
+  box-shadow: 0 0 0 200px rgba(0, 0, 0, 0);
+}
+.con .pages input[type='radio']:nth-of-type(3):checked + input + div + div + div {
+  pointer-events: all;
+}
+.con .pages input[type='radio']:nth-of-type(3):checked + input + div {
+  pointer-events: none;
+  z-index: 9;
+}
+.con .pages input[type='radio']:nth-of-type(3):checked + input + div + div + div {
+  pointer-events: all;
+  transform: rotateY(-180deg);
+  z-index: 10;
+  transition: var(--transition);
+}
+.con .pages input[type='radio']:nth-of-type(3):checked + input + div + div + div .control {
+  box-shadow: 0 0 0 200px rgba(0, 0, 0, 0);
+}
+.con .pages input[type='radio']:nth-of-type(3):checked + input + div + div + div + div {
+  pointer-events: all;
+}
+.con .pages input[type='radio']:nth-of-type(3):checked + input + div + div {
+  pointer-events: none;
+  z-index: 9;
+}
+.con .pages input[type='radio']:nth-of-type(3):checked + input + div + div + div + div {
+  pointer-events: all;
+  transform: rotateY(-180deg);
+  z-index: 10;
+  transition: var(--transition);
+}
+.con .pages input[type='radio']:nth-of-type(3):checked + input + div + div + div + div .control {
+  box-shadow: 0 0 0 200px rgba(0, 0, 0, 0);
+}
+.con .pages input[type='radio']:nth-of-type(3):checked + input + div + div + div + div + div {
+  pointer-events: all;
+}
+.con .pages input[type='radio']:nth-of-type(3):checked + input + div + div + div {
+  pointer-events: none;
+  z-index: 9;
+}
+.con .pages input[type='radio']:nth-of-type(3):checked + input + div + div + div + div + div {
+  pointer-events: all;
+  transform: rotateY(-180deg);
+  z-index: 10;
+  transition: var(--transition);
+}
+.con .pages input[type='radio']:nth-of-type(3):checked + input + div + div + div + div + div .control {
+  box-shadow: 0 0 0 200px rgba(0, 0, 0, 0);
+}
+.con .pages input[type='radio']:nth-of-type(3):checked + input + div + div + div + div + div + div {
+  pointer-events: all;
+}
+.con .pages input[type='radio']:nth-of-type(3):checked + input + div + div + div + div {
+  pointer-events: none;
+  z-index: 9;
+}
+.con .pages input[type='radio']:nth-of-type(4):checked + div + div {
+  pointer-events: all;
+  transform: rotateY(-180deg);
+  z-index: 10;
+  transition: var(--transition);
+}
+.con .pages input[type='radio']:nth-of-type(4):checked + div + div .control {
+  box-shadow: 0 0 0 200px rgba(0, 0, 0, 0);
+}
+.con .pages input[type='radio']:nth-of-type(4):checked + div + div + div {
+  pointer-events: all;
+}
+.con .pages input[type='radio']:nth-of-type(4):checked + div {
+  pointer-events: none;
+  z-index: 9;
+}
+.con .pages input[type='radio']:nth-of-type(4):checked + div + div + div {
+  pointer-events: all;
+  transform: rotateY(-180deg);
+  z-index: 10;
+  transition: var(--transition);
+}
+.con .pages input[type='radio']:nth-of-type(4):checked + div + div + div .control {
+  box-shadow: 0 0 0 200px rgba(0, 0, 0, 0);
+}
+.con .pages input[type='radio']:nth-of-type(4):checked + div + div + div + div {
+  pointer-events: all;
+}
+.con .pages input[type='radio']:nth-of-type(4):checked + div + div {
+  pointer-events: none;
+  z-index: 9;
+}
+.con .pages input[type='radio']:nth-of-type(4):checked + div + div + div + div {
+  pointer-events: all;
+  transform: rotateY(-180deg);
+  z-index: 10;
+  transition: var(--transition);
+}
+.con .pages input[type='radio']:nth-of-type(4):checked + div + div + div + div .control {
+  box-shadow: 0 0 0 200px rgba(0, 0, 0, 0);
+}
+.con .pages input[type='radio']:nth-of-type(4):checked + div + div + div + div + div {
+  pointer-events: all;
+}
+.con .pages input[type='radio']:nth-of-type(4):checked + div + div + div {
+  pointer-events: none;
+  z-index: 9;
+}
+.con .pages input[type='radio']:nth-of-type(4):checked + div + div + div + div + div {
+  pointer-events: all;
+  transform: rotateY(-180deg);
+  z-index: 10;
+  transition: var(--transition);
+}
+.con .pages input[type='radio']:nth-of-type(4):checked + div + div + div + div + div .control {
+  box-shadow: 0 0 0 200px rgba(0, 0, 0, 0);
+}
+.con .pages input[type='radio']:nth-of-type(4):checked + div + div + div + div + div + div {
+  pointer-events: all;
+}
+.con .pages input[type='radio']:nth-of-type(4):checked + div + div + div + div {
+  pointer-events: none;
+  z-index: 9;
+}
+.con .pages input[type='radio']:nth-of-type(4):checked + div + div + div + div + div + div {
+  pointer-events: all;
+  transform: rotateY(-180deg);
+  z-index: 10;
+  transition: var(--transition);
+}
+.con .pages input[type='radio']:nth-of-type(4):checked + div + div + div + div + div + div .control {
+  box-shadow: 0 0 0 200px rgba(0, 0, 0, 0);
+}
+.con .pages input[type='radio']:nth-of-type(4):checked + div + div + div + div + div + div + div {
+  pointer-events: all;
+}
+.con .pages input[type='radio']:nth-of-type(4):checked + div + div + div + div + div {
+  pointer-events: none;
+  z-index: 9;
+}
+.con .pages input[type='radio']:nth-of-type(4):checked + div + div + div + div + div + div + div {
+  pointer-events: all;
+  transform: rotateY(-180deg);
+  z-index: 10;
+  transition: var(--transition);
+}
+.con .pages input[type='radio']:nth-of-type(4):checked + div + div + div + div + div + div + div .control {
+  box-shadow: 0 0 0 200px rgba(0, 0, 0, 0);
+}
+.con .pages input[type='radio']:nth-of-type(4):checked + div + div + div + div + div + div + div + div {
+  pointer-events: all;
+}
+.con .pages input[type='radio']:nth-of-type(4):checked + div + div + div + div + div + div {
+  pointer-events: none;
+  z-index: 9;
+}
+
+.total {
+  height: auto;
+  min-height: 130%;
+}
+
+.fab-wrapper {
+  position: fixed;
+  bottom: 3rem;
+  right: 3rem;
+  z-index: 999;
+  cursor: pointer;
+}
+.fab-checkbox {
+  display: none;
+}
+.fab {
+  position: absolute;
+  bottom: -1rem;
+  right: -1rem;
+  width: 4rem;
+  height: 4rem;
+  background: #17baba;
+  border-radius: 50%;
+  background: #17baba;
+  box-shadow: 0px 5px 20px #81a4f1;
+  transition: all 0.3s ease;
+  z-index: 1;
+  border-bottom-right-radius: 6px;
+  border: 1px solid #0c50a7;
+}
+
+.fab:before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.fab-checkbox:checked ~ .fab:before {
+  width: 90%;
+  height: 90%;
+  left: 5%;
+  top: 5%;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.fab:hover {
+  background: #2c87e8;
+  box-shadow: 0px 5px 20px 5px #81a4f1;
+}
+
+.fab-dots {
+  position: absolute;
+  height: 8px;
+  width: 8px;
+  background-color: white;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateX(0%) translateY(-50%) rotate(0deg);
+  opacity: 1;
+  animation: blink 3s ease infinite;
+  transition: all 0.3s ease;
+}
+
+.fab-dots-1 {
+  left: 15px;
+  animation-delay: 0s;
+}
+.fab-dots-2 {
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  animation-delay: 0.4s;
+}
+.fab-dots-3 {
+  right: 15px;
+  animation-delay: 0.8s;
+}
+
+.fab-checkbox:checked ~ .fab .fab-dots {
+  height: 6px;
+}
+
+.fab .fab-dots-2 {
+  transform: translateX(-50%) translateY(-50%) rotate(0deg);
+}
+
+.fab-checkbox:checked ~ .fab .fab-dots-1 {
+  width: 32px;
+  border-radius: 10px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%) rotate(45deg);
+}
+.fab-checkbox:checked ~ .fab .fab-dots-3 {
+  width: 32px;
+  border-radius: 10px;
+  right: 50%;
+  transform: translateX(50%) translateY(-50%) rotate(-45deg);
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.fab-checkbox:checked ~ .fab .fab-dots {
+  animation: none;
+}
+
+.fab-wheel {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border: 1px solid #000;
+  width: 600px;
+  height: 750px;
+  background-color: aquamarine;
+  transition: all 0.3s ease;
+  transform-origin: bottom right;
+  transform: scale(0);
+}
+
+.fab-checkbox:checked ~ .fab-wheel {
+  transform: scale(1);
+}
+.fab-action {
+  position: absolute;
+  background: #0f1941;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: White;
+  box-shadow: 0 0.1rem 1rem rgba(24, 66, 154, 0.82);
+  transition: all 1s ease;
+
+  opacity: 0;
+}
+
+.fab-checkbox:checked ~ .fab-wheel .fab-action {
+  opacity: 1;
+}
+
+.fab-action:hover {
+  background-color: #f16100;
+}
+
+.fab-wheel .fab-action-1 {
+  right: -1rem;
+  top: 0;
+}
+
+.fab-wheel .fab-action-2 {
+  right: 3.4rem;
+  top: 0.5rem;
+}
+.fab-wheel .fab-action-3 {
+  left: 0.5rem;
+  bottom: 3.4rem;
+}
+.fab-wheel .fab-action-4 {
+  left: 0;
+  bottom: -1rem;
+}
+
+.con2 {
+  display: flex;
+  justify-content: center;
+  margin-top: 900px;
+}
+
+.imgLoader {
+  animation: preLoad 1s steps(1);
+  width: 1px;
+  height: 1px;
+}
+@keyframes preLoad {
+  0% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/30/993689322ded7e57950ec6b73b87190a1_m.jpg');
+  }
+  10% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2023/02/12/0f2f649aff7ec1fe9c1be3997546209c1_m.jpg');
+  }
+  20% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2017/06/29/7970a2df29bd56f06064edea33f009331_m.png');
+  }
+  30% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/29/0ca1694a90973863f96e3a3af60879671_m.jpg');
+  }
+  40% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/06/01/51f9aa5c7ae5205cab68565cb7a7c4bf1_m.jpg');
+  }
+  100% {
+    display: none;
+  }
+}
+
+.cookbook {
+  position: relative;
+  width: 420px;
+  border: #fff solid 2px;
+  border-radius: 4px;
+  height: 420px;
+  margin: 50px;
+  cursor: pointer;
+}
+
+.title {
+  font-family: 'Indie Flower', cursive;
+  text-align: center;
+  position: absolute;
+  top: 45px;
+  left: 0;
+  width: 100%;
+  font-size: 2em;
+  font-weight: normal;
+  line-height: 1;
+  color: #555;
+}
+
+.book {
+  position: relative;
+  perspective: 630px;
+  perspective-origin: center 50px;
+  transform: scale(1.2);
+  filter: drop-shadow(0px 10px 5px rgba(0, 0, 0, 0.25));
+}
+
+.page {
+  width: 210px;
+  height: 300px;
+  background-color: #bbb;
+  position: absolute;
+  top: 0px;
+  right: 50%;
+  transform-origin: 100% 100%;
+  border: solid #555 2px;
+  background-size: 420px 300px;
+  background-position: center;
+  transform-style: preserve-3d;
+}
+.page:nth-child(1) {
+  transform: rotateX(60deg) rotateY(3deg);
+}
+.page:nth-child(2) {
+  transform: rotateX(60deg) rotateY(4.5deg);
+}
+.page:nth-child(3) {
+  transform: rotateX(60deg) rotateY(6deg);
+  animation: nextPage 25s infinite -24s steps(1);
+  background-size: 420px 300px;
+  background-position: -2px -2px;
+}
+.page:nth-child(4) {
+  transform: rotateX(60deg) rotateY(177deg);
+}
+.page:nth-child(5) {
+  transform: rotateX(60deg) rotateY(175.5deg);
+}
+.page:nth-child(6) {
+  transform: rotateX(60deg) rotateY(174deg);
+  overflow: hidden;
+}
+.page:nth-child(6)::after {
+  content: '';
+  width: 210px;
+  height: 300px;
+  position: absolute;
+  top: 0px;
+  right: 0%;
+  transform-origin: center;
+  transform: rotateY(180deg);
+  animation: nextPage 25s -20s infinite steps(1);
+  background-size: 420px 300px;
+  background-position: 100% -2px;
+}
+@keyframes nextPage {
+  0% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/30/993689322ded7e57950ec6b73b87190a1_m.jpg');
+  }
+  20% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2023/02/12/0f2f649aff7ec1fe9c1be3997546209c1_m.jpg');
+  }
+  40% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2017/06/29/7970a2df29bd56f06064edea33f009331_m.png');
+  }
+  60% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/29/0ca1694a90973863f96e3a3af60879671_m.jpg');
+  }
+  80% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/06/01/51f9aa5c7ae5205cab68565cb7a7c4bf1_m.jpg');
+  }
+}
+
+.gap {
+  width: 10px;
+  height: 300px;
+  background: none;
+  transform: rotateX(60deg);
+  transform-origin: bottom;
+  position: absolute;
+  top: 0px;
+  left: calc(50% - 5px);
+}
+.gap::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  background-color: #555;
+  width: 10px;
+  height: 5px;
+  border-radius: 50%;
+}
+
+.pages,
+.flips {
+  transform-style: preserve-3d;
+}
+
+.flip {
+  width: 32px;
+  height: 300px;
+  position: absolute;
+  top: 0px;
+  transform-origin: 100% 100%;
+  right: 100%;
+  border: solid #555;
+  border-width: 2px 0px;
+  perspective: 4200px;
+  perspective-origin: center;
+  transform-style: preserve-3d;
+  background-size: 420px 300px;
+}
+.flip::after {
+  content: '';
+  position: absolute;
+  top: 0px;
+  right: 0%;
+  width: 100%;
+  height: 100%;
+  transform-origin: center;
+  background-size: 420px 300px;
+}
+.flip.flip1 {
+  right: 50%;
+  animation: flip1 5s infinite ease-in-out;
+  border-width: 2px 2px 2px 0;
+}
+
+.flip:not(.flip1) {
+  right: calc(100% - 2px);
+  top: -2px;
+  transform-origin: right;
+  animation: flip2 5s ease-in-out infinite;
+}
+
+.flip.flip1::after {
+  animation: nextFlip1 25s -20s infinite steps(1);
+}
+
+.flip.flip2::after {
+  animation: nextFlip2 25s -20s infinite steps(1);
+}
+.flip.flip3::after {
+  animation: nextFlip3 25s -20s infinite steps(1);
+}
+.flip.flip4::after {
+  animation: nextFlip4 25s -20s infinite steps(1);
+}
+.flip.flip5::after {
+  animation: nextFlip5 25s -20s infinite steps(1);
+}
+.flip.flip6::after {
+  animation: nextFlip6 25s -20s infinite steps(1);
+}
+.flip.flip7::after {
+  animation: nextFlip7 25s -20s infinite steps(1);
+}
+.flip.flip7 {
+  width: 30px;
+  border-width: 2px 0px 2px 2px;
+}
+
+@keyframes flip1 {
+  0%,
+  20% {
+    transform: rotateX(60deg) rotateY(6deg);
+  }
+  80%,
+  100% {
+    transform: rotateX(60deg) rotateY(174deg);
+  }
+}
+@keyframes flip2 {
+  0%,
+  20% {
+    transform: rotateY(0deg) translateY(0px);
+  }
+  50% {
+    transform: rotateY(-15deg) translateY(0px);
+  }
+}
+
+@keyframes nextFlip1 {
+  0% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/30/993689322ded7e57950ec6b73b87190a1_m.jpg');
+    background-position: -178px -2px;
+    transform: rotateY(0deg);
+  }
+  10% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2023/02/12/0f2f649aff7ec1fe9c1be3997546209c1_m.jpg');
+    background-position: -210px -2px;
+    transform: rotateY(180deg);
+  }
+  20% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2023/02/12/0f2f649aff7ec1fe9c1be3997546209c1_m.jpg');
+    background-position: -178px -2px;
+    transform: rotateY(0deg);
+  }
+  30% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2017/06/29/7970a2df29bd56f06064edea33f009331_m.png');
+    background-position: -210px -2px;
+    transform: rotateY(180deg);
+  }
+  40% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2017/06/29/7970a2df29bd56f06064edea33f009331_m.png');
+    background-position: -178px -2px;
+    transform: rotateY(0deg);
+  }
+  50% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/29/0ca1694a90973863f96e3a3af60879671_m.jpg');
+    background-position: -210px -2px;
+    transform: rotateY(180deg);
+  }
+  60% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/29/0ca1694a90973863f96e3a3af60879671_m.jpg');
+    background-position: -178px -2px;
+    transform: rotateY(0deg);
+  }
+  70% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/06/01/51f9aa5c7ae5205cab68565cb7a7c4bf1_m.jpg');
+    background-position: -210px -2px;
+    transform: rotateY(180deg);
+  }
+  80% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/06/01/51f9aa5c7ae5205cab68565cb7a7c4bf1_m.jpg');
+    background-position: -178px -2px;
+    transform: rotateY(0deg);
+  }
+  90% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/30/993689322ded7e57950ec6b73b87190a1_m.jpg');
+    background-position: -210px -2px;
+    transform: rotateY(180deg);
+  }
+}
+@keyframes nextFlip2 {
+  0% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/30/993689322ded7e57950ec6b73b87190a1_m.jpg');
+    background-position: -148px -2px;
+    transform: rotateY(0deg);
+  }
+  10.5% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2023/02/12/0f2f649aff7ec1fe9c1be3997546209c1_m.jpg');
+    background-position: -238px -2px;
+    transform: rotateY(180deg);
+  }
+  20% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2023/02/12/0f2f649aff7ec1fe9c1be3997546209c1_m.jpg');
+    background-position: -148px -2px;
+    transform: rotateY(0deg);
+  }
+  30.5% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2017/06/29/7970a2df29bd56f06064edea33f009331_m.png');
+    background-position: -238px -2px;
+    transform: rotateY(180deg);
+  }
+  40% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2017/06/29/7970a2df29bd56f06064edea33f009331_m.png');
+    background-position: -148px -2px;
+    transform: rotateY(0deg);
+  }
+  50.5% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/29/0ca1694a90973863f96e3a3af60879671_m.jpg');
+    background-position: -238px -2px;
+    transform: rotateY(180deg);
+  }
+  60% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/29/0ca1694a90973863f96e3a3af60879671_m.jpg');
+    background-position: -148px -2px;
+    transform: rotateY(0deg);
+  }
+  70.5% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/06/01/51f9aa5c7ae5205cab68565cb7a7c4bf1_m.jpg');
+    background-position: -238px -2px;
+    transform: rotateY(180deg);
+  }
+  80% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/06/01/51f9aa5c7ae5205cab68565cb7a7c4bf1_m.jpg');
+    background-position: -148px -2px;
+    transform: rotateY(0deg);
+  }
+  90.5% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/30/993689322ded7e57950ec6b73b87190a1_m.jpg');
+    background-position: -238px -2px;
+    transform: rotateY(180deg);
+  }
+}
+@keyframes nextFlip3 {
+  0% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/30/993689322ded7e57950ec6b73b87190a1_m.jpg');
+    background-position: -118px -2px;
+    transform: rotateY(0deg);
+  }
+  11% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2023/02/12/0f2f649aff7ec1fe9c1be3997546209c1_m.jpg');
+    background-position: -268px -2px;
+    transform: rotateY(180deg);
+  }
+  20% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2023/02/12/0f2f649aff7ec1fe9c1be3997546209c1_m.jpg');
+    background-position: -118px -2px;
+    transform: rotateY(0deg);
+  }
+  31% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2017/06/29/7970a2df29bd56f06064edea33f009331_m.png');
+    background-position: -268px -2px;
+    transform: rotateY(180deg);
+  }
+  40% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2017/06/29/7970a2df29bd56f06064edea33f009331_m.png');
+    background-position: -118px -2px;
+    transform: rotateY(0deg);
+  }
+  51% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/29/0ca1694a90973863f96e3a3af60879671_m.jpg');
+    background-position: -268px -2px;
+    transform: rotateY(180deg);
+  }
+  60% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/29/0ca1694a90973863f96e3a3af60879671_m.jpg');
+    background-position: -118px -2px;
+    transform: rotateY(0deg);
+  }
+  71% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/06/01/51f9aa5c7ae5205cab68565cb7a7c4bf1_m.jpg');
+    background-position: -268px -2px;
+    transform: rotateY(180deg);
+  }
+  80% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/06/01/51f9aa5c7ae5205cab68565cb7a7c4bf1_m.jpg');
+    background-position: -118px -2px;
+    transform: rotateY(0deg);
+  }
+  91% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/30/993689322ded7e57950ec6b73b87190a1_m.jpg');
+    background-position: -268px -2px;
+    transform: rotateY(180deg);
+  }
+}
+@keyframes nextFlip4 {
+  0% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/30/993689322ded7e57950ec6b73b87190a1_m.jpg');
+    background-position: -88px -2px;
+    transform: rotateY(0deg);
+  }
+  11.5% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2023/02/12/0f2f649aff7ec1fe9c1be3997546209c1_m.jpg');
+    background-position: -298px -2px;
+    transform: rotateY(180deg);
+  }
+  20% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2023/02/12/0f2f649aff7ec1fe9c1be3997546209c1_m.jpg');
+    background-position: -88px -2px;
+    transform: rotateY(0deg);
+  }
+  31.5% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2017/06/29/7970a2df29bd56f06064edea33f009331_m.png');
+    background-position: -298px -2px;
+    transform: rotateY(180deg);
+  }
+  40% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2017/06/29/7970a2df29bd56f06064edea33f009331_m.png');
+    background-position: -88px -2px;
+    transform: rotateY(0deg);
+  }
+  51.5% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/29/0ca1694a90973863f96e3a3af60879671_m.jpg');
+    background-position: -298px -2px;
+    transform: rotateY(180deg);
+  }
+  60% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/29/0ca1694a90973863f96e3a3af60879671_m.jpg');
+    background-position: -88px -2px;
+    transform: rotateY(0deg);
+  }
+  71.5% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/06/01/51f9aa5c7ae5205cab68565cb7a7c4bf1_m.jpg');
+    background-position: -298px -2px;
+    transform: rotateY(180deg);
+  }
+  80% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/06/01/51f9aa5c7ae5205cab68565cb7a7c4bf1_m.jpg');
+    background-position: -88px -2px;
+    transform: rotateY(0deg);
+  }
+  91.5% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/30/993689322ded7e57950ec6b73b87190a1_m.jpg');
+    background-position: -298px -2px;
+    transform: rotateY(180deg);
+  }
+}
+@keyframes nextFlip5 {
+  0% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/30/993689322ded7e57950ec6b73b87190a1_m.jpg');
+    background-position: -58px -2px;
+    transform: rotateY(0deg);
+  }
+  12% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2023/02/12/0f2f649aff7ec1fe9c1be3997546209c1_m.jpg');
+    background-position: -328px -2px;
+    transform: rotateY(180deg);
+  }
+  20% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2023/02/12/0f2f649aff7ec1fe9c1be3997546209c1_m.jpg');
+    background-position: -58px -2px;
+    transform: rotateY(0deg);
+  }
+  32% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2017/06/29/7970a2df29bd56f06064edea33f009331_m.png');
+    background-position: -328px -2px;
+    transform: rotateY(180deg);
+  }
+  40% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2017/06/29/7970a2df29bd56f06064edea33f009331_m.png');
+    background-position: -58px -2px;
+    transform: rotateY(0deg);
+  }
+  52% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/29/0ca1694a90973863f96e3a3af60879671_m.jpg');
+    background-position: -328px -2px;
+    transform: rotateY(180deg);
+  }
+  60% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/29/0ca1694a90973863f96e3a3af60879671_m.jpg');
+    background-position: -58px -2px;
+    transform: rotateY(0deg);
+  }
+  72% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/06/01/51f9aa5c7ae5205cab68565cb7a7c4bf1_m.jpg');
+    background-position: -328px -2px;
+    transform: rotateY(180deg);
+  }
+  80% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/06/01/51f9aa5c7ae5205cab68565cb7a7c4bf1_m.jpg');
+    background-position: -58px -2px;
+    transform: rotateY(0deg);
+  }
+  92% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/30/993689322ded7e57950ec6b73b87190a1_m.jpg');
+    background-position: -328px -2px;
+    transform: rotateY(180deg);
+  }
+}
+@keyframes nextFlip6 {
+  0% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/30/993689322ded7e57950ec6b73b87190a1_m.jpg');
+    background-position: -28px -2px;
+    transform: rotateY(0deg);
+  }
+  12.5% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2023/02/12/0f2f649aff7ec1fe9c1be3997546209c1_m.jpg');
+    background-position: -358px -2px;
+    transform: rotateY(180deg);
+  }
+  20% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2023/02/12/0f2f649aff7ec1fe9c1be3997546209c1_m.jpg');
+    background-position: -28px -2px;
+    transform: rotateY(0deg);
+  }
+  32.5% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2017/06/29/7970a2df29bd56f06064edea33f009331_m.png');
+    background-position: -358px -2px;
+    transform: rotateY(180deg);
+  }
+  40% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2017/06/29/7970a2df29bd56f06064edea33f009331_m.png');
+    background-position: -28px -2px;
+    transform: rotateY(0deg);
+  }
+  52.5% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/29/0ca1694a90973863f96e3a3af60879671_m.jpg');
+    background-position: -358px -2px;
+    transform: rotateY(180deg);
+  }
+  60% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/29/0ca1694a90973863f96e3a3af60879671_m.jpg');
+    background-position: -28px -2px;
+    transform: rotateY(0deg);
+  }
+  72.5% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/06/01/51f9aa5c7ae5205cab68565cb7a7c4bf1_m.jpg');
+    background-position: -358px -2px;
+    transform: rotateY(180deg);
+  }
+  80% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/06/01/51f9aa5c7ae5205cab68565cb7a7c4bf1_m.jpg');
+    background-position: -28px -2px;
+    transform: rotateY(0deg);
+  }
+  92.5% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/30/993689322ded7e57950ec6b73b87190a1_m.jpg');
+    background-position: -358px -2px;
+    transform: rotateY(180deg);
+  }
+}
+@keyframes nextFlip7 {
+  0% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/30/993689322ded7e57950ec6b73b87190a1_m.jpg');
+    background-position: -2px -2px;
+    transform: rotateY(0deg);
+  }
+  13% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2023/02/12/0f2f649aff7ec1fe9c1be3997546209c1_m.jpg');
+    background-position: -388px -2px;
+    transform: rotateY(180deg);
+  }
+  20% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2023/02/12/0f2f649aff7ec1fe9c1be3997546209c1_m.jpg');
+    background-position: -2px -2px;
+    transform: rotateY(0deg);
+  }
+  33% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2017/06/29/7970a2df29bd56f06064edea33f009331_m.png');
+    background-position: -388px -2px;
+    transform: rotateY(180deg);
+  }
+  40% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2017/06/29/7970a2df29bd56f06064edea33f009331_m.png');
+    background-position: -2px -2px;
+    transform: rotateY(0deg);
+  }
+  53% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/29/0ca1694a90973863f96e3a3af60879671_m.jpg');
+    background-position: -388px -2px;
+    transform: rotateY(180deg);
+  }
+  60% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/29/0ca1694a90973863f96e3a3af60879671_m.jpg');
+    background-position: -2px -2px;
+    transform: rotateY(0deg);
+  }
+  73% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/06/01/51f9aa5c7ae5205cab68565cb7a7c4bf1_m.jpg');
+    background-position: -388px -2px;
+    transform: rotateY(180deg);
+  }
+  80% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/06/01/51f9aa5c7ae5205cab68565cb7a7c4bf1_m.jpg');
+    background-position: -2px -2px;
+    transform: rotateY(0deg);
+  }
+  93% {
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/07/30/993689322ded7e57950ec6b73b87190a1_m.jpg');
+    background-position: -388px -2px;
+    transform: rotateY(180deg);
+  }
+}
+
+.imgLoader2 {
+  animation: preLoad1 1s steps(1);
+  width: 1px;
+  height: 1px;
+}
+@keyframes preLoad1 {
+  0% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/pd/v2/0/4/4/0/8/3/vwEjP/4253044083_L300.jpg');
+  }
+  10% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/4175952034/L300.jpg?982000000');
+  }
+  20% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3653462280/L300.jpg?638000000');
+  }
+  30% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3300894051/L300.png?610000000');
+  }
+  40% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/dl/v2/3/1/8/2/2/4/CmAHK/184318224_146584143_05.jpg');
+  }
+  100% {
+    display: none;
+  }
+}
+.productbook {
+  position: relative;
+  width: 420px;
+  border: #fff solid 2px;
+  border-radius: 4px;
+  height: 420px;
+  margin: 50px 200px 50px 50px;
+  cursor: pointer;
+}
+
+.productbook .page:nth-child(3) {
+  transform: rotateX(60deg) rotateY(6deg);
+  animation: nextPage2 25s infinite -24s steps(1);
+  background-size: 420px 300px;
+  background-position: -2px -2px;
+}
+
+.productbook .page:nth-child(6)::after {
+  content: '';
+  width: 210px;
+  height: 300px;
+  position: absolute;
+  top: 0px;
+  right: 0%;
+  transform-origin: center;
+  transform: rotateY(180deg);
+  animation: nextPage2 25s -20s infinite steps(1);
+  background-size: 420px 300px;
+  background-position: 100% -2px;
+}
+@keyframes nextPage2 {
+  0% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/pd/v2/0/4/4/0/8/3/vwEjP/4253044083_L300.jpg');
+  }
+  20% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/4175952034/L300.jpg?982000000');
+  }
+  40% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3653462280/L300.jpg?638000000');
+  }
+  60% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3300894051/L300.png?610000000');
+  }
+  80% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/dl/v2/3/1/8/2/2/4/CmAHK/184318224_146584143_05.jpg');
+  }
+}
+
+.productbook .flip.flip1::after {
+  animation: nextFlip8 25s -20s infinite steps(1);
+}
+
+.productbook .flip.flip2::after {
+  animation: nextFlip9 25s -20s infinite steps(1);
+}
+.productbook .flip.flip3::after {
+  animation: nextFlip10 25s -20s infinite steps(1);
+}
+.productbook .flip.flip4::after {
+  animation: nextFlip11 25s -20s infinite steps(1);
+}
+.productbook .flip.flip5::after {
+  animation: nextFlip12 25s -20s infinite steps(1);
+}
+.productbook .flip.flip6::after {
+  animation: nextFlip13 25s -20s infinite steps(1);
+}
+.productbook .flip.flip7::after {
+  animation: nextFlip14 25s -20s infinite steps(1);
+}
+
+@keyframes nextFlip8 {
+  0% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/pd/v2/0/4/4/0/8/3/vwEjP/4253044083_L300.jpg');
+    background-position: -178px -2px;
+    transform: rotateY(0deg);
+  }
+  10% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/4175952034/L300.jpg?982000000');
+    background-position: -210px -2px;
+    transform: rotateY(180deg);
+  }
+  20% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/4175952034/L300.jpg?982000000');
+    background-position: -178px -2px;
+    transform: rotateY(0deg);
+  }
+  30% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3653462280/L300.jpg?638000000');
+    background-position: -210px -2px;
+    transform: rotateY(180deg);
+  }
+  40% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3653462280/L300.jpg?638000000');
+    background-position: -178px -2px;
+    transform: rotateY(0deg);
+  }
+  50% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3300894051/L300.png?610000000');
+    background-position: -210px -2px;
+    transform: rotateY(180deg);
+  }
+  60% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3300894051/L300.png?610000000');
+    background-position: -178px -2px;
+    transform: rotateY(0deg);
+  }
+  70% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/dl/v2/3/1/8/2/2/4/CmAHK/184318224_146584143_05.jpg');
+    background-position: -210px -2px;
+    transform: rotateY(180deg);
+  }
+  80% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/dl/v2/3/1/8/2/2/4/CmAHK/184318224_146584143_05.jpg');
+    background-position: -178px -2px;
+    transform: rotateY(0deg);
+  }
+  90% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/pd/v2/0/4/4/0/8/3/vwEjP/4253044083_L300.jpg');
+    background-position: -210px -2px;
+    transform: rotateY(180deg);
+  }
+}
+@keyframes nextFlip9 {
+  0% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/pd/v2/0/4/4/0/8/3/vwEjP/4253044083_L300.jpg');
+    background-position: -148px -2px;
+    transform: rotateY(0deg);
+  }
+  10.5% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/4175952034/L300.jpg?982000000');
+    background-position: -238px -2px;
+    transform: rotateY(180deg);
+  }
+  20% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/4175952034/L300.jpg?982000000');
+    background-position: -148px -2px;
+    transform: rotateY(0deg);
+  }
+  30.5% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3653462280/L300.jpg?638000000');
+    background-position: -238px -2px;
+    transform: rotateY(180deg);
+  }
+  40% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3653462280/L300.jpg?638000000');
+    background-position: -148px -2px;
+    transform: rotateY(0deg);
+  }
+  50.5% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3300894051/L300.png?610000000');
+    background-position: -238px -2px;
+    transform: rotateY(180deg);
+  }
+  60% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3300894051/L300.png?610000000');
+    background-position: -148px -2px;
+    transform: rotateY(0deg);
+  }
+  70.5% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/dl/v2/3/1/8/2/2/4/CmAHK/184318224_146584143_05.jpg');
+    background-position: -238px -2px;
+    transform: rotateY(180deg);
+  }
+  80% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/dl/v2/3/1/8/2/2/4/CmAHK/184318224_146584143_05.jpg');
+    background-position: -148px -2px;
+    transform: rotateY(0deg);
+  }
+  90.5% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/pd/v2/0/4/4/0/8/3/vwEjP/4253044083_L300.jpg');
+    background-position: -238px -2px;
+    transform: rotateY(180deg);
+  }
+}
+@keyframes nextFlip10 {
+  0% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/pd/v2/0/4/4/0/8/3/vwEjP/4253044083_L300.jpg');
+    background-position: -118px -2px;
+    transform: rotateY(0deg);
+  }
+  11% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/4175952034/L300.jpg?982000000');
+    background-position: -268px -2px;
+    transform: rotateY(180deg);
+  }
+  20% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/4175952034/L300.jpg?982000000');
+    background-position: -118px -2px;
+    transform: rotateY(0deg);
+  }
+  31% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3653462280/L300.jpg?638000000');
+    background-position: -268px -2px;
+    transform: rotateY(180deg);
+  }
+  40% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3653462280/L300.jpg?638000000');
+    background-position: -118px -2px;
+    transform: rotateY(0deg);
+  }
+  51% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3300894051/L300.png?610000000');
+    background-position: -268px -2px;
+    transform: rotateY(180deg);
+  }
+  60% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3300894051/L300.png?610000000');
+    background-position: -118px -2px;
+    transform: rotateY(0deg);
+  }
+  71% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/dl/v2/3/1/8/2/2/4/CmAHK/184318224_146584143_05.jpg');
+    background-position: -268px -2px;
+    transform: rotateY(180deg);
+  }
+  80% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/dl/v2/3/1/8/2/2/4/CmAHK/184318224_146584143_05.jpg');
+    background-position: -118px -2px;
+    transform: rotateY(0deg);
+  }
+  91% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/pd/v2/0/4/4/0/8/3/vwEjP/4253044083_L300.jpg');
+    background-position: -268px -2px;
+    transform: rotateY(180deg);
+  }
+}
+@keyframes nextFlip11 {
+  0% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/pd/v2/0/4/4/0/8/3/vwEjP/4253044083_L300.jpg');
+    background-position: -88px -2px;
+    transform: rotateY(0deg);
+  }
+  11.5% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/4175952034/L300.jpg?982000000');
+    background-position: -298px -2px;
+    transform: rotateY(180deg);
+  }
+  20% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/4175952034/L300.jpg?982000000');
+    background-position: -88px -2px;
+    transform: rotateY(0deg);
+  }
+  31.5% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3653462280/L300.jpg?638000000');
+    background-position: -298px -2px;
+    transform: rotateY(180deg);
+  }
+  40% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3653462280/L300.jpg?638000000');
+    background-position: -88px -2px;
+    transform: rotateY(0deg);
+  }
+  51.5% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3300894051/L300.png?610000000');
+    background-position: -298px -2px;
+    transform: rotateY(180deg);
+  }
+  60% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3300894051/L300.png?610000000');
+    background-position: -88px -2px;
+    transform: rotateY(0deg);
+  }
+  71.5% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/dl/v2/3/1/8/2/2/4/CmAHK/184318224_146584143_05.jpg');
+    background-position: -298px -2px;
+    transform: rotateY(180deg);
+  }
+  80% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/dl/v2/3/1/8/2/2/4/CmAHK/184318224_146584143_05.jpg');
+    background-position: -88px -2px;
+    transform: rotateY(0deg);
+  }
+  91.5% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/pd/v2/0/4/4/0/8/3/vwEjP/4253044083_L300.jpg');
+    background-position: -298px -2px;
+    transform: rotateY(180deg);
+  }
+}
+@keyframes nextFlip12 {
+  0% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/pd/v2/0/4/4/0/8/3/vwEjP/4253044083_L300.jpg');
+    background-position: -58px -2px;
+    transform: rotateY(0deg);
+  }
+  12% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/4175952034/L300.jpg?982000000');
+    background-position: -328px -2px;
+    transform: rotateY(180deg);
+  }
+  20% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/4175952034/L300.jpg?982000000');
+    background-position: -58px -2px;
+    transform: rotateY(0deg);
+  }
+  32% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3653462280/L300.jpg?638000000');
+    background-position: -328px -2px;
+    transform: rotateY(180deg);
+  }
+  40% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3653462280/L300.jpg?638000000');
+    background-position: -58px -2px;
+    transform: rotateY(0deg);
+  }
+  52% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3300894051/L300.png?610000000');
+    background-position: -328px -2px;
+    transform: rotateY(180deg);
+  }
+  60% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3300894051/L300.png?610000000');
+    background-position: -58px -2px;
+    transform: rotateY(0deg);
+  }
+  72% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/dl/v2/3/1/8/2/2/4/CmAHK/184318224_146584143_05.jpg');
+    background-position: -328px -2px;
+    transform: rotateY(180deg);
+  }
+  80% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/dl/v2/3/1/8/2/2/4/CmAHK/184318224_146584143_05.jpg');
+    background-position: -58px -2px;
+    transform: rotateY(0deg);
+  }
+  92% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/pd/v2/0/4/4/0/8/3/vwEjP/4253044083_L300.jpg');
+    background-position: -328px -2px;
+    transform: rotateY(180deg);
+  }
+}
+@keyframes nextFlip13 {
+  0% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/pd/v2/0/4/4/0/8/3/vwEjP/4253044083_L300.jpg');
+    background-position: -28px -2px;
+    transform: rotateY(0deg);
+  }
+  12.5% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/4175952034/L300.jpg?982000000');
+    background-position: -358px -2px;
+    transform: rotateY(180deg);
+  }
+  20% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/4175952034/L300.jpg?982000000');
+    background-position: -28px -2px;
+    transform: rotateY(0deg);
+  }
+  32.5% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3653462280/L300.jpg?638000000');
+    background-position: -358px -2px;
+    transform: rotateY(180deg);
+  }
+  40% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3653462280/L300.jpg?638000000');
+    background-position: -28px -2px;
+    transform: rotateY(0deg);
+  }
+  52.5% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3300894051/L300.png?610000000');
+    background-position: -358px -2px;
+    transform: rotateY(180deg);
+  }
+  60% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3300894051/L300.png?610000000');
+    background-position: -28px -2px;
+    transform: rotateY(0deg);
+  }
+  72.5% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/dl/v2/3/1/8/2/2/4/CmAHK/184318224_146584143_05.jpg');
+    background-position: -358px -2px;
+    transform: rotateY(180deg);
+  }
+  80% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/dl/v2/3/1/8/2/2/4/CmAHK/184318224_146584143_05.jpg');
+    background-position: -28px -2px;
+    transform: rotateY(0deg);
+  }
+  92.5% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/pd/v2/0/4/4/0/8/3/vwEjP/4253044083_L300.jpg');
+    background-position: -358px -2px;
+    transform: rotateY(180deg);
+  }
+}
+@keyframes nextFlip14 {
+  0% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/pd/v2/0/4/4/0/8/3/vwEjP/4253044083_L300.jpg');
+    background-position: -2px -2px;
+    transform: rotateY(0deg);
+  }
+  13% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/4175952034/L300.jpg?982000000');
+    background-position: -388px -2px;
+    transform: rotateY(180deg);
+  }
+  20% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/4175952034/L300.jpg?982000000');
+    background-position: -2px -2px;
+    transform: rotateY(0deg);
+  }
+  33% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3653462280/L300.jpg?638000000');
+    background-position: -388px -2px;
+    transform: rotateY(180deg);
+  }
+  40% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3653462280/L300.jpg?638000000');
+    background-position: -2px -2px;
+    transform: rotateY(0deg);
+  }
+  53% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3300894051/L300.png?610000000');
+    background-position: -388px -2px;
+    transform: rotateY(180deg);
+  }
+  60% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/product/3300894051/L300.png?610000000');
+    background-position: -2px -2px;
+    transform: rotateY(0deg);
+  }
+  73% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/dl/v2/3/1/8/2/2/4/CmAHK/184318224_146584143_05.jpg');
+    background-position: -388px -2px;
+    transform: rotateY(180deg);
+  }
+  80% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/dl/v2/3/1/8/2/2/4/CmAHK/184318224_146584143_05.jpg');
+    background-position: -2px -2px;
+    transform: rotateY(0deg);
+  }
+  93% {
+    background-image: url('https://cdn.011st.com/11dims/resize/220/11src/pd/v2/0/4/4/0/8/3/vwEjP/4253044083_L300.jpg');
+    background-position: -388px -2px;
+    transform: rotateY(180deg);
+  }
+}

@@ -1,5 +1,5 @@
-@import url(nav.css);
-@import url(serch.css);
+@import url(search.css);
+@import url(pagination.css);
 @import url('https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;700&display=swap');
 
 .container {
@@ -70,7 +70,7 @@
 
 .card .contentBox {
   position: relative;
-  padding: 20px;
+  padding: 0px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -123,4 +123,11 @@
   display: flex;
   font-size: 25px;
   justify-content: center;
+}
+
+.contentBox span {
+  text-decoration: line-through;
+  color: #bbb;
+  font-size: 13px;
+  margin-left: 5px;
 }
