@@ -77,8 +77,8 @@ export class AuthController {
   }
 
   @Post('/signup')
-  signUp(@Body(ValidationPipe) createUserDto: CreateUserDto) {
-    return this.authService.signup(createUserDto);
+  async signUp(@Body(ValidationPipe) createUserDto: CreateUserDto) {
+    return await this.authService.signup(createUserDto);
   }
 
   @UseGuards(LocalAuthGuard)
