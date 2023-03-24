@@ -46,6 +46,7 @@ export class ReviewService {
   async getReviews(reviewId: number) {
     return await this.reviewRepository.findOne({
       where: { id: reviewId },
+      withDeleted: true,
       relations: ['user'],
     });
   }
@@ -57,6 +58,7 @@ export class ReviewService {
       take,
       skip: (page - 1) * take,
       where: { user: { id: userId } },
+      withDeleted: true,
       order: { id: 'desc' },
     });
 

@@ -47,6 +47,7 @@ export class ArticleService {
   getArticle(articleId: number) {
     return this.articleRepository.findOne({
       where: { id: articleId },
+      withDeleted: true,
       relations: ['user'],
     });
   }
