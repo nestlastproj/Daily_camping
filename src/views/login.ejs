@@ -40,7 +40,10 @@
               </div>
               <div class="input-group">
                 <i class="fa-solid fa-phone"></i>
-                <input type="email" id="phone" placeholder="Phone" />
+                <input 
+                  type="text" 
+                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" 
+                  id="phone" placeholder="Phone" />
               </div>
               <div class="input-group">
                 <i class="fa-solid fa-user"></i>

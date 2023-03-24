@@ -85,9 +85,9 @@ body {
 
 .instructions {
   position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
+  bottom: 16px;
+  right: 519px;
+  font-size: 30px;
   padding: 1rem;
   font-family: monospace;
   text-transform: uppercase;
