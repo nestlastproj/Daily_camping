@@ -30,7 +30,7 @@ function login() {
                 location.href = '/main';
             },
             error: function (error) {
-                alert('로그인 실패');
+                alert('회원이 아닙니다. 회원가입을 진행해주세요.');
             },
         });
     }
