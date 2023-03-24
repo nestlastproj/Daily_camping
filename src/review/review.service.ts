@@ -14,6 +14,7 @@ export class ReviewService {
     const [reviews, total] = await this.reviewRepository.findAndCount({
       where: { places: { id: placeId } },
       relations: ['user'],
+      withDeleted: true,
       order: { id: 'desc' },
       take, // Limit; 한 페이지에 가져올 데이터의 제한 갯수
       skip: (page - 1) * take, // Offset; 이전의 요청 데이터 갯수 = 현재 요청이 시작되는 위치
