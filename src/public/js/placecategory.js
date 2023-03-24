@@ -403,7 +403,7 @@ function detail() {
               <div class="hearth" onclick="like(${data.id})"></div>
             </label>
           </div>
-          <h3><div class="totalcount${data.id}"></div></h3>
+          <h4><div class="totalcount${data.id}"></div></h4>
         </div>
       </div>
       `;
@@ -500,6 +500,28 @@ function mylike(page) {
           }
         }
       });
+    })
+    .catch((err) => {
+      console.log('error', err);
+    });
+}
+
+function placeLike(id) {
+  axios({
+    url: `/place/likecount/${id}`,
+    method: 'get',
+  }).then((res) => {
+    $(`.totalcount${id}`).append(res.data);
+  });
+}
+
+function like(id) {
+  axios({
+    url: `/place/${id}/like`,
+    method: 'post',
+  })
+    .then((res) => {
+      window.location.reload();
     })
     .catch((err) => {
       console.log('error', err);

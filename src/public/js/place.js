@@ -34,7 +34,7 @@ function placeApidata(page, keyword) {
           <div class="heart">
             <label class="like">
               <input id="myLike${data.id}" type="checkbox" />
-              <div class="hearth" onclick="loginUser(${data.id})"></div>
+              <div class="hearth" onclick="like(${data.id})"></div>
             </label>
           </div>
           <h4><div class="totalcount${data.id}"></div></h4>
@@ -125,17 +125,6 @@ function placeApidata(page, keyword) {
       console.log(err);
       // window.location.href = '/';
     });
-}
-
-function loginuser(id) {
-  axios.get(`/auth/isLoggined`)
-    .then((res) => {
-      placeLike(id)
-    })
-    .catch((err) => {
-      alert('로그인 후 이용 가능 합니다.')
-      location.href = '/auth/login'
-    })
 }
 
 function placeLike(id) {
