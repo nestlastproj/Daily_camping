@@ -5,8 +5,7 @@ $(document).ready(function () {
         url: '/auth/me',
     })
         .then((res) => {
-            let { email, name, nickname, phone, image } = res.data
-            document.getElementById('email').value = `${email}`
+            let { name, nickname, phone, image } = res.data
             document.getElementById('name').value = `${name}`
             document.getElementById('nickname').value = `${nickname}`
             document.getElementById('phone').value = `${phone}`
@@ -26,25 +25,21 @@ $(document).ready(function () {
         })
 })
 function updateprofile() {
-    let email = document.getElementById('email').value
     let name = document.getElementById('name').value
     let nickname = document.getElementById('nickname').value
     let phone = document.getElementById('phone').value
     let image = document.getElementById('image').files[0];
 
-    const re_email = /^[a-z0-9]+@[a-z0-9]+\.[a-z]{2,3}$/;
     const re_nickname = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/
     const re_name = /^([ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/
 
     const formData = new FormData();
-    formData.append('email', email);
     formData.append('name', name);
     formData.append('nickname', nickname);
     formData.append('phone', phone);
     formData.append('file', image);
-    if (email.search(re_email) === -1) {
-        alert('email 형식이 일치하지 않습니다');
-    } else if (nickname.search(re_nickname) === -1) {
+
+    if (nickname.search(re_nickname) === -1) {
         alert('닉네임은 2자 이상 16자 이하, 영어 또는 숫자 또는 한글로 구성 가능합니다.')
     } else if (name.search(re_name) === -1) {
         alert('이름은 2자 이상 10자 이하, 한글만 기재해주세요.')
