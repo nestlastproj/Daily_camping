@@ -64,52 +64,24 @@ export class AuthService {
     });
   }
 
-  async myArticleAndComments(req) {
+  async emailLogOff(req) {
     const userId = req.user.id;
-    await this.commentlikeRepository
+    const user = await this.userRepository.findOne({ where: { id: userId }, select: ['id', 'email'] });
+    const logoff = user.email + 'logoff';
+    return await this.userRepository
       .createQueryBuilder()
-      .delete()
-      .from(CommentLike)
-      .where({ user: { id: userId } })
-      .execute();
-    await this.articlelikeRepository
-      .createQueryBuilder()
-      .delete()
-      .from(ArticleLike)
-      .where({ user: { id: userId } })
-      .execute();
-    await this.placelikeRepository
-      .createQueryBuilder()
-      .delete()
-      .from(PlaceLike)
-      .where({ user: { id: userId } })
-      .execute();
-    await this.commentRepository
-      .createQueryBuilder()
-      .delete()
-      .from(Comment)
-      .where({ user: { id: userId } })
-      .execute();
-    await this.articleRepository
-      .createQueryBuilder()
-      .delete()
-      .from(Article)
-      .where({ user: { id: userId } })
-      .execute();
-    await this.reviewRepository
-      .createQueryBuilder()
-      .delete()
-      .from(Review)
-      .where({ user: { id: userId } })
+      .update(User)
+      .set({ email: () => `REPLACE(email, '${user.email}', '${logoff}')` })
+      .where({ id: userId })
       .execute();
   }
 
   async remove(req) {
     const userId = req.user.id;
-    await this.myArticleAndComments(req);
     await this.userRepository.findOne({ where: { id: userId } });
+    await this.emailLogOff(req);
     await this.userService.removeRefreshToken(userId);
-    return await this.userRepository.delete({ id: userId });
+    return await this.userRepository.softDelete({ id: userId });
   }
 
   // 회원가입

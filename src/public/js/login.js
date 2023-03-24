@@ -30,7 +30,7 @@ function login() {
                 location.href = '/main';
             },
             error: function (error) {
-                alert('로그인 실패');
+                alert('회원이 아닙니다. 회원가입을 진행해주세요.');
             },
         });
     }
@@ -43,11 +43,17 @@ function signup() {
     const phone = $("#phone").val();
     const nickname = $("#nickname").val();
     const re_email = /^[a-z0-9]+@[a-z0-9]+\.[a-z]{2,3}$/;
+    const re_nickname = /^([a-zA-Zㄱ-ㅎ|ㅏ-ㅣ|가-힣][a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/
+    const re_name = /^([ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/
 
     if (!name || !email || !password || !phone || !nickname) {
         alert("빈칸 없이 채워주세요.");
     } if (email.search(re_email) === -1) {
         alert('email 형식이 일치하지 않습니다');
+    } else if (nickname.search(re_nickname) === -1) {
+        alert('닉네임은 한글, 영문, 숫자만 가능하며 2-10자리 가능합니다.')
+    } else if (name.search(re_name) === -1) {
+        alert('이름을 올바르게 기재해주세요.')
     } else {
         $.ajax({
             type: "post",

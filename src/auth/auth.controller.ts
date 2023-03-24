@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -27,6 +28,7 @@ import { User } from 'src/entity/user.entity';
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService, private readonly userService: UserService) {}
+
   // render
   // --------------------------------------------------------------------
   @Get('/isLoggined')
@@ -57,10 +59,10 @@ export class AuthController {
     return await this.authService.getinfo(req);
   }
 
-  @Delete('/myArticleAndComments')
+  @Put('/emailLogOff')
   @UseGuards(JwtAuthGuard)
-  async myArticleAndComments(@Req() req) {
-    return await this.authService.myArticleAndComments(req);
+  async emailLogOff(@Req() req) {
+    return await this.authService.emailLogOff(req);
   }
 
   @Delete('/logOff')
@@ -77,14 +79,15 @@ export class AuthController {
   }
 
   @Post('/signup')
-  signUp(@Body(ValidationPipe) createUserDto: CreateUserDto) {
-    return this.authService.signup(createUserDto);
+  async signUp(@Body(ValidationPipe) createUserDto: CreateUserDto) {
+    return await this.authService.signup(createUserDto);
   }
 
   @UseGuards(LocalAuthGuard)
   @Post('/login')
   async login(@Req() req, @Res({ passthrough: true }) res: Response) {
     const user = req.user;
+
     const { accessToken } = this.authService.getCookieWithJwtAccessToken(user.id, user.nickname);
     const { refreshToken } = this.authService.getCookieWithJwtRefreshToken(user.id, user.nickname);
 
