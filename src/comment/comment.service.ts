@@ -26,6 +26,7 @@ export class CommentService {
       take,
       skip: (page - 1) * take,
       where: { user: { id: userId } },
+      withDeleted: true,
       relations: ['articles'],
       order: { id: 'desc' },
     });

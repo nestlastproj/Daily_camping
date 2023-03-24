@@ -278,7 +278,6 @@ function addressKindChange(e) {
     url: `/place/placeCategorySearch?page=${page}&cityname=${cityname}&detailcity=${detailcity}`,
     method: 'GET',
   }).then((res) => {
-    console.log(res);
     document.getElementById('placeContainer').innerHTML = '';
     document.getElementById('pagination').innerHTML = '';
 
@@ -387,7 +386,6 @@ function detail() {
 
     const { meta, placeList } = res.data;
     const { firstPage, lastPage, totalPage } = meta;
-    console.log(placeList);
     if (placeList.length !== 0) {
       placeList.forEach((data) => {
         let temp_html = `
@@ -450,7 +448,6 @@ function detail() {
       mylike(page);
 
       const pages = [];
-      console.log(pages, 1111111111111);
       // prev
       if (page > 1) {
         const prev = `<a class="page-link" onclick="pageCheck('${Number(page) - 1}','${cityname}','${detailcity}')" href='#'>

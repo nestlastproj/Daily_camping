@@ -64,6 +64,7 @@ export class ArticleService {
       take,
       skip: (page - 1) * take,
       where: { user: { id: userId } },
+      withDeleted: true,
       order: { id: 'desc' },
     });
 
