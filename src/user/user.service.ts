@@ -28,10 +28,6 @@ export class UserService {
       user['image'] = filename;
     }
 
-    const existedemail = await this.userRepository.findOneBy({ email });
-    if (existedemail) {
-      throw new ConflictException('이미 존재하는 이메일입니다.');
-    }
     const existednickname = await this.userRepository.findOneBy({ nickname });
     if (existednickname) {
       throw new ConflictException('이미 존재하는 닉네임입니다.');
