@@ -105,19 +105,17 @@ function placeApidata(page, keyword) {
         pages.push(next);
       }
       $('.pagination').append(pages.join(''));
-      if (page > 5) {
-        const now = page % 5
-        if (now === 0) {
-          var links = document.querySelectorAll(".page-link-number");
-          links[4].classList.add("active");
-        } else {
-          var links = document.querySelectorAll(".page-link-number");
+      var links = document.querySelectorAll('.page-link-number');
+      if (links.length !== 0 && page <= 5) {
+          const now = page - 1
+          links[now].classList.add("active");
+      } else if (page >5) {
+          const now = page % 5
+          if (now === 0) {
+              links[4].classList.add("active");
+          } else {
           links[now - 1].classList.add("active");
-        }
-      } else if (page <= 5) {
-        const now = page - 1
-        var links = document.querySelectorAll(".page-link-number");
-        links[now].classList.add("active");
+          }
       }
     })
     .catch((err) => {
