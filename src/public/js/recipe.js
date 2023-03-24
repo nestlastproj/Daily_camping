@@ -68,9 +68,14 @@ function recipeCrawling(page, keyword) {
 
       $('.pagination').append(pages.join(''));
       if (page > 5) {
-        const now = page % 5 - 1
-        var links = document.querySelectorAll(".page-link-number");
-        links[now].classList.add("active");
+        const now = page % 5
+        if (now === 0) {
+          var links = document.querySelectorAll(".page-link-number");
+          links[4].classList.add("active");
+        } else {
+          var links = document.querySelectorAll(".page-link-number");
+          links[now - 1].classList.add("active");
+        }
       } else {
         const now = page - 1
         var links = document.querySelectorAll(".page-link-number");
