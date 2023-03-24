@@ -27,13 +27,15 @@ export class UserService {
       const filename = file.key;
       user['image'] = filename;
     }
-
+    const mynickname = user.nickname;
     const existednickname = await this.userRepository.findOneBy({ nickname });
-    if (existednickname) {
-      throw new ConflictException('이미 존재하는 닉네임입니다.');
+    if (nickname === mynickname) {
+      return await this.userRepository.update(userId, user);
+    } else {
+      if (existednickname) {
+        throw new ConflictException('이미 존재하는 닉네임입니다.');
+      }
     }
-
-    return await this.userRepository.update(userId, user);
   }
 
   async getByEmail(email: string) {
