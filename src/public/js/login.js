@@ -47,13 +47,13 @@ function signup() {
     const re_name = /^([ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/
 
     if (!name || !email || !password || !phone || !nickname) {
-        alert("빈칸 없이 채워주세요.");
-    } if (email.search(re_email) === -1) {
+        alert("빈칸 없이 작성해주세요.");
+    } else if (email.search(re_email) === -1) {
         alert('email 형식이 일치하지 않습니다');
     } else if (nickname.search(re_nickname) === -1) {
         alert('닉네임은 2자 이상 16자 이하, 영어 또는 숫자 또는 한글로 구성 가능합니다.')
     } else if (name.search(re_name) === -1) {
-        alert('이름(한글)을 올바르게 기재해주세요.')
+        alert('이름은 2자 이상 10자 이하, 한글만 기재해주세요.')
     } else {
         $.ajax({
             type: "post",
@@ -71,6 +71,7 @@ function signup() {
             },
             error: function (error) {
                 alert(error.responseJSON.message);
+                window.location.reload();
             },
         });
     }
