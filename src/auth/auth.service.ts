@@ -1,41 +1,18 @@
-import {
-  ConflictException,
-  HttpException,
-  Injectable,
-  InternalServerErrorException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from '../auth/dto/create-user.dto';
 import { User } from '../entity/user.entity';
-import { Article } from 'src/entity/article.entity';
-import { Comment } from 'src/entity/comment.entity';
 import * as bcrypt from 'bcryptjs';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from 'src/user/user.service';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { Review } from 'src/entity/review.entity';
-import { ArticleLike, CommentLike, PlaceLike } from 'src/entity/like.entity';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-    @InjectRepository(Article)
-    private readonly articleRepository: Repository<Article>,
-    @InjectRepository(Comment)
-    private readonly commentRepository: Repository<Comment>,
-    @InjectRepository(Review)
-    private readonly reviewRepository: Repository<Review>,
-    @InjectRepository(ArticleLike)
-    private readonly articlelikeRepository: Repository<ArticleLike>,
-    @InjectRepository(CommentLike)
-    private readonly commentlikeRepository: Repository<CommentLike>,
-    @InjectRepository(PlaceLike)
-    private readonly placelikeRepository: Repository<PlaceLike>,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
     private readonly userService: UserService,

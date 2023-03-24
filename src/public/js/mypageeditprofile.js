@@ -56,11 +56,15 @@ function updateprofile() {
         })
             .then((res) => {
                 axios.get('/auth/isLoggined').then(() => {
+                    alert('수정 완료!');
                     window.location.reload();
                 }).catch(() => {
                     alert('수정 완료! 다시 로그인 해주세요');
                     location.href = '/auth/login';
                 })
+            }).catch((error) => {
+                alert(error.response.data.message);
+                window.location.reload();
             })
     }
 }
