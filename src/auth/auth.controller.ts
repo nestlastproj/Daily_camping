@@ -53,6 +53,11 @@ export class AuthController {
 
   // --------------------------------------------------------------------
 
+  @Post('/emailSend')
+  async emailSend(email: string) {
+    await this.authService.emailSend(email);
+  }
+
   @Get('/me')
   @UseGuards(JwtAuthGuard)
   async getinfo(@Req() req) {

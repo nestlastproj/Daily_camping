@@ -1,5 +1,6 @@
 // let container = document.getElementById("container");
 
+
 toggle = () => {
     container.classList.toggle("sign-in");
     container.classList.toggle("sign-up");
@@ -40,6 +41,7 @@ function signup() {
     const name = $("#name").val();
     const password = $("#password").val();
     const email = $("#email").val();
+    const emailcheck = $("#emailCheck").val();
     const phone = $("#phone").val();
     const nickname = $("#nickname").val();
     const re_email = /^[a-z0-9]+@[a-z0-9]+\.[a-z]{2,3}$/;
@@ -48,8 +50,10 @@ function signup() {
 
     if (!name || !email || !password || !phone || !nickname) {
         alert("빈칸 없이 작성해주세요.");
+    } else if (!emailcheck) {
+        alert('email 인증을 진행해주세요.');
     } else if (email.search(re_email) === -1) {
-        alert('email 형식이 일치하지 않습니다');
+        alert('email 형식이 일치하지 않습니다.');
     } else if (nickname.search(re_nickname) === -1) {
         alert('닉네임은 2자 이상 16자 이하, 영어 또는 숫자 또는 한글로 구성 가능합니다.')
     } else if (name.search(re_name) === -1) {
@@ -75,4 +79,14 @@ function signup() {
             },
         });
     }
+}
+
+function emailValidate() {
+    axios.post('/auth/emailSend')
+        .then((res) => {
+            alert('전송 완료')
+        })
+        .catch((err) => {
+            console.log(err)
+        })
 }

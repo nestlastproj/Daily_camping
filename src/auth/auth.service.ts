@@ -7,6 +7,7 @@ import { User } from '../entity/user.entity';
 import * as bcrypt from 'bcryptjs';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from 'src/user/user.service';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class AuthService {
@@ -16,8 +17,31 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
     private readonly userService: UserService,
+    private readonly mailerService: MailerService,
   ) {}
 
+  async emailSend(email: string) {
+    const number: string = Math.floor(100000 + Math.random() * 900000).toString();
+    await this.mailerService.sendMail({
+      to: email, // list of receivers
+      from: process.env.EMAIL_AUTH_EMAIL, // sender address
+      subject: '내일바로캠핑 이메일 인증 요청 메일입니다.', // Subject line
+      html: '6자리 인증 코드 : ' + `<b> ${number}</b>`, // HTML body content
+    });
+  }
+
+  async emailValidate(email: string) {
+    const number: string = Math.floor(100000 + Math.random() * 900000).toString();
+    console.log(number);
+    const salt = await bcrypt.genSalt();
+    const authNum = await bcrypt.hash(number, salt);
+    if (number === salt) {
+      return { result: true, authNum: authNum };
+    } else {
+      // return { result: false, authNum: '' };
+      throw new UnauthorizedException('인증번호가 틀렸습니다.');
+    }
+  }
   async isLoggined(req) {
     const userId = req.user.id;
     return await this.userRepository.findOne({ where: { id: userId }, select: ['id', 'nickname'] });
