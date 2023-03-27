@@ -5,10 +5,14 @@ import { Like, Repository } from 'typeorm';
 import axios from 'axios';
 import cheerio from 'cheerio';
 import { empty } from 'cheerio/lib/api/manipulation';
+import { SearchService } from 'src/serch/search.service';
 
 @Injectable()
 export class RecipeService {
-  constructor(@InjectRepository(Recipe) private readonly recipeRePository: Repository<Recipe>) {}
+  constructor(
+    @InjectRepository(Recipe) private readonly recipeRePository: Repository<Recipe>,
+    private readonly searchService: SearchService,
+  ) {}
 
   async getRecipe() {
     const recipes = [];
@@ -89,6 +93,9 @@ export class RecipeService {
       return entity;
     });
 
+    await this.findindex();
+    await this.deleteIndex();
+
     return this.recipeRePository
       .createQueryBuilder('recipe')
       .insert()
@@ -99,33 +106,52 @@ export class RecipeService {
       .execute();
   }
 
-  async recipeSearch(page, keyword) {
-    const take = 8;
-    const whereQuery = keyword === '' ? '%%' : `%${keyword}%`;
-    const [recipeList, total] = await this.recipeRePository.findAndCount({
-      where: { name: Like(whereQuery) },
-      take,
-      skip: (page - 1) * take,
+  async findindex() {
+    const allfind = await this.recipeRePository.find();
+    allfind.forEach((res) => {
+      const keyword = '레시피';
+      this.searchService.createDocument(res, keyword);
     });
-
-    const totalPage = Math.ceil(total / take);
-    const pageGroup = Math.ceil(page / 5);
-    let lastPage = pageGroup * 5;
-    const firstPage = lastPage - 5 + 1 <= 0 ? 1 : lastPage - 5 + 1;
-
-    if (lastPage > totalPage) {
-      lastPage = totalPage;
-    }
-
-    return {
-      recipeList,
-      meta: {
-        firstPage,
-        lastPage,
-        totalPage,
-      },
-    };
   }
+
+  async deleteIndex() {
+    const keyword = '레시피';
+    await this.searchService.deleteDocument(keyword);
+  }
+
+  async recipeSearch(page: number, keyword: string) {
+    const recipeSearchData = await this.searchService.getDocument(page, keyword);
+    const data = recipeSearchData.map((data) => data._source);
+    return data;
+  }
+
+  // async recipeSearch(page, keyword) {
+  //   const take = 8;
+  //   const whereQuery = keyword === '' ? '%%' : `%${keyword}%`;
+  //   const [recipeList, total] = await this.recipeRePository.findAndCount({
+  //     where: { name: Like(whereQuery) },
+  //     take,
+  //     skip: (page - 1) * take,
+  //   });
+
+  //   const totalPage = Math.ceil(total / take);
+  //   const pageGroup = Math.ceil(page / 5);
+  //   let lastPage = pageGroup * 5;
+  //   const firstPage = lastPage - 5 + 1 <= 0 ? 1 : lastPage - 5 + 1;
+
+  //   if (lastPage > totalPage) {
+  //     lastPage = totalPage;
+  //   }
+
+  //   return {
+  //     recipeList,
+  //     meta: {
+  //       firstPage,
+  //       lastPage,
+  //       totalPage,
+  //     },
+  //   };
+  // }
 
   async recipeDetail(recipeId) {
     return this.recipeRePository.findOne({ where: { id: recipeId } });

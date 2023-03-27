@@ -6,7 +6,7 @@ $(document).ready(function () {
 
 function search() {
   const keyword = document.getElementById('searchKeyword').value;
-  window.location.href = `/product/productList?page=1&keyword=${keyword}`;
+  window.location.href = `/search/searchResult?page=1&keyword=${keyword}`;
 }
 
 function productApiData(page, keyword) {
@@ -15,6 +15,7 @@ function productApiData(page, keyword) {
     method: 'GET',
   })
     .then((res) => {
+      console.log(res)
       document.getElementById('productContainer').innerHTML = '';
       document.getElementById('pagination').innerHTML = '';
 
@@ -62,21 +63,20 @@ function productApiData(page, keyword) {
       }
 
       $('.pagination').append(pages.join(''));
-      var links = document.querySelectorAll('.page-link-number');
-      if (links.length !== 0 && page <= 5) {
-          const now = page - 1;
-          links[now].classList.add("active");
-      } else if (page >5) {
-          const now = page % 5;
-          if (now === 0) {
-              links[4].classList.add("active");
-          } else {
-          links[now - 1].classList.add("active");
-          };
-      };
+
+      if (page > 5) {
+        const now = page % 5 - 1
+        var links = document.querySelectorAll(".page-link-number");
+        links[now].classList.add("active");
+      } else {
+        const now = page - 1
+        var links = document.querySelectorAll(".page-link-number");
+        links[now].classList.add("active");
+      }
     })
     .catch((err) => {
       alert('상품 정보 로드에 실패하였습니다.');
-      window.location.href = '/product/productList';
+      console.log(err)
+      // window.location.href = '/';
     });
 }
