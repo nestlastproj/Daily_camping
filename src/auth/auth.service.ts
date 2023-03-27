@@ -20,37 +20,21 @@ export class AuthService {
     private readonly mailerService: MailerService,
   ) {}
 
-  async emailSend(email: string) {
+  async emailSend(emailval: string) {
     try {
+      const email = emailval['emailval'];
       const number: string = Math.floor(100000 + Math.random() * 900000).toString();
       await this.mailerService.sendMail({
         to: email, // list of receivers
-        from: process.env.EMAIL_AUTH_EMAIL, // sender address
+        from: this.configService.get('EMAIL_AUTH_EMAIL'), // sender address
         subject: '내일바로캠핑 이메일 인증 요청 메일입니다.', // Subject line
         html: '6자리 인증 코드 : ' + `<b> ${number}</b>`, // HTML body content
       });
-      const salt = await bcrypt.genSalt();
-      const authNum = await bcrypt.hash(number, salt);
-
-      return { result: true, authNum: authNum };
+      return { result: true, number: number };
     } catch (err) {
-      console.log(err);
       return { result: false };
     }
   }
-
-  // async emailValidate(email: string) {
-  //   const number: string = Math.floor(100000 + Math.random() * 900000).toString();
-  //   console.log(number);
-  //   const salt = await bcrypt.genSalt();
-  //   const authNum = await bcrypt.hash(number, salt);
-  //   if (number === salt) {
-  //     return { result: true, authNum: authNum };
-  //   } else {
-  //     // return { result: false, authNum: '' };
-  //     throw new UnauthorizedException('인증번호가 틀렸습니다.');
-  //   }
-  // }
 
   async isLoggined(req) {
     const userId = req.user.id;
@@ -96,7 +80,7 @@ export class AuthService {
   }
 
   // 회원가입
-  async signup(createUserDto: CreateUserDto) {
+  async signup(createUserDto: CreateUserDto, res) {
     const { email, name, password, phone, nickname } = createUserDto;
 
     const salt = await bcrypt.genSalt();
@@ -111,6 +95,7 @@ export class AuthService {
     if (existednickname) {
       throw new ConflictException('이미 존재하는 닉네임입니다.');
     }
+    res.clearCookie('authNum');
     return await this.userRepository.save(user);
   }
 

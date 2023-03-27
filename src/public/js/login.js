@@ -48,10 +48,25 @@ function signup() {
     const re_nickname = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/
     const re_name = /^([ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/
 
+    let authNum;
+    let checkNum;
+
+    if (document.cookie.includes('authNum')) {
+        authNum = document.cookie.split('authNum=')[1];
+    } else {
+        alert('인증번호가 없습니다.')
+    }
+
+    if (emailcheck === authNum) {
+        checkNum = true;
+    }
+
     if (!name || !email || !password || !phone || !nickname) {
         alert("빈칸 없이 작성해주세요.");
     } else if (!emailcheck) {
         alert('email 인증을 진행해주세요.');
+    } else if (!checkNum) {
+        alert('email 인증에 실패했다고 했지.');
     } else if (email.search(re_email) === -1) {
         alert('email 형식이 일치하지 않습니다.');
     } else if (nickname.search(re_nickname) === -1) {
@@ -70,6 +85,7 @@ function signup() {
                 nickname
             },
             success: function (response) {
+
                 alert(`${email}님 회원가입이 완료되었습니다`);
                 location.href = "/auth/login";
             },
@@ -81,12 +97,36 @@ function signup() {
     }
 }
 
+
 function emailSend() {
-    axios.post('/auth/emailSend')
+    const emailval = $("#email").val();
+    axios({
+        method: 'post',
+        url: '/auth/emailSend',
+        data: { emailval }
+    })
         .then((res) => {
             alert('전송 완료')
         })
         .catch((err) => {
             console.log(err)
         })
+}
+
+function emailValidate() {
+    const emailcheck = $("#emailCheck").val();
+    let authNum;
+    let checkNum;
+
+    if (document.cookie.includes('authNum')) {
+        authNum = document.cookie.split('authNum=')[1];
+    } else {
+        return alert('인증번호가 없습니다.')
+    }
+    if (emailcheck === authNum) {
+        checkNum = true;
+        return alert('인증이 완료되었습니다.')
+    } else {
+        alert('인증번호가 틀렸습니다.')
+    }
 }

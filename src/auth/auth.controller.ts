@@ -54,10 +54,9 @@ export class AuthController {
   // --------------------------------------------------------------------
 
   @Post('/emailSend')
-  async emailSend(email: string, @Res({ passthrough: true }) res: Response) {
-    const { authNum } = await this.authService.emailSend(email);
-
-    res.cookie('authNum', authNum, { path: '/', expires: new Date(Date.now() + 300000) });
+  async emailSend(@Body(ValidationPipe) emailval: string, @Res({ passthrough: true }) res: Response) {
+    const { number } = await this.authService.emailSend(emailval);
+    res.cookie('authNum', number, { path: '/', expires: new Date(Date.now() + 300000) });
   }
 
   @Get('/me')
@@ -86,8 +85,8 @@ export class AuthController {
   }
 
   @Post('/signup')
-  async signUp(@Body(ValidationPipe) createUserDto: CreateUserDto) {
-    return await this.authService.signup(createUserDto);
+  async signUp(@Body(ValidationPipe) createUserDto: CreateUserDto, @Res({ passthrough: true }) res: Response) {
+    return await this.authService.signup(createUserDto, res);
   }
 
   @UseGuards(LocalAuthGuard)
