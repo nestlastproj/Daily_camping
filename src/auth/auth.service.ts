@@ -7,6 +7,7 @@ import { User } from '../entity/user.entity';
 import * as bcrypt from 'bcryptjs';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from 'src/user/user.service';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class AuthService {
@@ -16,7 +17,24 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
     private readonly userService: UserService,
+    private readonly mailerService: MailerService,
   ) {}
+
+  async emailSend(emailval: string) {
+    try {
+      const email = emailval['emailval'];
+      const number: string = Math.floor(100000 + Math.random() * 900000).toString();
+      await this.mailerService.sendMail({
+        to: email, // list of receivers
+        from: this.configService.get('EMAIL_AUTH_EMAIL'), // sender address
+        subject: '내일바로캠핑 이메일 인증 요청 메일입니다.', // Subject line
+        html: '6자리 인증 코드 : ' + `<b> ${number}</b>`, // HTML body content
+      });
+      return { result: true, number: number };
+    } catch (err) {
+      return { result: false };
+    }
+  }
 
   async isLoggined(req) {
     const userId = req.user.id;
@@ -62,7 +80,7 @@ export class AuthService {
   }
 
   // 회원가입
-  async signup(createUserDto: CreateUserDto) {
+  async signup(createUserDto: CreateUserDto, res) {
     const { email, name, password, phone, nickname } = createUserDto;
 
     const salt = await bcrypt.genSalt();
@@ -77,6 +95,7 @@ export class AuthService {
     if (existednickname) {
       throw new ConflictException('이미 존재하는 닉네임입니다.');
     }
+    res.clearCookie('authNum');
     return await this.userRepository.save(user);
   }
 

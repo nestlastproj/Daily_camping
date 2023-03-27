@@ -20,6 +20,8 @@ import { CommentModule } from 'src/comment/comment.module';
 import { Review } from 'src/entity/review.entity';
 import { ReviewModule } from 'src/review/review.module';
 import { ArticleLike, CommentLike, PlaceLike } from 'src/entity/like.entity';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { MailerOptions } from 'src/config/mailer.service';
 @Module({
   imports: [
     TypeOrmModule.forFeature([User, Article, Comment, Review, ArticleLike, CommentLike, PlaceLike]),
@@ -34,6 +36,11 @@ import { ArticleLike, CommentLike, PlaceLike } from 'src/entity/like.entity';
     ReviewModule,
     PassportModule,
     MulterModule.registerAsync({ useFactory: multerOptionsFactory }),
+    MailerModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: MailerOptions,
+    }),
   ],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy, JwtStrategy, JwtRefreshStrategy],
