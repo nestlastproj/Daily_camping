@@ -81,7 +81,7 @@ function signup() {
     }
 }
 
-function emailValidate() {
+function emailSend() {
     axios.post('/auth/emailSend')
         .then((res) => {
             alert('전송 완료')

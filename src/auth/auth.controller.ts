@@ -54,8 +54,10 @@ export class AuthController {
   // --------------------------------------------------------------------
 
   @Post('/emailSend')
-  async emailSend(email: string) {
-    await this.authService.emailSend(email);
+  async emailSend(email: string, @Res({ passthrough: true }) res: Response) {
+    const { authNum } = await this.authService.emailSend(email);
+
+    res.cookie('authNum', authNum, { path: '/', expires: new Date(Date.now() + 300000) });
   }
 
   @Get('/me')
