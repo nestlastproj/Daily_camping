@@ -6,15 +6,16 @@ $(document).ready(function () {
 
 function search() {
   const keyword = document.getElementById('searchKeyword').value;
-  window.location.href = `/place/placeList?page=1&keyword=${keyword}`;
+  window.location.href = `/search/searchResult?page=1&keyword=${keyword}`;
 }
 
 function placeApidata(page, keyword) {
   axios({
-    url: `/place/placeSearch?page=${page}&keyword=${keyword}`,
+    url: `/place/placesearch?page=${page}&keyword=${keyword}`,
     method: 'GET',
   })
     .then((res) => {
+      console.log(res)
       document.getElementById('placeContainer').innerHTML = '';
       document.getElementById('pagination').innerHTML = '';
 
@@ -120,7 +121,7 @@ function placeApidata(page, keyword) {
     .catch((err) => {
       // alert('캠핑장 정보 로드에 실패하였습니다.');
       console.log(err);
-      window.location.href = '/';
+      // window.location.href = '/';
     });
 }
 

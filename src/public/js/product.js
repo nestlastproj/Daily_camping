@@ -6,7 +6,7 @@ $(document).ready(function () {
 
 function search() {
   const keyword = document.getElementById('searchKeyword').value;
-  window.location.href = `/product/productList?page=1&keyword=${keyword}`;
+  window.location.href = `/search/searchResult?page=1&keyword=${keyword}`;
 }
 
 function productApiData(page, keyword) {

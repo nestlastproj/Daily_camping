@@ -5,10 +5,14 @@ import * as iconv from 'iconv-lite';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from '../entity/api/product.entity';
 import { Like, Repository } from 'typeorm';
+import { SearchService } from 'src/serch/search.service';
 
 @Injectable()
 export class ProductService {
-  constructor(@InjectRepository(Product) private readonly productRepository: Repository<Product>) {}
+  constructor(
+    @InjectRepository(Product) private readonly productRepository: Repository<Product>,
+    private readonly searchService: SearchService,
+  ) {}
   private readonly API_URL = 'https://openapi.11st.co.kr/openapi/OpenApiService.tmall';
 
   async getProduct(query: string, page: number = 1, pageSize: number = 5000) {
@@ -51,7 +55,24 @@ export class ProductService {
           .execute();
       }),
     );
+
+    await this.deleteIndex();
+    await this.findindex();
+
     return saveProduct;
+  }
+
+  async findindex() {
+    const allfind = await this.productRepository.find();
+    allfind.forEach((res) => {
+      const keyword = '캠핑용품';
+      this.searchService.createDocument(res, keyword);
+    });
+  }
+
+  async deleteIndex() {
+    const keyword = '캠핑용품';
+    await this.searchService.deleteDocument(keyword);
   }
 
   async productSearch(page: number, keyword: string) {
