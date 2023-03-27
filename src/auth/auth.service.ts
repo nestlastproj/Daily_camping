@@ -44,7 +44,7 @@ export class AuthService {
   async emailLogOff(req) {
     const userId = req.user.id;
     const user = await this.userRepository.findOne({ where: { id: userId }, select: ['id', 'email'] });
-    const logoff = user.email + 'logoff';
+    const logoff = user.email + Math.random().toString(36).slice(2);
     return await this.userRepository
       .createQueryBuilder()
       .update(User)
