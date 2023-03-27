@@ -4,12 +4,14 @@ $(document).ready(function () {
   search(page, keyword);
 });
 
+let dataByKeyword;
+
 function search(page, keyword) {
   axios({
     url: `/search/indexSearch?page=${page}&keyword=${keyword}`,
     method: 'GET',
   }).then((res) => {
-    const dataByKeyword = {
+    dataByKeyword = {
       place: [],
       product: [],
       recipe: [],
@@ -43,7 +45,7 @@ function search(page, keyword) {
           displayResult(key, value[i]);
         }
         const loadMoreBtn = `
-          <button id="${key}_load_more_btn" class="load_more_btn" onclick="loadMoreResults('${key}')">검색 결과 더보기</button>
+          <button id=${key}btn class="load_more_btn" onclick="loadMoreResults('${key}')">검색 결과 더보기</button>
         `;
         $(`.${key}_box`).append(loadMoreBtn);
       }
@@ -100,6 +102,8 @@ function displayResult(key, data) {
 }
 
 function loadMoreResults(key) {
+  $(`#${key}btn`).remove();
+
   const data = dataByKeyword[key];
   const currentLength = $(`.${key}_box ul`).length;
 
@@ -148,6 +152,11 @@ function loadMoreResults(key) {
       $(`.${key}_box`).append(temp_html);
     }
   }
+  const loadMoreBtn = `
+        <button id=${key}btn class="load_more_btn" onclick="loadMoreResults('${key}')">검색 결과 더보기</button>
+      `;
+
+  currentLength + 3 >= dataByKeyword[key].length ? $(`#${key}btn`).remove() : $(`.${key}_box`).append(loadMoreBtn);
 
   if (currentLength + 3 >= data.length) {
     $(`#${key}_more_btn`).hide();
