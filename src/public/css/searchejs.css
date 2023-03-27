@@ -31,7 +31,7 @@ body {
   color: rgb(54, 38, 38);
   overflow: hidden;
   text-overflow: ellipsis;
-  /* white-space: nowrap; */
+  white-space: nowrap;
   cursor: pointer;
 }
 

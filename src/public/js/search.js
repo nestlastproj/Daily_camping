@@ -11,6 +11,7 @@ function search(page, keyword) {
     url: `/search/indexSearch?page=${page}&keyword=${keyword}`,
     method: 'GET',
   }).then((res) => {
+    console.log(res);
     dataByKeyword = {
       place: [],
       product: [],
@@ -33,14 +34,12 @@ function search(page, keyword) {
       }
     });
 
-    // Display all results if length is 3 or less
     for (const [key, value] of Object.entries(dataByKeyword)) {
       if (value.length <= 3) {
         value.forEach((data) => {
           displayResult(key, data);
         });
       } else {
-        // Display only 3 results with a "Load More" button if length is greater than 3
         for (let i = 0; i < 3; i++) {
           displayResult(key, value[i]);
         }
@@ -55,6 +54,7 @@ function search(page, keyword) {
 
 function displayResult(key, data) {
   if (key === 'place') {
+    $('#place_no_search').remove();
     const temp_html = `
     <div class="data_box">
       <ul id="place_title" class="title" onclick="location.href='/place/placeInfo?placeId=${data.id}'">
@@ -66,6 +66,7 @@ function displayResult(key, data) {
     $('.place_box').append(temp_html);
   }
   if (key === 'product') {
+    $('.product_no_search').remove();
     const temp_html = `
     <div class="data_box">
     <ul id="product_title" class="title" onclick="window.open('${data.url}')">
@@ -78,17 +79,22 @@ function displayResult(key, data) {
     $('.product_box').append(temp_html);
   }
   if (key === 'recipe') {
+    $('.recipe_no_search').remove();
+
+    const contentDetail = data.content.split('$');
+
     const temp_html = `
     <div class="data_box">
       <ul id="recipe_title" class="title" onclick="location.href='recipe/recipeInfo?recipeId=${data.id}'">
         요리명: ${data.name}
       </ul>
-      <li id="recipe_content" class="content" onclick="location.href='recipe/recipeInfo?recipeId=${data.id}'"> <img src="${data.image}">${data.content}</li>
+      <li id="recipe_content" class="content" onclick="location.href='recipe/recipeInfo?recipeId=${data.id}'"> <img src="${data.image}">${contentDetail}</li>
       </div>
       `;
     $('.recipe_box').append(temp_html);
   }
   if (key === 'article') {
+    $('.article_no_search').remove();
     const temp_html = `
     <div class="data_box">
       <ul id="recipe_title" class="title">
@@ -98,6 +104,17 @@ function displayResult(key, data) {
       </div>
       `;
     $('.article_box').append(temp_html);
+  }
+
+  const currentLength = $(`.${key}_box ul`).length;
+
+  if (currentLength === 0) {
+    let temp_html = `
+    <div class="data_box">
+      검색 결과가 없습니다.    
+    </div>
+    `;
+    $(`.${key}_box`).append(temp_html);
   }
 }
 
@@ -111,6 +128,7 @@ function loadMoreResults(key) {
     const item = data[i];
 
     if (key === 'place') {
+      $('.place_no_search').remove();
       let temp_html = `
       <div class="data_box">
         <ul id="place_title" class="title" onclick="location.href='/place/placeInfo?placeId=${item.id}'">
@@ -121,6 +139,7 @@ function loadMoreResults(key) {
         `;
       $(`.${key}_box`).append(temp_html);
     } else if (key === 'product') {
+      $('.product_no_search').remove();
       let temp_html = `
       <div class="data_box">
         <ul id="product_title" class="title" onclick="window.open('${item.url}')">
@@ -131,16 +150,20 @@ function loadMoreResults(key) {
         `;
       $(`.${key}_box`).append(temp_html);
     } else if (key === 'recipe') {
+      $('.recipe_no_search').remove();
+      const contentDetail = item.content.split('$');
+
       let temp_html = `
       <div class="data_box">
         <ul id="recipe_title" class="title" onclick="location.href='recipe/recipeInfo?recipeId=${item.id}'">
           요리명: ${item.name}
         </ul>
-        <li id="recipe_content" class="content" onclick="location.href='recipe/recipeInfo?recipeId=${item.id}'"> <img src="${item.image}">${item.content}</li>
+        <li id="recipe_content" class="content" onclick="location.href='recipe/recipeInfo?recipeId=${item.id}'"> <img src="${item.image}">${contentDetail}</li>
       </div>
         `;
       $(`.${key}_box`).append(temp_html);
     } else if (key === 'article') {
+      $('.article_no_search').remove();
       let temp_html = `
       <div class="data_box">
         <ul id="recipe_title" class="title">
