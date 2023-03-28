@@ -39,10 +39,12 @@ export class PlaceService {
         const { pageable_count, total_count } = response.data.meta;
         const maxPage = pageable_count === 45 && total_count > 45 ? 3 : Math.ceil(pageable_count / 15);
 
+        // const a = this.placeimage()
+
         for (let i = 1; i <= maxPage; i++) {
           params.page = i;
           const response = await this.httpService.get(url, { params, headers }).toPromise();
-
+          console.log(response.data.documents);
           let places = response.data.documents
             .filter((doc) => {
               return doc.category_name.includes('캠핑장');
@@ -95,6 +97,7 @@ export class PlaceService {
                 category: doc.category_name,
                 phone: doc.phone,
                 url: doc.place_url,
+                image: this.placeimage(doc.place_url),
                 x: doc.x,
                 y: doc.y,
                 city: city,
@@ -208,16 +211,17 @@ export class PlaceService {
       .getMany();
   }
 
-  async placeimage() {
+  async placeimage(place_url) {
     return new Promise((resolve, reject) => {
       const curl = new Curl();
 
-      curl.setOpt('URL', 'https://place.map.kakao.com/main/v/14061000');
+      curl.setOpt('URL', place_url);
       curl.setOpt('FOLLOWLOCATION', true);
 
       curl.on('end', function (statusCode, data, headers) {
         const result = JSON.parse(data.toString());
-        resolve(result);
+        const imageurl = result.photo.photoList[0].list[0].orgurl;
+        resolve(imageurl);
         this.close();
       });
 
