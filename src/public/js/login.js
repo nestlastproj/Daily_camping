@@ -54,7 +54,7 @@ function signup() {
     if (document.cookie.includes('authNum')) {
         authNum = document.cookie.split('authNum=')[1];
     } else {
-        alert('인증번호가 없습니다.')
+        alert('인증을 완료해주세요.')
     }
 
     if (emailcheck === authNum) {
@@ -66,7 +66,7 @@ function signup() {
     } else if (!emailcheck) {
         alert('email 인증을 진행해주세요.');
     } else if (!checkNum) {
-        alert('email 인증에 실패했다고 했지.');
+        alert('email 인증에 실패하였습니다.');
     } else if (email.search(re_email) === -1) {
         alert('email 형식이 일치하지 않습니다.');
     } else if (nickname.search(re_nickname) === -1) {
