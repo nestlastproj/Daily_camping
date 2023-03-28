@@ -15,7 +15,6 @@ function productApiData(page, keyword) {
     method: 'GET',
   })
     .then((res) => {
-      console.log(res)
       document.getElementById('productContainer').innerHTML = '';
       document.getElementById('pagination').innerHTML = '';
 

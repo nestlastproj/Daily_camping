@@ -41,8 +41,9 @@ export class AuthService {
   }
 
   async userValidate(req, passwordval) {
-    const user = req.user.password;
-    return user;
+    const samepassword = passwordval['passwordval'];
+    const password = req.user.password;
+    return await bcrypt.compare(samepassword, password);
   }
 
   async isLoggined(req) {

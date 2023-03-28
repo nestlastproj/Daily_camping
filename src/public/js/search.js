@@ -16,7 +16,6 @@ function datasearch(page, keyword) {
     url: `/search/indexSearch?page=${page}&keyword=${keyword}`,
     method: 'GET',
   }).then((res) => {
-    console.log(res);
     dataByKeyword = {
       place: [],
       product: [],

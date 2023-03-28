@@ -1,27 +1,20 @@
-// import bcrypt from 'bcryptjs';
-const bcrypt = window.bcrypt;
-
 function userValidate() {
-    debugger
+    const passwordval = prompt('비밀번호를 입력하세요.');
     axios({
-        method: 'get',
-        url: '/auth/userValidate'
+        method: 'post',
+        url: '/auth/userValidate',
+        data: { passwordval }
     })
         .then((res) => {
-            debugger
-            console.log(res.data, 'res')
-            const password = prompt('비밀번호를 입력하세요.');
-            bcrypt.compare(password, res.data, function (result) {
-                if (result === true) {
-                    alert('환영합니다!');
-                } else {
-                    alert('비밀번호가 올바르지 않습니다.');
-                    window.location.href = '/auth/mypage';
-                }
-            });
+            if (res.data === true) {
+                deleteuser()
+            } else {
+                alert('비밀번호가 올바르지 않습니다.')
+                window.location.reload();
+            }
         })
         .catch(error => {
-            console.error(error);
+            console.log(error);
         });
 
 }

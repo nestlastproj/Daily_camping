@@ -19,7 +19,6 @@ import { RecipeModule } from './recipe/recipe.module';
 import { ArticleModule } from './article/article.module';
 import { CommentModule } from './comment/comment.module';
 import { LikeModule } from './like/like.module';
-import { ForbiddenWordsMiddleware } from './auth/ForbiddenWordsMiddleware';
 import { ElasticsearchModule } from '@nestjs/elasticsearch';
 import { SearchModule } from './serch/search.module';
 import { SearchConfig } from './config/elastic.config';
@@ -58,8 +57,4 @@ import { SearchConfig } from './config/elastic.config';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(ForbiddenWordsMiddleware).forRoutes('*');
-  }
-}
+export class AppModule {}
