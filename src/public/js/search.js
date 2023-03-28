@@ -1,12 +1,17 @@
 $(document).ready(function () {
   const page = new URLSearchParams(location.search).get('page') || 1;
   const keyword = new URLSearchParams(location.search).get('keyword') || '';
-  search(page, keyword);
+  datasearch(page, keyword);
 });
+
+function search() {
+  const keyword = document.getElementById('searchKeyword').value;
+  window.location.href = `/search/searchResult?page=1&keyword=${keyword}`;
+}
 
 let dataByKeyword;
 
-function search(page, keyword) {
+function datasearch(page, keyword) {
   axios({
     url: `/search/indexSearch?page=${page}&keyword=${keyword}`,
     method: 'GET',
