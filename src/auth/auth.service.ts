@@ -40,6 +40,11 @@ export class AuthService {
     return { result: true, number: number };
   }
 
+  async userValidate(req, passwordval) {
+    const user = req.user.password;
+    return user;
+  }
+
   async isLoggined(req) {
     const userId = req.user.id;
     return await this.userRepository.findOne({ where: { id: userId }, select: ['id', 'nickname'] });
