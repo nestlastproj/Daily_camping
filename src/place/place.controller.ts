@@ -32,7 +32,7 @@ export class PlaceController {
   }
 
   @Get('/placeimage')
-  async placeimage() {
+  async placeimages() {
     return await this.placeService.placeimage();
   }
 }
