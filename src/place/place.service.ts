@@ -4,8 +4,10 @@ import { InjectRepository } from '@nestjs/typeorm/dist';
 import { Like, Repository } from 'typeorm';
 import { Place } from '../entity/api/place.entity';
 import { ConfigService } from '@nestjs/config';
-import { Curl } from 'node-libcurl';
 import { default as coordinates } from '../resource/coordinates.json';
+import { SearchService } from 'src/serch/search.service';
+import cheerio from 'cheerio';
+import { Curl } from 'node-libcurl';
 
 @Injectable()
 export class PlaceService {
@@ -13,6 +15,7 @@ export class PlaceService {
     @InjectRepository(Place) private readonly placeRepository: Repository<Place>,
     private readonly configService: ConfigService,
     private readonly httpService: HttpService,
+    private readonly searchService: SearchService,
   ) {}
   //위도y , 경도x
   async getPlace(keywords: string[], x: string, y: string) {
@@ -89,6 +92,29 @@ export class PlaceService {
                 detailname = detailcitys;
               }
 
+              let placeimage = new Promise((resolve, reject) => {
+                const curl = new Curl();
+
+                curl.setOpt('URL', url);
+                curl.setOpt('FOLLOWLOCATION', true);
+
+                curl.on('end', function (statusCode, data, headers) {
+                  const result = JSON.parse(data.toString());
+                  const imageurl = result.photo.photoList[0].list[0].orgurl;
+                  resolve(imageurl);
+                  this.close();
+                });
+
+                curl.on('error', (error) => {
+                  reject(error);
+                  curl.close();
+                });
+
+                curl.perform();
+
+                return placeimage;
+              });
+
               return {
                 address: doc.address_name,
                 name: doc.place_name,
@@ -99,6 +125,7 @@ export class PlaceService {
                 y: doc.y,
                 city: city,
                 detailcity: detailname,
+                image: placeimage,
               };
             });
 
@@ -108,7 +135,7 @@ export class PlaceService {
               .insert()
               .into('place')
               .values(place)
-              .orUpdate(['address', 'phone', 'city', 'detailcity', 'category', 'url', 'x', 'y'], ['name'])
+              .orUpdate(['address', 'phone', 'city', 'detailcity', 'image', 'category', 'url', 'x', 'y'], ['name'])
               .updateEntity(false)
               .execute();
           }
@@ -116,7 +143,30 @@ export class PlaceService {
         }
       }
     }
+
+    await this.deleteIndex();
+    await this.findIndex();
+
     return allPlaces;
+  }
+
+  async findIndex() {
+    const allfind = await this.placeRepository.find();
+    allfind.forEach((res) => {
+      const keyword = '캠핑장';
+      this.searchService.createDocument(res, keyword);
+    });
+  }
+
+  async deleteIndex() {
+    const keyword = '캠핑장';
+    await this.searchService.deleteDocument(keyword);
+  }
+
+  async search(page: number, keyword: string) {
+    const placeSearchData = await this.searchService.getDocument(page, keyword);
+    const data = placeSearchData.map((data) => data._source);
+    return data;
   }
 
   async placeSearch(page: number, keyword: string) {
@@ -207,27 +257,5 @@ export class PlaceService {
       .leftJoinAndSelect('review.user', 'user')
       .where('place.id = :placeId', { placeId })
       .getMany();
-  }
-
-  async placeimage() {
-    return new Promise((resolve, reject) => {
-      const curl = new Curl();
-
-      curl.setOpt('URL', 'https://place.map.kakao.com/main/v/14061000');
-      curl.setOpt('FOLLOWLOCATION', true);
-
-      curl.on('end', function (statusCode, data, headers) {
-        const result = JSON.parse(data.toString());
-        resolve(result);
-        this.close();
-      });
-
-      curl.on('error', (error) => {
-        reject(error);
-        curl.close();
-      });
-
-      curl.perform();
-    });
   }
 }
