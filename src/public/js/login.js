@@ -109,6 +109,7 @@ function emailSend() {
             alert('전송 완료')
         })
         .catch((err) => {
+            alert(err.response.data.message);
             console.log(err)
         })
 }

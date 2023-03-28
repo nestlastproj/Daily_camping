@@ -22,28 +22,28 @@
 
 <body style="background-color: #edf5e1">
   <%- include('nav.ejs') %>
-  <%- include('mypagesidebar.ejs') %>
-  
-    <div class="container">
-      <div class="withdrawal">
-        <div class="content">
-          <p>회원 탈퇴에 동의하십니까?</p>
-          <div id="app-cover">
-            <input type="checkbox" id="checkbox" onclick="deleteuser()">
-            <div id="bin-icon">
-              <div id="lid"></div>
-              <div id="box">
-                <div id="box-inner">
-                  <div id="bin-lines"></div>
+    <%- include('mypagesidebar.ejs') %>
+
+      <div class="container">
+        <div class="withdrawal">
+          <div class="content">
+            <p>회원 탈퇴에 동의하십니까?</p>
+            <div id="app-cover">
+              <input type="checkbox" id="checkbox" onclick="userValidate()">
+              <div id="bin-icon">
+                <div id="lid"></div>
+                <div id="box">
+                  <div id="box-inner">
+                    <div id="bin-lines"></div>
+                  </div>
                 </div>
               </div>
+              <div id="layer"></div>
             </div>
-            <div id="layer"></div>
           </div>
         </div>
       </div>
-    </div>
-    <%- include('footer.ejs') %>
+      <%- include('footer.ejs') %>
 </body>
 
 </html>

@@ -59,6 +59,12 @@ export class AuthController {
     res.cookie('authNum', number, { path: '/', expires: new Date(Date.now() + 300000) });
   }
 
+  @Post('/userValidate')
+  @UseGuards(JwtAuthGuard)
+  async userValidate(@Req() req, @Body() passwordval: string) {
+    return await this.authService.userValidate(req, passwordval);
+  }
+
   @Get('/me')
   @UseGuards(JwtAuthGuard)
   async getinfo(@Req() req) {

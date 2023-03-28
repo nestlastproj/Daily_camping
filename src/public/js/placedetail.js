@@ -80,15 +80,15 @@ function myReviewData(page, placeId) {
       $('.pagination').append(pages.join(''));
       var links = document.querySelectorAll('.page-link-number');
       if (links.length !== 0 && page <= 5) {
-          const now = page - 1;
-          links[now].classList.add("active");
-      } else if (page >5) {
-          const now = page % 5;
-          if (now === 0) {
-              links[4].classList.add("active");
-          } else {
+        const now = page - 1;
+        links[now].classList.add("active");
+      } else if (page > 5) {
+        const now = page % 5;
+        if (now === 0) {
+          links[4].classList.add("active");
+        } else {
           links[now - 1].classList.add("active");
-          };
+        };
       };
     })
 }
@@ -118,7 +118,7 @@ function placeDetailData(placeId) {
                           </div>
                           <div class="review">
                             <h2>review <span>${data.review.length}</span></h2>
-                              <a class="button" onclick="location.href='/review/reviewWrite/${data.id}'">
+                              <a class="button" onclick="loginUser(${data.id})">
                                 <div class="button__line"></div>
                                 <div class="button__line"></div>
                                 <span class="button__text">write</span>
@@ -171,4 +171,15 @@ function placeDetailData(placeId) {
       //   location.href = '/';
       console.log(err);
     });
+}
+
+function loginUser(id) {
+  axios.get(`/auth/isLoggined`)
+    .then((res) => {
+      location.href = `/review/reviewWrite/${id}`
+    })
+    .catch((err) => {
+      alert('로그인 후 이용 가능 합니다.')
+      location.href = '/auth/login'
+    })
 }
