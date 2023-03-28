@@ -209,25 +209,25 @@ export class PlaceService {
       .getMany();
   }
 
-  // async placeimage() {
-  //   return new Promise((resolve, reject) => {
-  //     const curl = new Curl();
+  async placeimage() {
+    return new Promise((resolve, reject) => {
+      const curl = new Curl();
 
-  //     curl.setOpt('URL', 'https://place.map.kakao.com/main/v/14061000');
-  //     curl.setOpt('FOLLOWLOCATION', true);
+      curl.setOpt('URL', 'https://place.map.kakao.com/main/v/14061000');
+      curl.setOpt('FOLLOWLOCATION', true);
 
-  //     curl.on('end', function (statusCode, data, headers) {
-  //       const result = JSON.parse(data.toString());
-  //       resolve(result);
-  //       this.close();
-  //     });
+      curl.on('end', function (statusCode, data, headers) {
+        const result = JSON.parse(data.toString());
+        resolve(result);
+        this.close();
+      });
 
-  //     curl.on('error', (error) => {
-  //       reject(error);
-  //       curl.close();
-  //     });
+      curl.on('error', (error) => {
+        reject(error);
+        curl.close();
+      });
 
-  //     curl.perform();
-  //   });
-  // }
+      curl.perform();
+    });
+  }
 }
