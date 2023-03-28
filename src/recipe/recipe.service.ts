@@ -119,39 +119,39 @@ export class RecipeService {
     await this.searchService.deleteDocument(keyword);
   }
 
-  async recipeSearch(page: number, keyword: string) {
+  async search(page: number, keyword: string) {
     const recipeSearchData = await this.searchService.getDocument(page, keyword);
     const data = recipeSearchData.map((data) => data._source);
     return data;
   }
 
-  // async recipeSearch(page, keyword) {
-  //   const take = 8;
-  //   const whereQuery = keyword === '' ? '%%' : `%${keyword}%`;
-  //   const [recipeList, total] = await this.recipeRePository.findAndCount({
-  //     where: { name: Like(whereQuery) },
-  //     take,
-  //     skip: (page - 1) * take,
-  //   });
+  async recipeSearch(page, keyword) {
+    const take = 8;
+    const whereQuery = keyword === '' ? '%%' : `%${keyword}%`;
+    const [recipeList, total] = await this.recipeRePository.findAndCount({
+      where: { name: Like(whereQuery) },
+      take,
+      skip: (page - 1) * take,
+    });
 
-  //   const totalPage = Math.ceil(total / take);
-  //   const pageGroup = Math.ceil(page / 5);
-  //   let lastPage = pageGroup * 5;
-  //   const firstPage = lastPage - 5 + 1 <= 0 ? 1 : lastPage - 5 + 1;
+    const totalPage = Math.ceil(total / take);
+    const pageGroup = Math.ceil(page / 5);
+    let lastPage = pageGroup * 5;
+    const firstPage = lastPage - 5 + 1 <= 0 ? 1 : lastPage - 5 + 1;
 
-  //   if (lastPage > totalPage) {
-  //     lastPage = totalPage;
-  //   }
+    if (lastPage > totalPage) {
+      lastPage = totalPage;
+    }
 
-  //   return {
-  //     recipeList,
-  //     meta: {
-  //       firstPage,
-  //       lastPage,
-  //       totalPage,
-  //     },
-  //   };
-  // }
+    return {
+      recipeList,
+      meta: {
+        firstPage,
+        lastPage,
+        totalPage,
+      },
+    };
+  }
 
   async recipeDetail(recipeId) {
     return this.recipeRePository.findOne({ where: { id: recipeId } });
