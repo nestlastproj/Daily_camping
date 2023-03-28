@@ -30,9 +30,4 @@ export class PlaceController {
   async placeDetail(@Query('placeId') placeId: number) {
     return await this.placeService.placeDetail(placeId);
   }
-
-  @Get('/placeimage')
-  async placeimages() {
-    return await this.placeService.placeimage();
-  }
 }
