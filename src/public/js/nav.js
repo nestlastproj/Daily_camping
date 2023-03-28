@@ -23,3 +23,12 @@ function logout() {
             console.log(error)
         })
 }
+
+function loginUser() {
+    axios.get('/auth/isLoggined').then((res) => {
+        location.href = '/article/list'
+    }).catch((err) => {
+        alert('로그인 후 이용 가능 합니다.')
+        location.href = '/auth/login'
+    })
+}

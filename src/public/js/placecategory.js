@@ -270,12 +270,12 @@ function addressKindChange(e) {
     target.appendChild(opt);
   }
 
-  const city = $('#do option:selected').text();
-  const detailCity = $('#si option:selected').text();
+  const cityname = $('#do option:selected').text();
+  const detailcity = $('#si option:selected').text();
   const page = new URLSearchParams(location.search).get('page') || 1;
 
   axios({
-    url: `/place/placeCategorySearch?page=${page}&cityname=${city}&detailcity=${detailCity}`,
+    url: `/place/placeCategorySearch?page=${page}&cityname=${cityname}&detailcity=${detailcity}`,
     method: 'GET',
   }).then((res) => {
     document.getElementById('placeContainer').innerHTML = '';
@@ -348,7 +348,7 @@ function addressKindChange(e) {
 
     // prev
     if (page > 1) {
-      const prev = `<a class="page-link" href='?page=${Number(page) - 1}&city=${city}&detailCity=${detailCity}'>
+      const prev = `<a class="page-link" onclick="pageCheck('${Number(page) - 1}','${cityname}','${detailcity}')" href='#'>
             <span>&laquo;</span>
         </a>`;
       pages.push(prev);
@@ -356,29 +356,41 @@ function addressKindChange(e) {
 
     // pages
     for (let i = firstPage; i <= lastPage; i++) {
-      const pagesLink = `<a "page-link" href='?page=${i}&city=${city}&detailCity=${detailCity}'>${i}</a>`;
+      const pagesLink = `<a class="page-link-number" onclick="pageCheck('${i - 1}','${cityname}','${detailcity}')" href='#'>${i}</a>`;
       pages.push(pagesLink);
     }
 
     // next
     if (page < totalPage) {
-      const next = `<a class="page-link" href='?page=${Number(page) + 1}&city=${city}&detailCity=${detailCity}'>
+      const next = `<a class="page-link" onclick="pageCheck('${Number(page) + 1}','${cityname}','${detailcity}')" href='#'>
             <span>&raquo;</span>
         </a>`;
       pages.push(next);
     }
 
     $('.pagination').append(pages.join(''));
+    var links = document.querySelectorAll('.page-link-number');
+    if (links.length !== 0 && page <= 5) {
+        const now = page - 1
+        links[now].classList.add("active");
+    } else if (page >5) {
+        const now = page % 5
+        if (now === 0) {
+            links[4].classList.add("active");
+        } else {
+        links[now - 1].classList.add("active");
+        }
+    }
   });
 }
 
-function detail(e) {
-  const city = $('#do option:selected').text();
-  const detailCity = $('#si option:selected').text();
+function detail() {
+  const cityname = $('#do option:selected').text();
+  const detailcity = $('#si option:selected').text();
   const page = new URLSearchParams(location.search).get('page') || 1;
 
   axios({
-    url: `/place/placeCategorySearch?page=${page}&cityname=${city}&detailcity=${detailCity}`,
+    url: `/place/placeCategorySearch?page=${page}&cityname=${cityname}&detailcity=${detailcity}`,
     method: 'GET',
   }).then((res) => {
     document.getElementById('placeContainer').innerHTML = '';
@@ -386,7 +398,6 @@ function detail(e) {
 
     const { meta, placeList } = res.data;
     const { firstPage, lastPage, totalPage } = meta;
-
     if (placeList.length !== 0) {
       placeList.forEach((data) => {
         let temp_html = `
@@ -401,10 +412,10 @@ function detail(e) {
           <div class="heart">
             <label class="like">
               <input id="myLike${data.id}" type="checkbox" />
-              <div class="hearth" onclick="like(${data.id})"></div>
+              <div class="hearth" onclick="loginUser(${data.id})"></div>
             </label>
           </div>
-          <h3><div class="totalcount${data.id}"></div></h3>
+          <h4><div class="totalcount${data.id}"></div></h4>
         </div>
       </div>
       `;
@@ -449,10 +460,9 @@ function detail(e) {
       mylike(page);
 
       const pages = [];
-
       // prev
       if (page > 1) {
-        const prev = `<a class="page-link" href='?page=${Number(page) - 1}&city=${city}&detailCity=${detailCity}'>
+        const prev = `<a class="page-link" onclick="pageCheck('${Number(page) - 1}','${cityname}','${detailcity}')" href='#'>
             <span>&laquo;</span>
         </a>`;
         pages.push(prev);
@@ -460,13 +470,13 @@ function detail(e) {
 
       // pages
       for (let i = firstPage; i <= lastPage; i++) {
-        const pagesLink = `<a "page-link" href='?page=${i}&city=${city}&detailCity=${detailCity}'>${i}</a>`;
+        const pagesLink = `<a "page-link" onclick="pageCheck('${i - 1}','${cityname}','${detailcity}')" href='#'>${i}</a>`;
         pages.push(pagesLink);
       }
 
       // next
       if (page < totalPage) {
-        const next = `<a class="page-link" href='?page=${Number(page) + 1}&city=${city}&detailCity=${detailCity}'>
+        const next = `<a class="page-link" onclick="pageCheck('${Number(page) + 1}','${cityname}','${detailcity}')" href='#'>
             <span>&raquo;</span>
         </a>`;
         pages.push(next);
@@ -477,4 +487,64 @@ function detail(e) {
       alert('해당 지역의 캠핑장이 없습니다.');
     }
   });
+}
+
+function pageCheck(page, cityname, detailcity) {
+  history.pushState(null, null, `?page=${Number(page) + 1}&cityname=${cityname}&detailcity=${detailcity}`);
+  detail();
+}
+
+function mylike(page) {
+  axios({
+    url: `/myplacelike`,
+    method: 'get',
+  })
+    .then((res) => {
+      const data = res.data;
+      data.forEach((data) => {
+        if (page === 1) {
+          if (data.id <= page * 6) {
+            document.getElementById(`myLike${data.id}`).checked = true;
+          }
+        } else {
+          if ((page - 1) * 6 < data.id && data.id <= page * 6) {
+            document.getElementById(`myLike${data.id}`).checked = true;
+          }
+        }
+      });
+    })
+    .catch((err) => {
+      console.log('error', err);
+    });
+}
+
+function placeLike(id) {
+  axios({
+    url: `/place/likecount/${id}`,
+    method: 'get',
+  }).then((res) => {
+    $(`.totalcount${id}`).append(res.data);
+  });
+}
+
+function like(id) {
+  axios({
+    url: `/place/${id}/like`,
+    method: 'post',
+  })
+    .then((res) => {
+      window.location.reload();
+    })
+    .catch((err) => {
+      console.log('error', err);
+    });
+}
+
+function loginUser(id) {
+  axios.get('/auth/isLoggined').then((res) => {
+    like(id)
+  }).catch((err) => {
+    alert('로그인 후 이용 가능 합니다.')
+    location.href = '/auth/login'
+  })
 }

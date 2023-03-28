@@ -1,6 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { NotFoundError } from 'rxjs';
 import { Article } from 'src/entity/article.entity';
 import { Comment } from 'src/entity/comment.entity';
 import { Repository } from 'typeorm';
@@ -23,6 +22,7 @@ export class ArticleService {
       take, // Limit; 한 페이지에 가져올 데이터의 제한 갯수
       skip: (page - 1) * take, // Offset; 이전의 요청 데이터 갯수 = 현재 요청이 시작되는 위치
       relations: ['user'],
+      withDeleted: true,
       order: { id: 'desc' },
     });
     const totalPage = Math.ceil(total / take);
@@ -47,6 +47,7 @@ export class ArticleService {
   getArticle(articleId: number) {
     return this.articleRepository.findOne({
       where: { id: articleId },
+      withDeleted: true,
       relations: ['user'],
     });
   }
@@ -63,6 +64,7 @@ export class ArticleService {
       take,
       skip: (page - 1) * take,
       where: { user: { id: userId } },
+      withDeleted: true,
       order: { id: 'desc' },
     });
 

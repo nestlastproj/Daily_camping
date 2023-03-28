@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../entity/user.entity';
@@ -20,12 +20,22 @@ export class UserService {
 
   async editprofile(req, data: UpdateUserDto, file?: Express.MulterS3.File) {
     const userId = req.user.id;
-    const user = { name: data.name, phone: data.phone, nickname: data.nickname, email: data.email };
+    const { nickname } = data;
+
+    const user = { name: data.name, phone: data.phone, nickname: data.nickname };
     if (file) {
       const filename = file.key;
       user['image'] = filename;
     }
-    return await this.userRepository.update(userId, user);
+    const mynickname = user.nickname;
+    const existednickname = await this.userRepository.findOneBy({ nickname });
+    if (nickname === mynickname) {
+      return await this.userRepository.update(userId, user);
+    } else {
+      if (existednickname) {
+        throw new ConflictException('이미 존재하는 닉네임입니다.');
+      }
+    }
   }
 
   async getByEmail(email: string) {

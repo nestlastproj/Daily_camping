@@ -1,9 +1,6 @@
-import { IsEmail, IsString, Matches, MaxLength, MinLength } from 'class-validator';
+import { IsString, MaxLength } from 'class-validator';
 
 export class UpdateUserDto {
-  @IsEmail()
-  email: string;
-
   @IsString()
   name: string;
 

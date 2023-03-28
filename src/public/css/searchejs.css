@@ -1,0 +1,76 @@
+@import url(search.css);
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+body {
+  background-color: #edf5e1;
+  align-items: center;
+}
+
+#content {
+  margin: auto;
+  max-width: 1300px;
+  align-items: center;
+}
+
+.moredata {
+  background-color: gray;
+  width: 15%;
+}
+
+.title {
+  color: #0c43b7;
+  margin: 10px 0 10px 0;
+  padding-left: 0px;
+  cursor: pointer;
+}
+
+.content {
+  list-style-type: none;
+  list-style: none;
+  height: 100px;
+  color: rgb(54, 38, 38);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.place_box {
+  margin: 0 0 50px 0;
+}
+
+.product_box {
+  margin: 0 0 50px 0;
+}
+
+.recipe_box {
+  margin: 0 0 50px 0;
+}
+
+.article_box {
+  margin: 0 0 50px 0;
+}
+
+.product_conten {
+  display: flex;
+}
+
+.data_box {
+  margin: auto;
+  padding: 11px 20px 15px;
+  /* background-color: antiquewhite; */
+  border: 3px solid white;
+  /* height: 10%; */
+}
+
+.load_more_btn {
+  display: flex;
+  margin: auto;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+img {
+  height: 150px;
+  object-fit: cover;
+}

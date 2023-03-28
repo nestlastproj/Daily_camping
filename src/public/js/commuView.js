@@ -215,7 +215,7 @@ function getComment(articleId, page) {
 
     // pages
     for (let i = firstPage; i <= lastPage; i++) {
-      const pagesLink = `<a "page-link" href='?page=${i}'>${i}</a>`;
+      const pagesLink = `<a class="page-link-number" href='?page=${i}'>${i}</a>`;
       pages.push(pagesLink);
     }
 
@@ -228,6 +228,18 @@ function getComment(articleId, page) {
     }
 
     $('.pagination').append(pages.join(''));
+    var links = document.querySelectorAll('.page-link-number');
+    if (links.length !== 0 && page <= 5) {
+        const now = page - 1
+        links[now].classList.add("active");
+    } else if (page >5) {
+        const now = page % 5
+        if (now === 0) {
+            links[4].classList.add("active");
+        } else {
+        links[now - 1].classList.add("active");
+        }
+    }
   });
 }
 

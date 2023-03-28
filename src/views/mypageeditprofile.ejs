@@ -22,36 +22,28 @@
 
 <body style="background-color: #edf5e1">
   <%- include('nav.ejs') %>
-  <%- include('mypagesidebar.ejs') %>
-  
-    <div class="container">
-      <input id="slider" class="customSlider" type="checkbox" />
-      <label for="slider"></label>
-      <div class="wrapper">
-        <div class="profile">
-        <img src="" id="image2"class="thumbnail img-thumbnail img-fluid" />
-        <label class="editlabel" for="image">
-            <div class="btn-upload">사진 업로드</div>
-          </label>
-          <input
-            class="input myedit_imgupload"
-            type="file"
-            id="image"
-            name="file"
-            value="사진업로드"
-          />
-          <h3 class="name">이름</h3>
-          <input type="text" id='name' class="edit" />
-          <h3 class="name">전화번호</h3>
-          <input type="text" id="phone" class="edit" />
-          <h3 class="name">이메일</h3>
-          <input type="text" id='email' class="edit" />
-          <h3 class="name">닉네임</h3>
-          <input type="text" id="nickname" class="edit" />
-          <button onclick="updateprofile()" type="button" class="btn">저장</button>
+    <%- include('mypagesidebar.ejs') %>
+
+      <div class="container">
+        <input id="slider" class="customSlider" type="checkbox" />
+        <label for="slider"></label>
+        <div class="wrapper">
+          <div class="profile">
+            <img src="" id="image2" class="thumbnail img-thumbnail img-fluid" />
+            <label class="editlabel" for="image">
+              <div class="btn-upload">사진 업로드</div>
+            </label>
+            <input class="input myedit_imgupload" type="file" id="image" name="file" value="사진업로드" />
+            <h3 class="name">이름</h3>
+            <input type="text" id='name' class="edit" />
+            <h3 class="name">전화번호</h3>
+            <input type="text" id="phone" class="edit" />
+            <h3 class="name">닉네임</h3>
+            <input type="text" id="nickname" class="edit" />
+            <button onclick="updateprofile()" type="button" class="btn">저장</button>
+          </div>
         </div>
-      </div>
-      <%- include('footer.ejs') %>
+        <%- include('footer.ejs') %>
 </body>
 
 </html>

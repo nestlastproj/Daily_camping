@@ -70,6 +70,10 @@ export class AppController {
   @Render('reviewWrite')
   reviewWrite() {}
 
+  @Get('/search/searchResult')
+  @Render('search')
+  search() {}
+
   @Get('/review/reviewView')
   @Render('reviewView')
   reviewView() {}

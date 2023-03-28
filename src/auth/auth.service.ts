@@ -1,45 +1,49 @@
-import {
-  ConflictException,
-  HttpException,
-  Injectable,
-  InternalServerErrorException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from '../auth/dto/create-user.dto';
 import { User } from '../entity/user.entity';
-import { Article } from 'src/entity/article.entity';
-import { Comment } from 'src/entity/comment.entity';
 import * as bcrypt from 'bcryptjs';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from 'src/user/user.service';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { Review } from 'src/entity/review.entity';
-import { ArticleLike, CommentLike, PlaceLike } from 'src/entity/like.entity';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-    @InjectRepository(Article)
-    private readonly articleRepository: Repository<Article>,
-    @InjectRepository(Comment)
-    private readonly commentRepository: Repository<Comment>,
-    @InjectRepository(Review)
-    private readonly reviewRepository: Repository<Review>,
-    @InjectRepository(ArticleLike)
-    private readonly articlelikeRepository: Repository<ArticleLike>,
-    @InjectRepository(CommentLike)
-    private readonly commentlikeRepository: Repository<CommentLike>,
-    @InjectRepository(PlaceLike)
-    private readonly placelikeRepository: Repository<PlaceLike>,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
     private readonly userService: UserService,
+    private readonly mailerService: MailerService,
   ) {}
+
+  async emailSend(emailval: string) {
+    const email = emailval['emailval'];
+    const number: string = Math.floor(100000 + Math.random() * 900000).toString();
+    const existedemail = await this.userRepository.findOne({ where: { email }, select: ['id', 'email'] });
+    if (existedemail) {
+      const sameemail = existedemail['email'];
+      if (email === sameemail) {
+        throw new ConflictException('이미 존재하는 이메일입니다.');
+      }
+    }
+
+    await this.mailerService.sendMail({
+      to: email, // list of receivers
+      from: this.configService.get('EMAIL_AUTH_EMAIL'), // sender address
+      subject: '내일바로캠핑 이메일 인증 요청 메일입니다.', // Subject line
+      html: '6자리 인증 코드 : ' + `<b> ${number}</b>`, // HTML body content
+    });
+    return { result: true, number: number };
+  }
+
+  async isLoggined(req) {
+    const userId = req.user.id;
+    return await this.userRepository.findOne({ where: { id: userId }, select: ['id', 'nickname'] });
+  }
 
   async validateUser(email: string, plainTextPassword: string) {
     try {
@@ -53,64 +57,40 @@ export class AuthService {
 
   async getinfo(req) {
     const userId = req.user.id;
-    return await this.userRepository.findOne({ where: { id: userId } });
+    return await this.userRepository.findOne({
+      where: { id: userId },
+      select: ['id', 'name', 'nickname', 'phone', 'email', 'image'],
+    });
   }
 
-  async myArticleAndComments(req) {
+  async emailLogOff(req) {
     const userId = req.user.id;
-    await this.commentlikeRepository
+    const user = await this.userRepository.findOne({ where: { id: userId }, select: ['id', 'email'] });
+    const logoff = user.email + Math.random().toString(36).slice(2);
+    return await this.userRepository
       .createQueryBuilder()
-      .delete()
-      .from(CommentLike)
-      .where({ user: { id: userId } })
-      .execute();
-    await this.articlelikeRepository
-      .createQueryBuilder()
-      .delete()
-      .from(ArticleLike)
-      .where({ user: { id: userId } })
-      .execute();
-    await this.placelikeRepository
-      .createQueryBuilder()
-      .delete()
-      .from(PlaceLike)
-      .where({ user: { id: userId } })
-      .execute();
-    await this.commentRepository
-      .createQueryBuilder()
-      .delete()
-      .from(Comment)
-      .where({ user: { id: userId } })
-      .execute();
-    await this.articleRepository
-      .createQueryBuilder()
-      .delete()
-      .from(Article)
-      .where({ user: { id: userId } })
-      .execute();
-    await this.reviewRepository
-      .createQueryBuilder()
-      .delete()
-      .from(Review)
-      .where({ user: { id: userId } })
+      .update(User)
+      .set({ email: () => `REPLACE(email, '${user.email}', '${logoff}')` })
+      .where({ id: userId })
       .execute();
   }
 
   async remove(req) {
     const userId = req.user.id;
-    await this.myArticleAndComments(req);
     await this.userRepository.findOne({ where: { id: userId } });
+    await this.emailLogOff(req);
     await this.userService.removeRefreshToken(userId);
-    return await this.userRepository.delete({ id: userId });
+    return await this.userRepository.softDelete({ id: userId });
   }
 
   // 회원가입
-  async signup(createUserDto: CreateUserDto) {
+  async signup(createUserDto: CreateUserDto, res) {
     const { email, name, password, phone, nickname } = createUserDto;
 
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
     const user = await this.userRepository.create({ email, name, password: hashedPassword, phone, nickname });
+
     const existedemail = await this.userRepository.findOneBy({ email });
     if (existedemail) {
       throw new ConflictException('이미 존재하는 이메일입니다.');
@@ -119,6 +99,7 @@ export class AuthService {
     if (existednickname) {
       throw new ConflictException('이미 존재하는 닉네임입니다.');
     }
+    res.clearCookie('authNum');
     return await this.userRepository.save(user);
   }
 
