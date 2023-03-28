@@ -21,19 +21,23 @@ export class AuthService {
   ) {}
 
   async emailSend(emailval: string) {
-    try {
-      const email = emailval['emailval'];
-      const number: string = Math.floor(100000 + Math.random() * 900000).toString();
-      await this.mailerService.sendMail({
-        to: email, // list of receivers
-        from: this.configService.get('EMAIL_AUTH_EMAIL'), // sender address
-        subject: '내일바로캠핑 이메일 인증 요청 메일입니다.', // Subject line
-        html: '6자리 인증 코드 : ' + `<b> ${number}</b>`, // HTML body content
-      });
-      return { result: true, number: number };
-    } catch (err) {
-      return { result: false };
+    const email = emailval['emailval'];
+    const number: string = Math.floor(100000 + Math.random() * 900000).toString();
+    const existedemail = await this.userRepository.findOne({ where: { email }, select: ['id', 'email'] });
+    if (existedemail) {
+      const sameemail = existedemail['email'];
+      if (email === sameemail) {
+        throw new ConflictException('이미 존재하는 이메일입니다.');
+      }
     }
+
+    await this.mailerService.sendMail({
+      to: email, // list of receivers
+      from: this.configService.get('EMAIL_AUTH_EMAIL'), // sender address
+      subject: '내일바로캠핑 이메일 인증 요청 메일입니다.', // Subject line
+      html: '6자리 인증 코드 : ' + `<b> ${number}</b>`, // HTML body content
+    });
+    return { result: true, number: number };
   }
 
   async isLoggined(req) {
