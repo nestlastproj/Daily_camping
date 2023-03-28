@@ -92,6 +92,29 @@ export class PlaceService {
                 detailname = detailcitys;
               }
 
+              let placeimage = new Promise((resolve, reject) => {
+                const curl = new Curl();
+
+                curl.setOpt('URL', url);
+                curl.setOpt('FOLLOWLOCATION', true);
+
+                curl.on('end', function (statusCode, data, headers) {
+                  const result = JSON.parse(data.toString());
+                  const imageurl = result.photo.photoList[0].list[0].orgurl;
+                  resolve(imageurl);
+                  this.close();
+                });
+
+                curl.on('error', (error) => {
+                  reject(error);
+                  curl.close();
+                });
+
+                curl.perform();
+
+                return placeimage;
+              });
+
               return {
                 address: doc.address_name,
                 name: doc.place_name,
@@ -102,6 +125,7 @@ export class PlaceService {
                 y: doc.y,
                 city: city,
                 detailcity: detailname,
+                image: placeimage,
               };
             });
 
@@ -111,7 +135,7 @@ export class PlaceService {
               .insert()
               .into('place')
               .values(place)
-              .orUpdate(['address', 'phone', 'city', 'detailcity', 'category', 'url', 'x', 'y'], ['name'])
+              .orUpdate(['address', 'phone', 'city', 'detailcity', 'image', 'category', 'url', 'x', 'y'], ['name'])
               .updateEntity(false)
               .execute();
           }
@@ -233,28 +257,5 @@ export class PlaceService {
       .leftJoinAndSelect('review.user', 'user')
       .where('place.id = :placeId', { placeId })
       .getMany();
-  }
-
-  async placeimage() {
-    return new Promise((resolve, reject) => {
-      const curl = new Curl();
-
-      curl.setOpt('URL', 'https://place.map.kakao.com/main/v/14061000');
-      curl.setOpt('FOLLOWLOCATION', true);
-
-      curl.on('end', function (statusCode, data, headers) {
-        const result = JSON.parse(data.toString());
-        const imageurl = result.photo.photoList[0].list[0].orgurl;
-        resolve(imageurl);
-        this.close();
-      });
-
-      curl.on('error', (error) => {
-        reject(error);
-        curl.close();
-      });
-
-      curl.perform();
-    });
   }
 }
