@@ -5,6 +5,7 @@ import { Like, Repository } from 'typeorm';
 import { Place } from '../entity/api/place.entity';
 import { ConfigService } from '@nestjs/config';
 import { default as coordinates } from '../resource/coordinates.json';
+import { Curl } from 'node-libcurl';
 
 @Injectable()
 export class PlaceService {
@@ -205,5 +206,27 @@ export class PlaceService {
       .leftJoinAndSelect('review.user', 'user')
       .where('place.id = :placeId', { placeId })
       .getMany();
+  }
+
+  async placeimage() {
+    return new Promise((resolve, reject) => {
+      const curl = new Curl();
+
+      curl.setOpt('URL', 'https://place.map.kakao.com/main/v/14061000');
+      curl.setOpt('FOLLOWLOCATION', true);
+
+      curl.on('end', function (statusCode, data, headers) {
+        const result = JSON.parse(data.toString());
+        resolve(result);
+        this.close();
+      });
+
+      curl.on('error', (error) => {
+        reject(error);
+        curl.close();
+      });
+
+      curl.perform();
+    });
   }
 }
