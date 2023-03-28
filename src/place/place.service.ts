@@ -6,7 +6,7 @@ import { Place } from '../entity/api/place.entity';
 import { ConfigService } from '@nestjs/config';
 import { default as coordinates } from '../resource/coordinates.json';
 import { SearchService } from 'src/serch/search.service';
-import { data } from 'cheerio/lib/api/attributes';
+import cheerio from 'cheerio';
 import { Curl } from 'node-libcurl';
 
 @Injectable()
@@ -244,7 +244,8 @@ export class PlaceService {
 
       curl.on('end', function (statusCode, data, headers) {
         const result = JSON.parse(data.toString());
-        resolve(result);
+        const imageurl = result.photo.photoList[0].list[0].orgurl;
+        resolve(imageurl);
         this.close();
       });
 
