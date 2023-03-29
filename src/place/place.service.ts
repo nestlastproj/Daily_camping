@@ -5,7 +5,7 @@ import { Like, Repository } from 'typeorm';
 import { Place } from '../entity/api/place.entity';
 import { ConfigService } from '@nestjs/config';
 import { default as coordinates } from '../resource/coordinates.json';
-import { Curl } from 'node-libcurl';
+import * as puppeteer from 'puppeteer';
 
 @Injectable()
 export class PlaceService {
@@ -22,9 +22,9 @@ export class PlaceService {
     const url = 'https://dapi.kakao.com/v2/local/search/keyword.json';
     const allPlaces = [];
 
-    for (const keyword of keywords) {
+    for await (const keyword of keywords) {
       console.log(keyword);
-      for (const coordinate of coordinates) {
+      for await (const coordinate of coordinates) {
         console.log(coordinate.city, coordinate.name);
         let params = {
           query: keyword,
@@ -39,12 +39,9 @@ export class PlaceService {
         const { pageable_count, total_count } = response.data.meta;
         const maxPage = pageable_count === 45 && total_count > 45 ? 3 : Math.ceil(pageable_count / 15);
 
-        // const a = this.placeimage()
-
         for (let i = 1; i <= maxPage; i++) {
           params.page = i;
           const response = await this.httpService.get(url, { params, headers }).toPromise();
-          console.log(response.data.documents);
           let places = response.data.documents
             .filter((doc) => {
               return doc.category_name.includes('캠핑장');
@@ -97,7 +94,6 @@ export class PlaceService {
                 category: doc.category_name,
                 phone: doc.phone,
                 url: doc.place_url,
-                image: this.placeimage(doc.place_url),
                 x: doc.x,
                 y: doc.y,
                 city: city,
@@ -105,21 +101,40 @@ export class PlaceService {
               };
             });
 
-          for (const place of places) {
-            await this.placeRepository
-              .createQueryBuilder('place')
-              .insert()
-              .into('place')
-              .values(place)
-              .orUpdate(['address', 'phone', 'city', 'detailcity', 'category', 'url', 'x', 'y'], ['name'])
-              .updateEntity(false)
-              .execute();
-          }
           allPlaces.push(...places);
         }
       }
     }
+    this.placeimage(allPlaces);
     return allPlaces;
+  }
+
+  async placeimage(allPlaces) {
+    for (let placedata of allPlaces) {
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+      const placeimage = await (await page.goto(`https://place.map.kakao.com/main/v/${placedata.url.split('/')[3]}`)).json();
+      await page.waitForTimeout(500);
+      await browser.close();
+      const imagedata = placeimage.photo
+        ? placeimage.photo.photoList[0].list[0].orgurl
+        : 'https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/placeDefault.jpg';
+      placedata.image = imagedata;
+
+      if (imagedata.length >= 255) {
+        placedata.image = 'https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/placeDefault.jpg';
+
+        console.log(placedata.image);
+        await this.placeRepository
+          .createQueryBuilder('place')
+          .insert()
+          .into('place')
+          .values(placedata)
+          .orUpdate(['address', 'phone', 'city', 'detailcity', 'image', 'category', 'url', 'x', 'y'], ['name'])
+          .updateEntity(false)
+          .execute();
+      }
+    }
   }
 
   async placeSearch(page: number, keyword: string) {
@@ -209,28 +224,5 @@ export class PlaceService {
       .leftJoinAndSelect('review.user', 'user')
       .where('place.id = :placeId', { placeId })
       .getMany();
-  }
-
-  async placeimage(place_url) {
-    return new Promise((resolve, reject) => {
-      const curl = new Curl();
-
-      curl.setOpt('URL', place_url);
-      curl.setOpt('FOLLOWLOCATION', true);
-
-      curl.on('end', function (statusCode, data, headers) {
-        const result = JSON.parse(data.toString());
-        const imageurl = result.photo.photoList[0].list[0].orgurl;
-        resolve(imageurl);
-        this.close();
-      });
-
-      curl.on('error', (error) => {
-        reject(error);
-        curl.close();
-      });
-
-      curl.perform();
-    });
   }
 }

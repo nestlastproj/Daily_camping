@@ -34,6 +34,9 @@ export class Place extends BaseEntity {
   @Column()
   detailcity: string;
 
+  @Column({ length: 3000 })
+  image: string;
+
   @Column()
   category: string;
 

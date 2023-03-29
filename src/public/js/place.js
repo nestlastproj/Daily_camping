@@ -26,6 +26,7 @@ function placeApidata(page, keyword) {
         <div class="stack">
         <div class="card">
           <div class="image" id="map${data.id}">
+          <img src="${data.image}"
           </div>
           <div class="text" onclick="location.href='/place/placeInfo?placeId=${data.id}'">
             <h3>${data.name}</h3>
@@ -44,40 +45,6 @@ function placeApidata(page, keyword) {
         $('.container').append(temp_html);
 
         placeLike(`${data.id}`);
-
-        let roadviewContainer = document.getElementById(`map${data.id}`);
-        let roadview = new kakao.maps.Roadview(roadviewContainer);
-        let roadviewClient = new kakao.maps.RoadviewClient();
-        let position = new kakao.maps.LatLng(data.y, data.x);
-
-        roadviewClient.getNearestPanoId(position, 50, async function (panoId) {
-          await roadview.setPanoId(panoId, position);
-          if (!panoId) {
-            function a() {
-              mapOption = {
-                center: new kakao.maps.LatLng(data.y, data.x),
-                level: 4,
-              };
-              let map = new kakao.maps.Map(roadviewContainer, mapOption);
-
-              let imageSrc = 'https://cdn-icons-png.flaticon.com/512/5695/5695276.png',
-                imageSize = new kakao.maps.Size(64, 69),
-                imageOption = { offset: new kakao.maps.Point(27, 69) };
-
-              let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-                markerPosition = new kakao.maps.LatLng(data.y, data.x);
-
-              let marker = new kakao.maps.Marker({
-                position: markerPosition,
-                image: markerImage,
-              });
-
-              marker.setMap(map);
-            }
-
-            setTimeout(a, 100);
-          }
-        });
       });
       mylike(page);
 
