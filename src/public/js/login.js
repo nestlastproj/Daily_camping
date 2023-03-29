@@ -31,7 +31,7 @@ function login() {
                 location.href = '/main';
             },
             error: function (error) {
-                alert('회원이 아닙니다. 회원가입을 진행해주세요.');
+                alert('비밀번호가 올바르지 않거나 회원이 아닙니다.');
             },
         });
     }
