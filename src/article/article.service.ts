@@ -132,6 +132,6 @@ export class ArticleService {
     if (!article) {
       throw new Error('존재 하지 않는 게시물 입니다');
     }
-    return await this.articleRepository.softDelete({ user: { id: userId }, id: articleId });
+    return await this.articleRepository.delete({ user: { id: userId }, id: articleId });
   }
 }
