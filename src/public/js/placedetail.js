@@ -85,7 +85,7 @@ function placeDetailData(placeId) {
     })
     .catch((err) => {
       alert('캠핑장 정보 또는 리뷰 정보 로드에 실패하였습니다.');
-      //   location.href = '/';
+        location.href = '/';
       console.log(err);
     });
 }
