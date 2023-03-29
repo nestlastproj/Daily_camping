@@ -92,29 +92,6 @@ export class PlaceService {
                 detailname = detailcitys;
               }
 
-              let placeimage = new Promise((resolve, reject) => {
-                const curl = new Curl();
-
-                curl.setOpt('URL', url);
-                curl.setOpt('FOLLOWLOCATION', true);
-
-                curl.on('end', function (statusCode, data, headers) {
-                  const result = JSON.parse(data.toString());
-                  const imageurl = result.photo.photoList[0].list[0].orgurl;
-                  resolve(imageurl);
-                  this.close();
-                });
-
-                curl.on('error', (error) => {
-                  reject(error);
-                  curl.close();
-                });
-
-                curl.perform();
-
-                return placeimage;
-              });
-
               return {
                 address: doc.address_name,
                 name: doc.place_name,
@@ -125,7 +102,7 @@ export class PlaceService {
                 y: doc.y,
                 city: city,
                 detailcity: detailname,
-                image: placeimage,
+                image: this.placeimage(doc.place_url),
               };
             });
 
@@ -257,5 +234,28 @@ export class PlaceService {
       .leftJoinAndSelect('review.user', 'user')
       .where('place.id = :placeId', { placeId })
       .getMany();
+  }
+
+  async placeimage(place_url) {
+    return new Promise((resolve, reject) => {
+      const curl = new Curl();
+
+      curl.setOpt('URL', place_url);
+      curl.setOpt('FOLLOWLOCATION', true);
+
+      curl.on('end', function (statusCode, data, headers) {
+        const result = JSON.parse(data.toString());
+        const imageurl = result.photo.photoList[0].list[0].orgurl;
+        resolve(imageurl);
+        this.close();
+      });
+
+      curl.on('error', (error) => {
+        reject(error);
+        curl.close();
+      });
+
+      curl.perform();
+    });
   }
 }
