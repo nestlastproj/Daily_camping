@@ -102,7 +102,7 @@
 ⭐ 통합 검색 기능
    ● 캠핑장, 캠핑 용품, 레시피, 게시글 전체 통합 검색 가능
 <p align="center">
-<img src=![Untitled](https://user-images.githubusercontent.com/118158809/228740305-04cf65a7-124f-4393-9156-25d6f028bccc.png)>
+<img src=![[Untitled](https://user-images.githubusercontent.com/118158809/228740305-04cf65a7-124f-4393-9156-25d6f028bccc.png)](https://github.com/nestlastproj/Daily_camping/issues/32#issue-1647007539)>
 </p>
 
 
