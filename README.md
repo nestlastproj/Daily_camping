@@ -73,9 +73,9 @@
 	<br>
 	<img src="https://img.shields.io/badge/AXIOS-5A29E4?style=flat&logo=AXIOS&logoColor=white" />
 	<img src="https://img.shields.io/badge/passport-34E27A?style=flat&logo=passport&logoColor=white" />
-	<br>
 	<img src="https://img.shields.io/badge/js-F7DF1E??style=flat&logo=js&logoColor=white">
 	<img src="https://img.shields.io/badge/elasticsearch-005571??style=flat&logo=elasticsearch&logoColor=white">
+	<br>
 	<img src="https://img.shields.io/badge/RDS-527FFF??style=flat&logo=RDS&logoColor=white">
 	<img src="https://img.shields.io/badge/puppeteer-40B5A4??style=flat&logo=puppeteer&logoColor=white">
 	<img src="https://img.shields.io/badge/cheerio-008DB6??style=flat&logo=cheerio&logoColor=white">
