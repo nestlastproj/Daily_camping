@@ -95,6 +95,11 @@
 
 
 ## 주요 기능
+⭐ 통합 검색 기능
+   ● 캠핑장, 캠핑 용품, 레시피, 게시글 전체 통합 검색 가능
+<p align="center">
+<img src="https://www.notion.so/c2a04a7c4d154dcaac900f4154928384?pvs=4#8f5c1afc065c4afe9eaa99edeb02642b">
+</p>
 
 
 ## 기술적 의사결정
