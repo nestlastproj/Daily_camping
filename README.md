@@ -99,7 +99,7 @@
 <details>
 	<summary>ERD</summary>
 	<p align="center">
-	<img src="(https://velog.velcdn.com/images/nilee23/post/d71f98e8-e2cc-4d84-9eee-d13278138ab7/image.png)">
+	<img src="[(https://velog.velcdn.com/images/nilee23/post/d71f98e8-e2cc-4d84-9eee-d13278138ab7/image.png)](https://velog.velcdn.com/images/nilee23/post/d71f98e8-e2cc-4d84-9eee-d13278138ab7/image.png)">
 	</p>
 </details>
 
