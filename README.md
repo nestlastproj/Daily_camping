@@ -338,4 +338,4 @@
     
 
 ## 시연 영상
-[(http://img.https://youtu.be/4yl8iTuKCN0/0.jpg)(https://youtu.be/4yl8iTuKCN0)](https://youtu.be/4yl8iTuKCN0)
+[(http://img.https://youtu.be/4yl8iTuKCN0/0.jpg)](https://youtu.be/4yl8iTuKCN0)
