@@ -56,19 +56,22 @@
 
 
 ## 서비스 아키텍처
-<div align="center">
-	📚 Tech Stack 📚
+<div align="center"><h1>📚 Tech Stack 📚</h1></div>
+	<div align=center> 
 	<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=HTML5&logoColor=white" />
 	<img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=CSS3&logoColor=white" />
 	<img src="https://img.shields.io/badge/Nestjs-E0234E?style=flat&logo=Nestjs&logoColor=white" />
+	<br>
 	<img src="https://img.shields.io/badge/node.js-339933?style=flat&logo=Node.js&logoColor=white"> 
 	<img src="https://img.shields.io/badge/Typeorm-E0234E?style=flat&logo=Nestjs&logoColor=white" /> 
 	<img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=TypeScript&logoColor=white" />
 	<img src="https://img.shields.io/badge/ECS-FF9900?style=flat&logo=ECS&logoColor=white" />
+	<br>
 	<img src="https://img.shields.io/badge/AXIOS-5A29E4?style=flat&logo=AXIOS&logoColor=white" />
 	<img src="https://img.shields.io/badge/passport-34E27A?style=flat&logo=passport&logoColor=white" />
 	<img src="https://img.shields.io/badge/Html5-E34F26?style=flat&logo=Html5&logoColor=white" />
 	<img src="https://img.shields.io/badge/css-1572B6?style=flat&logo=css3&logoColor=white"> 
+	<br>
 	<img src="https://img.shields.io/badge/js-F7DF1E??style=flat&logo=js&logoColor=white">
 	<img src="https://img.shields.io/badge/elasticsearch-005571??style=flat&logo=elasticsearch&logoColor=white">
 	<img src="https://img.shields.io/badge/RDS-527FFF??style=flat&logo=RDS&logoColor=white">
