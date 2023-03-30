@@ -128,7 +128,7 @@ export class CommentService {
     if (!comment) {
       throw new Error('이미 삭제된 댓글입니다.');
     } else {
-      return await this.commentRepository.softDelete({
+      return await this.commentRepository.delete({
         user: { id: userId },
         articles: { id: articleId },
         id: commentId,
