@@ -103,9 +103,12 @@
 
 
 ## 기술적 의사결정
-● elastic search cloud
- 기존에 like %% 연산로 검색기능을 구현하였으나 인덱싱을 하지 않는 문제로 속도가 느리거나 full scan이
-발생하는 문제가 확인되어 보다 검색기능을 강화 하고자 인덱스 검색 기능이 필요하다고 판단되어 elastic search를 도입하게 되었음.
+<details open>
+	<summary>● elastic search cloud</summary>
+	<ul>
+	기존에 like %% 연산로 검색기능을 구현하였으나 인덱싱을 하지 않는 문제로 속도가 느리거나 full scan이
+        발생하는 문제가 확인되어 보다 검색기능을 강화 하고자 인덱스 검색 기능이 필요하다고 판단되어 elastic search를 도입하게 되었음.
+	</ul>
  
  ● puppeteer
  캠핑장 정보에서 캠핑장의 이미지를 출력하기를 원했지만 카카오 지도 api로 받아오는 데이터에는
