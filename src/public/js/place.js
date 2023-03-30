@@ -15,7 +15,6 @@ function placeApidata(page, keyword) {
     method: 'GET',
   })
     .then((res) => {
-      console.log(res)
       document.getElementById('placeContainer').innerHTML = '';
       document.getElementById('pagination').innerHTML = '';
 
@@ -36,7 +35,7 @@ function placeApidata(page, keyword) {
           <div class="heart">
             <label class="like">
               <input id="myLike${data.id}" type="checkbox" />
-              <div class="hearth" onclick="loginUser(${data.id})"></div>
+              <div class="hearth" onclick="likeUser(${data.id},${page})"></div>
             </label>
           </div>
           <h4><div class="totalcount${data.id}"></div></h4>
@@ -46,8 +45,8 @@ function placeApidata(page, keyword) {
         $('.container').append(temp_html);
 
         placeLike(`${data.id}`);
+        mylike(data.id, page);
       });
-      mylike(page);
 
       const pages = [];
 
@@ -75,15 +74,15 @@ function placeApidata(page, keyword) {
       $('.pagination').append(pages.join(''));
       var links = document.querySelectorAll('.page-link-number');
       if (links.length !== 0 && page <= 5) {
-          const now = page - 1
-          links[now].classList.add("active");
-      } else if (page >5) {
-          const now = page % 5
-          if (now === 0) {
-              links[4].classList.add("active");
-          } else {
-          links[now - 1].classList.add("active");
-          }
+        const now = page - 1;
+        links[now].classList.add('active');
+      } else if (page > 5) {
+        const now = page % 5;
+        if (now === 0) {
+          links[4].classList.add('active');
+        } else {
+          links[now - 1].classList.add('active');
+        }
       }
     })
     .catch((err) => {
@@ -102,23 +101,23 @@ function placeLike(id) {
   });
 }
 
-function like(id) {
+function like(id, page) {
+  console.log(id, page);
   axios({
     url: `/place/${id}/like`,
     method: 'post',
   })
     .then((res) => {
-      console.log(res)
-      const likeCount = res.data;
-      const likeButton = document.getElementById('likebtn');
-      likeButton.textContent = `${likeCount}`;
+      $(`.totalcount${id}`).empty();
+      placeLike(id);
+      mylike(id, page);
     })
     .catch((err) => {
       console.log('error', err);
     });
 }
 
-function mylike(page) {
+function mylike(id, page) {
   axios({
     url: `/myplacelike`,
     method: 'get',
@@ -127,11 +126,11 @@ function mylike(page) {
       const data = res.data;
       data.forEach((data) => {
         if (page === 1) {
-          if (data.id <= page * 6) {
+          if (id == data.id) {
             document.getElementById(`myLike${data.id}`).checked = true;
           }
         } else {
-          if ((page - 1) * 6 < data.id && data.id <= page * 6) {
+          if (id == data.id) {
             document.getElementById(`myLike${data.id}`).checked = true;
           }
         }
@@ -142,11 +141,14 @@ function mylike(page) {
     });
 }
 
-function loginUser(id) {
-  axios.get('/auth/isLoggined').then((res) => {
-    like(id)
-  }).catch((err) => {
-    alert('로그인 후 이용 가능 합니다.')
-    location.href = '/auth/login'
-  })
+function likeUser(id, page) {
+  axios
+    .get('/auth/isLoggined')
+    .then((res) => {
+      like(id, page);
+    })
+    .catch((err) => {
+      alert('로그인 후 이용 가능 합니다.');
+      location.href = '/auth/login';
+    });
 }

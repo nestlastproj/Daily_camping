@@ -19,7 +19,7 @@ export class RecipeService {
 
     const getRecipes = async (page) => {
       const html = await axios.get(`https://www.10000recipe.com/recipe/list.html?q=%EC%BA%A0%ED%95%91&order=reco&page=${page}`);
-      const $ = cheerio.load(html.data);
+      const $ = await cheerio.load(html.data);
 
       $('div.common_sp_caption_tit').each((i, elem) => {
         const recipeindex = (page - 1) * 50 + i;
@@ -52,12 +52,12 @@ export class RecipeService {
 
     await getRecipes(1);
 
-    const cleanrecipes = recipes.filter((empty) => empty !== '<10 empty items>');
-    const detailUrl = cleanrecipes.map((response) => {
+    const cleanrecipes = await recipes.filter((empty) => empty !== '<10 empty items>');
+    const detailUrl = await cleanrecipes.map((response) => {
       return response.url.split('recipe')[2].split('/')[1];
     });
 
-    const contentUrl = detailUrl.map((contentnumber) => `https://www.10000recipe.com/recipe/${contentnumber}`);
+    const contentUrl = await detailUrl.map((contentnumber) => `https://www.10000recipe.com/recipe/${contentnumber}`);
     const requestUrls = await Promise.all(contentUrl.map((url) => axios.get(url)));
     const contentData: { content: string[]; image: string[] }[] = [];
 
@@ -82,7 +82,7 @@ export class RecipeService {
 
     const recipe = recipes.filter((empty) => empty !== '<10 empty items>');
 
-    const entities = recipe.map((recipe, index) => {
+    const entities = await recipe.map((recipe, index) => {
       const entity = new Recipe();
       entity.name = recipe.name;
       entity.url = recipe.url;
@@ -96,7 +96,7 @@ export class RecipeService {
     await this.findindex();
     await this.deleteIndex();
 
-    return this.recipeRePository
+    return await this.recipeRePository
       .createQueryBuilder('recipe')
       .insert()
       .into('recipe')
@@ -119,39 +119,33 @@ export class RecipeService {
     await this.searchService.deleteDocument(keyword);
   }
 
-  async recipeSearch(page: number, keyword: string) {
-    const recipeSearchData = await this.searchService.getDocument(page, keyword);
-    const data = recipeSearchData.map((data) => data._source);
-    return data;
+  async recipeSearch(page, keyword) {
+    const take = 8;
+    const whereQuery = keyword === '' ? '%%' : `%${keyword}%`;
+    const [recipeList, total] = await this.recipeRePository.findAndCount({
+      where: { name: Like(whereQuery) },
+      take,
+      skip: (page - 1) * take,
+    });
+
+    const totalPage = Math.ceil(total / take);
+    const pageGroup = Math.ceil(page / 5);
+    let lastPage = pageGroup * 5;
+    const firstPage = lastPage - 5 + 1 <= 0 ? 1 : lastPage - 5 + 1;
+
+    if (lastPage > totalPage) {
+      lastPage = totalPage;
+    }
+
+    return {
+      recipeList,
+      meta: {
+        firstPage,
+        lastPage,
+        totalPage,
+      },
+    };
   }
-
-  // async recipeSearch(page, keyword) {
-  //   const take = 8;
-  //   const whereQuery = keyword === '' ? '%%' : `%${keyword}%`;
-  //   const [recipeList, total] = await this.recipeRePository.findAndCount({
-  //     where: { name: Like(whereQuery) },
-  //     take,
-  //     skip: (page - 1) * take,
-  //   });
-
-  //   const totalPage = Math.ceil(total / take);
-  //   const pageGroup = Math.ceil(page / 5);
-  //   let lastPage = pageGroup * 5;
-  //   const firstPage = lastPage - 5 + 1 <= 0 ? 1 : lastPage - 5 + 1;
-
-  //   if (lastPage > totalPage) {
-  //     lastPage = totalPage;
-  //   }
-
-  //   return {
-  //     recipeList,
-  //     meta: {
-  //       firstPage,
-  //       lastPage,
-  //       totalPage,
-  //     },
-  //   };
-  // }
 
   async recipeDetail(recipeId) {
     return this.recipeRePository.findOne({ where: { id: recipeId } });

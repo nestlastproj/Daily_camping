@@ -81,7 +81,8 @@ function recipeCrawling(page, keyword) {
       };
     })
     .catch((err) => {
-      alert('레시피 정보 로드에 실패하였습니다.');
-      window.location.href = '/recipe/recipeList';
+      // alert('레시피 정보 로드에 실패하였습니다.');
+      // window.location.href = '/recipe/recipeList';
+      console.log(err)
     });
 }
