@@ -57,7 +57,7 @@
 
 ## 서비스 아키텍처
 <p align="center">
-<img src="https://velog.velcdn.com/images/nilee23/post/01ae427b-7bce-4b7d-888d-841342749504/image.png">
+<img src="https://velog.velcdn.com/images/nilee23/post/01ae427b-7bce-4b7d-888d-841342749504/image.png" width="200" height="400"/>
 </p>
 
 <div align="center"><h1>📚 Tech Stack 📚</h1></div>
