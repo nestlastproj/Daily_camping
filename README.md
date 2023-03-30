@@ -114,14 +114,7 @@
 작동하는 등 실제 브라우저 구성요소처럼 구성되어 있어 카카오 지도 페이지의 이미지 크롤링이
 가능하여 사용하게 됨
  
- ● 카카오 지도 api
- 
- <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
-제목(이걸 누르면 열기,닫기가 됩니다.)
-</a><div style="DISPLAY: none">
-내용
-</div>
- 
+ ● 카카오 지도 api 
  캠핑장 장소에 대한 정보를 전달을 목표로 하고 있었으며, 여러가지(네이버,카카오 등..) 지도 api를
 비교해본 결과 카카오 지도 api가 내일바로캠핑 서비스에서
 필요로 하는 데이터를 전달해주기 때문에 카카오 지도 api를 사용하게 됨
