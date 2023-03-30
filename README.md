@@ -115,6 +115,13 @@
 가능하여 사용하게 됨
  
  ● 카카오 지도 api
+ 
+ <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+제목(이걸 누르면 열기,닫기가 됩니다.)
+</a><div style="DISPLAY: none">
+내용
+</div>
+ 
  캠핑장 장소에 대한 정보를 전달을 목표로 하고 있었으며, 여러가지(네이버,카카오 등..) 지도 api를
 비교해본 결과 카카오 지도 api가 내일바로캠핑 서비스에서
 필요로 하는 데이터를 전달해주기 때문에 카카오 지도 api를 사용하게 됨
