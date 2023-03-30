@@ -102,7 +102,7 @@
 ## 주요 기능
  <details>
 	<summary>통합검색</summary>
-	<h1>캠핑장, 캠핑 용품, 레시피, 게시글 전체 통합 검색 가능</h1>
+	<p>캠핑장, 캠핑 용품, 레시피, 게시글 전체 통합 검색 가능</p>
 <img src=https://velog.velcdn.com/images/nilee23/post/f5c216a0-6a93-41a6-a70e-14b9fc07f319/image.png>
 </details>
  <details>
