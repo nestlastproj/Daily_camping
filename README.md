@@ -338,6 +338,10 @@
     
 
 ## 시연 영상
-
-[시연 영상 바로가기](https://youtu.be/4yl8iTuKCN0)
+<p dir="auto>
+	<a href="https://youtu.be/4yl8iTuKCN0" rel="nofollow">
+	<img src="https://velog.velcdn.com/images/nilee23/post/c51bab8a-b586-4a61-b4aa-17f6f491d04e/image.png" alt="내배캠 시연영상" style="max-width: 100%>
+	</a>
+	</p>
+							   
 
