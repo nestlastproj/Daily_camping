@@ -6,7 +6,13 @@
   display: block;
   max-width: 100%;
 }
-
+img {
+  width: 344px;
+  height: 344px;
+}
+.container {
+  max-width: 1850px;
+}
 .stack {
   margin: 50px 100px;
   width: 85%;

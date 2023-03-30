@@ -1,4 +1,3 @@
-@import url(pagination.css);
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
 
@@ -435,6 +434,53 @@
   width: 800px;
   text-align: center;
   margin: 100px auto 0 auto;
+}
+
+.btnbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px auto 30px auto;
+}
+
+.viewbtn1 {
+  width: 100px;
+  height: 35px;
+  border-radius: 20px;
+  margin-right: 10px;
+  color: #555555;
+  background-color: transparent;
+  overflow: hidden !important;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  background: transparent !important;
+  z-index: 10;
+}
+
+.viewbtn2 {
+  width: 100px;
+  height: 35px;
+  border-radius: 20px;
+  margin-left: 10px;
+  color: #555555;
+  background-color: transparent;
+  overflow: hidden !important;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  background: transparent !important;
+  z-index: 10;
+}
+
+.viewbtn1:hover {
+  color: #5cdb95;
+}
+
+.viewbtn2:hover {
+  color: #5cdb95;
 }
 
 .button {

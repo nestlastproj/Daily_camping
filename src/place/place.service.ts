@@ -5,8 +5,8 @@ import { Like, Repository } from 'typeorm';
 import { Place } from '../entity/api/place.entity';
 import { ConfigService } from '@nestjs/config';
 import { default as coordinates } from '../resource/coordinates.json';
+import * as puppeteer from 'puppeteer';
 import { SearchService } from 'src/serch/search.service';
-import { data } from 'cheerio/lib/api/attributes';
 
 @Injectable()
 export class PlaceService {
@@ -23,10 +23,11 @@ export class PlaceService {
     };
     const url = 'https://dapi.kakao.com/v2/local/search/keyword.json';
     const allPlaces = [];
+    const filterPlace = new Set();
 
-    for (const keyword of keywords) {
+    for await (const keyword of keywords) {
       console.log(keyword);
-      for (const coordinate of coordinates) {
+      for await (const coordinate of coordinates) {
         console.log(coordinate.city, coordinate.name);
         let params = {
           query: keyword,
@@ -44,7 +45,6 @@ export class PlaceService {
         for (let i = 1; i <= maxPage; i++) {
           params.page = i;
           const response = await this.httpService.get(url, { params, headers }).toPromise();
-
           let places = response.data.documents
             .filter((doc) => {
               return doc.category_name.includes('캠핑장');
@@ -104,25 +104,54 @@ export class PlaceService {
               };
             });
 
-          for (const place of places) {
-            await this.placeRepository
-              .createQueryBuilder('place')
-              .insert()
-              .into('place')
-              .values(place)
-              .orUpdate(['address', 'phone', 'city', 'detailcity', 'category', 'url', 'x', 'y'], ['name'])
-              .updateEntity(false)
-              .execute();
+          for await (const place of places) {
+            const key = place.name + place.address;
+            if (!filterPlace.has(key)) {
+              allPlaces.push(place);
+              filterPlace.add(key);
+            }
           }
-          allPlaces.push(...places);
         }
       }
     }
+    await this.placeImageCrawl(allPlaces);
+  }
 
-    await this.deleteIndex();
-    await this.findIndex();
+  async placeImageCrawl(allPlaces) {
+    for (let placedata of allPlaces) {
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+      console.log(placedata.url);
+      const placeimage = await (await page.goto(`https://place.map.kakao.com/main/v/${placedata.url.split('/')[3]}`)).json();
+      await page.waitForTimeout(500);
+      let imagedata = '';
+      if (
+        placeimage.photo &&
+        placeimage.photo.photoList[0] &&
+        placeimage.photo.photoList[0].list[0] &&
+        placeimage.photo.photoList[0].list[0].orgurl
+      ) {
+        if (placeimage.photo.photoList[0].list[0].orgurl.length > 255) {
+          imagedata = 'https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/placeDefault.jpg';
+        } else {
+          imagedata = placeimage.photo.photoList[0].list[0].orgurl;
+        }
+      } else {
+        imagedata = 'https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/placeDefault.jpg';
+      }
+      placedata.image = imagedata;
+      await browser.close();
 
-    return allPlaces;
+      console.log(placedata);
+      await this.placeRepository
+        .createQueryBuilder('place')
+        .insert()
+        .into('place')
+        .values(placedata)
+        .orUpdate(['address', 'phone', 'city', 'detailcity', 'image', 'category', 'url', 'x', 'y'], ['name'])
+        .updateEntity(false)
+        .execute();
+    }
   }
 
   async findIndex() {
@@ -174,7 +203,6 @@ export class PlaceService {
 
   async placeCategorySearch(page: number, cityname: string, detailcity?: string) {
     const take = 6;
-
     if (detailcity !== '전체') {
       const [placeList, total] = await this.placeRepository.findAndCount({
         where: { detailcity: detailcity, city: cityname },

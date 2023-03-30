@@ -278,6 +278,7 @@ function addressKindChange(e) {
     url: `/place/placeCategorySearch?page=${page}&cityname=${cityname}&detailcity=${detailcity}`,
     method: 'GET',
   }).then((res) => {
+    console.log(res);
     document.getElementById('placeContainer').innerHTML = '';
     document.getElementById('pagination').innerHTML = '';
 
