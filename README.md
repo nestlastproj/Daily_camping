@@ -338,10 +338,6 @@
     
 
 ## 시연 영상
-<p dir="auto>
-	<a href="https://youtu.be/4yl8iTuKCN0" rel="nofollow">
-	<img src="https://velog.velcdn.com/images/nilee23/post/c51bab8a-b586-4a61-b4aa-17f6f491d04e/image.png" alt="내배캠 시연영상" style="max-width: 100%>
-	</a>
-	</p>
+<iframe width="956" height="538" src="https://www.youtube.com/embed/ozv4q2ov3Mk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 							   
 
