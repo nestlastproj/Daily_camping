@@ -338,6 +338,4 @@
     
 
 ## 시연 영상
-<iframe width="956" height="538" src="https://www.youtube.com/embed/ozv4q2ov3Mk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-							   
-
+[![예제](http://img.https://youtu.be/4yl8iTuKCN0/0.jpg)(https://youtu.be/4yl8iTuKCN0)
