@@ -135,6 +135,7 @@
 	<summary>마이페이지</summary>
 <img src=https://velog.velcdn.com/images/nilee23/post/15015c42-1712-439e-bfd7-a7414259c2c4/image.gif>
 </details>
+
 ## 기술적 의사결정
 <details>
 	<summary>● elastic search cloud</summary>
