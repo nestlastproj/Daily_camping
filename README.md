@@ -125,7 +125,7 @@
    ● 캠핑 요리 검색 및 레시피 
    <details>
 	<summary>레시피</summary>
-<img src[=https://velog.velcdn.com/images/nilee23/post/ff16ccfd-4ed2-4dd5-886e-7cb380b4f869/image.gif>
+<img src=https://velog.velcdn.com/images/nilee23/post/ff16ccfd-4ed2-4dd5-886e-7cb380b4f869/image.gif>
 </details>
 ⭐ 마이페이지
    ● 회원 정보 수정: 이름, 전화번호, 닉네임, 프로필 이미지 수정
