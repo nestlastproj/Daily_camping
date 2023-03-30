@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://sparta-hb.site" target="blank"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kaka[…]Fdn%2FxUEn6%2Fbtr6QSH2lUB%2FRI8ZiGaY23hF7f6Wyo1E01%2Fimg.png" width="200" alt="내바캠이미지" /></a>
+  <a href="https://sparta-hb.site" target="blank"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FxUEn6%2Fbtr6QSH2lUB%2FRI8ZiGaY23hF7f6Wyo1E01%2Fimg.png" width="200" alt="내바캠이미지" /></a>
 </p>
 
 ## 캠핑 커뮤니티 사이트, 내일 바로 캠핑
