@@ -56,6 +56,9 @@
 
 
 ## 서비스 아키텍처
+<p align="center">
+<img src="(https://www.notion.so/c2a04a7c4d154dcaac900f4154928384?pvs=4#6e4fa57422bb4db6bc5e24185203d79c)">
+</p>
 <div align="center"><h1>📚 Tech Stack 📚</h1></div>
 	<div align=center> 
 	<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=HTML5&logoColor=white" />
