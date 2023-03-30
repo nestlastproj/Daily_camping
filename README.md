@@ -130,14 +130,14 @@
 
 ## 기술적 의사결정
 <details>
-	<summary>● elastic search cloud</summary>
+	<summary> elastic search cloud</summary>
 	<li>
 	기존에 like %% 연산로 검색기능을 구현하였으나 인덱싱을 하지 않는 문제로 속도가 느리거나 full scan이
         발생하는 문제가 확인되어 보다 검색기능을 강화 하고자 인덱스 검색 기능이 필요하다고 판단되어 elastic search를 도입하게 되었음.
 	</li>
 	</details>
 	<details>
- 	<summary> ● puppeteer</summary>
+ 	<summary> puppeteer</summary>
 	<li>
 	캠핑장 정보에서 캠핑장의 이미지를 출력하기를 원했지만 카카오 지도 api로 받아오는 데이터에는
 	이미지가 없는 관계로 크롤링을 택하게 되었으며, 카카오 지도 페이지에서는  xmlHttpRequest 통신이
@@ -147,7 +147,7 @@
 	</li>
 	</details>
 	<details>
-	<summary>● 카카오 지도 api </summary>
+	<summary> 카카오 지도 api </summary>
 	<li>
 	캠핑장 장소에 대한 정보를 전달을 목표로 하고 있었으며, 여러가지(네이버,카카오 등..) 지도 api를
 	비교해본 결과 카카오 지도 api가 내일바로캠핑 서비스에서
@@ -155,7 +155,7 @@
 	</li>
 	</details>
 	<details>
-	<summary>● 11번가 api</summary>
+	<summary> 11번가 api</summary>
 	<li>
  	서비스 구상 중 캠핑 용품을 구매할 수 있는 서비스도 있으면 좋겠다는 의견이 반영되어 쇼핑몰 api를
 	이용하기로 결정되어 네이버 쇼핑api, 쿠팡api, 11번가api 를 비교하게 되었으나 네이버 쇼핑 api와
@@ -163,34 +163,34 @@
 	</li>
 	</details>
 	<details>
-	<summary>● cheerioi</summary>
+	<summary> cheerioi</summary>
 	<li>
  	 레시피 정보는 만개의 레시피 사이트의 크롤링으로 결정되었으며 보다 효율적인 크롤링이 필요하여
 	고민한 결과 원하는 정보만 가져올 수 있고 빠른 작동을 하는 cheerio 라이브러리를 사용하게 됨 
 	</li>
 	</details>
 	<details>
-	<summary>● scheduling</summary>
+	<summary> scheduling</summary>
 	<li>
   	주기적인 자동 크롤링 및 api 호출을 위하여 nestjs task scheduling  사용
 	백엔드 서비스 api 서버와 결합도를 없애기 위해 추후 Cloudwatch (schedule) + lambda  이용해서 크롤링 하도록 변경 하는것을 계획중
 	</li>
 	</details>
 	<details>
-	<summary>●● passport</summary>
+	<summary> passport</summary>
 	<li>
   	회원가입과 로그인은 세션과 쿠키 처리 등 복잡한 작업이 많으므로 검증된 모듈을 사용하는 것이 좋기
 	때문에 passport 모듈은 이에 적합하다 판단하여 사용하게 되었음
 	</li>
 	</details>
 	<details>
-	<summary>● jwt</summary>
+	<summary> jwt</summary>
 	<li>
   	 사용자 인증에 필요한 모든 정보는 토큰 자체에 포함하기 때문에 별도의 인증 저장소가 필요하지 않아 jwt 를 사용하게 됨
 	</li>
 	</details>
 	<details>
-	<summary>● xml2js</summary>
+	<summary> xml2js</summary>
 	<li>
 	 11번가 상품 api 요청 시 데이터 형식이 json이 아닌 xml 형태로 응답이 오는 문제로 인해 json 형태로
 	변환하기 위해 xml2js 라이브러리를 사용하였으며 fast-xml-parser 라이브러리가 더 효율적인 사용이
@@ -203,7 +203,6 @@
 
 
 ## 트러블 슈팅
-## 📌  트러블 슈팅
 
 - 캠핑장 검색 시 데이터가 많아 로드뷰에 과도한 로딩 시도
     - Elasticsearch 를 통함 검색 고도화
