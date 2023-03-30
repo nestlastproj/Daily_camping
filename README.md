@@ -98,7 +98,7 @@
 ⭐ 통합 검색 기능
    ● 캠핑장, 캠핑 용품, 레시피, 게시글 전체 통합 검색 가능
 <p align="center">
-<img src=(![image](https://user-images.githubusercontent.com/118158809/228739845-e5a18622-131a-47bc-b01a-ad6320d561d8.png))>
+<img src=![Untitled](https://user-images.githubusercontent.com/118158809/228740305-04cf65a7-124f-4393-9156-25d6f028bccc.png)>
 </p>
 
 
