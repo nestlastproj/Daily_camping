@@ -115,7 +115,26 @@
 	<summary>좋아요</summary>
 <img src=https://velog.velcdn.com/images/nilee23/post/487bd002-0824-44a3-a80b-c43051cc83d4/image.png>
 </details>
-   
+⭐ 커뮤니티
+   ● 게시글 및 댓글 작성, 좋아요 그리고 페이지네이션 기능을 구현
+   <details>
+	<summary>커뮤니티</summary>
+<img src=https://velog.velcdn.com/images/nilee23/post/ef8b64dc-1e6a-4b11-bc81-3f034d6172d1/image.png>
+</details>  
+⭐ 레시피
+   ● 캠핑 요리 검색 및 레시피 
+   <details>
+	<summary>레시피</summary>
+<img src=https://velog.velcdn.com/images/nilee23/post/2716bf36-7c0c-495f-805c-6742de00d6bb/image.gif>
+</details>
+⭐ 마이페이지
+   ● 회원 정보 수정: 이름, 전화번호, 닉네임, 프로필 이미지 수정
+   ● 본인이 작성한 게시글, 댓글, 후기 모아보기
+   ● 회원 탈퇴
+   <details>
+	<summary>마이페이지</summary>
+<img src=https://velog.velcdn.com/images/nilee23/post/15015c42-1712-439e-bfd7-a7414259c2c4/image.gif>
+</details>
 ## 기술적 의사결정
 <details>
 	<summary>● elastic search cloud</summary>
