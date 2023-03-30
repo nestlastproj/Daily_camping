@@ -98,7 +98,7 @@
 ⭐ 통합 검색 기능
    ● 캠핑장, 캠핑 용품, 레시피, 게시글 전체 통합 검색 가능
 <p align="center">
-<img src=("https://www.notion.so/c2a04a7c4d154dcaac900f4154928384?pvs=4#8f5c1afc065c4afe9eaa99edeb02642b")>
+<img src=("[https://www.notion.so/c2a04a7c4d154dcaac900f4154928384?pvs=4#8f5c1afc065c4afe9eaa99edeb02642b](https://velog.velcdn.com/images/nilee23/post/7debcc2d-621a-4fef-a9c8-62f32f5fe2bb/image.png)")>
 </p>
 
 
