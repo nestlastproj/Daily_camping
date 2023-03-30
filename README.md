@@ -339,6 +339,6 @@
 
 ## 시연 영상
 <p align="center">
-  <a href="https://youtu.be/4yl8iTuKCN0" target="blank"><img src="https://velog.velcdn.com/images/nilee23/post/c51bab8a-b586-4a61-b4aa-17f6f491d04e/image.png" />
+  <a href="https://youtu.be/4yl8iTuKCN0" target="blank"><img src="https://velog.velcdn.com/images/nilee23/post/c51bab8a-b586-4a61-b4aa-17f6f491d04e/image.png" width="400" height="300" / >
 </a>
 </p>
