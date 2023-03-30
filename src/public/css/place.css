@@ -7,8 +7,8 @@
   max-width: 100%;
 }
 img {
-  width: 344px;
-  height: 344px;
+  width: 347px;
+  height: 347px;
 }
 .container {
   max-width: 1850px;
@@ -74,7 +74,7 @@ img {
   width: 100%;
   min-width: 352px;
   border: 4px solid;
-  background-color: #eee;
+  /* background-color: #eee; */
   aspect-ratio: 1/1;
   position: relative;
 }

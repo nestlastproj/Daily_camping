@@ -26,7 +26,7 @@ function placeApidata(page, keyword) {
         <div class="stack">
         <div class="card">
           <div class="image" id="map${data.id}">
-          <img referrerpolicy="no-referrer" src="${data.image}"
+          <img referrerpolicy="no-referrer" src="${data.image}">
           </div>
           <div class="text" onclick="location.href='/place/placeInfo?placeId=${data.id}'">
             <h3>${data.name}</h3>
