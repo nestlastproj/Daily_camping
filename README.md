@@ -106,23 +106,27 @@
 <img src=https://velog.velcdn.com/images/nilee23/post/f5c216a0-6a93-41a6-a70e-14b9fc07f319/image.png>
 </details>
  <details>
-	<summary>좋아요캠핑장 뿐만 아니라 게시글, 댓글, 리뷰 까지 좋아요 가능 </summary>
+	<summary>좋아요</summary>
+	<p>캠핑장 뿐만 아니라 게시글, 댓글, 리뷰 까지 좋아요 가능</p>
 <img src=https://velog.velcdn.com/images/nilee23/post/487bd002-0824-44a3-a80b-c43051cc83d4/image.png>
 </details>
  커뮤니티
    <details>
-	<summary>커뮤니티 게시글 및 댓글 작성, 좋아요 그리고 페이지네이션 기능을 구현</summary>
+	<summary>커뮤니티</summary>
+	<p> 게시글 및 댓글 작성, 좋아요 그리고 페이지네이션 기능을 구현 </p>
 <img src=https://velog.velcdn.com/images/nilee23/post/ef8b64dc-1e6a-4b11-bc81-3f034d6172d1/image.png>
 </details>  
   <details>
-	<summary>레시피 캠핑 요리 검색 및 레시피 </summary>
+	<summary>레시피 </summary>
+	<p>캠핑 요리 검색 및 레시피 </p>
 <img src=https://velog.velcdn.com/images/nilee23/post/ff16ccfd-4ed2-4dd5-886e-7cb380b4f869/image.gif>
 </details>
  마이페이지
    <details>
-	<summary>마이페이지  회원 정보 수정: 이름, 전화번호, 닉네임, 프로필 이미지 수정
-   본인이 작성한 게시글, 댓글, 후기 모아보기
-   회원 탈퇴</summary>
+	<summary>마이페이지 </summary>
+	<p>회원 정보 수정: 이름, 전화번호, 닉네임, 프로필 이미지 수정</p>
+	<p>본인이 작성한 게시글, 댓글, 후기 모아보기</p>
+	<p>회원 탈퇴</p>
 <img src=https://velog.velcdn.com/images/nilee23/post/15015c42-1712-439e-bfd7-a7414259c2c4/image.gif>
 </details>
 
