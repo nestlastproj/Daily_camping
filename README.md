@@ -56,7 +56,7 @@
 
 
 ## 서비스 아키텍처
-<img src="(https://user-images.githubusercontent.com/118158809/228748895-13c93957-f049-4022-8a17-3767b6c710bd.png)">
+<img src="(https://user-images.githubusercontent.com/118158809/228750661-f2c25a19-63fa-4dd5-9b17-fedc8c042b96.png)">
 
 <div align="center"><h1>📚 Tech Stack 📚</h1></div>
 	<div align=center> 
