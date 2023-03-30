@@ -204,7 +204,9 @@
 
 ## 트러블 슈팅
 
-- 캠핑장 검색 시 데이터가 많아 로드뷰에 과도한 로딩 시도
+
+<details>
+<summary>캠핑장 검색 시 데이터가 많아 로드뷰에 과도한 로딩 시도</summary>
     - Elasticsearch 를 통함 검색 고도화
     
     ```
@@ -219,7 +221,9 @@
     ```
     
     - 페이지네이션을 통한 범위 데이터 서빙으로 용량을 줄여 레이턴시를 줄임
-- 캠핑장 검색결과에 로드뷰가 아닌 캠핑장 이미지 삽입시도
+</details>
+<details>
+<summary>캠핑장 검색결과에 로드뷰가 아닌 캠핑장 이미지 삽입시도</summary>
     
     ```
     문제 : puppeteer 라이브러리로 요청 시도 하였으나 너무 대량의 요청이 발생하여 
@@ -242,8 +246,9 @@
     결과 : 하지만 puppeteer 라이브러리로 시도 시 이미지 크롤링 속도가 과하게 느린 문제가 확인되어
     			추가 문제 해결 방법 고민 상태임
     ```
-    
-- Api 스케줄러로 주기적으로 실행시, 변함 없는 데이터는 그대로 유지 변화가 생긴 데이터는 delete 메소드로 db를 비우고 실행
+</details>
+<details>
+<summary>Api 스케줄러로 주기적으로 실행시, 변함 없는 데이터는 그대로 유지 변화가 생긴 데이터는 delete 메소드로 db를 비우고 실행</summary>
     
     ```
     문제 : api 호출시 insert 메소드로 인해서 기존에 데이터가 존재하더라도 중복 입력되는 문제 발생 
@@ -254,8 +259,9 @@
     
     결과 : 이미 가져온 데이터 중 변경되지 않는 데이터는 더이상 요청하지 않도록 구현 계획 중
     ```
-    
-- 회원 탈퇴
+</details>
+<details>
+<summary>회원 탈퇴</summary>
     
     ```
     문제 : 회원 탈퇴 버튼을 누르면 너무 쉽게 회원 탈퇴가 되어 당황을 했다는 사용자 피드백
@@ -279,8 +285,9 @@
     
     결과 : typeorm 기능 중 withDeleted = true 옵션을 사용하여 삭제된 유저정보도 join 되도록 함
     ```
-    
-- frontend에서의 페이지네이션
+</details>
+<details>
+<summary>frontend에서의 페이지네이션</summary>
     
     ```
     문제 : 모든 게시글을 select하여 frontend로 전달 후 페이지네이션을 구현하였으나 2페이지 선택 부터는 빨랐으나
@@ -293,8 +300,9 @@
     
     결과 : backend에서 구현한 페이지네이션을 적용한 결과, 속도가 향상되었음
     ```
-    
-- 좋아요 / 댓글 카운트
+</details>
+<details>
+<summary>좋아요 / 댓글 카운트</summary>
     
     ```
     문제 : 초반에는 update 문을 사용하여 like + 1로 구현을 하였으나
@@ -303,8 +311,9 @@
     
     결과 : typeorm의 createselectquery를 사용하여 좋아요 / 댓글 갯수를 세는 카운트를 구현
     ```
-    
-- 비로그인 유저
+</details>
+<details>
+<summary>비로그인 유저</summary>
     
     ```
     문제 : 비로그인 시 게시글, 리뷰 작성 시 글쓰기는 가능하지만 저장을 눌렀을 때 undefind 가 뜬다는 사용자 피드백
@@ -313,16 +322,18 @@
     
     결과 : 비로그인 시 axios get을 통해 유저 정보가 없을 시 로그인 페이지로 이동하게 구현
     ```
-    
-- 검색 기능 like `%${검색어}%`로 기능 구현하여 불필요한 정보가 불러와짐
+</details>
+<details>
+<summary>검색 기능 like `%${검색어}%`로 기능 구현하여 불필요한 정보가 불러와짐</summary>
     
     ```
     문제 : like `%${검색어}%`을 이용하여 검색 기능 구현을 시도 하였으나 불필요한 정보가 불러와짐
     
     결과 : elasticsearch, kibana 도입으로 보다 빠르고 완벽한 검색 기능 구현
     ```
-    
-- elastic search → elastic search cloud로 변경
+</details>
+<details>
+<summary>elastic search → elastic search cloud로 변경</summary>
     
     ```
     문제 : elastic search 도입하였으나 서버 사양 부족으로 로컬 elastic search 구현 불가
@@ -334,7 +345,7 @@
     
     결과 : elastic search cloud 로 변경하여 서버의 부담을 없앰    
     ```
-    
+</details>
 
 ## 시연 영상
 <p align="center">
