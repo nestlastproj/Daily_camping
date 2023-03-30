@@ -106,10 +106,16 @@
 ⭐ 통합 검색 기능
    ● 캠핑장, 캠핑 용품, 레시피, 게시글 전체 통합 검색 가능
 <details>
-	<summary></summary>
+	<summary>통합검색기능</summary>
 <img src=https://velog.velcdn.com/images/nilee23/post/f5c216a0-6a93-41a6-a70e-14b9fc07f319/image.png>
 </details>
-
+⭐ 좋아요
+   ● 캠핑장 뿐만 아니라 게시글, 댓글, 리뷰 까지 좋아요 가능
+   <details>
+	<summary>좋아요</summary>
+<img src=https://velog.velcdn.com/images/nilee23/post/487bd002-0824-44a3-a80b-c43051cc83d4/image.png>
+</details>
+   
 ## 기술적 의사결정
 <details>
 	<summary>● elastic search cloud</summary>
