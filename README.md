@@ -35,17 +35,17 @@
 	<tr><!-- 두번째 줄 시작 -->
 	    <td>부리더</td>
 	    <td>전규렬</td>
-      <td>본인 이메일</td>
+      <td>wjsrbfuf@gmail.com</td>
 	</tr><!-- 두번째 줄 끝 -->
   <tr><!-- 첫번째 줄 시작 -->
 	    <td>팀원</td>
 	    <td>최원빈</td>
-      <td>본인 이메일</td>
+      <td>maraineryu@gmail.com</td>
 	</tr><!-- 첫번째 줄 끝 -->
   <tr><!-- 첫번째 줄 시작 -->
 	    <td>팀원</td>
 	    <td>박예빈</td>
-      <td>본인 이메일</td>
+      <td>pros1313@hanmail.net</td>
 	</tr><!-- 첫번째 줄 끝 -->
   <tr><!-- 첫번째 줄 시작 -->
 	    <td>팀원</td>
