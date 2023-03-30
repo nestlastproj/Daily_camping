@@ -50,7 +50,7 @@
   <tr><!-- 첫번째 줄 시작 -->
 	    <td>팀원</td>
 	    <td>최환준</td>
-      <td>본인 이메일</td>
+      <td>nilee23@gmail.com</td>
 	</tr><!-- 첫번째 줄 끝 -->
     </table>
 
@@ -62,7 +62,7 @@
 	<img src="https://img.shields.io/badge/Nestjs-E0234E?style=flat&logo=Nestjs&logoColor=white" />
 	<img src="https://img.shields.io/badge/node.js-339933?style=flat&logo=Node.js&logoColor=white"> 
 	<img src="https://img.shields.io/badge/Typeorm-E0234E?style=flat&logo=Nestjs&logoColor=white" /> 
-	<img src="https://img.shields.io/badge/TypeScript-#3178C6?style=flat&logo=TypeScript&logoColor=white" />
+	<img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=TypeScript&logoColor=white" />
 </div>
     
  
