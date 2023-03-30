@@ -96,6 +96,12 @@
 
 
 ## 설계
+<details>
+	<summary>ERD</summary>
+	<p align="center">
+	<img src="[https://velog.velcdn.com/images/nilee23/post/01ae427b-7bce-4b7d-888d-841342749504/image.png](https://velog.velcdn.com/images/nilee23/post/d71f98e8-e2cc-4d84-9eee-d13278138ab7/image.png)" width="400" height="300"/>
+	</p>
+</details>
 
 
 ## 주요 기능
