@@ -98,10 +98,7 @@
 
 
 ## 기술적 의사결정
-<div align="center">
-	<div align=center> 
-	<img src=![image](https://user-images.githubusercontent.com/118158809/228735215-23c8a068-3701-4264-af09-522dce9f75a9.png)">
-</div>																 
+<div><h1>elastic search cloud</h1></div
 
 ## 트러블 슈팅
 
