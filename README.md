@@ -339,6 +339,6 @@
 
 ## 시연 영상
 <p align="center">
-  <a href="https://youtu.be/4yl8iTuKCN0" target="blank"><img src="[https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FxUEn6%2Fbtr6QSH2lUB%2FRI8ZiGaY23hF7f6Wyo1E01%2Fimg.png](https://velog.velcdn.com/images/nilee23/post/c51bab8a-b586-4a61-b4aa-17f6f491d04e/image.png)" />
+  <a href="https://youtu.be/4yl8iTuKCN0" target="blank"><img src="https://velog.velcdn.com/images/nilee23/post/c51bab8a-b586-4a61-b4aa-17f6f491d04e/image.png" />
 </a>
 </p>
