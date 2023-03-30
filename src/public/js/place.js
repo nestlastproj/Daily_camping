@@ -26,7 +26,7 @@ function placeApidata(page, keyword) {
         <div class="stack">
         <div class="card">
           <div class="image" id="map${data.id}">
-          <img src="${data.image}"
+          <img referrerpolicy="no-referrer" src="${data.image}"
           </div>
           <div class="text" onclick="location.href='/place/placeInfo?placeId=${data.id}'">
             <h3>${data.name}</h3>
@@ -35,7 +35,7 @@ function placeApidata(page, keyword) {
           <div class="heart">
             <label class="like">
               <input id="myLike${data.id}" type="checkbox" />
-              <div class="hearth" onclick="like(${data.id})"></div>
+              <div class="hearth" onclick="like(${data.id})" id="likebtn"></div>
             </label>
           </div>
           <h3><div class="totalcount${data.id}"></div></h3>
@@ -96,7 +96,10 @@ function like(id) {
     method: 'post',
   })
     .then((res) => {
-      window.location.reload();
+      console.log(res)
+      const likeCount = res.data;
+      const likeButton = document.getElementById('likebtn');
+      likeButton.textContent = `${likeCount}`;
     })
     .catch((err) => {
       console.log('error', err);

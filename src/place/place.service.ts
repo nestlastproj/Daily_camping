@@ -21,6 +21,7 @@ export class PlaceService {
     };
     const url = 'https://dapi.kakao.com/v2/local/search/keyword.json';
     const allPlaces = [];
+    const filterPlace = new Set();
 
     for await (const keyword of keywords) {
       console.log(keyword);
@@ -101,39 +102,53 @@ export class PlaceService {
               };
             });
 
-          allPlaces.push(...places);
+          for await (const place of places) {
+            const key = place.name + place.address;
+            if (!filterPlace.has(key)) {
+              allPlaces.push(place);
+              filterPlace.add(key);
+            }
+          }
         }
       }
     }
-    this.placeimage(allPlaces);
-    return allPlaces;
+    await this.placeImageCrawl(allPlaces);
   }
 
-  async placeimage(allPlaces) {
+  async placeImageCrawl(allPlaces) {
     for (let placedata of allPlaces) {
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
+      console.log(placedata.url);
       const placeimage = await (await page.goto(`https://place.map.kakao.com/main/v/${placedata.url.split('/')[3]}`)).json();
       await page.waitForTimeout(500);
-      await browser.close();
-      const imagedata = placeimage.photo
-        ? placeimage.photo.photoList[0].list[0].orgurl
-        : 'https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/placeDefault.jpg';
-      placedata.image = imagedata;
-
-      if (imagedata.length >= 255) {
-        placedata.image = 'https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/placeDefault.jpg';
-
-        console.log(placedata.image);
-        await this.placeRepository
-          .createQueryBuilder('place')
-          .insert()
-          .into('place')
-          .values(placedata)
-          .orUpdate(['address', 'phone', 'city', 'detailcity', 'image', 'category', 'url', 'x', 'y'], ['name'])
-          .updateEntity(false)
-          .execute();
+      let imagedata = '';
+      if (
+        placeimage.photo &&
+        placeimage.photo.photoList[0] &&
+        placeimage.photo.photoList[0].list[0] &&
+        placeimage.photo.photoList[0].list[0].orgurl
+      ) {
+        if (placeimage.photo.photoList[0].list[0].orgurl.length > 255) {
+          imagedata = 'https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/placeDefault.jpg';
+        } else {
+          imagedata = placeimage.photo.photoList[0].list[0].orgurl;
+        }
+      } else {
+        imagedata = 'https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/placeDefault.jpg';
       }
+      placedata.image = imagedata;
+      await browser.close();
+
+      console.log(placedata);
+      await this.placeRepository
+        .createQueryBuilder('place')
+        .insert()
+        .into('place')
+        .values(placedata)
+        .orUpdate(['address', 'phone', 'city', 'detailcity', 'image', 'category', 'url', 'x', 'y'], ['name'])
+        .updateEntity(false)
+        .execute();
     }
   }
 

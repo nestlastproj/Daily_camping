@@ -18,7 +18,6 @@ function placeDetailData(placeId) {
           <div class="frame">
             <div class="inner-frame">
               <div class="mat" id="mapbox">
-                <img src="" id="mapimage">
               </div>
             </div>
           </div>
@@ -100,8 +99,9 @@ function roadview(x, y) {
     await roadview.setPanoId(panoId, position);
     if (!panoId) {
       function noimage() {
-        alert('로드뷰가 지원되지 않는 캠핑장입니다.');
-        window.location.reload();
+        // alert('로드뷰가 지원되지 않는 캠핑장입니다.');
+        roadviewContainer.innerHTML="<img src='https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/view.png'>"
+        // window.location.reload();
       }
     }
     setTimeout(noimage, 100);

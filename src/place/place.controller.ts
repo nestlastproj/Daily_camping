@@ -9,7 +9,7 @@ export class PlaceController {
   // @Cron('* * * 9 * *') // 매월 9일마다 api 자동 실행
   @Get('/placeget')
   async getPlace(@Query('keywords') keywords: string[], @Query('x') x: string, @Query('y') y: string) {
-    return await this.placeService.getPlace(['캠핑장', '실내 캠핑', '오토 캠핑', '글램핑', '카라반'], x, y);
+    return await this.placeService.getPlace(['글램핑', '캠핑장', '오토 캠핑', '카라반'], x, y);
   }
 
   @Get('/placeSearch')
