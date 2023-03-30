@@ -2,7 +2,7 @@ $(document).ready(function () {
   const articleIdUrl = window.location.pathname;
   const articleId = articleIdUrl.split('/')[3];
   const page = new URLSearchParams(location.search).get('page') || 1;
-  access()
+  access();
   getmyprofiledata(articleId);
   countComment(articleId);
   articleLikeCount();
@@ -10,29 +10,29 @@ $(document).ready(function () {
 });
 
 function access() {
-  axios.get('/auth/isLoggined').then((res) => {
-  }).catch((err) => {
-    alert('로그인 후 이용 가능 합니다.')
-    location.href = '/auth/login'
-  })
+  axios
+    .get('/auth/isLoggined')
+    .then((res) => {})
+    .catch((err) => {
+      alert('로그인 후 이용 가능 합니다.');
+      location.href = '/auth/login';
+    });
 }
 
 function loginuser(userId) {
   const articleIdUrl = window.location.pathname;
   const articleId = articleIdUrl.split('/')[3];
-  axios.get(`/auth/isLoggined`)
-    .then((res) => {
-      if (userId == res.data.id) {
-        let temp = `<a href="/article/edit/${articleId}" class="on">수정</a>
+  axios.get(`/auth/isLoggined`).then((res) => {
+    if (userId == res.data.id) {
+      let temp = `<a href="/article/edit/${articleId}" class="on">수정</a>
                     <a onclick="deleteArticle()" class="off">삭제</a>
-                    <a href="/article/list" class="on">목록</a>`
-        $('.buttons').append(temp)
-      }
-      else {
-        let temp = `<a href="/article/list" class="on">목록</a>`
-        $('.buttons').append(temp)
-      }
-    })
+                    <a href="/article/list" class="on">목록</a>`;
+      $('.buttons').append(temp);
+    } else {
+      let temp = `<a href="/article/list" class="on">목록</a>`;
+      $('.buttons').append(temp);
+    }
+  });
 }
 
 function articleLikeCount() {
@@ -79,7 +79,6 @@ function getmyprofiledata(articleId) {
         minute = '0' + minute.toString();
       }
       if (image === null) {
-
         let temp = `<div class="title" id="title">${title}</div>
                             <div class="info">
                                 <dl>
@@ -119,7 +118,6 @@ function getmyprofiledata(articleId) {
         getMyArticleLike();
         loginuser(userId);
       }
-
     })
     .catch((err) => {
       console.log(err, 'err');
@@ -135,17 +133,16 @@ function getMyArticleLike() {
     method: 'get',
   })
     .then((res) => {
-      const data = res.data
+      const data = res.data;
       data.forEach((data) => {
         if (data.id == articleId) {
-          document.getElementById(`myLike${articleId}`).checked = true
+          document.getElementById(`myLike${articleId}`).checked = true;
         }
-      })
+      });
     })
     .catch((err) => {
       console.log('error', err);
     });
-
 }
 
 function deleteArticle() {
@@ -156,7 +153,7 @@ function deleteArticle() {
     url: `/article/${articleId}`,
   })
     .then((res) => {
-      alert('삭제 완료!')
+      alert('삭제 완료!');
       window.location.href = '/article/list';
     })
     .catch((err) => {
@@ -200,7 +197,7 @@ function getComment(articleId, page) {
                             `;
       $('.boxcontent').append(temp_html);
       commentLikeCount(data.id);
-      loginuser2(data)
+      loginuser2(data);
     });
 
     const pages = [];
@@ -230,33 +227,32 @@ function getComment(articleId, page) {
     $('.pagination').append(pages.join(''));
     var links = document.querySelectorAll('.page-link-number');
     if (links.length !== 0 && page <= 5) {
-        const now = page - 1
-        links[now].classList.add("active");
-    } else if (page >5) {
-        const now = page % 5
-        if (now === 0) {
-            links[4].classList.add("active");
-        } else {
-        links[now - 1].classList.add("active");
-        }
+      const now = page - 1;
+      links[now].classList.add('active');
+    } else if (page > 5) {
+      const now = page % 5;
+      if (now === 0) {
+        links[4].classList.add('active');
+      } else {
+        links[now - 1].classList.add('active');
+      }
     }
   });
 }
 
 function loginuser2(data) {
-  axios.get(`/auth/isLoggined`)
-    .then((res) => {
-      if (data.user.id == res.data.id) {
-        let temp = `<button type="button" class="btnregister" onclick="updateComment(${data.id})">
+  axios.get(`/auth/isLoggined`).then((res) => {
+    if (data.user.id == res.data.id) {
+      let temp = `<button type="button" class="btnregister" onclick="updateComment(${data.id})">
                       수정
                     </button>
                     <button type="button" class="btnregister2" onclick="deleteComment(${data.id})">
                       삭제
                     </button>
-                    `
-        $(`.button${data.id}`).prepend(temp)
-      }
-    })
+                    `;
+      $(`.button${data.id}`).prepend(temp);
+    }
+  });
 }
 
 function commentLikeCount(id) {
@@ -298,7 +294,7 @@ function deleteComment(id) {
     url: `/comment/articles/${articleId}/comments/${id}`,
   })
     .then((res) => {
-      alert('삭제 완료!')
+      alert('삭제 완료!');
       window.location.reload();
     })
     .catch((err) => {
@@ -366,7 +362,9 @@ function likeArticle() {
     method: 'post',
   })
     .then((res) => {
-      window.location.reload();
+      $('.articlelikecount').empty();
+      articleLikeCount();
+      getMyArticleLike()
     })
     .catch((err) => {
       console.log(err);
@@ -379,7 +377,8 @@ function likeComment(id) {
     method: 'post',
   })
     .then((res) => {
-      window.location.reload();
+      $(`.commentlikecount${id}`).empty();
+      commentLikeCount(id);
     })
     .catch((err) => {
       console.log(err);

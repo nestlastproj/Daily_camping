@@ -5,10 +5,8 @@ import { Like, Repository } from 'typeorm';
 import { Place } from '../entity/api/place.entity';
 import { ConfigService } from '@nestjs/config';
 import { default as coordinates } from '../resource/coordinates.json';
+import * as puppeteer from 'puppeteer';
 import { SearchService } from 'src/serch/search.service';
-import cheerio from 'cheerio';
-import { Curl } from 'node-libcurl';
-
 @Injectable()
 export class PlaceService {
   constructor(
@@ -24,10 +22,10 @@ export class PlaceService {
     };
     const url = 'https://dapi.kakao.com/v2/local/search/keyword.json';
     const allPlaces = [];
-
-    for (const keyword of keywords) {
+    const filterPlace = new Set();
+    for await (const keyword of keywords) {
       console.log(keyword);
-      for (const coordinate of coordinates) {
+      for await (const coordinate of coordinates) {
         console.log(coordinate.city, coordinate.name);
         let params = {
           query: keyword,
@@ -37,15 +35,12 @@ export class PlaceService {
           sort: 'distance',
           page: 1,
         };
-
         const response = await this.httpService.get(url, { params, headers }).toPromise();
         const { pageable_count, total_count } = response.data.meta;
         const maxPage = pageable_count === 45 && total_count > 45 ? 3 : Math.ceil(pageable_count / 15);
-
         for (let i = 1; i <= maxPage; i++) {
           params.page = i;
           const response = await this.httpService.get(url, { params, headers }).toPromise();
-
           let places = response.data.documents
             .filter((doc) => {
               return doc.category_name.includes('캠핑장');
@@ -53,10 +48,8 @@ export class PlaceService {
             .map((doc) => {
               const citys = doc.address_name.split(' ')[0];
               const detailcitys = doc.address_name.split(' ')[1];
-
               let city = '';
               let detailname = '';
-
               if (['부산', '대구', '인천', '광주', '대전', '울산'].includes(citys)) {
                 city = citys + '광역시';
                 detailname = detailcitys;
@@ -91,7 +84,6 @@ export class PlaceService {
                 city = '세종특별자치시';
                 detailname = detailcitys;
               }
-
               return {
                 address: doc.address_name,
                 name: doc.place_name,
@@ -102,31 +94,55 @@ export class PlaceService {
                 y: doc.y,
                 city: city,
                 detailcity: detailname,
-                image: this.placeimage(doc.place_url),
               };
             });
-
-          for (const place of places) {
-            await this.placeRepository
-              .createQueryBuilder('place')
-              .insert()
-              .into('place')
-              .values(place)
-              .orUpdate(['address', 'phone', 'city', 'detailcity', 'image', 'category', 'url', 'x', 'y'], ['name'])
-              .updateEntity(false)
-              .execute();
+          for await (const place of places) {
+            const key = place.name + place.address;
+            if (!filterPlace.has(key)) {
+              allPlaces.push(place);
+              filterPlace.add(key);
+            }
           }
-          allPlaces.push(...places);
         }
       }
     }
-
-    await this.deleteIndex();
-    await this.findIndex();
-
-    return allPlaces;
+    await this.placeImageCrawl(allPlaces);
   }
-
+  async placeImageCrawl(allPlaces) {
+    for (let placedata of allPlaces) {
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+      console.log(placedata.url);
+      const placeimage = await (await page.goto(`https://place.map.kakao.com/main/v/${placedata.url.split('/')[3]}`)).json();
+      await page.waitForTimeout(500);
+      let imagedata = '';
+      if (
+        placeimage.photo &&
+        placeimage.photo.photoList[0] &&
+        placeimage.photo.photoList[0].list[0] &&
+        placeimage.photo.photoList[0].list[0].orgurl
+      ) {
+        if (placeimage.photo.photoList[0].list[0].orgurl.length > 255) {
+          imagedata = 'https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/placeDefault.jpg';
+        } else {
+          imagedata = placeimage.photo.photoList[0].list[0].orgurl;
+        }
+      } else {
+        imagedata = 'https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/placeDefault.jpg';
+      }
+      placedata.image = imagedata;
+      await browser.close();
+      console.log(placedata);
+      await this.placeRepository
+        .createQueryBuilder('place')
+        .insert()
+        .into('place')
+        .values(placedata)
+        .orUpdate(['address', 'phone', 'city', 'detailcity', 'image', 'category', 'url', 'x', 'y'], ['name'])
+        .updateEntity(false)
+        .execute();
+    }
+  }
   async findIndex() {
     const allfind = await this.placeRepository.find();
     allfind.forEach((res) => {
@@ -134,18 +150,15 @@ export class PlaceService {
       this.searchService.createDocument(res, keyword);
     });
   }
-
   async deleteIndex() {
     const keyword = '캠핑장';
     await this.searchService.deleteDocument(keyword);
   }
-
   async search(page: number, keyword: string) {
     const placeSearchData = await this.searchService.getDocument(page, keyword);
     const data = placeSearchData.map((data) => data._source);
     return data;
   }
-
   async placeSearch(page: number, keyword: string) {
     const take = 6;
     const whereQuery = keyword === '' ? '%%' : `%${keyword}%`;
@@ -154,16 +167,13 @@ export class PlaceService {
       take,
       skip: (page - 1) * take,
     });
-
     const totalPage = Math.ceil(total / take);
     const pageGroup = Math.ceil(page / 5);
     let lastPage = pageGroup * 5;
     const firstPage = lastPage - 5 + 1 <= 0 ? 1 : lastPage - 5 + 1;
-
     if (lastPage > totalPage) {
       lastPage = totalPage;
     }
-
     return {
       placeList,
       meta: {
@@ -173,17 +183,14 @@ export class PlaceService {
       },
     };
   }
-
   async placeCategorySearch(page: number, cityname: string, detailcity?: string) {
     const take = 6;
-
     if (detailcity !== '전체') {
       const [placeList, total] = await this.placeRepository.findAndCount({
         where: { detailcity: detailcity, city: cityname },
         take,
         skip: (page - 1) * take,
       });
-
       const totalPage = Math.ceil(total / take);
       const pageGroup = Math.ceil(page / 5);
       let lastPage = pageGroup * 5;
@@ -191,7 +198,6 @@ export class PlaceService {
       if (lastPage > totalPage) {
         lastPage = totalPage;
       }
-
       return {
         placeList,
         meta: {
@@ -201,22 +207,18 @@ export class PlaceService {
         },
       };
     }
-
     const [placeList, total] = await this.placeRepository.findAndCount({
       where: { city: cityname },
       take,
       skip: (page - 1) * take,
     });
-
     const totalPage = Math.ceil(total / take);
     const pageGroup = Math.ceil(page / 5);
     let lastPage = pageGroup * 5;
     const firstPage = lastPage - 5 + 1 <= 0 ? 1 : lastPage - 5 + 1;
-
     if (lastPage > totalPage) {
       lastPage = totalPage;
     }
-
     return {
       placeList,
       meta: {
@@ -226,7 +228,6 @@ export class PlaceService {
       },
     };
   }
-
   async placeDetail(placeId: number) {
     return this.placeRepository
       .createQueryBuilder('place')
@@ -234,28 +235,5 @@ export class PlaceService {
       .leftJoinAndSelect('review.user', 'user')
       .where('place.id = :placeId', { placeId })
       .getMany();
-  }
-
-  async placeimage(place_url) {
-    return new Promise((resolve, reject) => {
-      const curl = new Curl();
-
-      curl.setOpt('URL', place_url);
-      curl.setOpt('FOLLOWLOCATION', true);
-
-      curl.on('end', function (statusCode, data, headers) {
-        const result = JSON.parse(data.toString());
-        const imageurl = result.photo.photoList[0].list[0].orgurl;
-        resolve(imageurl);
-        this.close();
-      });
-
-      curl.on('error', (error) => {
-        reject(error);
-        curl.close();
-      });
-
-      curl.perform();
-    });
   }
 }

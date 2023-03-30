@@ -101,85 +101,102 @@ function placeDetailData(placeId) {
   })
     .then((res) => {
       res.data.forEach((data) => {
-        let temp_html = ` <div class="campsite-title">
-                            <h1>${data.name}</h1>
-                          </div>
-                          <div class="map"> 
-                            <div class="frame">
-                              <div class="inner-frame">
-                                <div class="mat" id="map${data.id}">
-                                  <img src="" >
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="link">
-                            <a href="${data.url}" target="blank">More campsite information</a>
-                          </div>
-                          <div class="review">
-                            <h2>review <span>${data.review.length}</span></h2>
-                              <a class="button" onclick="loginUser(${data.id})">
-                                <div class="button__line"></div>
-                                <div class="button__line"></div>
-                                <span class="button__text">write</span>
-                                <div class="button__drow1"></div>
-                                <div class="button__drow2"></div>
-                              </a>
-                          </div>
-                        `;
+        let temp_html = `
+        <div class="campsite-title">
+          <h1>${data.name}</h1>
+        </div>
+        <div class="map"> 
+          <div class="frame">
+            <div class="inner-frame">
+              <div class="mat" id="mapbox">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="btnbox"><button class="viewbtn1" onclick="roadview(${data.x}, ${data.y})">로드뷰 보기</button><button class="viewbtn2" onclick="mapview(${data.x}, ${data.y})">지도 보기</button></div>
+        <div class="link">
+          <a href="${data.url}" target="blank">More campsite information</a>
+        </div>
+        <div class="review">
+          <h2>review <span>${data.review.length}</span></h2>
+          <a class="button" onclick="location.href='/review/reviewWrite/${data.id}'">
+            <div class="button__line"></div>
+            <div class="button__line"></div>
+            <span class="button__text">write</span>
+            <div class="button__drow1"></div>
+            <div class="button__drow2"></div>
+          </a>
+        </div>
+        `;
         $('.container').append(temp_html);
 
-        let roadviewContainer = document.getElementById(`map${data.id}`);
-        let roadview = new kakao.maps.Roadview(roadviewContainer);
-        let roadviewClient = new kakao.maps.RoadviewClient();
-        let position = new kakao.maps.LatLng(data.y, data.x);
+        let MapContainer = document.getElementById('mapbox');
+        MapOption = {
+          center: new kakao.maps.LatLng(data.y, data.x),
+          level: 4,
+        };
+        let map = new kakao.maps.Map(MapContainer, MapOption);
 
-        roadviewClient.getNearestPanoId(position, 50, function (panoId) {
-          roadview.setPanoId(panoId, position);
-          if (!panoId) {
-            function a() {
-              mapOption = {
-                center: new kakao.maps.LatLng(data.y, data.x),
-                level: 4,
-              };
-              let map = new kakao.maps.Map(roadviewContainer, mapOption);
+        let imageSrc = 'https://cdn-icons-png.flaticon.com/512/5695/5695276.png',
+          imageSize = new kakao.maps.Size(64, 69),
+          imageOption = { offset: new kakao.maps.Point(27, 69) };
 
-              let imageSrc = 'https://cdn-icons-png.flaticon.com/512/5695/5695276.png',
-                imageSize = new kakao.maps.Size(64, 69),
-                imageOption = { offset: new kakao.maps.Point(27, 69) };
+        let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+          markerPosition = new kakao.maps.LatLng(data.y, data.x);
 
-              let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-                markerPosition = new kakao.maps.LatLng(data.y, data.x);
-
-              let marker = new kakao.maps.Marker({
-                position: markerPosition,
-                image: markerImage,
-              });
-
-              marker.setMap(map);
-            }
-
-            setTimeout(a, 100);
-          }
+        let marker = new kakao.maps.Marker({
+          position: markerPosition,
+          image: markerImage,
         });
+        marker.setMap(map);
 
 
       });
     })
     .catch((err) => {
       alert('캠핑장 정보 또는 리뷰 정보 로드에 실패하였습니다.');
-      //   location.href = '/';
+        location.href = '/';
       console.log(err);
     });
 }
 
-function loginUser(id) {
-  axios.get(`/auth/isLoggined`)
-    .then((res) => {
-      location.href = `/review/reviewWrite/${id}`
-    })
-    .catch((err) => {
-      alert('로그인 후 이용 가능 합니다.')
-      location.href = '/auth/login'
-    })
+function roadview(x, y) {
+  let roadviewContainer = document.getElementById('mapbox');
+  let roadview = new kakao.maps.Roadview(roadviewContainer);
+  let roadviewClient = new kakao.maps.RoadviewClient();
+  let position = new kakao.maps.LatLng(y, x);
+
+  roadviewClient.getNearestPanoId(position, 50, async function (panoId) {
+    await roadview.setPanoId(panoId, position);
+    if (!panoId) {
+      function noimage() {
+        // alert('로드뷰가 지원되지 않는 캠핑장입니다.');
+        roadviewContainer.innerHTML="<img src='https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/view.png'>"
+        // window.location.reload();
+      }
+    }
+    setTimeout(noimage, 100);
+  });
+}
+
+function mapview(x, y) {
+  let MapContainer = document.getElementById('mapbox');
+  MapOption = {
+    center: new kakao.maps.LatLng(y, x),
+    level: 4,
+  };
+  let map = new kakao.maps.Map(MapContainer, MapOption);
+
+  let imageSrc = 'https://cdn-icons-png.flaticon.com/512/5695/5695276.png',
+    imageSize = new kakao.maps.Size(64, 69),
+    imageOption = { offset: new kakao.maps.Point(27, 69) };
+
+  let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+    markerPosition = new kakao.maps.LatLng(y, x);
+
+  let marker = new kakao.maps.Marker({
+    position: markerPosition,
+    image: markerImage,
+  });
+  marker.setMap(map);
 }

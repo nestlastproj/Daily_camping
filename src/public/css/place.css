@@ -7,6 +7,15 @@
   max-width: 100%;
 }
 
+img {
+  width: 347px;
+  height: 347px;
+}
+
+.container {
+  max-width: 1850px;
+}
+
 .stack {
   margin: 50px 100px;
   width: 85%;
@@ -68,7 +77,7 @@
   width: 100%;
   min-width: 352px;
   border: 4px solid;
-  background-color: #eee;
+  /* background-color: #eee; */
   aspect-ratio: 1/1;
   position: relative;
 }
