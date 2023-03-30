@@ -1,73 +1,76 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+  <a href="https://sparta-hb.site" target="blank"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kaka[…]Fdn%2FxUEn6%2Fbtr6QSH2lUB%2FRI8ZiGaY23hF7f6Wyo1E01%2Fimg.png" width="200" alt="내바캠이미지" /></a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## 캠핑 커뮤니티 사이트, 내일 바로 캠핑
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+캠핑장 & 캠핑 용품 & 캠핑 요리 레시피 등 모든 정보를 한눈에 볼 수 있는 커뮤니티 사이트입니다!
 
-## Description
+[내일 바로 캠핑 바로가기](https://sparta-hb.site)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
+## 목차
 
-```bash
-$ npm install
-```
+- 팀원 소개
+- 서비스 아키텍처
+- 설계
+- 주요 기능
+- 기술적 의사결정
+- 트러블 슈팅
+- 시연 영상 
 
-## Running the app
 
-```bash
-# development
-$ npm run start
 
-# watch mode
-$ npm run start:dev
+## 팀원 소개
 
-# production mode
-$ npm run start:prod
-```
+<table border="1">
+	<th>역할</th>
+	<th>이름</th>
+  <th>contect</th>
+	<tr><!-- 첫번째 줄 시작 -->
+	    <td>리더</td>
+	    <td>조해빈</td>
+      <td>haebin1622@naver.com</td>
+	</tr><!-- 첫번째 줄 끝 -->
+	<tr><!-- 두번째 줄 시작 -->
+	    <td>부리더</td>
+	    <td>전규렬</td>
+      <td>본인 이메일</td>
+	</tr><!-- 두번째 줄 끝 -->
+  <tr><!-- 첫번째 줄 시작 -->
+	    <td>팀원</td>
+	    <td>최원빈</td>
+      <td>본인 이메일</td>
+	</tr><!-- 첫번째 줄 끝 -->
+  <tr><!-- 첫번째 줄 시작 -->
+	    <td>팀원</td>
+	    <td>박예빈</td>
+      <td>본인 이메일</td>
+	</tr><!-- 첫번째 줄 끝 -->
+  <tr><!-- 첫번째 줄 시작 -->
+	    <td>팀원</td>
+	    <td>최환준</td>
+      <td>본인 이메일</td>
+	</tr><!-- 첫번째 줄 끝 -->
+    </table>
 
-## Test
 
-```bash
-# unit tests
-$ npm run test
+## 서비스 아키텍처
 
-# e2e tests
-$ npm run test:e2e
 
-# test coverage
-$ npm run test:cov
-```
+## 설계
 
-## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## 주요 기능
 
-## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## 기술적 의사결정
 
-## License
 
-Nest is [MIT licensed](LICENSE).
+## 트러블 슈팅
+
+
+## 시연 영상
+
+[시연 영상 바로가기](https://youtu.be/4yl8iTuKCN0)
+
