@@ -56,9 +56,8 @@
 
 
 ## 서비스 아키텍처
-<p align="center">
 <img src="(https://user-images.githubusercontent.com/118158809/228748895-13c93957-f049-4022-8a17-3767b6c710bd.png)">
-</p>
+
 <div align="center"><h1>📚 Tech Stack 📚</h1></div>
 	<div align=center> 
 	<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=HTML5&logoColor=white" />
