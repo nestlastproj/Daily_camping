@@ -62,15 +62,17 @@ function productApiData(page, keyword) {
       }
 
       $('.pagination').append(pages.join(''));
-
-      if (page > 5) {
-        const now = page % 5 - 1
-        var links = document.querySelectorAll(".page-link-number");
-        links[now].classList.add("active");
-      } else {
-        const now = page - 1
-        var links = document.querySelectorAll(".page-link-number");
-        links[now].classList.add("active");
+      var links = document.querySelectorAll('.page-link-number');
+      if (links.length !== 0 && page <= 5) {
+        const now = page - 1;
+        links[now].classList.add('active');
+      } else if (page > 5) {
+        const now = page % 5;
+        if (now === 0) {
+          links[4].classList.add('active');
+        } else {
+          links[now - 1].classList.add('active');
+        }
       }
     })
     .catch((err) => {

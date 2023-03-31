@@ -15,7 +15,7 @@
 .footer-16371 {
   text-align: center;
   padding: 7rem 0 0 0;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 .footer-16371 .footer-site-logo {
   text-align: center;
@@ -74,4 +74,26 @@
 }
 .footer-16371 .copyright {
   color: #999999;
+}
+
+#btnFacebook {
+  cursor: pointer;
+}
+
+#btnTwitter {
+  cursor: pointer;
+}
+
+#sharekakaoicon {
+  width: 15px;
+  height: 16px;
+  margin-bottom: 6px;
+  cursor: pointer;
+}
+
+#naver {
+  width: 15px;
+  height: 16px;
+  margin-bottom: 5px;
+  cursor: pointer;
 }
