@@ -5,6 +5,7 @@ import { Comment } from 'src/entity/comment.entity';
 import { Repository } from 'typeorm';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
+import { SearchService } from 'src/search/search.service';
 
 @Injectable()
 export class ArticleService {
@@ -13,6 +14,7 @@ export class ArticleService {
     private readonly articleRepository: Repository<Article>,
     @InjectRepository(Comment)
     private readonly commentRepository: Repository<Comment>,
+    private readonly searchService: SearchService,
   ) {}
 
   async getArticles(page) {
@@ -110,17 +112,31 @@ export class ArticleService {
       const filename = file.key;
       aritcle['image'] = filename;
     }
-    return await this.articleRepository.insert(aritcle);
+    await this.articleRepository.insert(aritcle);
+    await this.findIndex();
   }
 
-  async updateArticle(req, articleId: number, data: UpdateArticleDto, file?: Express.MulterS3.File) {
+  async findIndex() {
+    const allfind = await this.articleRepository.find();
+    allfind.forEach((res) => {
+      const keyword = '게시물';
+      this.searchService.createDocument(res, keyword);
+    });
+  }
+
+  async updateArticle(req, articleId, data: UpdateArticleDto, file?: Express.MulterS3.File) {
     const userId = req.user.id;
-    const aritcle = { user: { id: userId }, title: data.title, content: data.content };
+    const article = { user: { id: userId }, title: data.title, content: data.content };
     if (file) {
       const filename = file.key;
-      aritcle['image'] = filename;
+      article['image'] = filename;
     }
-    return await this.articleRepository.update(articleId, aritcle);
+    const updateData = await this.articleRepository.findOne(articleId);
+    if (JSON.stringify(updateData) !== JSON.stringify(article)) {
+      await this.articleRepository.update(articleId, article);
+      const searchData = await this.searchIndex(articleId);
+      await this.searchService.updateDocument(searchData, article);
+    }
   }
 
   async deleteArticle(req, articleId: number) {
@@ -129,9 +145,16 @@ export class ArticleService {
     await this.commentRepository.delete({ articles: { id: articleId } });
 
     const article = await this.articleRepository.findOne({ where: { id: articleId } });
+    const searchData = await this.searchIndex(articleId);
     if (!article) {
       throw new Error('존재 하지 않는 게시물 입니다');
     }
-    return await this.articleRepository.softDelete({ user: { id: userId }, id: articleId });
+    await this.articleRepository.delete({ user: { id: userId }, id: articleId });
+    await this.searchService.deleteDocument(searchData);
+  }
+
+  async searchIndex(articleId) {
+    const keyword = '게시물';
+    return await this.searchService.indexSearch(articleId, keyword);
   }
 }

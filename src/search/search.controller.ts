@@ -6,8 +6,8 @@ export class SearchController {
   constructor(private readonly serchService: SearchService) {}
 
   @Get('/indexSearch')
-  async search(@Query('page') page: number, @Query('keyword') keyword: string) {
-    return await this.serchService.getDocument(page, keyword);
+  async search(@Query('keyword') keyword: string) {
+    return await this.serchService.getDocument(keyword);
   }
 
   // @Post('/index')

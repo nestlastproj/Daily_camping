@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { ElasticsearchModule } from '@nestjs/elasticsearch';
 import { TypeOrmModule } from '@nestjs/typeorm/dist';
 import { SearchConfig } from 'src/config/elastic.config';
-import { SearchService } from 'src/serch/search.service';
+import { SearchService } from 'src/search/search.service';
 import { Product } from '../entity/api/product.entity';
 import { ProductController } from './product.controller';
 import { ProductService } from './product.service';

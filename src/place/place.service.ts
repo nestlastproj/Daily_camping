@@ -6,7 +6,7 @@ import { Place } from '../entity/api/place.entity';
 import { ConfigService } from '@nestjs/config';
 import { default as coordinates } from '../resource/coordinates.json';
 import * as puppeteer from 'puppeteer';
-import { SearchService } from 'src/serch/search.service';
+import { SearchService } from 'src/search/search.service';
 
 @Injectable()
 export class PlaceService {
@@ -115,6 +115,7 @@ export class PlaceService {
       }
     }
     await this.placeImageCrawl(allPlaces);
+    await this.findIndex();
   }
 
   async placeImageCrawl(allPlaces) {
@@ -165,12 +166,6 @@ export class PlaceService {
   async deleteIndex() {
     const keyword = '캠핑장';
     await this.searchService.deleteDocument(keyword);
-  }
-
-  async search(page: number, keyword: string) {
-    const placeSearchData = await this.searchService.getDocument(page, keyword);
-    const data = placeSearchData.map((data) => data._source);
-    return data;
   }
 
   async placeSearch(page: number, keyword: string) {

@@ -101,10 +101,10 @@ function displayResult(key, data) {
     $('.article_no_search').remove();
     const temp_html = `
     <div class="data_box">
-      <ul id="recipe_title" class="title">
-        제목: ${data.name}
+      <ul id="article_title" class="title">
+        제목: ${data.title}
       </ul>
-      <li id="recipe_content" class="content">내용: ${data.content}</li>
+      <li id="article_content" class="content">내용: ${data.content}</li>
       </div>
       `;
     $('.article_box').append(temp_html);
@@ -170,10 +170,10 @@ function loadMoreResults(key) {
       $('.article_no_search').remove();
       let temp_html = `
       <div class="data_box">
-        <ul id="recipe_title" class="title">
-          ${item.name}
+        <ul id="article_title" class="title">
+          ${item.title}
         </ul>
-        <li id="recipe_content" class="content">${item.content}</li>
+        <li id="article_content" class="content">${item.content}</li>
       </div>
         `;
       $(`.${key}_box`).append(temp_html);

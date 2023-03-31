@@ -20,7 +20,7 @@ import { ArticleModule } from './article/article.module';
 import { CommentModule } from './comment/comment.module';
 import { LikeModule } from './like/like.module';
 import { ElasticsearchModule } from '@nestjs/elasticsearch';
-import { SearchModule } from './serch/search.module';
+import { SearchModule } from './search/search.module';
 import { SearchConfig } from './config/elastic.config';
 
 @Module({

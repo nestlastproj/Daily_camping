@@ -5,7 +5,7 @@ import { Like, Repository } from 'typeorm';
 import axios from 'axios';
 import cheerio from 'cheerio';
 import { empty } from 'cheerio/lib/api/manipulation';
-import { SearchService } from 'src/serch/search.service';
+import { SearchService } from 'src/search/search.service';
 
 @Injectable()
 export class RecipeService {

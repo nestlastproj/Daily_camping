@@ -5,8 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm/dist';
 import { SearchConfig } from 'src/config/elastic.config';
 import { Like } from 'src/entity/like.entity';
 import { LikeModule } from 'src/like/like.module';
-import { SearchModule } from 'src/serch/search.module';
-import { SearchService } from 'src/serch/search.service';
+import { SearchService } from 'src/search/search.service';
 import { Place } from '../entity/api/place.entity';
 import { PlaceController } from '../place/place.controller';
 import { PlaceService } from '../place/place.service';
@@ -19,7 +18,6 @@ import { PlaceService } from '../place/place.service';
     }),
     HttpModule,
     LikeModule,
-    SearchModule,
   ],
   controllers: [PlaceController],
   providers: [PlaceService, SearchService],

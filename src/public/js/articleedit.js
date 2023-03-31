@@ -9,6 +9,7 @@ function myArticleEdit(articleId) {
     url: `/article/myArticleEdit/${articleId}`,
     method: 'GET',
   }).then((res) => {
+    console.log(res , 111111111111111)
     let { title, content, image } = res.data;
     let temp_html = `
     <div class="title">

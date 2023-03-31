@@ -10,15 +10,21 @@ import { ArticleModule } from 'src/article/article.module';
 import { CommentModule } from 'src/comment/comment.module';
 import { Article } from 'src/entity/article.entity';
 import { Comment } from 'src/entity/comment.entity';
+import { ElasticsearchModule } from '@nestjs/elasticsearch';
+import { SearchConfig } from 'src/config/elastic.config';
+import { SearchService } from 'src/search/search.service';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([User, Article, Comment]),
+    ElasticsearchModule.registerAsync({
+      useClass: SearchConfig,
+    }),
     ArticleModule,
     CommentModule,
     MulterModule.registerAsync({ useFactory: multerOptionsFactory }),
   ],
-  providers: [UserService, ArticleService, CommentService],
+  providers: [UserService, ArticleService, CommentService, SearchService],
   exports: [UserService],
 })
 export class UserModule {}
