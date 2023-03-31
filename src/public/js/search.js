@@ -90,10 +90,10 @@ function displayResult(key, data) {
 
     const temp_html = `
     <div class="data_box">
-      <ul id="recipe_title" class="title" onclick="location.href='recipe/recipeInfo?recipeId=${data.id}'">
+      <ul id="recipe_title" class="title" onclick="location.href='/recipe/recipeInfo?recipeId=${data.id}'">
         요리명: ${data.name}
       </ul>
-      <li id="recipe_content" class="content" onclick="location.href='recipe/recipeInfo?recipeId=${data.id}'"> <img src="${data.image}">${contentDetail}</li>
+      <li id="recipe_content" class="content" onclick="location.href='/recipe/recipeInfo?recipeId=${data.id}'"> <img src="${data.image}">${contentDetail}</li>
       </div>
       `;
     $('.recipe_box').append(temp_html);
@@ -160,10 +160,10 @@ function loadMoreResults(key) {
 
       let temp_html = `
       <div class="data_box">
-        <ul id="recipe_title" class="title" onclick="location.href='recipe/recipeInfo?recipeId=${item.id}'">
+        <ul id="recipe_title" class="title" onclick="location.href='/recipe/recipeInfo?recipeId=${item.id}'">
           요리명: ${item.name}
         </ul>
-        <li id="recipe_content" class="content" onclick="location.href='recipe/recipeInfo?recipeId=${item.id}'"> <img src="${item.image}">${contentDetail}</li>
+        <li id="recipe_content" class="content" onclick="location.href='/recipe/recipeInfo?recipeId=${item.id}'"> <img src="${item.image}">${contentDetail}</li>
       </div>
         `;
       $(`.${key}_box`).append(temp_html);
