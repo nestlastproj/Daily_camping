@@ -47,6 +47,7 @@ img {
   padding: 5% 5% 15% 5%;
   display: block;
   font-size: 0;
+  cursor: default;
 }
 
 .card:before,
@@ -136,7 +137,7 @@ img {
   height: var(--size);
 }
 
-input:checked+.hearth {
+input:checked + .hearth {
   animation: like 1s steps(calc(var(--frames) - 3));
   animation-fill-mode: forwards;
 }
@@ -166,4 +167,8 @@ input:checked+.hearth {
   left: -65px;
   bottom: 50px;
   font-size: 30px;
+}
+
+.card h3 {
+  cursor: pointer;
 }

@@ -31,7 +31,7 @@ function recipeCrawling(page, keyword) {
               </a>
             </div>
             <div class="common_sp_caption">
-              <div class="common_sp_caption_tit line2">${data.name}</div>
+              <div class="common_sp_caption_tit line2"><a href="/recipe/recipeInfo?recipeId=${data.id}" class="common_sp_link">${data.name}</a></div>
               <div class="common_sp_caption_rv">
                 <span class="common_sp_caption_buyer" style="vertical-align: middle">${data.views}</span>
               </div>
