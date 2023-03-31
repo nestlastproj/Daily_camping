@@ -5,7 +5,7 @@ import * as iconv from 'iconv-lite';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from '../entity/api/product.entity';
 import { Like, Repository } from 'typeorm';
-import { SearchService } from 'src/serch/search.service';
+import { SearchService } from 'src/search/search.service';
 
 @Injectable()
 export class ProductService {

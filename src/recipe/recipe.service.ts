@@ -4,7 +4,7 @@ import { Recipe } from 'src/entity/api/recipe.entity';
 import { Like, Repository } from 'typeorm';
 import axios from 'axios';
 import cheerio from 'cheerio';
-import { SearchService } from 'src/serch/search.service';
+import { SearchService } from 'src/search/search.service';
 
 @Injectable()
 export class RecipeService {
@@ -116,12 +116,6 @@ export class RecipeService {
   async deleteIndex() {
     const keyword = '레시피';
     await this.searchService.deleteDocument(keyword);
-  }
-
-  async search(page: number, keyword: string) {
-    const recipeSearchData = await this.searchService.getDocument(page, keyword);
-    const data = recipeSearchData.map((data) => data._source);
-    return data;
   }
 
   async recipeSearch(page, keyword) {

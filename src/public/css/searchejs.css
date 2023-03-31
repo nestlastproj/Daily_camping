@@ -35,6 +35,11 @@ body {
   cursor: pointer;
 }
 
+#article_content {
+  display: flex;
+  align-items: center;
+}
+
 .place_box {
   margin: 0 0 50px 0;
 }
