@@ -39,7 +39,18 @@ export class SearchService {
     });
   }
 
-  async deleteDocument(searchData): Promise<any> {
+  async deleteDocument(keyword) {
+    await this.elasticsearchService.deleteByQuery({
+      index: 'search',
+      query: {
+        match: {
+          keyword: keyword,
+        },
+      },
+    });
+  }
+
+  async deleteArticleDocument(searchData, articleId): Promise<any> {
     await this.elasticsearchService.deleteByQuery({
       index: 'search',
       query: {
@@ -47,7 +58,7 @@ export class SearchService {
           must: [
             {
               match: {
-                _id: searchData[0]._id,
+                id: articleId,
               },
             },
             {

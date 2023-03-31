@@ -112,16 +112,15 @@ export class ArticleService {
       const filename = file.key;
       aritcle['image'] = filename;
     }
-    await this.articleRepository.insert(aritcle);
-    await this.findIndex();
+    const articleInsert = await this.articleRepository.insert(aritcle);
+    const aritcleId = await articleInsert.identifiers[0].id;
+    await this.findIndex(aritcleId);
   }
 
-  async findIndex() {
-    const allfind = await this.articleRepository.find();
-    allfind.forEach((res) => {
-      const keyword = '게시물';
-      this.searchService.createDocument(res, keyword);
-    });
+  async findIndex(aritcleId) {
+    const allfind = await this.articleRepository.findOne({ where: { id: aritcleId } });
+    const keyword = '게시물';
+    this.searchService.createDocument(allfind, keyword);
   }
 
   async updateArticle(req, articleId, data: UpdateArticleDto, file?: Express.MulterS3.File) {
@@ -146,11 +145,12 @@ export class ArticleService {
 
     const article = await this.articleRepository.findOne({ where: { id: articleId } });
     const searchData = await this.searchIndex(articleId);
+    
     if (!article) {
       throw new Error('존재 하지 않는 게시물 입니다');
     }
     await this.articleRepository.delete({ user: { id: userId }, id: articleId });
-    await this.searchService.deleteDocument(searchData);
+    await this.searchService.deleteArticleDocument(searchData, articleId);
   }
 
   async searchIndex(articleId) {
