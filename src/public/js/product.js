@@ -77,7 +77,6 @@ function productApiData(page, keyword) {
     })
     .catch((err) => {
       alert('상품 정보 로드에 실패하였습니다.');
-      console.log(err)
-      // window.location.href = '/';
+      window.location.href = '/';
     });
 }

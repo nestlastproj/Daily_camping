@@ -20,7 +20,7 @@ export class LikeController {
   async placeLikeCount(@Param('relationId') relationId: number) {
     return await this.likeService.placeLikeCount(relationId);
   }
-  //---------------------------------------------
+
   @Get('/place/:relationId/countlike')
   async countplacelike(@Param('relationId') relationId: number) {
     return await this.likeService.countplacelike(relationId);

@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm/dist';
 import { AppController } from './app.controller';
@@ -7,7 +7,6 @@ import { TypeOrmConfigService } from './config/typeorm.config.service';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { PlaceModule } from './place/place.module';
-import { WeatherModule } from './weather/weather.module';
 import { ProductModule } from './product/product.module';
 import { HttpModule } from '@nestjs/axios';
 import { ScheduleModule } from '@nestjs/schedule/dist/schedule.module';
@@ -43,7 +42,6 @@ import { SearchConfig } from './config/elastic.config';
     UserModule,
     AuthModule,
     PlaceModule,
-    WeatherModule,
     ProductModule,
     ReviewModule,
     RecipeModule,

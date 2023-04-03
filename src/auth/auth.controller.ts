@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -29,8 +28,6 @@ import { User } from 'src/entity/user.entity';
 export class AuthController {
   constructor(private authService: AuthService, private readonly userService: UserService) {}
 
-  // render
-  // --------------------------------------------------------------------
   @Get('/isLoggined')
   @UseGuards(JwtAuthGuard)
   async isLoggined(@Req() req) {
@@ -50,8 +47,6 @@ export class AuthController {
     const id = req.user.id;
     return res.render('mypageeditprofile.ejs', { id });
   }
-
-  // --------------------------------------------------------------------
 
   @Post('/emailSend')
   async emailSend(@Body(ValidationPipe) emailval: string, @Res({ passthrough: true }) res: Response) {

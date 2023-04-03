@@ -9,7 +9,6 @@ import {
   Query,
   Render,
   Req,
-  Res,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -18,8 +17,7 @@ import {
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { ArticleService } from './article.service';
-import { CreateArticleDto } from './dto/create-article.dto';
-import { UpdateArticleDto } from './dto/update-article.dto';
+import { ArticleDto } from './dto/article.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('article')
@@ -58,7 +56,7 @@ export class ArticleController {
   @Post('write')
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('file'))
-  async createArticle(@Req() req, @Body() data: CreateArticleDto, @UploadedFile() file?: Express.MulterS3.File) {
+  async createArticle(@Req() req, @Body() data: ArticleDto, @UploadedFile() file?: Express.MulterS3.File) {
     return await this.articleService.createArticle(req, data, file);
   }
 
@@ -74,7 +72,7 @@ export class ArticleController {
   async updateArticle(
     @Req() req,
     @Param('articleId') articleId: number,
-    @Body() data: UpdateArticleDto,
+    @Body() data: ArticleDto,
     @UploadedFile() file: Express.MulterS3.File,
   ) {
     return await this.articleService.updateArticle(req, articleId, data, file);

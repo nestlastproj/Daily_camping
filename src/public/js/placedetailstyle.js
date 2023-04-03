@@ -16,25 +16,25 @@ Utils.prototype = {
 };
 
 var Utils = new Utils();
-$(window).on("load", addFadeIn());
+$(window).on('load', addFadeIn());
 
 $(window).scroll(function () {
   addFadeIn(true);
 });
 
 function addFadeIn(repeat) {
-  var classToFadeIn = ".will-fadeIn";
+  var classToFadeIn = '.will-fadeIn';
 
   $(classToFadeIn).each(function (index) {
     var isElementInView = Utils.isElementInView($(this), false);
     if (isElementInView) {
-      if (!$(this).hasClass("fadeInRight") && !$(this).hasClass("fadeInLeft")) {
-        if (index % 2 == 0) $(this).addClass("fadeInRight");
-        else $(this).addClass("fadeInLeft");
+      if (!$(this).hasClass('fadeInRight') && !$(this).hasClass('fadeInLeft')) {
+        if (index % 2 == 0) $(this).addClass('fadeInRight');
+        else $(this).addClass('fadeInLeft');
       }
     } else if (repeat) {
-      $(this).removeClass("fadeInRight");
-      $(this).removeClass("fadeInLeft");
+      $(this).removeClass('fadeInRight');
+      $(this).removeClass('fadeInLeft');
     }
   });
 }

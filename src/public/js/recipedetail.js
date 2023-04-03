@@ -7,11 +7,10 @@ function recipeDetailData(recipeId) {
   axios({
     url: `/recipe/recipeDetail?recipeId=${recipeId}`,
     method: 'GET',
-  })
-  .then((res) => {
+  }).then((res) => {
     const responese = res.data;
     document.getElementById('recipe-title').innerHTML = `${responese.name}`;
-    
+
     let temp1 = `
             <div class="page cover-front" onclick="movePage(this, 1)">
               <img src="${responese.image}" alt="">
@@ -21,7 +20,7 @@ function recipeDetailData(recipeId) {
     $('.book').append(temp1);
 
     const contentimages = responese.contentimage.split(',');
-    const contentDetail = responese.content.split('$')
+    const contentDetail = responese.content.split('$');
 
     if (contentDetail.length % 2 === 0) {
       for (let i = 0; i < contentDetail.length; i++) {

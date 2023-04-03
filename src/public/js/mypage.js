@@ -6,7 +6,8 @@ $(document).ready(function () {
     .then((res) => {
       let { image } = res.data;
       if (image === null) {
-        document.getElementById('image2').src = 'https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/83308917_1679321519298.jpg';
+        document.getElementById('image2').src =
+          'https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/83308917_1679321519298.jpg';
       } else {
         document.getElementById('image2').src = `https://dailycampingbucket.s3.ap-northeast-2.amazonaws.com/${image}`;
       }

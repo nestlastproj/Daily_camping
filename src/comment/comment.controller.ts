@@ -1,8 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CommentService } from './comment.service';
-import { CreateCommentDto } from './dto/create-comment.dto';
-import { UpdateCommentDto } from './dto/update-comment.dto';
+import { CommentDto } from './dto/comment.dto';
 
 @Controller('comment')
 export class CommentController {
@@ -38,7 +37,7 @@ export class CommentController {
 
   @Post('/:articleId')
   @UseGuards(JwtAuthGuard)
-  async createComment(@Req() req, @Param('articleId') articleId: number, @Body() data: CreateCommentDto) {
+  async createComment(@Req() req, @Param('articleId') articleId: number, @Body() data: CommentDto) {
     return await this.commentService.createComment(req, articleId, data);
   }
 
@@ -54,7 +53,7 @@ export class CommentController {
     @Req() req,
     @Param('articleId') articleId: number,
     @Param('commentId') commentId: number,
-    @Body() data: UpdateCommentDto,
+    @Body() data: CommentDto,
   ) {
     return await this.commentService.updateComment(req, articleId, commentId, data);
   }

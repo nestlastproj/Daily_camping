@@ -1,4 +1,3 @@
-import { Cipher } from 'crypto';
 import {
   BaseEntity,
   Column,

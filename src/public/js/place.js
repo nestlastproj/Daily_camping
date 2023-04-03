@@ -86,9 +86,8 @@ function placeApidata(page, keyword) {
       }
     })
     .catch((err) => {
-      // alert('캠핑장 정보 로드에 실패하였습니다.');
-      console.log(err);
-      // window.location.href = '/';
+      alert('캠핑장 정보 로드에 실패하였습니다.');
+      window.location.href = '/';
     });
 }
 

@@ -41,7 +41,6 @@ function recipeCrawling(page, keyword) {
       });
       $('#recipeBox').append(temp_html);
 
-
       const pages = [];
 
       // prev
@@ -70,19 +69,18 @@ function recipeCrawling(page, keyword) {
       var links = document.querySelectorAll('.page-link-number');
       if (links.length !== 0 && page <= 5) {
         const now = page - 1;
-        links[now].classList.add("active");
+        links[now].classList.add('active');
       } else if (page > 5) {
         const now = page % 5;
         if (now === 0) {
-          links[4].classList.add("active");
+          links[4].classList.add('active');
         } else {
-          links[now - 1].classList.add("active");
-        };
-      };
+          links[now - 1].classList.add('active');
+        }
+      }
     })
     .catch((err) => {
-      // alert('레시피 정보 로드에 실패하였습니다.');
-      // window.location.href = '/recipe/recipeList';
-      console.log(err)
+      alert('레시피 정보 로드에 실패하였습니다.');
+      window.location.href = '/recipe/recipeList';
     });
 }

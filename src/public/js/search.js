@@ -85,9 +85,7 @@ function displayResult(key, data) {
   }
   if (key === 'recipe') {
     $('.recipe_no_search').remove();
-
     const contentDetail = data.content.split('$');
-
     const temp_html = `
     <div class="data_box">
       <ul id="recipe_title" class="title" onclick="location.href='/recipe/recipeInfo?recipeId=${data.id}'">
@@ -112,7 +110,6 @@ function displayResult(key, data) {
   }
 
   const currentLength = $(`.${key}_box ul`).length;
-
   if (currentLength === 0) {
     let temp_html = `
     <div class="data_box">
@@ -157,7 +154,6 @@ function loadMoreResults(key) {
     } else if (key === 'recipe') {
       $('.recipe_no_search').remove();
       const contentDetail = item.content.split('$');
-
       let temp_html = `
       <div class="data_box">
         <ul id="recipe_title" class="title" onclick="location.href='/recipe/recipeInfo?recipeId=${item.id}'">

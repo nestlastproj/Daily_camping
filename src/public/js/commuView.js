@@ -364,7 +364,7 @@ function likeArticle() {
     .then((res) => {
       $('.articlelikecount').empty();
       articleLikeCount();
-      getMyArticleLike()
+      getMyArticleLike();
     })
     .catch((err) => {
       console.log(err);
